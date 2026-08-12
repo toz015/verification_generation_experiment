@@ -145,6 +145,7 @@ def main() -> None:
         max_tokens=gen["max_tokens"],
         max_model_len=gen["max_model_len"],
         dtype=gen["dtype"],
+        max_num_seqs=gen["max_num_seqs"],
         chat_template_kwargs=template_kwargs,
     )
     responses = runner.run(requests, log)
