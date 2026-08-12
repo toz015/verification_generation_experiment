@@ -91,14 +91,44 @@ def test_sample_size_is_exact():
 
 
 def test_sample_preserves_label_proportions():
+    """124/64/112 of 300 scaled to 50 is 20.67/10.67/18.67 — a three-way tie.
+
+    Base quotas are 20/10/18 leaving 2 to allocate. All three remainders are
+    exactly 200/300, so the tie-break decides: smaller classes win, giving the
+    extras to CONTRADICT and NEI.
+    """
     claims = synthetic_claims()
     by_id = {c.id: c for c in claims}
     picked = [by_id[i] for i in stratified_sample(claims, n=50)]
 
     counts = {label: sum(c.label == label for c in picked) for label in LABELS}
-    # 124/64/112 of 300, scaled to 50, is 20.7/10.7/18.7 -> 21/11/18.
-    assert counts == {"SUPPORT": 21, "CONTRADICT": 11, "NEI": 18}
+    assert counts == {"SUPPORT": 20, "CONTRADICT": 11, "NEI": 19}
     assert sum(counts.values()) == 50
+
+
+def test_allocation_does_not_depend_on_float_rounding():
+    """The exact-tie case must resolve by the stated rule, not by float error.
+
+    Regression test: computing remainders as floats let one unit in the last
+    place decide which class lost a claim.
+    """
+    claims = synthetic_claims()
+    by_id = {c.id: c for c in claims}
+
+    for seed in range(5):
+        picked = [by_id[i] for i in stratified_sample(claims, n=50, seed=seed)]
+        counts = {label: sum(c.label == label for c in picked) for label in LABELS}
+        assert counts == {"SUPPORT": 20, "CONTRADICT": 11, "NEI": 19}, (
+            "class allocation must be identical across seeds; only which "
+            "claims are drawn may vary"
+        )
+
+
+def test_allocation_sums_to_n_for_many_sizes():
+    """Largest-remainder must never over- or under-allocate."""
+    claims = synthetic_claims()
+    for n in (3, 7, 10, 25, 50, 99, 150, 299, 300):
+        assert len(stratified_sample(claims, n=n)) == n
 
 
 def test_sample_is_deterministic_for_a_seed():

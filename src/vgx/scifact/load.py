@@ -203,11 +203,20 @@ def stratified_sample(claims: list[Claim], n: int = 50, seed: int = 0) -> list[i
         by_label[claim.label].append(claim.id)
 
     total = len(claims)
-    exact = {label: len(ids) * n / total for label, ids in by_label.items()}
-    quota = {label: int(value) for label, value in exact.items()}
+    sizes = {label: len(ids) for label, ids in by_label.items()}
 
-    remaining = n - sum(quota.values())
-    for label in sorted(LABELS, key=lambda x: exact[x] - quota[x], reverse=True)[:remaining]:
+    # Integer arithmetic throughout. Computing remainders in floating point
+    # makes the allocation depend on rounding noise: on the real dev split all
+    # three classes sit at exactly 2/3 above their quota, and float error
+    # alone decided which class lost the tie.
+    quota = {label: sizes[label] * n // total for label in LABELS}
+    remainder = {label: sizes[label] * n % total for label in LABELS}
+
+    # Ties are broken toward the smaller class. Minority classes carry the
+    # least statistical power, so an extra claim is worth most there - and NEI
+    # and CONTRADICT are the diagnostically interesting cells.
+    order = sorted(LABELS, key=lambda label: (-remainder[label], sizes[label]))
+    for label in order[: n - sum(quota.values())]:
         quota[label] += 1
 
     rng = random.Random(seed)
