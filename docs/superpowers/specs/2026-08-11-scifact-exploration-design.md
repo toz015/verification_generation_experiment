@@ -46,7 +46,7 @@ cleanly on the GCP VM without fighting the system Python's PEP 668 restrictions.
 
 ```
 src/vgx/
-  common/llm.py          # OpenAI-compatible client; the only shared module
+  common/llm.py          # batched local inference; the only shared module
   scifact/
     load.py              # tarball -> typed records
     retrieve.py          # BM25 + oracle
@@ -66,10 +66,13 @@ docs/                    # specs, fact-sheet, final report
 and push; it never serves a model. Loop: edit locally → push to remote → `ssh` to the VM →
 `git pull` → run.
 
-Serving is `vllm serve` exposing an OpenAI-compatible endpoint, which is what
-`common/llm.py` targets. Weights are **bf16, unquantized** — an 8B model is roughly 16 GB, so
-either A100 tier holds one comfortably, and models are served one at a time rather than
-co-resident.
+Weights are pulled **from HuggingFace** and run on the local GPU through vLLM's **offline
+Python API** (`LLM.chat`) — no inference server, no HTTP, no external service. The sweep is a
+fixed batch of 200 prompts, so a server buys nothing over one batched call, and skipping it
+removes ports, tmux and a process lifecycle from the setup.
+
+Weights are **bf16, unquantized** — an 8B model is roughly 16 GB, so the 40 GB A100 holds one
+comfortably with room for KV cache. Models are loaded one at a time rather than co-resident.
 
 Running unquantized on a single backend removes a confound that a laptop path would have
 introduced: Q4 output is not the same as bf16 output, and mixing the two within one results
@@ -174,9 +177,14 @@ isolated and subtractable.
 
 ### Client
 
-One OpenAI-compatible HTTP client in `common/llm.py`, targeting `vllm serve` on the VM.
-Requests are logged to disk with full prompt, response, sampling parameters, model id, and
-dtype, so every number is reproducible and re-scorable without regenerating.
+One `BatchRunner` in `common/llm.py` wrapping vLLM's offline `LLM.chat`. Generations are
+logged to disk with full prompt, response, sampling parameters, model id and dtype, so every
+number is reproducible and re-scorable without regenerating.
+
+`vllm` is imported lazily inside `run()` rather than at module scope, because it requires
+CUDA and cannot be installed on macOS. That keeps the loader, retriever, scorer and their
+tests importable on a GPU-less workstation, which is what lets S1, S2, S4 and S6 be developed
+off the VM.
 
 ### Prompt condition
 
@@ -299,7 +307,7 @@ as such rather than argued around.
 | S0 | Repo scaffold, `uv` env, git remote, `common/llm.py`, `scripts/setup_vm.sh` | no |
 | S1 | `load.py`, pinned stratified 50-claim sample, dataset anatomy fact-sheet | no |
 | S2 | `retrieve.py` + recall@k curve over full dev | no |
-| S3 | VM provisioned, `vllm serve` up, `prompt.py` + parser, 10-claim smoke test | **yes** |
+| S3 | VM provisioned, vLLM installed, `prompt.py` + parser, 10-claim smoke test | **yes** |
 | S4 | Vendored scorer wired, all four validation gates passing | no |
 | S5 | Sweep: 2 models × 2 retrieval modes × 50 claims = 200 calls | **yes** |
 | S6 | Diagnostics computed, `docs/scifact-report.md` written | no |
