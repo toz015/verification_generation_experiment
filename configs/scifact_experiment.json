@@ -5,7 +5,10 @@
   "retrieval": {
     "k": 5,
     "rationale": "hit rate 89.9% on full dev; returns flatten after k=10, and k=5 matches ALCE's 5-passage convention so the three datasets stay consistent",
-    "modes": ["oracle", "bm25"]
+    "modes": [
+      "oracle",
+      "bm25"
+    ]
   },
   "models": [
     "Qwen/Qwen3-8B",
@@ -17,6 +20,8 @@
     "dtype": "bfloat16",
     "temperature": 0.0,
     "seed": 0,
-    "max_model_len_rationale": "corpus median is 8 sentences but the tail reaches 367 (doc 86217760); an 8192 window would silently truncate those and destroy rationale scoring for exactly those claims"
+    "max_model_len_rationale": "corpus median is 8 sentences but the tail reaches 367 (doc 86217760); an 8192 window would silently truncate those and destroy rationale scoring for exactly those claims",
+    "max_num_seqs": 32,
+    "max_num_seqs_rationale": "vLLM warms the sampler at max_num_seqs; the 256 default OOMs an 8B model at 16k context on a 40GB A100, and the sweep is only 50 prompts"
   }
 }

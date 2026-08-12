@@ -2,7 +2,10 @@
 name = "vgx"
 version = "0.1.0"
 description = "Reference-aware selective generation: benchmark exploration"
-requires-python = ">=3.11"
+# 3.12 rather than 3.11: vllm's flashinfer dependency annotates
+# `array.array[int]`, and array.array only became subscriptable in 3.12, so on
+# 3.11 the engine dies at import with "type 'array.array' is not subscriptable".
+requires-python = ">=3.12"
 dependencies = [
     "rank-bm25>=0.2.2",
     # Capped below 2.3: vllm imports numba (for n-gram speculative decoding) and

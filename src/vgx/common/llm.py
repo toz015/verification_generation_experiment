@@ -109,6 +109,7 @@ class BatchRunner:
         max_model_len: int = 16384,
         dtype: str = "bfloat16",
         gpu_memory_utilization: float = 0.90,
+        max_num_seqs: int = 32,
         chat_template_kwargs: dict[str, Any] | None = None,
     ):
         self.model = model
@@ -116,6 +117,11 @@ class BatchRunner:
         self.max_model_len = max_model_len
         self.dtype = dtype
         self.gpu_memory_utilization = gpu_memory_utilization
+        # vLLM defaults to 256 concurrent sequences and warms the sampler up at
+        # that width. On a 40GB A100 holding an 8B model at 16k context that
+        # OOMs before the first real token. The whole sweep is 50 prompts, so
+        # the extra concurrency buys nothing anyway.
+        self.max_num_seqs = max_num_seqs
         # Qwen3 turns on chain-of-thought in its chat template by default and
         # wraps every reply in <think> tags. Left enabled it would burn the
         # token budget on reasoning and bury the answer, so callers disable it
@@ -145,6 +151,7 @@ class BatchRunner:
             dtype=self.dtype,
             max_model_len=self.max_model_len,
             gpu_memory_utilization=self.gpu_memory_utilization,
+            max_num_seqs=self.max_num_seqs,
         )
         sampling = SamplingParams(max_tokens=self.max_tokens, **SAMPLING)
 

@@ -50,7 +50,7 @@ fi
 uv --version
 
 cd "$REPO_DIR"
-uv venv --python 3.11 >/dev/null 2>&1 || true
+uv venv --python 3.12 >/dev/null 2>&1 || true
 # The [gpu] extra pulls vllm, which is CUDA-only and installed on the VM alone.
 # --torch-backend=cu128 is required: the default wheel is built for CUDA 13 and
 # needs driver >= 580, while this VM runs 535.
