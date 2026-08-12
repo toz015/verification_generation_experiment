@@ -91,12 +91,37 @@ memory; the loader asserts the schema and fails loudly on mismatch.
 
 An **NEI claim is one whose evidence mapping is empty**. This is the abstention ground truth.
 
-### Evaluation split
+### Evaluation split and sample
 
-**Dev, 300 claims.** Test labels are withheld by the benchmark. All reported numbers are dev.
+Test labels are withheld by the benchmark, so all work is on **dev** (300 claims).
 
-The loader emits a class-balance summary (SUPPORT / CONTRADICT / NEI counts) as part of the
-fact-sheet, since NEI prevalence bounds how much the abstention diagnostics can show.
+This exploration runs on a **stratified 50-claim sample** of dev, not the full split.
+
+- **Stratified**, not random, across SUPPORT / CONTRADICT / NEI. A uniform random 50 could
+  yield only a handful of NEI claims and destroy the abstention diagnostic.
+- **Pinned.** The sample is drawn once with a fixed seed and the chosen claim ids are written
+  to `configs/scifact_sample_50.json`, which is **committed to the repository**. Every model
+  and every re-run scores the identical 50 claims, so numbers are comparable across runs and
+  reproducible by anyone who clones the repo. The sample is never re-drawn silently.
+
+The loader emits a class-balance summary (SUPPORT / CONTRADICT / NEI counts) for both full
+dev and the sample, as part of the fact-sheet.
+
+### Statistical power
+
+At n = 50, a proportion has a standard error of at most ~7pp, so a 95% interval is roughly
+**±14pp**. This is a deliberate trade: the exploration is sized to detect the effect it is
+looking for, not to rank models.
+
+- **In scope.** The label-only versus label+rationale gap. Slide 5 predicts "label >>
+  rationale", i.e. tens of points. An effect that large is visible at n = 50.
+- **Out of scope.** Ranking Qwen3-8B against Qwen3-14B. A plausible few-point difference
+  between them sits well inside the interval. The report states this explicitly rather than
+  reading a ranking out of noise.
+
+Every number in the report carries a Wilson score interval, so the reader cannot mistake a
+point estimate for a precise one. Scaling to the full 300 dev claims is a one-line config
+change if a result turns out to be borderline.
 
 ## 5. Retrieval
 
@@ -109,7 +134,10 @@ Two modes run for every experiment:
 
 ### Standalone first output: recall@k
 
-Before any generation, `retrieve.py` produces a **recall@k curve** over the dev set: the
+Before any generation, `retrieve.py` produces a **recall@k curve** over **all 300 dev
+claims**, not just the 50-claim sample. Retrieval costs no model calls, so there is no reason
+to sample it, and the full-dev curve is the more trustworthy basis for fixing k. The curve is
+also reported restricted to the sample, to confirm the sample is not retrieval-anomalous. The
 fraction of claims whose gold evidence document appears in the top k. This is cheap and it
 bounds everything downstream — no citation metric can exceed what retrieval surfaces. It also
 fixes the k used in the main sweep.
@@ -154,8 +182,17 @@ VM; it is not worth that friction for the exploration stage.
 Decoding is greedy, so results are deterministic and differences are attributable to the
 model rather than to sampling.
 
-Total generation for the sweep: 2 models × 2 retrieval modes × 300 claims = **1,200 calls**.
-Minutes on a batched A100.
+Total generation for the sweep: 2 models × 2 retrieval modes × 50 claims = **200 calls**.
+
+At that size the entire exploration **runs on the laptop** via Ollama — Qwen3-14B at Q4 is
+roughly 9 GB and fits in 24 GB of unified memory. The A100 VM is therefore not a prerequisite
+for any milestone in this spec. It becomes necessary when scaling to the full 300 dev claims,
+running unquantized weights, or moving on to ALCE's 11B TRUE NLI verifier. Because the client
+is OpenAI-compatible, moving to the VM is a base-URL change and nothing else.
+
+Quantization is a confound worth naming: Q4 on the laptop is not the same model as bf16 on
+the A100. Whichever backend produces the reported numbers is recorded per run, and the
+headline table is generated from a single backend rather than mixing the two.
 
 ## 7. Scoring
 
@@ -213,12 +250,13 @@ Calibration of a reported support score is deferred along with the structured co
 
 `docs/scifact-report.md`, containing:
 
-1. **Dataset anatomy** — structure, schemas, split sizes, class balance, worked examples.
+1. **Dataset anatomy** — structure, schemas, split sizes, class balance, worked examples, and
+   the composition of the pinned 50-claim sample.
 2. **How to load and use it** — the exact commands, the HF pitfalls above, and the retrieval setup.
 3. **Recall@k curve** for BM25 over the corpus.
 4. **Scorer validation results**, including the cite-everything baseline.
-5. **Metrics table** — 2 metrics × 2 models × 2 retrieval modes, i.e. 8 numbers, with the
-   label-only versus label+rationale gap called out explicitly.
+5. **Metrics table** — 2 metrics × 2 models × 2 retrieval modes, i.e. 8 numbers, each with a
+   Wilson score interval, and the label-only versus label+rationale gap called out explicitly.
 6. **The three diagnostics.**
 7. **Headroom verdict** — an explicit statement of which of the three failure modes in
    Section 1 dominates, and therefore whether mechanism design has room to operate on SciFact.
@@ -228,17 +266,19 @@ as such rather than argued around.
 
 ## 9. Milestones
 
-| ID | Deliverable | Where |
-|---|---|---|
-| S0 | Repo scaffold, `uv` env, git remote, `common/llm.py` with a passing smoke call | Laptop |
-| S1 | `load.py` + dataset anatomy fact-sheet | Laptop |
-| S2 | `retrieve.py` + recall@k curve | Laptop |
-| S3 | `prompt.py`, 10-claim smoke test via Ollama | Laptop |
-| S4 | Vendored scorer wired, all four validation gates passing | Laptop |
-| S5 | VM setup, full sweep: 2 models × 2 retrieval modes × 300 claims = 1,200 calls | A100 VM |
-| S6 | Diagnostics computed, `docs/scifact-report.md` written | Either |
+| ID | Deliverable |
+|---|---|
+| S0 | Repo scaffold, `uv` env, git remote, `common/llm.py` with a passing smoke call |
+| S1 | `load.py`, pinned stratified 50-claim sample, dataset anatomy fact-sheet |
+| S2 | `retrieve.py` + recall@k curve over full dev |
+| S3 | `prompt.py` + parser, 10-claim smoke test via Ollama |
+| S4 | Vendored scorer wired, all four validation gates passing |
+| S5 | Sweep: 2 models × 2 retrieval modes × 50 claims = 200 calls |
+| S6 | Diagnostics computed, `docs/scifact-report.md` written |
 
-S0–S4 need no GPU. S5 is the first step requiring the VM.
+**Every milestone runs on the laptop.** The VM is not needed for this spec; it is where the
+work scales up afterwards (full dev, unquantized weights, ALCE's TRUE NLI verifier). The
+repo is still pushed to a remote at S0 so the VM path is ready when it is wanted.
 
 ## 10. Risks
 
@@ -252,6 +292,11 @@ S0–S4 need no GPU. S5 is the first step requiring the VM.
 - **Vendored scorer incompatibility.** The official code may target an older Python. If it
   cannot be run as-is, it is ported minimally with the identity test from Section 7 proving
   the port is faithful.
-- **NEI sparsity.** If NEI claims are a small fraction of the 300-claim dev set, abstention
-  diagnostics will have wide error bars. The class balance from S1 determines this, and if it
-  is too sparse the report says so rather than over-reading the numbers.
+- **Small-sample power.** This is the largest risk and it is accepted deliberately. At n = 50
+  every proportion carries roughly ±14pp, so only large effects are readable. Stratified
+  sampling protects the NEI cell specifically, and Wilson intervals on every number keep the
+  limitation visible in the report. The mitigation if a result lands borderline is to rerun on
+  full dev, which is a config change and 1,200 calls.
+- **Sample drift.** Re-drawing the sample between runs would make numbers silently
+  incomparable. The claim ids are committed to the repo and the sampler refuses to overwrite
+  an existing sample file; regenerating it is an explicit, deliberate act.
