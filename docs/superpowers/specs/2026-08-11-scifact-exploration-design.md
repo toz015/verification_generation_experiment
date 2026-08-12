@@ -53,15 +53,39 @@ src/vgx/
     prompt.py            # prompt construction + response parsing
     score.py             # vendored official scorer + diagnostics
 third_party/scifact/     # pinned official evaluation code
+scripts/setup_vm.sh      # driver check, uv, vLLM, HF auth, weight prefetch
 configs/
 data/                    # gitignored
 results/                 # gitignored
 docs/                    # specs, fact-sheet, final report
 ```
 
-Laptop (M2 Air, 24 GB) and the A100 VM run identical code. The only difference is the model
-backend URL: `vllm serve` on the VM, Ollama's OpenAI-compatible endpoint locally. Work is
-developed and smoke-tested locally, pushed to a remote, then pulled and run on the VM over SSH.
+### Execution model
+
+**All model inference runs on the GCP A100 VM.** The laptop is used to write code, commit,
+and push; it never serves a model. Loop: edit locally → push to remote → `ssh` to the VM →
+`git pull` → run.
+
+Serving is `vllm serve` exposing an OpenAI-compatible endpoint, which is what
+`common/llm.py` targets. Weights are **bf16, unquantized** — an 8B model is roughly 16 GB, so
+either A100 tier holds one comfortably, and models are served one at a time rather than
+co-resident.
+
+Running unquantized on a single backend removes a confound that a laptop path would have
+introduced: Q4 output is not the same as bf16 output, and mixing the two within one results
+table would make differences unattributable. Every run still records its backend, model
+revision, and dtype.
+
+`scripts/setup_vm.sh` makes the VM reproducible from scratch: verify the NVIDIA driver and
+CUDA are visible, install `uv`, sync the locked environment, authenticate to HuggingFace, and
+prefetch both model weights before any experiment runs.
+
+### Prerequisite requiring manual action
+
+`meta-llama/Llama-3.1-8B-Instruct` is `gated=manual` on HuggingFace. Before S3, a human must
+accept Meta's license on the model page and create a read token, exported as `HF_TOKEN` on the
+VM. `setup_vm.sh` checks for a working token and both models' accessibility **up front**, so
+this fails in setup with a clear message rather than midway through a sweep.
 
 ## 4. Data layer
 
@@ -150,10 +174,9 @@ isolated and subtractable.
 
 ### Client
 
-One OpenAI-compatible HTTP client in `common/llm.py`. vLLM and Ollama both speak this, so
-there is no backend branching in experiment code. Requests are logged to disk with full
-prompt, response, sampling parameters, and model identifier so every number is reproducible
-and re-scorable without regeneration.
+One OpenAI-compatible HTTP client in `common/llm.py`, targeting `vllm serve` on the VM.
+Requests are logged to disk with full prompt, response, sampling parameters, model id, and
+dtype, so every number is reproducible and re-scorable without regenerating.
 
 ### Prompt condition
 
@@ -172,39 +195,32 @@ exploration produces no calibration curve.
 
 Two, matched at roughly 8B, drawn from different families:
 
-- **Qwen3-8B** (`qwen3:8b`) — the most-downloaded model at this scale, ~15.2M/month at time
-  of writing, and current-generation.
-- **Llama-3.1-8B-Instruct** (`llama3.1:8b`) — the most-cited open baseline in the literature,
-  which makes results legible to readers.
+- **`Qwen/Qwen3-8B`** — the most-downloaded model at this scale, ~15.2M/month at time of
+  writing, and current-generation. Ungated.
+- **`meta-llama/Llama-3.1-8B-Instruct`** — the most-cited open baseline in the literature,
+  which makes results legible to readers. Gated; see Section 3 for the manual prerequisite.
 
 Note there is no Llama 3 *7B*; Llama 3 and 3.1 ship at 8B and 70B, so 8B is the correct tier.
-Llama-3.1-8B is `gated=manual` on HuggingFace and would need a license approval plus a token
-for the vLLM path, but Ollama redistributes it ungated, so on the laptop path there is no
-friction. If the work later moves to the VM, that gate has to be cleared first.
 
 **Why matched-size cross-family rather than same-family 8B→14B.** At n = 50 the interval is
 about ±14pp, which is wider than any plausible 8B-versus-14B difference, so a size sweep is
 unresolvable at this sample size and would buy nothing. The purpose of the second model is
 instead to check that any observed pathology **replicates across families** rather than being
 one lab's post-training quirk. Matched-size cross-family answers that; same-family does not.
-Qwen3-14B (`qwen3:14b`, confirmed available) can be added later as a third run for 100 extra
-calls if the size question becomes interesting, ideally at full dev where it is measurable.
+`Qwen/Qwen3-14B` can be added later as a third run for 100 extra calls if the size question
+becomes interesting, ideally at full dev where it is measurable.
 
 Decoding is greedy, so results are deterministic and differences are attributable to the
 model rather than to sampling.
 
 Total generation for the sweep: 2 models × 2 retrieval modes × 50 claims = **200 calls**.
+That is minutes of A100 time. The dominant cost is not inference but weight download and
+server startup, which is why models are served one at a time and each model's four runs
+(2 retrieval modes × 50 claims) complete before the server is swapped.
 
-At that size the entire exploration **runs on the laptop** via Ollama — both models are ~8B,
-roughly 5 GB each at Q4, comfortable in 24 GB of unified memory and loadable one at a time.
-The A100 VM is therefore not a prerequisite
-for any milestone in this spec. It becomes necessary when scaling to the full 300 dev claims,
-running unquantized weights, or moving on to ALCE's 11B TRUE NLI verifier. Because the client
-is OpenAI-compatible, moving to the VM is a base-URL change and nothing else.
-
-Quantization is a confound worth naming: Q4 on the laptop is not the same model as bf16 on
-the A100. Whichever backend produces the reported numbers is recorded per run, and the
-headline table is generated from a single backend rather than mixing the two.
+Because the sweep is so small relative to the setup cost, `run_sweep.py` is **resumable**: it
+writes one JSONL record per call and skips any (model, mode, claim id) already present. An
+interrupted SSH session or a preempted VM costs the remaining calls, not the completed ones.
 
 ## 7. Scoring
 
@@ -278,19 +294,22 @@ as such rather than argued around.
 
 ## 9. Milestones
 
-| ID | Deliverable |
-|---|---|
-| S0 | Repo scaffold, `uv` env, git remote, `common/llm.py` with a passing smoke call |
-| S1 | `load.py`, pinned stratified 50-claim sample, dataset anatomy fact-sheet |
-| S2 | `retrieve.py` + recall@k curve over full dev |
-| S3 | `prompt.py` + parser, 10-claim smoke test via Ollama |
-| S4 | Vendored scorer wired, all four validation gates passing |
-| S5 | Sweep: 2 models × 2 retrieval modes × 50 claims = 200 calls |
-| S6 | Diagnostics computed, `docs/scifact-report.md` written |
+| ID | Deliverable | Needs GPU |
+|---|---|---|
+| S0 | Repo scaffold, `uv` env, git remote, `common/llm.py`, `scripts/setup_vm.sh` | no |
+| S1 | `load.py`, pinned stratified 50-claim sample, dataset anatomy fact-sheet | no |
+| S2 | `retrieve.py` + recall@k curve over full dev | no |
+| S3 | VM provisioned, `vllm serve` up, `prompt.py` + parser, 10-claim smoke test | **yes** |
+| S4 | Vendored scorer wired, all four validation gates passing | no |
+| S5 | Sweep: 2 models × 2 retrieval modes × 50 claims = 200 calls | **yes** |
+| S6 | Diagnostics computed, `docs/scifact-report.md` written | no |
 
-**Every milestone runs on the laptop.** The VM is not needed for this spec; it is where the
-work scales up afterwards (full dev, unquantized weights, ALCE's TRUE NLI verifier). The
-repo is still pushed to a remote at S0 so the VM path is ready when it is wanted.
+All inference happens on the VM. S1, S2, S4 and S6 make **no model calls at all** — the four
+scorer gates in Section 7 are pure unit tests over gold and synthetic predictions — so they
+can be developed and run without the GPU. This is deliberate: it keeps loader, retriever and
+scorer work off the VM's clock, so GPU time is spent only on S3 and S5.
+
+The manual HuggingFace license step in Section 3 must be done before S3.
 
 ## 10. Risks
 
@@ -312,3 +331,12 @@ repo is still pushed to a remote at S0 so the VM path is ready when it is wanted
 - **Sample drift.** Re-drawing the sample between runs would make numbers silently
   incomparable. The claim ids are committed to the repo and the sampler refuses to overwrite
   an existing sample file; regenerating it is an explicit, deliberate act.
+- **Gated weights.** Llama-3.1-8B needs a license acceptance and `HF_TOKEN`. `setup_vm.sh`
+  verifies access to both models before anything else runs, so this surfaces during setup
+  rather than after the Qwen half of the sweep has already completed.
+- **VM environment drift.** CUDA, driver and vLLM versions on the VM are outside the
+  lockfile's control. `setup_vm.sh` records driver, CUDA and vLLM versions into the run
+  manifest, so a later discrepancy is diagnosable rather than mysterious.
+- **Interrupted runs.** SSH drops and preemption are normal on cloud VMs. The sweep is
+  resumable at (model, mode, claim id) granularity, and the server is run under `nohup` or
+  `tmux` so it survives a disconnected session.
