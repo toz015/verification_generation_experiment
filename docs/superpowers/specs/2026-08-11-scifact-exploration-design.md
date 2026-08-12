@@ -50,7 +50,7 @@ src/vgx/
   scifact/
     load.py              # tarball -> typed records
     retrieve.py          # BM25 + oracle
-    prompt.py            # native and structured conditions
+    prompt.py            # prompt construction + response parsing
     score.py             # vendored official scorer + diagnostics
 third_party/scifact/     # pinned official evaluation code
 configs/
@@ -126,48 +126,53 @@ there is no backend branching in experiment code. Requests are logged to disk wi
 prompt, response, sampling parameters, and model identifier so every number is reproducible
 and re-scorable without regeneration.
 
-### Prompt conditions
+### Prompt condition
 
-Both conditions run on every example.
+**One condition.** Claim plus abstract, output is a label and the supporting sentence
+indices. This is the standard SciFact framing and the way zero-shot LLM baselines are
+normally reported.
 
-- **`native`** — claim plus abstract, output is a label and the supporting sentence indices.
-  The standard framing, comparable to how zero-shot LLM baselines are usually reported.
-- **`structured`** — the parent proposal's record: claim text, citation as document plus
-  sentence ids, a support score in [0, 1], and an action in {assert, qualify, abstain}.
-
-The support score and action exist only in the structured condition, so the calibration and
-abstention diagnostics depend on it. The **native-versus-structured delta is itself a
-finding**: it measures how much of any observed pathology is real versus an artifact of
-imposing structure. Generation cost doubles, which on a batched A100 is hours, not days.
+The parent proposal's structured record — explicit support score in [0, 1] and an action in
+{assert, qualify, abstain} — is **deferred**. It is the object the mechanism acts on, not
+something needed to measure whether headroom exists, and eliciting it would double generation
+cost while adding a schema that small models may not reliably emit. It becomes a follow-on
+once the native results establish that headroom is there. The cost of deferring is that this
+exploration produces no calibration curve.
 
 ### Models
 
-- Qwen2.5-7B-Instruct
-- Qwen2.5-14B-Instruct
-- Llama-3.1-8B-Instruct
-- Mistral-7B-Instruct-v0.3 — a deliberately weaker anchor; a model showing *more* pathology
-  helps establish a trend rather than a point.
+Two, both current-generation and ungated on HuggingFace:
 
-Model availability and whether a stronger 7–14B option has appeared is re-checked at S5
-rather than fixed now.
+- **Qwen3-8B** — the most-downloaded model at this scale (~15.2M/month at time of writing).
+- **Qwen3-14B** — same family, covering the upper end of the 7–14B target range.
 
-Decoding is greedy for the main sweep, so results are deterministic and differences are
-attributable to the model rather than to sampling.
+Holding the family fixed makes the 8B→14B difference a clean size effect rather than a
+family confound. Llama-3.1-8B-Instruct is the obvious cross-family reference point if one is
+wanted later, but it is `gated=manual` and so needs a license approval and an HF token on the
+VM; it is not worth that friction for the exploration stage.
+
+Decoding is greedy, so results are deterministic and differences are attributable to the
+model rather than to sampling.
+
+Total generation for the sweep: 2 models × 2 retrieval modes × 300 claims = **1,200 calls**.
+Minutes on a batched A100.
 
 ## 7. Scoring
 
 ### Official metrics
 
 The official SciFact evaluation code is vendored into `third_party/scifact/` at a pinned
-revision and used as the source of truth. Four numbers, all on dev:
+revision and used as the source of truth. **Two numbers**, both on dev, both abstract-level —
+the headline metric SciFact results are normally reported against:
 
-- Abstract-level F1, label-only
-- Abstract-level F1, label + rationale
-- Sentence-level F1, label-only
-- Sentence-level F1, label + rationale
+- Abstract-level F1, **label-only**
+- Abstract-level F1, **label + rationale**
 
-The label+rationale variants are the meaningful ones: they award credit only when the cited
-sentences are also correct.
+Sentence-level variants are dropped. Keeping both of these two is not redundancy: the
+**gap between them is the citation signal**. Label-only credits getting the verdict right;
+label+rationale credits it only when the cited sentences are also right. The parent
+proposal's Slide 5 predicts "label >> rationale" for zero-shot LLMs, and that gap is the
+single most important number this exploration produces.
 
 ### Validation gate
 
@@ -192,14 +197,17 @@ reward over-citation, and it belongs in the final report as a result.
 
 ### Diagnostics
 
-Four, each tied to a specific claim in the parent proposal.
+Three, each tied to a specific claim in the parent proposal. All three are computed from the
+same 1,200 generations — none requires an extra run.
 
 | Diagnostic | Measure | Proposal claim tested |
 |---|---|---|
-| Abstention | Recall and precision on NEI claims; abstain-action rate in the structured condition | Slide 5, abstention has ground truth here |
-| Over-citation | Distribution of cited sentence count vs. gold count, per claim; precision of cited sentences | Slide 2, "citing is free, so the model over-cites" |
-| Calibration | Reported support score vs. gold entailment: reliability diagram and ECE | Slide 8, the private-type-versus-report gap |
+| Abstention | Recall and precision on NEI claims | Slide 5, abstention has ground truth here |
+| Over-citation | Cited sentence count vs. gold count per claim; precision of cited sentences | Slide 2, "citing is free, so the model over-cites" |
 | Retrieval isolation | Oracle metrics minus BM25 metrics, per model | Separates explanation (1) from (2) and (3) |
+
+Calibration of a reported support score is deferred along with the structured condition
+(Section 6).
 
 ## 8. Deliverable
 
@@ -209,8 +217,9 @@ Four, each tied to a specific claim in the parent proposal.
 2. **How to load and use it** — the exact commands, the HF pitfalls above, and the retrieval setup.
 3. **Recall@k curve** for BM25 over the corpus.
 4. **Scorer validation results**, including the cite-everything baseline.
-5. **Metrics table** — four official metrics × four models × two retrieval modes × two prompt conditions.
-6. **The four diagnostics.**
+5. **Metrics table** — 2 metrics × 2 models × 2 retrieval modes, i.e. 8 numbers, with the
+   label-only versus label+rationale gap called out explicitly.
+6. **The three diagnostics.**
 7. **Headroom verdict** — an explicit statement of which of the three failure modes in
    Section 1 dominates, and therefore whether mechanism design has room to operate on SciFact.
 
@@ -224,9 +233,9 @@ as such rather than argued around.
 | S0 | Repo scaffold, `uv` env, git remote, `common/llm.py` with a passing smoke call | Laptop |
 | S1 | `load.py` + dataset anatomy fact-sheet | Laptop |
 | S2 | `retrieve.py` + recall@k curve | Laptop |
-| S3 | `prompt.py`, both conditions, 10-claim smoke test via Ollama | Laptop |
+| S3 | `prompt.py`, 10-claim smoke test via Ollama | Laptop |
 | S4 | Vendored scorer wired, all four validation gates passing | Laptop |
-| S5 | VM setup, full sweep: 4 models × 2 retrieval modes × 2 conditions × 300 claims | A100 VM |
+| S5 | VM setup, full sweep: 2 models × 2 retrieval modes × 300 claims = 1,200 calls | A100 VM |
 | S6 | Diagnostics computed, `docs/scifact-report.md` written | Either |
 
 S0–S4 need no GPU. S5 is the first step requiring the VM.
@@ -235,10 +244,11 @@ S0–S4 need no GPU. S5 is the first step requiring the VM.
 
 - **Schema drift.** Field names are asserted at load time rather than assumed, so a mismatch
   fails at S1 with a clear error instead of producing silently wrong scores at S6.
-- **Structured-output compliance.** Small models may fail to emit parseable structured
-  records. `prompt.py` records a parse-failure rate per model; if it is high, that is a
-  reported finding, and the fallback is constrained decoding via vLLM's guided generation.
-  Parse failures are never silently dropped, since dropping them would bias every metric.
+- **Output parsing.** Even the native format requires a label and a list of sentence indices
+  to come back parseably. `prompt.py` records a parse-failure rate per model; if it is high,
+  that is a reported finding, and the fallback is constrained decoding via vLLM's guided
+  generation. Parse failures are never silently dropped, since dropping them would bias every
+  metric upward for exactly the weaker models being characterized.
 - **Vendored scorer incompatibility.** The official code may target an older Python. If it
   cannot be run as-is, it is ported minimally with the identity test from Section 7 proving
   the port is faithful.
