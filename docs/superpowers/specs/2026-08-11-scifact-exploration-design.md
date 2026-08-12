@@ -115,9 +115,10 @@ looking for, not to rank models.
 
 - **In scope.** The label-only versus label+rationale gap. Slide 5 predicts "label >>
   rationale", i.e. tens of points. An effect that large is visible at n = 50.
-- **Out of scope.** Ranking Qwen3-8B against Qwen3-14B. A plausible few-point difference
-  between them sits well inside the interval. The report states this explicitly rather than
-  reading a ranking out of noise.
+- **Out of scope.** Ranking the two models against each other. A plausible few-point
+  difference sits well inside the interval. The report states this explicitly rather than
+  reading a ranking out of noise. What the second model *does* buy is a replication check:
+  a pathology that shows up in both families is a property of the task, not of one model.
 
 Every number in the report carries a Wilson score interval, so the reader cannot mistake a
 point estimate for a precise one. Scaling to the full 300 dev claims is a one-line config
@@ -169,23 +170,34 @@ exploration produces no calibration curve.
 
 ### Models
 
-Two, both current-generation and ungated on HuggingFace:
+Two, matched at roughly 8B, drawn from different families:
 
-- **Qwen3-8B** — the most-downloaded model at this scale (~15.2M/month at time of writing).
-- **Qwen3-14B** — same family, covering the upper end of the 7–14B target range.
+- **Qwen3-8B** (`qwen3:8b`) — the most-downloaded model at this scale, ~15.2M/month at time
+  of writing, and current-generation.
+- **Llama-3.1-8B-Instruct** (`llama3.1:8b`) — the most-cited open baseline in the literature,
+  which makes results legible to readers.
 
-Holding the family fixed makes the 8B→14B difference a clean size effect rather than a
-family confound. Llama-3.1-8B-Instruct is the obvious cross-family reference point if one is
-wanted later, but it is `gated=manual` and so needs a license approval and an HF token on the
-VM; it is not worth that friction for the exploration stage.
+Note there is no Llama 3 *7B*; Llama 3 and 3.1 ship at 8B and 70B, so 8B is the correct tier.
+Llama-3.1-8B is `gated=manual` on HuggingFace and would need a license approval plus a token
+for the vLLM path, but Ollama redistributes it ungated, so on the laptop path there is no
+friction. If the work later moves to the VM, that gate has to be cleared first.
+
+**Why matched-size cross-family rather than same-family 8B→14B.** At n = 50 the interval is
+about ±14pp, which is wider than any plausible 8B-versus-14B difference, so a size sweep is
+unresolvable at this sample size and would buy nothing. The purpose of the second model is
+instead to check that any observed pathology **replicates across families** rather than being
+one lab's post-training quirk. Matched-size cross-family answers that; same-family does not.
+Qwen3-14B (`qwen3:14b`, confirmed available) can be added later as a third run for 100 extra
+calls if the size question becomes interesting, ideally at full dev where it is measurable.
 
 Decoding is greedy, so results are deterministic and differences are attributable to the
 model rather than to sampling.
 
 Total generation for the sweep: 2 models × 2 retrieval modes × 50 claims = **200 calls**.
 
-At that size the entire exploration **runs on the laptop** via Ollama — Qwen3-14B at Q4 is
-roughly 9 GB and fits in 24 GB of unified memory. The A100 VM is therefore not a prerequisite
+At that size the entire exploration **runs on the laptop** via Ollama — both models are ~8B,
+roughly 5 GB each at Q4, comfortable in 24 GB of unified memory and loadable one at a time.
+The A100 VM is therefore not a prerequisite
 for any milestone in this spec. It becomes necessary when scaling to the full 300 dev claims,
 running unquantized weights, or moving on to ALCE's 11B TRUE NLI verifier. Because the client
 is OpenAI-compatible, moving to the VM is a base-URL change and nothing else.
