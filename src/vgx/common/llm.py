@@ -106,15 +106,21 @@ class BatchRunner:
         self,
         model: str,
         max_tokens: int = 512,
-        max_model_len: int = 8192,
+        max_model_len: int = 16384,
         dtype: str = "bfloat16",
         gpu_memory_utilization: float = 0.90,
+        chat_template_kwargs: dict[str, Any] | None = None,
     ):
         self.model = model
         self.max_tokens = max_tokens
         self.max_model_len = max_model_len
         self.dtype = dtype
         self.gpu_memory_utilization = gpu_memory_utilization
+        # Qwen3 turns on chain-of-thought in its chat template by default and
+        # wraps every reply in <think> tags. Left enabled it would burn the
+        # token budget on reasoning and bury the answer, so callers disable it
+        # here; the parser also strips the tags as a second line of defence.
+        self.chat_template_kwargs = chat_template_kwargs or {}
 
     @property
     def params(self) -> dict[str, Any]:
@@ -149,7 +155,12 @@ class BatchRunner:
         ]
 
         started = time.time()
-        outputs = llm.chat(conversations, sampling)
+        chat_kwargs = (
+            {"chat_template_kwargs": self.chat_template_kwargs}
+            if self.chat_template_kwargs
+            else {}
+        )
+        outputs = llm.chat(conversations, sampling, **chat_kwargs)
         elapsed = time.time() - started
 
         # vLLM returns outputs in request order, so zip is safe here.
