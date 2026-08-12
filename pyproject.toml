@@ -5,7 +5,11 @@ description = "Reference-aware selective generation: benchmark exploration"
 requires-python = ">=3.11"
 dependencies = [
     "rank-bm25>=0.2.2",
-    "numpy>=1.26",
+    # Capped below 2.3: vllm imports numba (for n-gram speculative decoding) and
+    # numba refuses to load against NumPy 2.3+. Note `uv run` re-syncs from this
+    # file on every invocation, so a manual `uv pip install numpy<2.3` is undone
+    # immediately - the constraint has to live here to hold.
+    "numpy>=1.26,<2.3",
 ]
 
 [project.optional-dependencies]
@@ -19,7 +23,12 @@ dev = ["pytest>=8.0"]
 # CUDA 12.x wheels run fine on a 535 driver under minor-version compatibility,
 # so this pins the last release on a cu12 torch. Install with:
 #     uv pip install -e ".[gpu]" --torch-backend=cu128
-gpu = ["vllm==0.11.0", "huggingface_hub>=0.34"]
+#
+# transformers is capped below 5.x for the same reason: vllm 0.11.0 calls
+# tokenizer.all_special_tokens_extended, which transformers 5 removed, so an
+# unconstrained resolve installs a v5 and every model load dies with
+# "Qwen2Tokenizer has no attribute all_special_tokens_extended".
+gpu = ["vllm==0.11.0", "transformers>=4.56,<5", "huggingface_hub>=0.34"]
 
 [build-system]
 requires = ["hatchling"]
