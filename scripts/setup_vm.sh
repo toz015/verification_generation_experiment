@@ -52,7 +52,20 @@ uv --version
 cd "$REPO_DIR"
 uv venv --python 3.11 >/dev/null 2>&1 || true
 # The [gpu] extra pulls vllm, which is CUDA-only and installed on the VM alone.
-uv pip install -q -e ".[gpu]" || die "install failed"
+# --torch-backend=cu128 is required: the default wheel is built for CUDA 13 and
+# needs driver >= 580, while this VM runs 535.
+uv pip install -q -e ".[gpu]" --torch-backend=cu128 || die "install failed"
+
+# torch.cuda.is_available() only checks that the driver initialises, and returns
+# True even when kernels cannot launch. Run a real matmul instead.
+uv run python -c "
+import torch
+a = torch.randn(512, 512, device='cuda', dtype=torch.bfloat16)
+assert torch.isfinite((a @ a).float().sum())
+print('  bf16 matmul on', torch.cuda.get_device_name(0), '- OK')
+" || die "torch cannot launch GPU kernels.
+Usually a CUDA/driver mismatch. Check 'nvidia-smi' for the driver's CUDA
+version and reinstall with a matching --torch-backend (cu121/cu124/cu128)."
 
 # --- 4. HuggingFace access --------------------------------------------------
 # Checked before any download. Llama-3.1-8B is gated=manual, so a valid token

@@ -12,7 +12,14 @@ dependencies = [
 dev = ["pytest>=8.0"]
 # vllm needs CUDA and will not install on macOS. Only the VM installs this,
 # which is why vgx.common.llm imports it lazily.
-gpu = ["vllm>=0.6", "huggingface_hub>=0.34"]
+#
+# vllm is pinned rather than floating. Current releases ship torch built for
+# CUDA 13, which requires an NVIDIA driver >= 580; the A100 VM runs 535
+# (CUDA 12.2) and torch then refuses to initialise with "driver is too old".
+# CUDA 12.x wheels run fine on a 535 driver under minor-version compatibility,
+# so this pins the last release on a cu12 torch. Install with:
+#     uv pip install -e ".[gpu]" --torch-backend=cu128
+gpu = ["vllm==0.11.0", "huggingface_hub>=0.34"]
 
 [build-system]
 requires = ["hatchling"]
