@@ -1,0 +1,19 @@
+{
+  "dataset": "pubmedqa",
+  "split": "official test (500)",
+  "sample": "configs/pubmedqa_sample_50.json",
+  "n": 50,
+  "n_rationale": "matches the SciFact sample size. maybe is 11% of the data, so n=50 puts only ~6 items in that cell and its recall is directional only; raising n to 500 uses the full official test set and gives 55",
+  "retrieval": null,
+  "retrieval_rationale": "no retrieval stage - the abstract sections ship with each item",
+  "models": ["Qwen/Qwen3-8B", "meta-llama/Llama-3.1-8B-Instruct"],
+  "generation": {
+    "max_model_len": 8192,
+    "max_tokens": 256,
+    "dtype": "bfloat16",
+    "temperature": 0.0,
+    "seed": 0,
+    "max_num_seqs": 32,
+    "max_model_len_rationale": "one abstract per item rather than five, so 8192 is ample; max_tokens is 256 since the answer is a single word in JSON"
+  }
+}
