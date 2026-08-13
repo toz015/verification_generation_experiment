@@ -15,6 +15,9 @@ dependencies = [
     "numpy>=1.26,<2.3",
     "pandas>=2.3.3",
     "scikit-learn>=1.9.0",
+    # PubMedQA ships as parquet. Declared here, not installed ad hoc: `uv run`
+    # re-syncs from this file, so an ad-hoc install is dropped on the next call.
+    "pyarrow>=15",
 ]
 
 [project.optional-dependencies]
