@@ -1,0 +1,43 @@
+{
+  "dataset": "gpqa_main",
+  "source_file": "data/gpqa/gpqa_main.csv",
+  "manifest": "data/gpqa/sample_50.json",
+  "sample_size": 50,
+  "seed": 20260928,
+  "calibration_size": 30,
+  "models": {
+    "generator": "Qwen/Qwen3-8B",
+    "verifiers": [
+      "meta-llama/Llama-3.1-8B-Instruct",
+      "Qwen/Qwen3-8B"
+    ]
+  },
+  "generation": {
+    "max_model_len": 8192,
+    "max_tokens": 256,
+    "dtype": "bfloat16",
+    "temperature": 0.0,
+    "seed": 0,
+    "max_num_seqs": 16
+  },
+  "routing_scenarios": [
+    {
+      "name": "balanced_low_query_cost",
+      "correct_reward": 1.0,
+      "incorrect_loss": 1.0,
+      "verifier_costs": [0.02, 0.02]
+    },
+    {
+      "name": "error_sensitive_low_query_cost",
+      "correct_reward": 1.0,
+      "incorrect_loss": 4.0,
+      "verifier_costs": [0.02, 0.02]
+    },
+    {
+      "name": "error_sensitive_high_query_cost",
+      "correct_reward": 1.0,
+      "incorrect_loss": 4.0,
+      "verifier_costs": [0.10, 0.10]
+    }
+  ]
+}
