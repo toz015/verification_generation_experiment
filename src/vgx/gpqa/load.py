@@ -43,6 +43,10 @@ class PilotSplit:
     seed: int
 
 
+class DuplicateChoicesError(ValueError):
+    """A valid question row whose answer options are not four distinct choices."""
+
+
 def _stable_id(question: str) -> str:
     return hashlib.sha256(question.strip().encode("utf-8")).hexdigest()[:16]
 
@@ -76,8 +80,10 @@ def _row_to_item(row: dict[str, object]) -> GPQAItem:
             "Incorrect Answer 3",
         )
     )
-    if any(not choice for choice in choices) or len(set(choices)) != 4:
-        raise ValueError(f"GPQA item {_stable_id(question)} has empty or duplicate choices")
+    if any(not choice for choice in choices):
+        raise ValueError(f"GPQA item {_stable_id(question)} has an empty choice")
+    if len(set(choices)) != 4:
+        raise DuplicateChoicesError(f"GPQA item {_stable_id(question)} has duplicate choices")
     return GPQAItem(
         item_id=_stable_id(question),
         question=question,
@@ -87,8 +93,7 @@ def _row_to_item(row: dict[str, object]) -> GPQAItem:
     )
 
 
-def load_items(path: str | Path) -> list[GPQAItem]:
-    """Read the official GPQA Main columns from a local CSV or Parquet file."""
+def _read_rows(path: str | Path) -> list[dict[str, object]]:
     source = Path(path).expanduser()
     if not source.is_file():
         raise FileNotFoundError(f"GPQA local data file does not exist: {source}")
@@ -101,13 +106,48 @@ def load_items(path: str | Path) -> list[GPQAItem]:
     else:
         raise ValueError(f"expected a .csv or .parquet GPQA file, got {source.name!r}")
 
-    items = [_row_to_item(row) for row in rows]
+    return rows
+
+
+def load_items(path: str | Path) -> list[GPQAItem]:
+    """Read GPQA Main strictly; any invalid row fails validation."""
+    items = [_row_to_item(row) for row in _read_rows(path)]
     if not items:
-        raise ValueError(f"GPQA source is empty: {source}")
+        raise ValueError(f"GPQA source is empty: {Path(path).expanduser()}")
     ids = [item.item_id for item in items]
     if len(set(ids)) != len(ids):
         raise ValueError("GPQA source contains duplicate question text / item IDs")
     return items
+
+
+def load_items_excluding_duplicate_choices(
+    path: str | Path,
+) -> tuple[list[GPQAItem], list[dict[str, str]]]:
+    """Load valid rows, recording hashed IDs for rows with duplicate choices.
+
+    Empty choices, missing fields, and duplicate question IDs remain fatal. This
+    narrowly scoped exclusion is suitable for the known GPQA source anomalies.
+    """
+    items: list[GPQAItem] = []
+    exclusions: list[dict[str, str]] = []
+    seen_ids: set[str] = set()
+    for row in _read_rows(path):
+        # Validate/hash the question before processing choices, so IDs are stable
+        # and duplicate source questions cannot silently disappear.
+        if "Question" not in row:
+            _row_to_item(row)  # raises the standard missing-column error
+        question = str(row["Question"]).strip()
+        item_id = _stable_id(question)
+        if item_id in seen_ids:
+            raise ValueError("GPQA source contains duplicate question text / item IDs")
+        seen_ids.add(item_id)
+        try:
+            items.append(_row_to_item(row))
+        except DuplicateChoicesError:
+            exclusions.append({"item_id": item_id, "reason": "duplicate_answer_choices"})
+    if not items:
+        raise ValueError(f"GPQA source has no valid items after exclusions: {path}")
+    return items, sorted(exclusions, key=lambda entry: entry["item_id"])
 
 
 def _allocate_quotas(groups: dict[object, list[GPQAItem]], n: int) -> dict[object, int]:
@@ -177,7 +217,8 @@ def prepare_pilot(items: Iterable[GPQAItem], n: int = 50, seed: int = DEFAULT_SE
 
 
 def write_manifest(
-    split: PilotSplit, path: str | Path, source_sha256: str | None = None
+    split: PilotSplit, path: str | Path, source_sha256: str | None = None,
+    exclusions: list[dict[str, str]] | None = None,
 ) -> None:
     """Write IDs and correct positions only; choose a path under ignored data/."""
     destination = Path(path)
@@ -191,6 +232,7 @@ def write_manifest(
         "n": len(split.sample),
         "seed": split.seed,
         "source_sha256": source_sha256,
+        "excluded_items": sorted(exclusions or [], key=lambda entry: entry["item_id"]),
         "stratified_by": ["subject", "correct_option_position after shuffle"],
         "sample_ids": [item.item_id for item in split.sample],
         "calibration_ids": [item.item_id for item in split.calibration],
@@ -204,6 +246,7 @@ def restore_pilot(
     items: Iterable[GPQAItem],
     path: str | Path,
     source_sha256: str | None = None,
+    exclusions: list[dict[str, str]] | None = None,
 ) -> PilotSplit:
     """Recreate a previously pinned split and choice order from its local manifest."""
     manifest_path = Path(path)
@@ -212,6 +255,8 @@ def restore_pilot(
         raise ValueError(f"{manifest_path} is not a GPQA Main manifest")
     if source_sha256 is not None and manifest.get("source_sha256") != source_sha256:
         raise ValueError("GPQA source file changed since the local sample was pinned")
+    if manifest.get("excluded_items", []) != sorted(exclusions or [], key=lambda entry: entry["item_id"]):
+        raise ValueError("GPQA source exclusions differ from the pinned manifest")
     by_id = {item.item_id: item for item in items}
     wanted = set(manifest.get("sample_ids", []))
     if len(wanted) != manifest.get("n"):

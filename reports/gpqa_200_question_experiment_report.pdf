@@ -1,0 +1,265 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R 13 0 R 15 0 R] /Count 5 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Title (GPQA 200-Question Verification Experiment) /Author (Verification Generation Experiment) /Subject (Calibration and held-out evaluation report) >>
+endobj
+6 0 obj
+<< /Length 4847 >>
+stream
+0.10 0.22 0.36 rg BT /F2 23 Tf 54 738.0 Td (GPQA 200-Question Verification Experiment) Tj ET
+0.25 0.25 0.25 rg BT /F1 11 Tf 54 704.0 Td (Verification Generation Experiment) Tj ET
+0.35 0.35 0.35 rg BT /F1 9 Tf 54 689.0 Td (September 30, 2026) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 671.0 Td (This report documents a 200-question GPQA Main feasibility experiment testing whether verifier) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 658.0 Td (signals can improve a generator's self-reported probability that its selected answer is correct.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 645.0 Td (The experiment used a 120-question calibration partition and an 80-question held-out evaluation) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 632.0 Td (partition. Results are preliminary and do not establish robust calibration or incentive) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 619.0 Td (compatibility.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 592.0 Td (Executive summary) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 571.0 Td (The generator answered 69 of 80 evaluation questions correctly \(86.3%; Wilson 95% interval) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 558.0 Td (77.0%-92.1%\). Four of 200 generator responses were invalid JSON; three occurred in evaluation.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 545.0 Td (Verifier 1's update slightly worsened held-out Brier score. Verifier 2 and the sequential) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 532.0 Td (two-verifier update slightly improved Brier score, but paired bootstrap intervals included no) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 519.0 Td (change. The combined update slightly worsened log loss. The observed data do not establish a) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 506.0 Td (reliable improvement.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 489.0 Td (The held-out forecast comparison below uses the 77 evaluation questions with valid generator) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 476.0 Td (answers and confidence. Lower Brier score, log loss, and ECE are better; higher AUROC is better.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 459.0 Td (Forecast Brier Log loss ECE AUROC) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 442.0 Td (Generator stated probability 0.0730 0.2575 0.0442 0.844) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 425.0 Td (After Verifier 1 update 0.0737 0.2635 0.0476 0.824) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 408.0 Td (After Verifier 2 update 0.0682 0.2542 0.0475 0.841) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 391.0 Td (After both, sequentially 0.0679 0.2592 0.0490 0.819) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 364.0 Td (Dataset handling and partitioning) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 343.0 Td (The released GPQA data are organized into variants such as Main, Diamond, and Extended rather) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 330.0 Td (than a conventional train/calibration/test split. The GPQA paper recommends Main for) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 317.0 Td (experiments; Diamond is a subset of Main, so it would not be an independent test if calibration) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 304.0 Td (also used Main. Sources: https://arxiv.org/abs/2311.12022 and) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 291.0 Td (https://huggingface.co/datasets/Idavidrein/gpqa.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 274.0 Td (The experiment used the local gpqa_main.csv file. Three rows had duplicate answer choices. They) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 261.0 Td (were excluded before sampling; the original CSV was not modified. The sample manifest records) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 248.0 Td (each excluded row's hashed item ID and the reason duplicate_answer_choices. The eligible pool) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 235.0 Td (therefore contained 445 questions.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 218.0 Td (We selected 200 questions from the eligible pool using deterministic subject stratification and) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 205.0 Td (seed 20260928. Answer choices were also shuffled deterministically, with the correct option) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 192.0 Td (position updated accordingly. The 200 sampled questions were split into 120 calibration items) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 179.0 Td (and 80 evaluation items. Their hashed IDs are disjoint. Calibration labels were used to fit) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 166.0 Td (verifier-signal likelihoods; the held-out evaluation labels were used only to score forecasts) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 153.0 Td (and policies.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 136.0 Td (This is a random split within GPQA Main, not an official GPQA test set or an external) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 123.0 Td (generalization test. Model exposure to public GPQA questions is also possible.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 96.0 Td (Models and generation settings) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 75.0 Td (All inference used Google Vertex AI managed model endpoints.) Tj ET
+0.45 0.45 0.45 rg BT /F1 8 Tf 54 34 Td (GPQA 200-question verification experiment | 1) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 5284 >>
+stream
+0 0 0 rg BT /F1 10 Tf 54 738.0 Td (* Generator: google/gemini-3.8-flash.) Tj ET
+0 0 0 rg BT /F1 10 Tf 54 724.0 Td (* Verifier 1: meta/llama-3.3-70b-instruct-maas.) Tj ET
+0 0 0 rg BT /F1 10 Tf 54 710.0 Td (* Verifier 2: google/gemini-3.7-flash.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 696.0 Td (The configured generation settings were temperature 0, top-p 1, maximum output length 1,024) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 683.0 Td (tokens, and low reasoning effort for Gemini models. These are managed model names rather than) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 670.0 Td (immutable weight revisions, so exact reproduction may be affected if the provider changes an) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 657.0 Td (alias.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 630.0 Td (How probabilities were obtained) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 609.0 Td (The generator saw the subject, question, and four answer options. It was asked to choose one) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 596.0 Td (option and report JSON with its probability that its selected answer was correct. This is a) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 583.0 Td (self-reported textual probability, not a probability computed from token likelihoods.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 566.0 Td (Each verifier saw the same question and options plus the fixed answer selected by the generator.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 553.0 Td (It was asked to assess that answer, not replace it, and return a probability that the fixed) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 540.0 Td (answer was correct. The verifier did not receive the generator's reasoning; the prompt included) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 527.0 Td (the candidate answer and its option text.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 510.0 Td (The response parser accepted a valid answer letter and a numeric probability in [0,1]. Invalid) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 497.0 Td (JSON, answer letters, or probabilities were recorded as failures. A verifier was called only) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 484.0 Td (when the generator's answer letter could be parsed. Invalid generator answers count as incorrect) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 471.0 Td (in answer accuracy; rows without valid confidence are omitted from probability forecast metrics.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 444.0 Td (How the Brier scores were calculated) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 423.0 Td (For every held-out item with a valid generator answer and confidence, let p_i be the probability) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 410.0 Td (being evaluated and let y_i equal 1 when that selected answer matches the GPQA answer key, or 0) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 397.0 Td (otherwise. The Brier score is the mean squared probability error: Brier = \(1/N\) sum_i \(p_i -) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 384.0 Td (y_i\)^2. A forecast of 0.95 scores \(0.95-1\)^2 = 0.0025 when correct, and \(0.95-0\)^2 = 0.9025 when) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 371.0 Td (incorrect. Lower scores are better.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 354.0 Td (The generator Brier score of 0.0730 is computed directly from its reported p_correct values,) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 341.0 Td (before verification, over 77 held-out questions. Each raw verifier Brier score instead uses that) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 328.0 Td (verifier's reported p_correct for the fixed candidate. Each posterior Brier score uses the) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 315.0 Td (confidence after applying the calibration-set update. All these scores use the same answer-key) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 302.0 Td (outcome definition. Invalid generator JSON has no valid probability and is not included in Brier) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 289.0 Td (calculations, although it counts as an incorrect/invalid answer for accuracy.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 262.0 Td (Calibration and Bayesian combination) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 241.0 Td (For each verifier separately, calibration items with a valid generator answer and confidence) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 228.0 Td (were labeled by whether the selected answer matched the shuffled correct-answer position. The) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 215.0 Td (verifier's numeric score was placed into one of three equal-width bins over [0,1]. From) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 202.0 Td (calibration data, the pipeline estimated P\(score bin | correct\) and P\(score bin | incorrect\),) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 189.0 Td (adding one Laplace pseudo-count to each bin in each class.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 172.0 Td (For generator confidence p and verifier score s in bin b, the posterior was computed as:) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 155.0 Td (P\(correct | b\) = p P\(b | correct\) / [p P\(b | correct\) + \(1-p\) P\(b | incorrect\)].) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 138.0 Td (The generator's stated confidence is the prior. Calibration estimates the verifier's likelihood) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 125.0 Td (signal; it does not directly replace the generator's answer or fit a more flexible neural model.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 112.0 Td (Exact generator probabilities of zero or one cannot be changed by a Bayesian update.) Tj ET
+0.45 0.45 0.45 rg BT /F1 8 Tf 54 34 Td (GPQA 200-question verification experiment | 2) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 5990 >>
+stream
+0 0 0 rg BT /F1 9.6 Tf 54 738.0 Td (For the two-verifier result, the pipeline updated the generator prior first with Verifier 1 and) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 725.0 Td (then with Verifier 2, using each verifier's separately fitted likelihood table. This sequential) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 712.0 Td (product assumes conditional independence of the verifier signals given correctness. That) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 699.0 Td (assumption is not established. In the full sample, generator and Verifier 2 residual scores were) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 686.0 Td (strongly associated \(correlation about 0.78\), so the combined result should be treated as) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 673.0 Td (exploratory. The runner collected both verifiers for all parseable candidate answers; the) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 660.0 Td (sequential-stopping policy is a counterfactual analysis of those signals, not a reduction in) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 647.0 Td (actual collection calls.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 630.0 Td (Numerical example from the fitted calibration tables: for a generator prior p=0.95 and Verifier) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 617.0 Td (1 score 0, the score falls in the first bin. Calibration estimated P\(bin | correct\)=0.327 and) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 604.0 Td (P\(bin | incorrect\)=0.267, giving an updated probability of about 0.959. The Verifier 1 signal) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 591.0 Td (changes this prior very little. For the same p=0.95 and Verifier 2 score 0, the corresponding) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 578.0 Td (estimates were 0.046 and 0.267; the updated probability is about 0.766. These are fitted) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 565.0 Td (examples, not a claim that either score or update is reliable for an individual question.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 538.0 Td (Relation to the Green-Laffont algorithm) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 517.0 Td (The project specification cites Sections 2.4-2.5 of green-laffont.pdf for noise-corrected) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 504.0 Td (confidence elicitation and nested sequential verification. That PDF was not present in the) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 491.0 Td (repository, so this is a correspondence to the algorithm as summarized in the project) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 478.0 Td (specification, not a line-by-line audit of the paper.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 461.0 Td (The implemented pilot corresponds to these operational steps: start from a probability that the) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 448.0 Td (fixed candidate answer is correct; model each verifier output as a noisy signal whose) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 435.0 Td (distribution depends on whether that candidate is correct; update the belief by Bayes' rule; and) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 422.0 Td (compare stopping against paying for another verifier. The routing code computes a) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 409.0 Td (dynamic-programming value recursion over answer, abstain, or query actions, using the configured) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 396.0 Td (reward R, incorrect-answer loss L, and verifier costs. Its release threshold after observations) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 383.0 Td (is L/\(R+L\).) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 366.0 Td (In simplified notation, the stopping value is S\(p\)=max\(0, pR-\(1-p\)L\), where 0 is abstention. At) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 353.0 Td (verifier stage k, the continuation value is C_k\(p\)=-c_k+sum_z P\(z|p\)V_{k+1}\(Bayes\(p,z\)\); the) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 340.0 Td (policy takes the larger of S\(p\) and C_k\(p\). The implementation discretizes posterior beliefs for) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 327.0 Td (memoized recursion. This value calculation is evaluated after responses have been collected, so) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 314.0 Td (it does not currently control live API calls.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 297.0 Td (The experiment does not implement the paper's complete mechanism or test its) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 284.0 Td (incentive-compatibility claim. It does not train strategic agents to report confidence under) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 271.0 Td (payments, does not implement noise-corrected elicitation/payment rules, and does not test a) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 258.0 Td (terminal audit. Instead, confidence and verifier scores are ordinary prompted text from frozen) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 245.0 Td (models, while answer-key correctness is used offline for calibration and evaluation. Both) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 232.0 Td (verifiers were collected for every parseable answer; dynamic-programming stopping and query) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 219.0 Td (savings are counterfactual policy analyses. The likelihood update for two verifier signals also) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 206.0 Td (uses a naive conditional-independence approximation, which the measured dependence cautions) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 193.0 Td (against.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 166.0 Td (Results) Tj ET
+0.10 0.22 0.36 rg BT /F2 11 Tf 54 140.0 Td (Answer and parse outcomes) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 125.0 Td (Across all 200 sampled items, 176 answers were correct \(88.0%\) and 24 were incorrect or invalid.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 112.0 Td (The generator response parser accepted 196 responses and rejected four as invalid JSON \(2.0%\).) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 99.0 Td (The calibration partition had 107 correct answers out of 120; one generator response was invalid) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 86.0 Td (JSON. The evaluation partition had 69 correct answers out of 80; three generator responses were) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 73.0 Td (invalid JSON. Evaluation answer accuracy had a Wilson 95% interval of 77.0%-92.1%.) Tj ET
+0.45 0.45 0.45 rg BT /F1 8 Tf 54 34 Td (GPQA 200-question verification experiment | 3) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 5541 >>
+stream
+0.10 0.22 0.36 rg BT /F2 11 Tf 54 733.0 Td (Calibration data) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 718.0 Td (Verifier 1 had 119 usable calibration records: 107 correct and 12 incorrect. Verifier 2 had 118:) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 705.0 Td (106 correct and 12 incorrect; one additional verifier response was invalid JSON. Twelve) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 692.0 Td (incorrect examples per verifier provide limited information for estimating error-conditioned) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 679.0 Td (score likelihoods.) Tj ET
+0.10 0.22 0.36 rg BT /F2 11 Tf 54 657.0 Td (Held-out forecast metrics) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 642.0 Td (Among the 77 evaluation items with valid generator confidence, the generator's Brier score was) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 629.0 Td (0.0730 \(bootstrap 95% interval 0.0294-0.1236\), log loss 0.2575 \(0.1149-0.4180\), ECE 0.0442, and) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 616.0 Td (AUROC 0.844 \(0.675-0.978\).) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 599.0 Td (After Verifier 1, Brier score was 0.0737 and log loss 0.2635. The paired change versus generator) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 586.0 Td (confidence was +0.00068 for Brier \(95% interval -0.00047 to +0.00247\) and +0.00602 for log loss) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 573.0 Td (\(-0.00247 to +0.01530\). Neither change is distinguishable from zero in this sample.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 556.0 Td (After Verifier 2, Brier score was 0.0682 and log loss 0.2542. The paired changes were -0.00475) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 543.0 Td (for Brier \(95% interval -0.02293 to +0.00964\) and -0.00329 for log loss \(-0.04832 to +0.03404\).) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 530.0 Td (These intervals also include zero.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 513.0 Td (After sequentially applying both verifier signals, Brier score was 0.0679 and log loss 0.2592.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 500.0 Td (Brier was modestly lower than the generator's 0.0730, while log loss was modestly higher than) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 487.0 Td (0.2575. This comparison depends on the unverified conditional-independence assumption, and there) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 474.0 Td (is no paired confidence interval for this combined change in the report.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 457.0 Td (Verifier 1 raw evaluation scores were extreme: 28 of 77 were zero and 49 were one. Its raw Brier) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 444.0 Td (score was 0.364 and raw log loss 13.107. Verifier 2 raw Brier score was 0.091, log loss 3.277,) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 431.0 Td (ECE 0.090, and AUROC 0.668. These are diagnostics of the raw self-reports, before the) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 418.0 Td (calibration likelihood update.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 391.0 Td (Usage, artifacts, and validation) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 370.0 Td (The run logged 200 generator responses, 196 Verifier 1 responses, and 196 Verifier 2 responses) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 357.0 Td (\(592 responses total\). The four generator parse failures received no verifier calls. Logged) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 344.0 Td (token totals were approximately 53,535 generator prompt tokens, 4,436 completion tokens, and) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 331.0 Td (110,104 reasoning tokens; 61,758 prompt and 1,960 completion tokens for Verifier 1; and 54,563) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 318.0 Td (prompt, 2,953 completion, and 81,198 reasoning tokens for Verifier 2. Billing cost is not) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 305.0 Td (estimated here.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 288.0 Td (The run ID is a5d92086584910dbe156297b5c1083bb8bf47765670b46a0dfc1b7ddc49cbce7. Artifacts are) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 275.0 Td (under results/gpqa/a5d92086584910dbe156297b5c1083bb8bf47765670b46a0dfc1b7ddc49cbce7, including) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 262.0 Td (pilot_records.jsonl, pilot_metrics.json, run_manifest.json, and per-model call logs. The pinned) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 249.0 Td (sample manifest is data/gpqa/sample_200.json. The synthetic software test suite passed 107 tests) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 236.0 Td (with 15 skipped; those tests validate pipeline behavior and do not demonstrate real verifier) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 223.0 Td (calibration.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 196.0 Td (Limitations and next step) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 175.0 Td (The evaluation contains only 80 questions and 11 incorrect or invalid answers. The calibration) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 162.0 Td (set contains only 12 valid incorrect outcomes per verifier. These sizes leave substantial) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 149.0 Td (uncertainty, especially for verifier likelihood estimates and tail probabilities. The) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 136.0 Td (generator's probabilities are self-reported and clustered toward high confidence; verifier 1's) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 123.0 Td (raw scores are nearly binary. The combined update relies on a conditional-independence) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 110.0 Td (assumption contradicted by observed score dependence. The public benchmark may also have) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 97.0 Td (appeared in model training data. Results support feasibility diagnostics only; they do not show) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 84.0 Td (reliable calibration, incentive compatibility, or transfer to new tasks.) Tj ET
+0.45 0.45 0.45 rg BT /F1 8 Tf 54 34 Td (GPQA 200-question verification experiment | 4) Tj ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 623 >>
+stream
+0 0 0 rg BT /F1 9.6 Tf 54 738.0 Td (A stronger follow-up should pre-register the calibration procedure and evaluation measures, then) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 725.0 Td (evaluate once on a larger untouched question pool or another non-overlapping dataset. It should) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 712.0 Td (preserve the held-out split from all prompt, threshold, and model selection, assess verifier) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 699.0 Td (dependence explicitly, and use immutable model versions where available.) Tj ET
+0.45 0.45 0.45 rg BT /F1 8 Tf 54 34 Td (GPQA 200-question verification experiment | 5) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+xref
+0 16
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000148 00000 n 
+0000000245 00000 n 
+0000000347 00000 n 
+0000000518 00000 n 
+0000005417 00000 n 
+0000005553 00000 n 
+0000010889 00000 n 
+0000011025 00000 n 
+0000017068 00000 n 
+0000017206 00000 n 
+0000022800 00000 n 
+0000022938 00000 n 
+0000023613 00000 n 
+trailer
+<< /Size 16 /Root 1 0 R /Info 5 0 R >>
+startxref
+23751
+%%EOF

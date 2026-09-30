@@ -18,6 +18,9 @@ dependencies = [
     # PubMedQA ships as parquet. Declared here, not installed ad hoc: `uv run`
     # re-syncs from this file, so an ad-hoc install is dropped on the next call.
     "pyarrow>=15",
+    # Vertex AI requests use the VM's user-managed ADC file; gcloud's active
+    # account can be a differently scoped Compute Engine service identity.
+    "google-auth[requests]>=2.35",
 ]
 
 [project.optional-dependencies]

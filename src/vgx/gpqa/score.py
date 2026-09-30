@@ -158,11 +158,12 @@ class SequentialDecision:
     posterior: float
     verifiers_used: int
     expected_value_at_start: float
+    failure: str | None = None
 
 
 def simulate_sequential_decision(
     prior: float,
-    scores: list[float],
+    scores: list[float | None],
     likelihoods: list[VerifierLikelihood],
     costs: list[float],
     correct_reward: float,
@@ -217,6 +218,11 @@ def simulate_sequential_decision(
                 )
         if stop >= continuation:  # prefer stopping in a tie
             break
+        if score is None:
+            # A requested but unparseable observation still costs a call.
+            return SequentialDecision(
+                "abstain", belief, used + 1, expected_start, "missing_verifier_score"
+            )
         belief = model.posterior(belief, score)
         used += 1
 

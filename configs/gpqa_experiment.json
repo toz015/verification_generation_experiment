@@ -1,24 +1,31 @@
 {
   "dataset": "gpqa_main",
   "source_file": "data/gpqa/gpqa_main.csv",
-  "manifest": "data/gpqa/sample_50.json",
-  "sample_size": 50,
+  "manifest": "data/gpqa/sample_200.json",
+  "sample_size": 200,
   "seed": 20260928,
-  "calibration_size": 30,
+  "calibration_size": 120,
+  "inference": {
+    "provider": "vertex_ai",
+    "project_id": "llm-applications-490420",
+    "model_locations": {
+      "google/gemini-3.8-flash": "global",
+      "meta/llama-3.3-70b-instruct-maas": "us-central1",
+      "google/gemini-3.7-flash": "global"
+    }
+  },
   "models": {
-    "generator": "Qwen/Qwen3-8B",
+    "generator": "google/gemini-3.8-flash",
     "verifiers": [
-      "meta-llama/Llama-3.1-8B-Instruct",
-      "Qwen/Qwen3-8B"
+      "meta/llama-3.3-70b-instruct-maas",
+      "google/gemini-3.7-flash"
     ]
   },
   "generation": {
-    "max_model_len": 8192,
-    "max_tokens": 256,
-    "dtype": "bfloat16",
+    "max_tokens": 1024,
     "temperature": 0.0,
-    "seed": 0,
-    "max_num_seqs": 16
+    "top_p": 1.0,
+    "reasoning_effort": "low"
   },
   "routing_scenarios": [
     {
@@ -31,7 +38,10 @@
       "name": "error_sensitive_low_query_cost",
       "correct_reward": 1.0,
       "incorrect_loss": 4.0,
-      "verifier_costs": [0.02, 0.02]
+      "verifier_costs": [
+        0.02,
+        0.02
+      ]
     },
     {
       "name": "error_sensitive_high_query_cost",
@@ -39,5 +49,6 @@
       "incorrect_loss": 4.0,
       "verifier_costs": [0.10, 0.10]
     }
-  ]
+  ],
+  "hardware_profile": "vertex_ai_managed_api"
 }

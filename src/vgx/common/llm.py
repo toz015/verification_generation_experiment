@@ -15,14 +15,14 @@ and a crashed run resumes instead of regenerating from scratch.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import time
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from pathlib import Path
 from typing import Any, Iterator
 
-# Greedy decoding: results are deterministic, so a difference between two runs
-# is a real difference and not a resample.
+# Default decoding settings. Hardware/batching can still affect reproducibility.
 SAMPLING = {"temperature": 0.0, "top_p": 1.0, "seed": 0}
 
 
@@ -111,6 +111,11 @@ class BatchRunner:
         gpu_memory_utilization: float = 0.90,
         max_num_seqs: int = 32,
         chat_template_kwargs: dict[str, Any] | None = None,
+        temperature: float = 0.0,
+        top_p: float = 1.0,
+        seed: int = 0,
+        revision: str | None = None,
+        tokenizer_revision: str | None = None,
     ):
         self.model = model
         self.max_tokens = max_tokens
@@ -125,12 +130,34 @@ class BatchRunner:
         # Qwen3 turns on chain-of-thought in its chat template by default and
         # wraps every reply in <think> tags. Left enabled it would burn the
         # token budget on reasoning and bury the answer, so callers disable it
-        # here; the parser also strips the tags as a second line of defence.
+        # here when the caller requests it.
         self.chat_template_kwargs = chat_template_kwargs or {}
+        self.sampling = {"temperature": temperature, "top_p": top_p, "seed": seed}
+        self.revision = revision
+        self.tokenizer_revision = tokenizer_revision or revision
 
     @property
     def params(self) -> dict[str, Any]:
-        return {**SAMPLING, "max_tokens": self.max_tokens}
+        return {**self.sampling, "max_tokens": self.max_tokens}
+
+    @property
+    def identity(self) -> dict[str, Any]:
+        """Everything that controls a model call, including template behavior."""
+        return {
+            "schema": 2, "model": self.model, "revision": self.revision,
+            "tokenizer_revision": self.tokenizer_revision, "sampling": self.params,
+            "dtype": self.dtype, "max_model_len": self.max_model_len,
+            "gpu_memory_utilization": self.gpu_memory_utilization,
+            "max_num_seqs": self.max_num_seqs,
+            "chat_template_kwargs": self.chat_template_kwargs,
+        }
+
+    def cache_key(self, request: Request) -> str:
+        payload = {"runner": self.identity, "request": asdict(request)}
+        digest = hashlib.sha256(json.dumps(
+            payload, sort_keys=True, separators=(",", ":"), allow_nan=False
+        ).encode()).hexdigest()
+        return f"{request.key}|sha256:{digest}"
 
     def run(self, requests: list[Request], log: CallLog) -> dict[str, str]:
         """Generate every pending request in one batch. Returns {key: response}.
@@ -138,9 +165,16 @@ class BatchRunner:
         Requests already present in the log are skipped, so re-running after a
         crash costs only what was not finished.
         """
-        pending = [r for r in requests if not log.has(r.key)]
+        if len({r.key for r in requests}) != len(requests):
+            raise ValueError("request keys must be unique within a batch")
+        keyed = {r.key: self.cache_key(r) for r in requests}
+        pending = [replace(r, key=keyed[r.key], meta={
+            **r.meta, "logical_key": r.key, "system": r.system,
+            "runner_identity": self.identity,
+        }) for r in requests if not log.has(keyed[r.key])]
         if not pending:
-            return log.responses()
+            responses = log.responses()
+            return {key: responses[cache_key] for key, cache_key in keyed.items()}
 
         # Imported here, not at module scope: vllm needs CUDA and is absent on
         # the development machine.
@@ -152,8 +186,10 @@ class BatchRunner:
             max_model_len=self.max_model_len,
             gpu_memory_utilization=self.gpu_memory_utilization,
             max_num_seqs=self.max_num_seqs,
+            revision=self.revision,
+            tokenizer_revision=self.tokenizer_revision,
         )
-        sampling = SamplingParams(max_tokens=self.max_tokens, **SAMPLING)
+        sampling = SamplingParams(**self.params)
 
         conversations = [
             ([{"role": "system", "content": r.system}] if r.system else [])
@@ -187,4 +223,6 @@ class BatchRunner:
                 )
             )
 
-        return log.responses()
+        responses = log.responses()
+        return {key: responses[cache_key] for key, cache_key in keyed.items()
+                if cache_key in responses}

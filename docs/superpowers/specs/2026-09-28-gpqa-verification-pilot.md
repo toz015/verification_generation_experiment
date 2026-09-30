@@ -1,7 +1,7 @@
 # GPQA Confidence and Verification Pilot
 
 **Date:** 2026-09-28
-**Status:** Revised draft for a 50-question pilot
+**Status:** Original 50-question design; expanded execution documented below
 **Parent project:** Reference-Aware Selective Generation for Scientific QA
 
 ## 1. Goal
@@ -141,3 +141,30 @@ After GPQA demonstrates the pipeline:
 - Rein et al., [GPQA: A Graduate-Level Google-Proof Q&A Benchmark](https://arxiv.org/abs/2311.12022); [official dataset card](https://huggingface.co/datasets/Idavidrein/gpqa).
 - Chen et al., [Incentivizing Truthful Language Models via Peer Elicitation Games](https://github.com/toz015/neurips2025-repo), including the GPQA initial-policy notebook.
 - `green-laffont.pdf`, Sections 2.4-2.5, for noise-corrected confidence elicitation and nested sequential verification.
+
+## Offline validation/reporting update (2026-09-29)
+
+The original design above specified 50 questions with a 30/20 split. The
+subsequent completed execution expanded this to 200 questions, with 120
+calibration and 80 held-out evaluation items; the active settings are in
+[`configs/gpqa_experiment.json`](../../../configs/gpqa_experiment.json), and
+aggregate results are in `reports/gpqa_200_question_experiment_report.pdf`.
+Synthetic tests retain the original 50/30/20 split as a fixture. See the
+repository [README](../../../README.md) for executable offline tests, reporting conventions,
+missing-input policy, and remaining real-data requirements. `vgx.gpqa.report`
+rescores saved records without loading models. Synthetic fixtures verify software
+behavior only and provide no evidence of real verifier calibration.
+
+Reports now include full-sample and partition summaries, a calibration-only
+base-rate baseline and logistic verifier comparison, uncertainty intervals,
+likelihood-bootstrap stability, risk–coverage tables, dependence diagnostics,
+and matched forecast/utility/cost differences. Policy denominators retain all
+evaluation items and disclose fallback abstentions and attempted-query costs.
+Confidence-only thresholds remain fixed utility thresholds, not fitted thresholds.
+Raw-prior/independence posterior results are exploratory; dependence-aware
+routing and a calibrated generator prior remain follow-up choices to preregister.
+
+Collection requires pinned model/tokenizer commits in `model_revisions` and
+writes content-addressed run manifests and response caches. Null revision values
+in the config are intentional preflight blockers, not invented revision pins.
+No model inference or real GPQA pilot was performed for this patch.
