@@ -1,0 +1,32 @@
+{
+  "accounting_fix": "Stable execution ordering removes cross-process float-sum drift; report reproduction verified after fix.",
+  "all_returned_models_match_pin": true,
+  "calibration_completed_before_evaluation_calls": true,
+  "confirmed_billing_usd": null,
+  "credential_absent_from_call_logs": true,
+  "distinct_request_keys": 884,
+  "estimated_jev_usd": 0.022403220000000005,
+  "live_replay_matched_n": {
+    "choice_only": 196,
+    "choice_then_gemini_secondary": 196,
+    "noul_only_secondary": 196
+  },
+  "new_generator_or_vertex_calls": 0,
+  "offline_resume_report_identical": true,
+  "offline_resume_zero_provider_attempts": true,
+  "policies_frozen_before_evaluation_calls": true,
+  "rejected_attempt_records": 0,
+  "report_sha256": "ac4adf1ef40109e95ec8264317ca919b1391319f4201cefb8ba8b9ffb5722321",
+  "software_tests": {
+    "passed": 209,
+    "skipped": 4,
+    "warning_count": 1
+  },
+  "source_vertex_report_unchanged": true,
+  "strict_parser_choice_failures": {
+    "calibration": 7,
+    "evaluation": 1
+  },
+  "successful_jev_calls": 884,
+  "unresolved_attempts": []
+}

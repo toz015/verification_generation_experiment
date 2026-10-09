@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from functools import lru_cache
 
 import numpy as np
 from sklearn.metrics import log_loss, roc_auc_score
@@ -109,7 +108,9 @@ class VerifierLikelihood:
         index = self.bin_index(score)
         numerator = prior * self.p_bin_if_correct[index]
         denominator = numerator + (1.0 - prior) * self.p_bin_if_incorrect[index]
-        return numerator / denominator if denominator else prior
+        if denominator <= 0:
+            raise ValueError("zero predictive likelihood")
+        return numerator / denominator
 
 
 def fit_verifier_likelihood(
@@ -169,63 +170,11 @@ def simulate_sequential_decision(
     correct_reward: float,
     incorrect_loss: float,
 ) -> SequentialDecision:
-    """Replay nested optimal stopping for already-collected verifier scores.
+    """Offline replay using the same value tables and decisions as live execution."""
+    from vgx.gpqa.planner import NestedPlanner
 
-    This computes the policy's counterfactual query count. The runner currently
-    collects all verifier signals to support calibration and paired policy
-    comparisons; that collection cost is not itself reduced by this replay.
-    """
-    if not 0.0 <= prior <= 1.0:
-        raise ValueError("prior must be in [0, 1]")
-    if len(scores) != len(likelihoods) or len(costs) != len(likelihoods):
-        raise ValueError("scores, costs, and verifier likelihoods must have equal lengths")
-    if correct_reward <= 0 or incorrect_loss <= 0:
-        raise ValueError("correct_reward and incorrect_loss must be positive")
-    if any(cost < 0 for cost in costs):
-        raise ValueError("verifier costs must be nonnegative")
-
-    def stop_value(belief: float) -> float:
-        return max(0.0, (correct_reward + incorrect_loss) * belief - incorrect_loss)
-
-    @lru_cache(maxsize=None)
-    def value(stage: int, belief_key: int) -> float:
-        belief = belief_key / 1_000_000_000
-        stop = stop_value(belief)
-        if stage == len(likelihoods):
-            return stop
-        model = likelihoods[stage]
-        continuation = -costs[stage]
-        for p1, p0 in zip(model.p_bin_if_correct, model.p_bin_if_incorrect):
-            probability = belief * p1 + (1.0 - belief) * p0
-            if probability == 0:
-                continue
-            updated = belief * p1 / probability
-            continuation += probability * value(stage + 1, round(updated * 1_000_000_000))
-        return max(stop, continuation)
-
-    expected_start = value(0, round(prior * 1_000_000_000))
-    belief = prior
-    used = 0
-    for stage, (model, score) in enumerate(zip(likelihoods, scores)):
-        stop = stop_value(belief)
-        continuation = -costs[stage]
-        for p1, p0 in zip(model.p_bin_if_correct, model.p_bin_if_incorrect):
-            probability = belief * p1 + (1.0 - belief) * p0
-            if probability > 0:
-                updated = belief * p1 / probability
-                continuation += probability * value(
-                    stage + 1, round(updated * 1_000_000_000)
-                )
-        if stop >= continuation:  # prefer stopping in a tie
-            break
-        if score is None:
-            # A requested but unparseable observation still costs a call.
-            return SequentialDecision(
-                "abstain", belief, used + 1, expected_start, "missing_verifier_score"
-            )
-        belief = model.posterior(belief, score)
-        used += 1
-
-    threshold = incorrect_loss / (correct_reward + incorrect_loss)
-    action = "assert" if belief >= threshold else "abstain"
-    return SequentialDecision(action, belief, used, expected_start)
+    planner = NestedPlanner(likelihoods, costs, correct_reward, incorrect_loss)
+    result = planner.replay(prior, scores)
+    return SequentialDecision(**{key: result[key] for key in (
+        "action", "posterior", "verifiers_used", "expected_value_at_start", "failure"
+    )})

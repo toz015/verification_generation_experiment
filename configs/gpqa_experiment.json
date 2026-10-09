@@ -14,6 +14,17 @@
       "google/gemini-3.7-flash": "global"
     }
   },
+  "api_pricing": {
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "checked_on": "2026-10-04",
+    "tier": "standard_pay_as_you_go",
+    "note": "Gemini 3.8/3.7 introductory standard rates are listed through 2026-12-31; verify rates before later runs.",
+    "usd_per_million_tokens": {
+      "google/gemini-3.8-flash": {"input": 0.75, "output": 3.75, "cached_input": 0.075},
+      "meta/llama-3.3-70b-instruct-maas": {"input": 0.72, "output": 0.72},
+      "google/gemini-3.7-flash": {"input": 0.75, "output": 3.75, "cached_input": 0.075}
+    }
+  },
   "models": {
     "generator": "google/gemini-3.8-flash",
     "verifiers": [

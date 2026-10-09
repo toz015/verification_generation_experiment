@@ -22,6 +22,8 @@ from dataclasses import asdict, dataclass, field, replace
 from pathlib import Path
 from typing import Any, Iterator
 
+from vgx.common.storage import append_jsonl
+
 # Default decoding settings. Hardware/batching can still affect reproducibility.
 SAMPLING = {"temperature": 0.0, "top_p": 1.0, "seed": 0}
 
@@ -75,8 +77,7 @@ class CallLog:
         return key in self._done
 
     def append(self, call: Call) -> None:
-        with self.path.open("a") as fh:
-            fh.write(json.dumps(asdict(call)) + "\n")
+        append_jsonl(self.path, asdict(call))
         if call.error is None:
             self._done.add(call.key)
 

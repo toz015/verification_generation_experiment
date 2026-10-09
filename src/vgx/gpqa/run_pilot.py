@@ -1,11 +1,11 @@
-"""Collect the pinned 50-question GPQA pilot using local models.
+"""Historical pilot helpers and the frozen-candidate workflow entry point.
 
-Requires an authorized local source file and immutable model revisions. For
-scoring existing records without inference, use ``vgx.gpqa.report`` instead.
+This CLI now requires an existing validated frozen bundle. It never collects
+new generator answers. The injected collect_records helper remains available
+for synthetic regression tests and historical code readers.
 """
 from __future__ import annotations
 
-import argparse
 from dataclasses import asdict
 import hashlib
 from importlib.metadata import PackageNotFoundError, version
@@ -14,12 +14,10 @@ from pathlib import Path
 import re
 import subprocess
 
-from vgx.common.llm import BatchRunner, CallLog, Request
-from vgx.common.vertex import VertexBatchRunner
+from vgx.common.llm import BatchRunner, Request
 from vgx.gpqa.load import (DEFAULT_SEED, PilotSplit, load_items_excluding_duplicate_choices,
                            prepare_pilot, restore_pilot, write_manifest)
 from vgx.gpqa.prompt import SYSTEM, build_generator_prompt, build_verifier_prompt, parse_generator_response, parse_verifier_response
-from vgx.gpqa.report import build_report
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 CONFIG_PATH = REPO_ROOT / "configs" / "gpqa_experiment.json"
@@ -69,13 +67,15 @@ def _runner(model: str, generation: dict, revision: str | None = None) -> BatchR
 
 
 def run_identity(config: dict, split: PilotSplit, limit: int | None = None) -> tuple[str, dict]:
-    """Content identity for source/split, prompts, code, settings, and libraries.
+    """Historical analysis identity, retained for manifest/regression tooling.
 
     Hash source content rather than writing question text into the run manifest.
-    Actual rendered prompts additionally enter each request's cache identity.
+    This identity no longer selects the provider-response cache directory.
+    Shared provider request identities live in vgx.common.api independently.
     """
     files = [*Path(__file__).parent.glob("*.py"), Path(__file__).parents[1]/"common"/"llm.py",
-             Path(__file__).parents[1]/"common"/"vertex.py"]
+             Path(__file__).parents[1]/"common"/"vertex.py",
+             Path(__file__).parents[1]/"common"/"billing.py"]
     code_hashes = {str(p.relative_to(REPO_ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                    for p in sorted(files)}
     libraries = {}
@@ -147,43 +147,8 @@ def collect_records(split: PilotSplit, config: dict, run_model, limit: int | Non
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--limit", type=int, default=None, help="operational smoke collection only; not evaluation")
-    args = parser.parse_args()
-    config = load_config()
-    if config.get("inference", {}).get("provider") != "vertex_ai":
-        raise ValueError("this collector is configured for inference.provider='vertex_ai'")
-    locations = config["inference"].get("model_locations", {})
-    configured_models = {config["models"]["generator"], *config["models"]["verifiers"]}
-    if configured_models - locations.keys():
-        raise ValueError(f"missing Vertex model locations for: {sorted(configured_models-locations.keys())}")
-    split = load_split(config)
-    run_id, manifest = run_identity(config, split, args.limit)
-    directory = RESULTS_DIR/run_id
-    directory.mkdir(parents=True, exist_ok=True)
-    (directory/"run_manifest.json").write_text(json.dumps({"run_id": run_id, **manifest}, indent=2)+"\n")
-
-    def run_model(model, requests, tag):
-        generation = config["generation"]
-        runner = VertexBatchRunner(
-            model=model,
-            location=locations[model],
-            project=config["inference"]["project_id"],
-            max_tokens=generation["max_tokens"],
-            temperature=generation.get("temperature", 0.0),
-            top_p=generation.get("top_p", 1.0),
-            reasoning_effort=generation.get("reasoning_effort", "low"),
-        )
-        return runner.run(requests, CallLog(directory/f"{tag}.jsonl"))
-
-    records = collect_records(split, config, run_model, args.limit)
-    output = directory/"pilot_records.jsonl"
-    output.write_text("".join(json.dumps(r, allow_nan=False)+"\n" for r in records))
-    summary = build_report(records, config)
-    summary["run_id"] = run_id
-    summary["operational_smoke_only"] = args.limit is not None
-    (directory/"pilot_metrics.json").write_text(json.dumps(summary, indent=2, allow_nan=False)+"\n")
-    print(f"records: {output}\nmetrics: {directory / 'pilot_metrics.json'}")
+    from vgx.gpqa.workflow import main as frozen_main
+    frozen_main()
 
 
 if __name__ == "__main__":

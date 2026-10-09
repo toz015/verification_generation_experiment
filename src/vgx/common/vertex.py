@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import json
-import time
+from dataclasses import replace
 from typing import Any
 
-from vgx.common.llm import Call, CallLog, Request
+from vgx.common.llm import CallLog, Request
+from vgx.common.api import execute_request, request_key
 
 
 def _get_adc_token(project: str) -> str:
@@ -60,7 +61,7 @@ class VertexBatchRunner:
             "reasoning_effort": self.reasoning_effort if self.model.startswith("google/gemini-3") else None,
         }
 
-    def cache_key(self, request: Request) -> str:
+    def legacy_cache_key(self, request: Request) -> str:
         import hashlib
         from dataclasses import asdict
 
@@ -77,84 +78,65 @@ class VertexBatchRunner:
             "/endpoints/openapi/chat/completions"
         )
 
+    @property
+    def params(self) -> dict:
+        params = {"max_tokens": self.max_tokens}
+        if self.model.startswith("google/gemini-3"):
+            params["reasoning_effort"] = self.reasoning_effort
+        else:
+            params.update(temperature=self.temperature, top_p=self.top_p)
+        return params
+
+    def cache_key(self, request: Request) -> str:
+        return request_key(self.identity, request)
+
+    def request_body(self, request: Request) -> dict:
+        messages = ([{"role": "system", "content": request.system}] if request.system else [])
+        messages.append({"role": "user", "content": request.prompt})
+        return {"model": self.model, "messages": messages, "stream": False, **self.params}
+
+    @staticmethod
+    def response_text(result: dict) -> str:
+        try:
+            content = result["choices"][0]["message"]["content"]
+            return content if isinstance(content, str) else ""
+        except (KeyError, IndexError, TypeError):
+            return ""
+
     def run(self, requests_to_run: list[Request], log: CallLog) -> dict[str, str]:
         if len({r.key for r in requests_to_run}) != len(requests_to_run):
             raise ValueError("request keys must be unique within a batch")
-        keyed = {r.key: self.cache_key(r) for r in requests_to_run}
-        pending = [(r, keyed[r.key]) for r in requests_to_run if not log.has(keyed[r.key])]
-        if pending:
+        outputs = {}
+        for request in requests_to_run:
+            cached = log.responses().get(self.cache_key(request))
+            if cached is not None:
+                outputs[request.key] = cached
+                continue
             import requests
-
-            # Keep the short-lived credential in memory only; never log or print it.
+            # Resolve authentication before marking a provider attempt started.
             token = _get_adc_token(self.project)
             session = requests.Session()
-            for request, cache_key in pending:
-                messages = ([{"role": "system", "content": request.system}] if request.system else [])
-                messages.append({"role": "user", "content": request.prompt})
-                body: dict[str, Any] = {
-                    "model": self.model,
-                    "messages": messages,
-                    "max_tokens": self.max_tokens,
-                    "stream": False,
-                }
-                if not self.model.startswith("google/gemini-3"):
-                    body.update(temperature=self.temperature, top_p=self.top_p)
-                else:
-                    body["reasoning_effort"] = self.reasoning_effort
-                started = time.time()
-                # Preserve completed calls in CallLog and retry only transient
-                # transport/server/rate-limit failures. The request cache key
-                # is unchanged across retries, so rerunning resumes safely.
-                for attempt in range(6):
-                    try:
-                        response = session.post(
-                            self._endpoint(),
-                            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
-                            json=body,
-                            timeout=300,
-                        )
-                    except requests.RequestException:
-                        if attempt == 5:
-                            raise
-                        time.sleep(min(60, 2 ** attempt))
-                        continue
-                    if response.status_code not in {429, 500, 502, 503, 504}:
-                        break
-                    if attempt == 5:
-                        break
-                    response.close()
-                    time.sleep(min(60, 2 ** attempt))
-                elapsed = time.time() - started
-                if not response.ok:
-                    raise RuntimeError(
-                        f"Vertex request for {self.model} failed with HTTP {response.status_code}"
-                    )
-                result = response.json()
+            body = self.request_body(request)
+
+            def send():
+                response = session.post(
+                    self._endpoint(), headers={"Authorization": f"Bearer {token}",
+                                               "x-goog-user-project": self.project,
+                                               "Content-Type": "application/json"},
+                    json=body, timeout=300,
+                )
                 try:
-                    content = result["choices"][0]["message"]["content"]
-                except (KeyError, IndexError, TypeError) as error:
-                    raise RuntimeError(f"Vertex returned an unexpected response for {self.model}") from error
-                if not isinstance(content, str):
-                    raise RuntimeError(f"Vertex returned non-text content for {self.model}")
-                params = {k: body[k] for k in ("max_tokens", "temperature", "top_p", "reasoning_effort") if k in body}
-                log.append(Call(
-                    key=cache_key,
-                    model=self.model,
-                    prompt=request.prompt,
-                    response=content,
-                    params=params,
-                    dtype="managed_api",
-                    latency_s=round(elapsed, 3),
-                    created=started,
-                    meta={
-                        **request.meta,
-                        "logical_key": request.key,
-                        "system": request.system,
-                        "runner_identity": self.identity,
-                        "provider_response_model": result.get("model"),
-                        "usage": result.get("usage"),
-                        "response_id": result.get("id"),
-                    },
-                ))
-        responses = log.responses()
-        return {key: responses[cache_key] for key, cache_key in keyed.items() if cache_key in responses}
+                    payload = response.json()
+                except ValueError:
+                    payload = {"invalid_response": True}
+                return response.status_code, payload
+
+            try:
+                billed_request = replace(request, meta={**request.meta,
+                    "resource_project": self.project, "quota_project": self.project})
+                call = execute_request(self, billed_request, log, send)
+                outputs[request.key] = call.response
+            finally:
+                if hasattr(session, "close"):
+                    session.close()
+        return outputs

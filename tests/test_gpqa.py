@@ -204,12 +204,15 @@ def test_synthetic_pipeline_report(records, config):
     assert result["complete_pilot"]
     assert [result[f"{s}_metrics"]["n"] for s in ("all", "calibration", "evaluation")] == [50, 30, 20]
     evaluation = result["evaluation_metrics"]
+    assert evaluation["actual_verifier_calls_collected"] is None
+    assert evaluation["full_collection_requests_if_uncached"] == 40
     assert evaluation["generator_confidence"]["ci95"]["brier"]["valid_resamples"] == 12
     assert evaluation["verifiers"]["verifier_1"]["posterior_minus_generator"]["n"] == 20
     assert evaluation["dependence"]["verifier_1|verifier_2"]["error_agreement_at_0.5"] == 1
     assert result["calibration"]["verifier_fits"]["verifier_1"]["bootstrap_stability"]["requested_resamples"] == 12
     for scenario in evaluation["routing_scenarios"].values():
         policies = scenario["policies"]
+        assert scenario["routing_solver"]["method"] == "linear_grid_tables"
         assert policies["query_one_verifier"]["mean_queries"] == 1
         assert policies["query_all_verifiers"]["mean_queries"] == 2
         assert policies["query_all_verifiers"]["mean_verification_cost"] > 0

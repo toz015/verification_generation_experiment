@@ -256,6 +256,8 @@ def _policy_report(rows, tags, likelihoods, scenario, repeats, seed):
                 },
             }
     return {"n": len(rows), "policies": report, "paired_differences": differences,
+            "routing_solver": {"method": "linear_grid_tables", "grid_size": 1001,
+                               "note": "Shared with live execution; historical pilot used a memoized recursion."},
             "assumes_conditional_independence": True,
             "prior": "raw generator confidence; not assumed calibrated",
             "utility_units": "normalized sensitivity analysis, not measured monetary cost",
@@ -277,7 +279,7 @@ def build_report(records, config, *, bootstrap_repeats=500, seed=20260928, synth
     base_rate = _mean([_outcome(r) for r in valid_calibration])
     likelihoods, fits, logistics = {}, {}, {}
     for tag in tags:
-        eligible = [r for r in calibration if r["generator_answer"] is not None
+        eligible = [r for r in calibration if _valid(r)
                     and r["verifiers"].get(tag, {}).get("p_correct") is not None]
         y = [_outcome(r) for r in eligible]
         p = [r["verifiers"][tag]["p_correct"] for r in eligible]
@@ -327,9 +329,10 @@ def build_report(records, config, *, bootstrap_repeats=500, seed=20260928, synth
             "endpoint_confidence_n": sum(v in (0, 1) for v in p),
             "generator_risk_coverage": risk_coverage(y, p, len(rows)),
             "dependence": dependence(rows, tags), "verifiers": {},
-            "actual_verifier_calls_collected": sum(r["generator_answer"] is not None for r in rows)*len(tags),
-            "actual_verifier_calls_collected_per_item": (
-                sum(r["generator_answer"] is not None for r in rows)*len(tags)/len(rows) if rows else None),
+            "actual_verifier_calls_collected": None,
+            "actual_verifier_calls_collected_per_item": None,
+            "actual_call_count_status": "requires provider execution logs; records alone do not establish actual calls",
+            "full_collection_requests_if_uncached": sum(r["generator_answer"] is not None for r in rows)*len(tags),
         }
         if base_rate is not None:
             section["base_rate_forecast"] = forecast(y, [base_rate]*len(y), bootstrap_repeats, seed)
