@@ -1,0 +1,177 @@
+{
+  "config": {
+    "alpha": {
+      "primary": 0.05,
+      "secondary": 0.1
+    },
+    "certification": {
+      "alternative_procedure": {
+        "chain_order": "thresholds from strictest to most lenient",
+        "name": "fixed-sequence within (generator, method) chains, Bonferroni across chains",
+        "status": "secondary; reported separately from the reference procedure"
+      },
+      "dry_run_partition": {
+        "fractions": {
+          "calibration": 0.33,
+          "evaluation": 0.33,
+          "fit": 0.34
+        },
+        "seed": 20261010,
+        "status": "software dry run on repeatedly inspected development data; not a certification and not prospective confirmation",
+        "unit": "question_id (shared by both generators)"
+      },
+      "family": {
+        "generators": [
+          "qwen",
+          "gemini"
+        ],
+        "methods": [
+          "A",
+          "B",
+          "C"
+        ],
+        "note": "Every (generator, method, threshold) rule is eligible for joint selection, so all count toward M.",
+        "order": "generator, then method A/B/C, then threshold ascending (declared before calibration labels)",
+        "thresholds": {
+          "A": [
+            0.95,
+            0.98,
+            0.99
+          ],
+          "B": [
+            0.95,
+            0.97,
+            0.98,
+            0.99,
+            0.995
+          ],
+          "C": [
+            0.95,
+            0.97,
+            0.98,
+            0.99,
+            0.995
+          ]
+        }
+      },
+      "no_rule_message": "No positive-coverage rule certified.",
+      "procedure": "exact one-sided binomial (Clopper-Pearson) upper bound per rule, Bonferroni over the full declared family",
+      "selection": "highest calibration acceptance rate m/N among certified rules",
+      "tie_breakers": [
+        "lower expected verifier cost per question (training-fit cost model)",
+        "declared family order"
+      ]
+    },
+    "cohorts": [
+      "all_calibration",
+      "remaining_calibration"
+    ],
+    "delta": 0.05,
+    "diamond_answer_keys_read": false,
+    "experiment": "risk_controlled_acceptance",
+    "exploration": {
+      "bootstrap_repeats": 2000,
+      "bootstrap_seed": 20261010,
+      "coverage_targets": [
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7
+      ],
+      "status": "exploratory: thresholds read from these curves are chosen on the same data and are not certified"
+    },
+    "frozen_settings": {
+      "correct_reward": 1.0,
+      "folds": 3,
+      "grid_size": 1001,
+      "laplace": 1.0,
+      "primary_incorrect_loss": 19.0,
+      "prior": "unmodified_generator_p_correct_including_endpoints",
+      "probability_bins": 3,
+      "returned_invalid_signals": "retain_and_abstain_if_queried",
+      "utility_per_usd": 10.0
+    },
+    "generators": [
+      "qwen",
+      "gemini"
+    ],
+    "methods": {
+      "A": "valid candidate; score = raw generator confidence",
+      "B": "valid candidate, Flash queried for every valid candidate; score = pooled-likelihood Bayes belief; malformed response is paid and not acceptable",
+      "C": "frozen sequential Flash policy (L = 19); only candidates it releases are eligible; score = terminal belief; its query and stopping rule are not re-optimized for the risk target"
+    },
+    "new_api_requests": 0,
+    "notes": [
+      "Raw generator confidence is used as given: no calibration, replacement or endpoint clipping.",
+      "Scores are selection scores; their numeric values are not assumed to equal empirical correctness probabilities.",
+      "Development cohorts (249 and 199 questions) overlap, and repeated folds and seeds re-split the same questions.",
+      "Diamond was used in historical experiments and is not described as globally untouched; no Diamond answer keys are read here.",
+      "Costs are counterfactual cached-call usage estimates, not confirmed billing."
+    ],
+    "objective": "maximize P(A) subject to P(W | A) <= alpha, certified with confidence 1 - delta; conditional error among accepted (released) answers",
+    "primary_generator": "qwen",
+    "rule_semantics": "accept iff the method makes the candidate eligible and its selection score >= threshold; ties at a threshold are all accepted or all rejected",
+    "sample_size": {
+      "alphas": [
+        0.05,
+        0.1
+      ],
+      "family_sizes": [
+        1,
+        5,
+        13,
+        20,
+        26
+      ],
+      "observed_errors": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        10
+      ],
+      "power": 0.8,
+      "true_risks": {
+        "0.05": [
+          0.01,
+          0.02,
+          0.03
+        ],
+        "0.10": [
+          0.02,
+          0.04,
+          0.06
+        ]
+      }
+    },
+    "schema": 1,
+    "seeds": [
+      20261005,
+      20261006,
+      20261007,
+      20261008,
+      20261009
+    ],
+    "sequential_base_loss": 19.0,
+    "signal_trace_results": "results/gpqa_nested_combinations_20261008",
+    "source_config": "configs/gpqa_raw_prior_completed_signals.json",
+    "source_results": "results/gpqa_raw_prior_completed_signals_20261006",
+    "verifier": "gemini_flash:probability"
+  },
+  "config_sha256": "07bd5366a3dba3bc3e99ff8cd6aea620ca99a4753c39e0aa560f465f1437dfb6",
+  "diamond_answer_keys_read": false,
+  "implementation_sha256": {
+    "planner.py": "b4c7ab16a80af5e89a7a65fd1bd63b3e1dbe07fa0e0485425271ee64b2699da8",
+    "raw_prior_analysis.py": "16b20fcbeef40963d2a60af00a3f94aa2c0f6e8bef12e3c4e389e3e0693028a3",
+    "risk_control.py": "16657beb7fad2adead514d3301784817e7ad2c8023b28c9b18d17d9240dad3b0",
+    "risk_exploration.py": "3d592a24c915d4e088e59db539b2a24a85be5dbebf492c5c7d350c75df5baf55",
+    "score.py": "7f0f8e7ab33704df85e8943236831080f77a73c7518d4accc76e37f3e7c98beb"
+  },
+  "new_api_requests": 0,
+  "observations_sha256": "d1b6c77cf021a2f4cf5815866c457489275e9bc7b127bf057498090cc848284b",
+  "protocol_id": "151953f066dd81280025c2728e68acc269a3850034efaa2f76c3e8c86c19eee9"
+}
