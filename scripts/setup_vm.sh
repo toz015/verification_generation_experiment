@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# Provision the A100 VM and verify everything a sweep depends on, up front.
+# Provision a GPU VM and verify everything a sweep depends on, up front.
 #
 # The point of this script is ordering: every check that could fail is done
 # BEFORE any weights are downloaded or any model is served, so a missing token
 # or a broken driver surfaces in setup rather than halfway through a run.
 #
-# Usage:  bash scripts/setup_vm.sh
+# Usage:  bash scripts/setup_vm.sh  (standard >=30GB GPU profile)
+#         VGX_GPU_PROFILE=l4 bash scripts/setup_vm.sh  (GPQA L4 profile)
 # Needs:  HF_TOKEN exported, or a prior `hf auth login`.
 
 set -euo pipefail
@@ -13,6 +14,12 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MANIFEST="$REPO_DIR/results/vm_manifest.json"
 MODELS=("Qwen/Qwen3-8B" "meta-llama/Llama-3.1-8B-Instruct")
+GPU_PROFILE="${VGX_GPU_PROFILE:-standard}"
+case "$GPU_PROFILE" in
+  standard) GPU_MIN_MEM_MIB=30000 ;;
+  l4) GPU_MIN_MEM_MIB=22000 ;;
+  *) printf "FAIL: unknown VGX_GPU_PROFILE '%s' (use standard or l4).\n" "$GPU_PROFILE" >&2; exit 1 ;;
+esac
 
 say() { printf '\n=== %s ===\n' "$1"; }
 die() { printf '\nFAIL: %s\n' "$1" >&2; exit 1; }
@@ -26,8 +33,20 @@ Usual cause is a kernel upgrade without a DKMS rebuild. Fix:
   sudo apt-get install -y linux-headers-\$(uname -r)
   sudo dkms autoinstall && sudo modprobe nvidia"
 
+GPU_NAME=$(nvidia-smi --query-gpu=name --format=csv,noheader | head -1)
 GPU_MEM_MIB=$(nvidia-smi --query-gpu=memory.total --format=csv,noheader,nounits | head -1)
-[ "$GPU_MEM_MIB" -ge 30000 ] || die "GPU has ${GPU_MEM_MIB}MiB; an 8B model in bf16 needs ~16GB plus KV cache."
+if [ "$GPU_PROFILE" = "l4" ]; then
+  [[ "$GPU_NAME" == *"L4"* ]] || die "l4 profile requested but detected GPU is '$GPU_NAME'."
+  python3 - "$REPO_DIR/configs/gpqa_experiment.json" <<'PYCFG' || die "GPQA configuration exceeds the conservative L4 profile."
+import json, sys
+cfg = json.load(open(sys.argv[1]))
+gen = cfg["generation"]
+if gen.get("dtype") != "bfloat16" or gen.get("max_model_len", 999999) > 4096 or gen.get("max_num_seqs", 999999) > 2 or gen.get("gpu_memory_utilization", 1) > 0.85:
+    raise SystemExit("L4 profile requires bfloat16, max_model_len <= 4096, max_num_seqs <= 2 and gpu_memory_utilization <= 0.85")
+print("  GPQA L4 inference settings: within conservative limits")
+PYCFG
+fi
+[ "$GPU_MEM_MIB" -ge "$GPU_MIN_MEM_MIB" ] || die "GPU has ${GPU_MEM_MIB}MiB; profile '$GPU_PROFILE' requires at least ${GPU_MIN_MEM_MIB}MiB."
 
 # --- 2. Disk ----------------------------------------------------------------
 # ~11GB for vLLM and torch, ~16GB per model in bf16, plus room for logs.

@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "generator_results": "results/gpqa_staged_generator_expansion_20261005",
+  "screen_config": "configs/gpqa_signal_study_4096.json",
+  "cache_roots": [
+    "results/gpqa_signal_study_4096_20261005/cache",
+    "results/gpqa_generator_comparison_20261005_v2/cache",
+    "results/gpqa_reasoning_comparison_20261005_v3/cache"
+  ],
+  "folds": 3,
+  "seeds": [20261005, 20261006, 20261007, 20261008, 20261009],
+  "binary_bins": 2,
+  "probability_bins": 3,
+  "laplace": 1.0,
+  "grid_size": 1001,
+  "correct_reward": 1.0,
+  "primary_incorrect_loss": 19.0,
+  "sensitivity_incorrect_losses": [99.0],
+  "utility_per_usd": 10.0,
+  "bootstrap_repeats": 5000,
+  "cohorts": ["all_calibration", "remaining_calibration"],
+  "prior": "unmodified_generator_p_correct_including_endpoints",
+  "arms": "each_of_the_five_frozen_verifiers_cross_binary_and_probability_separately",
+  "cost_fit": "training_fold_mean_usage_estimate_including_returned_parse_failures",
+  "missing_requests": "block_generator_analysis_instead_of_fitting_biased_cached_subset",
+  "returned_invalid_signals": "retain_and_abstain_if_queried",
+  "new_api_requests": 0,
+  "evaluation_labels_read": false,
+  "notes": [
+    "Raw prior only: no logistic fit, prior calibration, base-rate replacement or endpoint clipping.",
+    "Likelihoods and expected costs are fitted on training folds only.",
+    "Single-verifier layers screen signals without selecting a three-verifier order.",
+    "All 249 policy denominators include invalid generators; forecast comparisons use matched valid signals.",
+    "Remaining-calibration analysis excludes the generator protocol pilot from both fitting and scoring.",
+    "Fixed OOF bootstrap intervals do not include fitting or model-selection uncertainty.",
+    "Observed cached-call token estimates are counterfactual policy costs, not new spending or confirmed billing."
+  ]
+}

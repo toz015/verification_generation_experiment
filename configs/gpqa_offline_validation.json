@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "records": "results/gpqa_jev_20261004/analysis_records.json",
+  "vertex_policy": "results/gpqa_vertex_20261004/policies/primary_95.json",
+  "jev_policy": "results/gpqa_jev_20261004/policies/choice_only.json",
+  "seed": 20261005,
+  "folds": 3,
+  "logistic_C": 1.0,
+  "logit_clip": 0.0001,
+  "primary_order": ["jev_choice_v1", "verifier_1", "verifier_2"],
+  "diagnostic_verifiers": ["jev_choice_v1", "verifier_1", "verifier_2", "jev_noul_v1"],
+  "gate_widths": [0.0, 0.01, 0.025, 0.05, 0.1, 0.2, 1.0],
+  "correct_reward": 1.0,
+  "incorrect_loss": 19.0,
+  "utility_per_usd": 10.0,
+  "cost_multipliers": [0.1, 1.0, 10.0, 100.0],
+  "loss_sensitivity": [1.0, 4.0, 19.0, 99.0],
+  "bootstrap_evaluation": 1000,
+  "bootstrap_refit": 200,
+  "simulation_learning_repeats": 40,
+  "simulation_learning_sizes": [50, 250, 1000],
+  "notes": [
+    "Offline only. No model clients, credential loading, candidate changes, or new API collection.",
+    "Original strict Jev parser retained. Missing verifier scores are imputed with training medians plus missing indicators for joint forecasts; queried missing signals cause policy abstention.",
+    "Forecast regularization, feature sets and binning are fixed; verifier order and uncertainty-gate widths use only calibration out-of-fold utility.",
+    "Primary policy order is fixed cheap-to-expensive: Jev Choice, Llama, Gemini. Noul is a separate forecast diagnostic.",
+    "Matched-coverage analysis interpolates score ties by uniform random selection and is descriptive; evaluation labels never select a deployable threshold.",
+    "Refit bootstrap resamples calibration and evaluation independently and refits prior and likelihoods. Primary fixed order, regularization, costs and utility valuation remain fixed.",
+    "All Diamond analyses are exploratory because these results have already informed development."
+  ]
+}
