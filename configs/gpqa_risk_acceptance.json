@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "experiment": "risk_controlled_acceptance",
+  "objective": "maximize P(A) subject to P(W | A) <= alpha, certified with confidence 1 - delta; conditional error among accepted (released) answers",
+  "source_config": "configs/gpqa_raw_prior_completed_signals.json",
+  "source_results": "results/gpqa_raw_prior_completed_signals_20261006",
+  "signal_trace_results": "results/gpqa_nested_combinations_20261008",
+  "verifier": "gemini_flash:probability",
+  "generators": ["qwen", "gemini"],
+  "primary_generator": "qwen",
+  "cohorts": ["all_calibration", "remaining_calibration"],
+  "seeds": [20261005, 20261006, 20261007, 20261008, 20261009],
+  "sequential_base_loss": 19.0,
+  "frozen_settings": {
+    "correct_reward": 1.0,
+    "primary_incorrect_loss": 19.0,
+    "utility_per_usd": 10.0,
+    "grid_size": 1001,
+    "probability_bins": 3,
+    "laplace": 1.0,
+    "folds": 3,
+    "prior": "unmodified_generator_p_correct_including_endpoints",
+    "returned_invalid_signals": "retain_and_abstain_if_queried"
+  },
+  "alpha": {"primary": 0.05, "secondary": 0.10},
+  "delta": 0.05,
+  "rule_semantics": "accept iff the method makes the candidate eligible and its selection score >= threshold; ties at a threshold are all accepted or all rejected",
+  "methods": {
+    "A": "valid candidate; score = raw generator confidence",
+    "B": "valid candidate, Flash queried for every valid candidate; score = pooled-likelihood Bayes belief; malformed response is paid and not acceptable",
+    "C": "frozen sequential Flash policy (L = 19); only candidates it releases are eligible; score = terminal belief; its query and stopping rule are not re-optimized for the risk target"
+  },
+  "exploration": {
+    "coverage_targets": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7],
+    "bootstrap_repeats": 2000,
+    "bootstrap_seed": 20261010,
+    "status": "exploratory: thresholds read from these curves are chosen on the same data and are not certified"
+  },
+  "certification": {
+    "procedure": "exact one-sided binomial (Clopper-Pearson) upper bound per rule, Bonferroni over the full declared family",
+    "family": {
+      "generators": ["qwen", "gemini"],
+      "methods": ["A", "B", "C"],
+      "thresholds": {
+        "A": [0.95, 0.98, 0.99],
+        "B": [0.95, 0.97, 0.98, 0.99, 0.995],
+        "C": [0.95, 0.97, 0.98, 0.99, 0.995]
+      },
+      "order": "generator, then method A/B/C, then threshold ascending (declared before calibration labels)",
+      "note": "Every (generator, method, threshold) rule is eligible for joint selection, so all count toward M."
+    },
+    "selection": "highest calibration acceptance rate m/N among certified rules",
+    "tie_breakers": ["lower expected verifier cost per question (training-fit cost model)", "declared family order"],
+    "no_rule_message": "No positive-coverage rule certified.",
+    "alternative_procedure": {
+      "name": "fixed-sequence within (generator, method) chains, Bonferroni across chains",
+      "chain_order": "thresholds from strictest to most lenient",
+      "status": "secondary; reported separately from the reference procedure"
+    },
+    "dry_run_partition": {
+      "unit": "question_id (shared by both generators)",
+      "seed": 20261010,
+      "fractions": {"fit": 0.34, "calibration": 0.33, "evaluation": 0.33},
+      "status": "software dry run on repeatedly inspected development data; not a certification and not prospective confirmation"
+    }
+  },
+  "sample_size": {
+    "alphas": [0.05, 0.10],
+    "family_sizes": [1, 5, 13, 20, 26],
+    "observed_errors": [0, 1, 2, 3, 5, 10],
+    "true_risks": {"0.05": [0.01, 0.02, 0.03], "0.10": [0.02, 0.04, 0.06]},
+    "power": 0.8
+  },
+  "new_api_requests": 0,
+  "diamond_answer_keys_read": false,
+  "notes": [
+    "Raw generator confidence is used as given: no calibration, replacement or endpoint clipping.",
+    "Scores are selection scores; their numeric values are not assumed to equal empirical correctness probabilities.",
+    "Development cohorts (249 and 199 questions) overlap, and repeated folds and seeds re-split the same questions.",
+    "Diamond was used in historical experiments and is not described as globally untouched; no Diamond answer keys are read here.",
+    "Costs are counterfactual cached-call usage estimates, not confirmed billing."
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "alpha": 0.05,
+  "best_certified_per_generator_method": {
+    "gemini:A": null,
+    "gemini:B": null,
+    "gemini:C": null,
+    "qwen:A": null,
+    "qwen:B": null,
+    "qwen:C": null
+  },
+  "delta": 0.05,
+  "family": [
+    {
+      "generator": "qwen",
+      "method": "A",
+      "rule_id": "qwen:A:0.95",
+      "threshold": 0.95
+    },
+    {
+      "generator": "qwen",
+      "method": "A",
+      "rule_id": "qwen:A:0.98",
+      "threshold": 0.98
+    },
+    {
+      "generator": "qwen",
+      "method": "A",
+      "rule_id": "qwen:A:0.99",
+      "threshold": 0.99
+    },
+    {
+      "generator": "qwen",
+      "method": "B",
+      "rule_id": "qwen:B:0.95",
+      "threshold": 0.95
+    },
+    {
+      "generator": "qwen",
+      "method": "B",
+      "rule_id": "qwen:B:0.97",
+      "threshold": 0.97
+    },
+    {
+      "generator": "qwen",
+      "method": "B",
+      "rule_id": "qwen:B:0.98",
+      "threshold": 0.98
+    },
+    {
+      "generator": "qwen",
+      "method": "B",
+      "rule_id": "qwen:B:0.99",
+      "threshold": 0.99
+    },
+    {
+      "generator": "qwen",
+      "method": "B",
+      "rule_id": "qwen:B:0.995",
+      "threshold": 0.995
+    },
+    {
+      "generator": "qwen",
+      "method": "C",
+      "rule_id": "qwen:C:0.95",
+      "threshold": 0.95
+    },
+    {
+      "generator": "qwen",
+      "method": "C",
+      "rule_id": "qwen:C:0.97",
+      "threshold": 0.97
+    },
+    {
+      "generator": "qwen",
+      "method": "C",
+      "rule_id": "qwen:C:0.98",
+      "threshold": 0.98
+    },
+    {
+      "generator": "qwen",
+      "method": "C",
+      "rule_id": "qwen:C:0.99",
+      "threshold": 0.99
+    },
+    {
+      "generator": "qwen",
+      "method": "C",
+      "rule_id": "qwen:C:0.995",
+      "threshold": 0.995
+    },
+    {
+      "generator": "gemini",
+      "method": "A",
+      "rule_id": "gemini:A:0.95",
+      "threshold": 0.95
+    },
+    {
+      "generator": "gemini",
+      "method": "A",
+      "rule_id": "gemini:A:0.98",
+      "threshold": 0.98
+    },
+    {
+      "generator": "gemini",
+      "method": "A",
+      "rule_id": "gemini:A:0.99",
+      "threshold": 0.99
+    },
+    {
+      "generator": "gemini",
+      "method": "B",
+      "rule_id": "gemini:B:0.95",
+      "threshold": 0.95
+    },
+    {
+      "generator": "gemini",
+      "method": "B",
+      "rule_id": "gemini:B:0.97",
+      "threshold": 0.97
+    },
+    {
+      "generator": "gemini",
+      "method": "B",
+      "rule_id": "gemini:B:0.98",
+      "threshold": 0.98
+    },
+    {
+      "generator": "gemini",
+      "method": "B",
+      "rule_id": "gemini:B:0.99",
+      "threshold": 0.99
+    },
+    {
+      "generator": "gemini",
+      "method": "B",
+      "rule_id": "gemini:B:0.995",
+      "threshold": 0.995
+    },
+    {
+      "generator": "gemini",
+      "method": "C",
+      "rule_id": "gemini:C:0.95",
+      "threshold": 0.95
+    },
+    {
+      "generator": "gemini",
+      "method": "C",
+      "rule_id": "gemini:C:0.97",
+      "threshold": 0.97
+    },
+    {
+      "generator": "gemini",
+      "method": "C",
+      "rule_id": "gemini:C:0.98",
+      "threshold": 0.98
+    },
+    {
+      "generator": "gemini",
+      "method": "C",
+      "rule_id": "gemini:C:0.99",
+      "threshold": 0.99
+    },
+    {
+      "generator": "gemini",
+      "method": "C",
+      "rule_id": "gemini:C:0.995",
+      "threshold": 0.995
+    }
+  ],
+  "family_size": 26,
+  "models": {
+    "gemini": {
+      "expected_cost_usd": 0.0016689642857142862,
+      "fit_correct": 74,
+      "fit_incorrect": 10,
+      "fit_questions": 85,
+      "likelihood": {
+        "edges": [
+          0.0,
+          0.3333333333333333,
+          0.6666666666666666,
+          1.0
+        ],
+        "p_bin_if_correct": [
+          0.012987012987012988,
+          0.012987012987012988,
+          0.974025974025974
+        ],
+        "p_bin_if_incorrect": [
+          0.23076923076923078,
+          0.15384615384615385,
+          0.6153846153846154
+        ]
+      }
+    },
+    "qwen": {
+      "expected_cost_usd": 0.0019041352941176475,
+      "fit_correct": 58,
+      "fit_incorrect": 27,
+      "fit_questions": 85,
+      "likelihood": {
+        "edges": [
+          0.0,
+          0.3333333333333333,
+          0.6666666666666666,
+          1.0
+        ],
+        "p_bin_if_correct": [
+          0.03278688524590164,
+          0.01639344262295082,
+          0.9508196721311475
+        ],
+        "p_bin_if_incorrect": [
+          0.7,
+          0.06666666666666667,
+          0.23333333333333334
+        ]
+      }
+    }
+  },
+  "procedure": "exact one-sided binomial (Clopper-Pearson) upper bound per rule, Bonferroni over the full declared family",
+  "roles_sha256": "0aa1727641072dd4b01ea599508e786237ff13e54eb7d75d4cefd2f1d8a91731",
+  "selected_rule": null,
+  "selection_id": "832e6a156ff494fe4410fcffb969571843cd6da23d288ede2b75d49431178491",
+  "status": "No positive-coverage rule certified."
+}
