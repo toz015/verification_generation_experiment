@@ -1,0 +1,156 @@
+{
+  "schema": 1,
+  "project": "llm-applications-490420",
+  "dataset_root": "results/gpqa_vertex_20261004",
+  "baseline_bundle": "results/gpqa_vertex_20261004/frozen",
+  "sample_size": 50,
+  "seed": 20261005,
+  "stage_budget_usd": 9.905708019999999,
+  "workers": 2,
+  "generators": [
+    {
+      "id": "qwen",
+      "model": "qwen/qwen3-235b-a22b-instruct-2507-maas",
+      "location": "us-south1",
+      "transport": "chat_completions",
+      "generation": {
+        "max_tokens": 4096,
+        "temperature": 0.0,
+        "top_p": 1.0
+      },
+      "interval_seconds": 2.0
+    },
+    {
+      "id": "llama",
+      "model": "meta/llama-3.3-70b-instruct-maas",
+      "location": "us-central1",
+      "transport": "chat_completions",
+      "generation": {
+        "max_tokens": 4096,
+        "temperature": 0.0,
+        "top_p": 1.0
+      },
+      "interval_seconds": 1.0
+    }
+  ],
+  "verifiers": [
+    {
+      "id": "gemini_flash",
+      "model": "google/gemini-3.7-flash",
+      "transport": "chat_completions",
+      "location": "global",
+      "generation": {
+        "max_tokens": 4096,
+        "reasoning_effort": "low"
+      },
+      "interval_seconds": 1.0
+    },
+    {
+      "id": "mistral_medium",
+      "model": "mistralai/mistral-medium-3",
+      "transport": "partner_raw_predict",
+      "location": "us-central1",
+      "generation": {
+        "max_tokens": 4096,
+        "temperature": 0.0
+      },
+      "interval_seconds": 1.0
+    }
+  ],
+  "pricing": {
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "checked_on": "2026-10-05",
+    "tier": "standard_pay_as_you_go",
+    "usd_per_million_tokens": {
+      "google/gemini-3.7-flash": {
+        "input": 0.75,
+        "output": 3.75,
+        "cached_input": 0.075
+      },
+      "google/gemini-3.5-flash-lite": {
+        "input": 0.3,
+        "output": 2.5,
+        "cached_input": 0.03
+      },
+      "mistralai/mistral-small-2503": {
+        "input": 0.1,
+        "output": 0.3
+      },
+      "mistralai/mistral-medium-3": {
+        "input": 0.4,
+        "output": 2.0
+      },
+      "anthropic/claude-haiku-4-5": {
+        "input": 1.0,
+        "output": 5.0
+      },
+      "qwen/qwen3-235b-a22b-instruct-2507-maas": {
+        "input": 0.22,
+        "output": 0.88,
+        "cached_input": 0.22
+      },
+      "meta/llama-3.3-70b-instruct-maas": {
+        "input": 0.72,
+        "output": 0.72,
+        "cached_input": 0.72
+      }
+    },
+    "implicit_cache_assumption": "Qwen/Llama implicit cached tokens are conservatively priced at the published ordinary input rate; no separate discount is claimed. Not confirmed billing."
+  },
+  "reuse_caches": [
+    "results/gpqa_reasoning_comparison_20261005_v2/cache",
+    "results/gpqa_generator_comparison_20261005_v2/cache",
+    "results/gpqa_generator_comparison_20261005/cache",
+    "results/gpqa_signal_study_4096_20261005/cache",
+    "results/gpqa_vertex_20261004/cache"
+  ],
+  "limitations": [
+    "Calibration-only 50-item exploratory comparison; no evaluation outcome access or policy change.",
+    "Selection is the original pre-answer pilot, not the later screen filtered by Gemini parsing success.",
+    "Gemini answers were generated earlier at max_tokens=1024 and low reasoning; new non-thinking models use max_tokens=4096 and temperature=0. These are different model-plus-generation-setting conditions.",
+    "Reported confidence is self-reported, not logprobs or latent beliefs.",
+    "New verifier prompts/settings match the 4096-token screen; repeated identical requests across generators reuse one execution, not independent repeated samples.",
+    "OOF fits use few errors; paired intervals condition on fitted predictions and omit model-selection uncertainty.",
+    "Vertex lists both new generator endpoints for retirement on 2026-10-21; record provider labels but immutable weights cannot be guaranteed.",
+    "This is explicit rationale prompting on the same non-thinking instruction endpoints, not a switch to native thinking models.",
+    "Direct results were already inspected; this is a prospectively specified exploratory follow-up on the same calibration questions, not independent confirmation.",
+    "All original candidate answers remain frozen; rationale-first responses form new candidates in a separate study.",
+    "New USD 10 local cap remains inside total USD 200 authorization. Prior recorded Vertex usage estimates: 1.91270913 + 3.1701313 + 0.11416017 USD; not confirmed project billing.",
+    "The final block must be unique and terminal. No repair or regeneration of malformed/truncated replies.",
+    "After 53 responses, one HTTP 200 error envelope reported concurrency throttling without token usage. All 53 responses, including the empty error response, are retained and imported without regeneration.",
+    "Collection workers reduced from 4 to 2 after the provider concurrency error; model parameters and prompt remain unchanged. Prior known spend plus unknown-spend reservation are deducted from the USD 10 stage allowance."
+  ],
+  "direct_results": "results/gpqa_generator_comparison_20261005_v2",
+  "protocol": {
+    "version": "rationale_then_final_v1",
+    "primary_comparison": "Within model, paired original 50 questions: rationale-first minus direct JSON",
+    "folds": 3,
+    "fold_seeds": [
+      20261005,
+      20261006,
+      20261007,
+      20261008,
+      20261009
+    ],
+    "bootstrap_repeats": 2000,
+    "format_gate": {
+      "first_questions_per_model": 3,
+      "require_valid_final_blocks": true
+    },
+    "native_thinking_mode": false,
+    "generator_settings": "Unchanged model, endpoint, temperature, top_p, max_tokens; change prompt and final-block parser only.",
+    "verifier_context": "Question/options/final answer only; no rationale or generator confidence.",
+    "no_outcome_based_selection": true
+  },
+  "recovery": {
+    "source_study_id": "908c4af32e7e731f44b817ac297a3eb1177d7cdd5417e6445c048e2fad9d9c98",
+    "retained_executions": 53,
+    "known_usage_estimate_usd": 0.09020504,
+    "unknown_usage_executions": 1,
+    "unknown_usage_reserved_usd": 0.00408694,
+    "confirmed_billing_usd": null,
+    "new_collection_limit_usd": 9.905708019999999,
+    "reason": "One HTTP 200 body reported concurrent-request throttling, without answer or usage. Preserve as missing output; do not retry it. Reduce collection workers from 4 to 2, keep inference parameters and prompts unchanged.",
+    "source_budget_sha256": "03826d2be2d03357edf3c4891136f2bd741936ac69500101a2d96b4154a74afc"
+  }
+}
