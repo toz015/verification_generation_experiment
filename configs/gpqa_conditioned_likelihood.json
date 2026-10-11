@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "experiment": "confidence_conditioned_single_verifier_likelihoods",
+  "source_config": "configs/gpqa_raw_prior_completed_signals.json",
+  "source_results": "results/gpqa_raw_prior_completed_signals_20261006",
+  "signal_trace_results": "results/gpqa_nested_combinations_20261008",
+  "generators": ["gemini", "qwen"],
+  "verifier": "gemini_flash:probability",
+  "cohorts": ["all_calibration", "remaining_calibration"],
+  "seeds": [20261005, 20261006, 20261007, 20261008, 20261009],
+  "confidence_threshold": 0.95,
+  "confidence_groups": {"low": "original confidence c < 0.95", "high": "original confidence c >= 0.95"},
+  "shrinkage": {
+    "formula": "g[group,y,k] = (n[group,y,k] + tau * g_pooled[y,k]) / (N[group,y] + tau)",
+    "pooled_table": "training-fold pooled table, fitted exactly as the frozen raw-prior analysis (equal-width bins, Laplace 1)",
+    "primary": "inner_cv",
+    "tau_grid": [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000],
+    "inner_folds": 5,
+    "inner_stratification": "outcome x confidence group; falls back to outcome only, then to the largest tau, when a stratum is smaller than two",
+    "inner_criterion": "mean held-out log P(score bin | Y, confidence group) over inner splits of the training fold only",
+    "tie_break": "larger tau (closer to the pooled table)",
+    "sensitivity_tau": [5, 20, 100],
+    "empty_group_fallback": "an empty (group, outcome) training cell uses the training-fold pooled distribution for that outcome; never held-out statistics"
+  },
+  "table_selection": "fixed by the item's original confidence before any query; never switched after a Bayes update",
+  "frozen_settings": {
+    "correct_reward": 1.0,
+    "primary_incorrect_loss": 19.0,
+    "sensitivity_incorrect_losses": [99.0],
+    "utility_per_usd": 10.0,
+    "grid_size": 1001,
+    "probability_bins": 3,
+    "laplace": 1.0,
+    "folds": 3,
+    "bootstrap_repeats": 5000,
+    "prior": "unmodified_generator_p_correct_including_endpoints"
+  },
+  "cost_model": "frozen training-fold expected_cost_usd of the verifier arm, identical for pooled and conditioned policies",
+  "new_api_requests": 0,
+  "evaluation_labels_read": false,
+  "diamond_answer_keys_read": false,
+  "notes": [
+    "Raw generator confidence is the initial prior: no calibration, base-rate substitution or endpoint clipping.",
+    "Signals are the cached verifier responses recorded in the frozen nested-combination traces; an optional cache check re-parses them from the original request caches.",
+    "Development-set out-of-fold analysis after earlier screening; the 199-question cohort overlaps the 249-question cohort.",
+    "Differences between confidence groups do not by themselves establish a violation of conditional independence given (Y, w).",
+    "Policy cost is counterfactual cached-call token pricing, not new spending or confirmed billing."
+  ]
+}
