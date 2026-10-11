@@ -955,3 +955,59 @@ After the completion status is `complete`, reproduce the combined analyses:
   --config configs/gpqa_raw_prior_completed_signals.json \
   --output results/gpqa_signal_dependence_completed_signals_20261006
 ```
+
+### Probability-only three-verifier experiment (2026-10-11)
+
+The current offline extension evaluates all 60 fixed ordered triples from the
+five frozen verifier models, using probability replies throughout. It preserves
+Gemini/Qwen candidate answers and their raw confidence. Each training fold fits
+the verifier likelihoods and expected token costs; the selected fixed sequence
+maximizes mean training-prior `J0`. All ten combinations, six orders per
+combination, cost-ascending orders, single verifiers, and always-query baselines
+are reported. Held-out correctness and unqueried signals do not enter decisions.
+
+```sh
+PYTHONPATH=src .venv/bin/python -m vgx.gpqa.probability_triples \
+  --config configs/gpqa_probability_triples.json \
+  --output results/gpqa_probability_triples_20261011
+PYTHONPATH=src .venv/bin/python -m vgx.gpqa.probability_triples_report \
+  --root results/gpqa_probability_triples_20261011 \
+  --output reports/gpqa_probability_triples_20261011
+```
+
+The first command resumes completed runs only when the protocol, frozen source
+hashes and saved decision/planner artifacts match. There is no API collection
+path. It independently refits the training tables, reproduces frozen singleton
+policies and checks lazy execution against planner replay. Full settings,
+likelihoods, costs, chosen sequences and value tables are saved with hashes.
+
+The [Chinese summary](reports/gpqa_probability_triples_20261011/SUMMARY_ZH.txt)
+and adjacent CSV files contain outcomes, likelihood ratios, token prices,
+selection rankings and all 60 ordered triples. The primary 249-question result
+finds no stable incremental benefit of three verifiers over a single Flash:
+Qwen has the same aggregate release/error counts at higher cost, while Gemini
+trades seven fewer correct releases for one fewer wrong release. Results vary
+across the five split seeds and the overlapping 199-question sensitivity cohort.
+
+The 5% error target is not a pass/fail criterion here. Historical reward/loss
+settings remain `R=1`, `L=19` (sensitivity `99`), with 10 utility units per USD.
+The resulting stopping thresholds are utility choices, not risk guarantees.
+Conditional independence and uncalibrated raw priors remain model assumptions;
+all main policies have negative observed mean utility under the primary loss.
+This is development evidence, not an independent final evaluation. Costs are
+counterfactual estimates from cached provider usage, not new spend or bills.
+
+Algorithm 1 and the public belief/stop/query steps of Algorithm 2 are exercised.
+Feedback events contain only queried scores but are recorded offline: this
+experiment does not call the generator again or measure its private belief
+update. Terminal audit, incentive compatibility and reward training are outside
+this experiment. No Diamond answer keys are read.
+
+For review from a fresh clone, use the portable
+[review guide](reports/gpqa_probability_triples_20261011/REVIEW_GUIDE.txt) and
+`review_bundle.zip` beside it. The bundle includes derived development inputs,
+original source fits, value tables and all per-item decisions, with repeated
+objects pooled losslessly. `vgx.gpqa.probability_triples_review verify` checks
+the archive; its `replay` command recomputes a named run without local caches,
+GPQA text, credentials or API calls. Re-parsing original replies and auditing
+the provider token records still requires the original local caches.

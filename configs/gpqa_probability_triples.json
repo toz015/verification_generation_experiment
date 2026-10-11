@@ -1,0 +1,23 @@
+{
+  "source_config": "configs/gpqa_raw_prior_completed_signals.json",
+  "source_results": "results/gpqa_raw_prior_completed_signals_20261006",
+  "signal": "probability",
+  "verifiers": ["claude_haiku", "gemini_flash", "gemini_lite", "mistral_medium", "mistral_small"],
+  "generators": ["qwen", "gemini"],
+  "selection": "maximize training-prior mean J0; lexicographic order breaks ties",
+  "primary_loss": 19.0,
+  "losses": [19.0, 99.0],
+  "primary_utility_per_usd": 10.0,
+  "bootstrap_repeats": 2000,
+  "new_api_requests": 0,
+  "evaluation_labels_read": false,
+  "feedback": "record queried-score events only; no generator API feedback or private-belief measurement",
+  "notes": [
+    "All 60 ordered triples are evaluated, not just the order selected inside each of the ten combinations.",
+    "Raw generator confidence and frozen answers remain unchanged.",
+    "Use the existing three-fold splits, five seeds and 249/199 overlapping development cohorts.",
+    "5 percent is not a pass/fail criterion. Reward/loss and monetary utility conversion retain their historical settings.",
+    "A fixed order is common to all held-out questions in a fold; only stopping is adaptive.",
+    "Formal risk certification, terminal audits and incentive/reward learning are outside this offline experiment."
+  ]
+}
