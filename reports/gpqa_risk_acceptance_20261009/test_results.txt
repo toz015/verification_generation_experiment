@@ -1,0 +1,50 @@
+# Test results, 2026-10-09T23:11Z, base commit 3263afb plus this change
+# Python 3.13.16; command: PYTHONPATH=src python -m pytest tests/test_risk_control.py -v
+
+tests/test_risk_control.py::test_binomial_upper_bound_zero_errors_all_errors_and_empty PASSED [  3%]
+tests/test_risk_control.py::test_reference_sample_sizes_and_vectorized_error_allowance PASSED [  7%]
+tests/test_risk_control.py::test_power_requirement_is_none_at_or_above_alpha_and_met_when_returned PASSED [ 10%]
+tests/test_risk_control.py::test_bonferroni_counts_every_declared_rule_including_empty_ones PASSED [ 14%]
+tests/test_risk_control.py::test_declared_family_matches_config_and_order PASSED [ 17%]
+tests/test_risk_control.py::test_no_rule_certified_reports_no_positive_coverage_rule PASSED [ 21%]
+tests/test_risk_control.py::test_selection_prefers_coverage_then_cost_then_declared_order_never_labels PASSED [ 25%]
+tests/test_risk_control.py::test_fixed_sequence_stops_at_first_failure_and_splits_delta_over_chains PASSED [ 28%]
+tests/test_risk_control.py::test_monte_carlo_familywise_error_is_within_delta[all_rules_at_alpha] PASSED [ 32%]
+tests/test_risk_control.py::test_monte_carlo_familywise_error_is_within_delta[non_monotone_top_error] PASSED [ 35%]
+tests/test_risk_control.py::test_partition_is_question_level_label_free_disjoint_and_deterministic PASSED [ 39%]
+tests/test_risk_control.py::test_fitting_reads_only_fit_role_labels PASSED [ 42%]
+tests/test_risk_control.py::test_selection_reads_calibration_labels_but_never_evaluation_labels PASSED [ 46%]
+tests/test_risk_control.py::test_scores_are_computed_without_labels PASSED [ 50%]
+tests/test_risk_control.py::test_evaluation_needs_the_sealed_selection_and_same_partition PASSED [ 53%]
+tests/test_risk_control.py::test_evaluation_reports_counts_intervals_queries_and_costs PASSED [ 57%]
+tests/test_risk_control.py::test_dry_run_requires_explicit_acknowledgement PASSED [ 60%]
+tests/test_risk_control.py::test_ties_at_a_threshold_are_accepted_or_rejected_together PASSED [ 64%]
+tests/test_risk_control.py::test_invalid_candidates_and_malformed_signals_stay_in_the_denominator PASSED [ 67%]
+tests/test_risk_control.py::test_costs_for_always_query_and_sequential_policies PASSED [ 71%]
+tests/test_risk_control.py::test_sequential_policy_reads_only_the_selected_signal PASSED [ 75%]
+tests/test_risk_control.py::test_a_read_beyond_the_counted_queries_is_rejected PASSED [ 78%]
+tests/test_risk_control.py::test_execution_and_replay_agree_and_a_mismatch_is_detected PASSED [ 82%]
+tests/test_risk_control.py::test_export_reproduces_frozen_fits_and_decisions_offline PASSED [ 85%]
+tests/test_risk_control.py::test_export_rejects_changed_sources_and_settings PASSED [ 89%]
+tests/test_risk_control.py::test_frozen_fold_mismatch_is_detected PASSED [ 92%]
+tests/test_risk_control.py::test_exploration_run_is_offline_and_refuses_a_changed_protocol PASSED [ 96%]
+tests/test_risk_control.py::test_exploratory_region_and_matched_coverage_helpers PASSED [100%]
+============================= 28 passed in 15.99s ==============================
+
+# Full suite: PYTHONPATH=src python -m pytest -q -rs
+SKIPPED [1] tests/test_load.py:157: SciFact release not downloaded
+SKIPPED [1] tests/test_load.py:164: SciFact release not downloaded
+SKIPPED [1] tests/test_load.py:171: SciFact release not downloaded
+SKIPPED [1] tests/test_load.py:180: SciFact release not downloaded
+SKIPPED [1] tests/test_load.py:191: SciFact release not downloaded
+SKIPPED [1] tests/test_pubmedqa.py:167: PubMedQA not downloaded
+SKIPPED [1] tests/test_pubmedqa.py:177: PubMedQA not downloaded
+SKIPPED [1] tests/test_pubmedqa.py:185: PubMedQA not downloaded
+SKIPPED [1] tests/test_pubmedqa.py:200: PubMedQA not downloaded
+SKIPPED [1] tests/test_retrieve.py:143: SciFact release not downloaded
+SKIPPED [1] tests/test_retrieve.py:155: SciFact release not downloaded
+SKIPPED [1] tests/test_score.py:75: SciFact release not downloaded
+SKIPPED [1] tests/test_score.py:94: SciFact release not downloaded
+SKIPPED [1] tests/test_score.py:126: SciFact release not downloaded
+SKIPPED [1] tests/test_score.py:155: SciFact release not downloaded
+320 passed, 15 skipped in 80.75s (0:01:20)
