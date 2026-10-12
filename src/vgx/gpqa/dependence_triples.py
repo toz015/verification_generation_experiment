@@ -256,7 +256,62 @@ def check_fold(rows, fold, tags, cfg):
             raise ValueError('frozen training cost differs')
 
 
-def run_split(rows, fit, cfg, tags, committed):
+def fit_prior_calibration(train_rows, method):
+    """Map raw generator confidence to a calibrated prior, fitted on training rows only.
+
+    monotone_binned: one bin per distinct raw value, adjacent bins pooled until the
+    Laplace(1, 1) rates are nondecreasing; unseen values interpolate linearly.
+    platt: logistic regression on logit(raw); the logit feature needs raw values
+    kept away from 0 and 1, so they are limited to [eps, 1 - eps] inside the fit only.
+    """
+    pts = [(float(r['prior']), int(r['outcome'])) for r in train_rows if candidate_valid(r)]
+    if method == 'monotone_binned':
+        groups = {}
+        for p, y in pts:
+            n, k = groups.get(p, (0, 0))
+            groups[p] = (n+1, k+y)
+        blocks = [[[p], n, k] for p, (n, k) in sorted(groups.items())]
+
+        def rate(b):
+            return (b[2]+1)/(b[1]+2)
+        changed = True
+        while changed:
+            changed = False
+            for j in range(len(blocks)-1):
+                if rate(blocks[j]) > rate(blocks[j+1]):
+                    a, b = blocks[j], blocks[j+1]
+                    blocks[j:j+2] = [[a[0]+b[0], a[1]+b[1], a[2]+b[2]]]
+                    changed = True
+                    break
+        xs = [v for b in blocks for v in b[0]]
+        ys = [rate(b) for b in blocks for _ in b[0]]
+
+        def mapping(p):
+            return float(np.interp(p, xs, ys))
+        summary = {'blocks': [{'raw_values': b[0], 'n': b[1], 'correct': b[2], 'calibrated': rate(b)} for b in blocks]}
+    elif method == 'platt':
+        from sklearn.linear_model import LogisticRegression
+        eps = 1e-3
+        x = np.array([p for p, _ in pts]).clip(eps, 1-eps)
+        model = LogisticRegression(C=1e6).fit(np.log(x/(1-x))[:, None], [y for _, y in pts])
+        a, b = float(model.coef_[0][0]), float(model.intercept_[0])
+
+        def mapping(p):
+            q = min(max(p, eps), 1-eps)
+            return float(1/(1+math.exp(-(a*math.log(q/(1-q)) + b))))
+        summary = {'slope': a, 'intercept': b, 'eps': eps}
+    else:
+        raise ValueError('unknown prior calibration')
+    return {'method': method, 'map': mapping, 'summary': summary}
+
+
+def calibrated_rows(rows, mapping):
+    """Copies with a calibrated prior; the raw value is kept as raw_prior."""
+    return [dict(r, raw_prior=r['prior'], prior=mapping(r['prior'])) if candidate_valid(r)
+            else dict(r, raw_prior=r['prior']) for r in rows]
+
+
+def run_split(rows, fit, cfg, tags, committed, prior_calibration=None):
     """One generator/cohort/seed. Fitting and selection see training rows only."""
     ids = [r['item_id'] for r in rows]
     if ids != fit['item_ids'] or [r['outcome'] for r in rows] != fit['outcomes']:
@@ -279,7 +334,12 @@ def run_split(rows, fit, cfg, tags, committed):
         calibration = {'independence': [], 'dependence': []}
         for fold_id, fold in enumerate(fit['folds']):
             check_fold(rows, fold, tags, cfg)
-            train = [rows[lookup[q]] for q in fold['train_ids']]
+            if prior_calibration is None:
+                frows, cal_fit = rows, None
+            else:
+                cal_fit = fit_prior_calibration([rows[lookup[q]] for q in fold['train_ids']], prior_calibration)
+                frows = calibrated_rows(rows, cal_fit['map'])
+            train = [frows[lookup[q]] for q in fold['train_ids']]
             held = [lookup[q] for q in fold['validation_ids']]
             priors = np.array([r['prior'] for r in train if candidate_valid(r)])
             seed = cfg['inner_seed'] + 1000*fit['seed'] % 997 + fold_id
@@ -306,10 +366,11 @@ def run_split(rows, fit, cfg, tags, committed):
             fold_record = {'fold': fold_id, 'alpha_by_combination': {combo_id(c): {'chosen': alpha_label(a), 'inner_cv_loglik': s}
                                                                     for c, (a, s) in alphas.items()},
                            'selected': {m: r[0] for m, r in ranking.items()},
-                           'flash_training_model_value': float(fp.j(0, priors).mean())}
+                           'flash_training_model_value': float(fp.j(0, priors).mean()),
+                           'prior_calibration': None if cal_fit is None else {'method': cal_fit['method'], **cal_fit['summary']}}
             out['folds'].append({'loss': lk, **fold_record})
             for i in held:
-                r = rows[i]
+                r = frows[i]
                 put('raw', i, {**baseline_decision(r['prior'], valid[i], float(loss), cfg['correct_reward'])})
                 put('raw_ties_abstain', i, {**baseline_decision(r['prior'], valid[i] and r['prior'] > fp.threshold,
                                                                 float(loss), cfg['correct_reward'])})
@@ -321,7 +382,7 @@ def run_split(rows, fit, cfg, tags, committed):
                                                              else float(model.rsplit('_', 1)[1]))
                 p = planner(best, alpha)
                 for i in held:
-                    r = rows[i]
+                    r = frows[i]
                     put(f'{model}:selected_triple', i, execute(r['prior'], valid[i], p, best, [costs[t] for t in best],
                                                                 r['signals'], edges))
                     if model in ('independence', 'dependence'):
@@ -331,7 +392,7 @@ def run_split(rows, fit, cfg, tags, committed):
                 for model, alpha in [('independence', INF), ('dependence', alphas[tuple(sorted(o))][0])]:
                     p = planner(o, alpha)
                     for i in held:
-                        r = rows[i]
+                        r = frows[i]
                         put(f'{model}:triple:{order_id(o)}', i, execute(r['prior'], valid[i], p, o, [costs[t] for t in o],
                                                                          r['signals'], edges))
             # Held-out fit of the verifier model alone (no prior): class-conditional
@@ -343,7 +404,7 @@ def run_split(rows, fit, cfg, tags, committed):
                 for model, alpha in [('independence', INF), ('dependence', a)]:
                     joint = fit_joint(train, c, fold_marginals(fold, c), alpha, edges)
                     for i in held:
-                        r = rows[i]
+                        r = frows[i]
                         if not candidate_valid(r) or any(r['signals'][t]['score'] is None for t in c):
                             continue
                         cell = tuple(bin_of(r['signals'][t]['score'], edges) for t in c)
@@ -351,7 +412,8 @@ def run_split(rows, fit, cfg, tags, committed):
                         fs = r['signals'][cfg['reference_verifier']]['score']
                         fb = bin_of(fs, edges) if fs is not None else None
                         calibration[model].append({'combination': combo_id(c), 'fold': fold_id, 'item_id': r['item_id'],
-                            'outcome': r['outcome'], 'prior': r['prior'], 'training_base_rate': base_rate,
+                            'outcome': r['outcome'], 'prior': r['prior'], 'raw_prior': r.get('raw_prior', r['prior']),
+                            'training_base_rate': base_rate,
                             'cell_loglik': math.log(joint.table[r['outcome']][cell]), 'likelihood_ratio': float(lr),
                             'flash_likelihood_ratio': (flash_like['p_bin_if_correct'][fb]/flash_like['p_bin_if_incorrect'][fb]
                                                        if fb is not None else None),
@@ -414,18 +476,18 @@ def _init_worker(bundle):
 
 
 def _run_one(task):
-    run, cfg, tags = task
+    run, cfg, tags, prior_calibration = task
     _, inputs, fits, committed = _WORKER['bundle']
     g, cohort, _ = run.split('/')
     rows = inputs['rows'][g]
     if cohort == 'remaining_calibration':
         rows = [r for r in rows if r['item_id'] not in set(inputs['pilot_ids'])]
-    result = run_split(rows, fits[run], cfg, tags, committed[run])
+    result = run_split(rows, fits[run], cfg, tags, None if prior_calibration else committed[run], prior_calibration)
     result['item_ids'] = [r['item_id'] for r in rows]
     return run, result
 
 
-def analyze(config_path, output, jobs=1):
+def analyze(config_path, output, jobs=1, prior_calibration=None):
     config_path, output = Path(config_path), Path(output)
     cfg = json.loads(config_path.read_text())
     if cfg['new_api_requests'] != 0 or cfg['evaluation_labels_read'] or cfg['confidence_calibration']:
@@ -445,7 +507,10 @@ def analyze(config_path, output, jobs=1):
     output.mkdir(parents=True, exist_ok=True)
     manifest = {'config': cfg, 'config_sha256': file_digest(config_path),
                 'implementation_sha256': file_digest(Path(__file__)), 'runs': {}}
-    tasks = [(run, cfg, tags) for run in sorted(fits)]
+    if prior_calibration not in (None, *cfg['prior_calibration_methods']):
+        raise ValueError('prior calibration method not declared in the config')
+    manifest['prior_calibration'] = prior_calibration
+    tasks = [(run, cfg, tags, prior_calibration) for run in sorted(fits)]
     with ProcessPoolExecutor(jobs, initializer=_init_worker, initargs=(bundle,)) as pool:
         for run, result in pool.map(_run_one, tasks):
             target = output/(run+'.json')
@@ -462,5 +527,7 @@ if __name__ == '__main__':
     parser.add_argument('--config', default='configs/gpqa_dependence_triples.json')
     parser.add_argument('--output', required=True)
     parser.add_argument('--jobs', type=int, default=1)
+    parser.add_argument('--prior-calibration', choices=['monotone_binned', 'platt'], default=None,
+                        help='offline diagnostic: calibrate generator confidence on training folds')
     args = parser.parse_args()
-    analyze(args.config, args.output, args.jobs)
+    analyze(args.config, args.output, args.jobs, args.prior_calibration)

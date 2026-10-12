@@ -107,3 +107,19 @@ def test_inner_cv_shrinks_less_when_verifiers_are_dependent(dependent):
     cfg = {'inner_folds': 5, 'probability_bins': 3, 'laplace': 1.}
     alpha, _ = choose_alpha(rows, tags, [0.5, 2., 8., 32., 128., INF], EDGES, cfg, 7)
     assert (alpha <= 32.) if dependent else (alpha >= 32.)
+
+
+@pytest.mark.parametrize('method', ['monotone_binned', 'platt'])
+def test_prior_calibration_is_monotone_and_keeps_raw_values(method):
+    from vgx.gpqa.dependence_triples import calibrated_rows, fit_prior_calibration
+    rng = np.random.default_rng(8)
+    raw = rng.choice([0.85, 0.9, 0.95, 0.98, 0.99, 1.0], 300)
+    rows = [{'answer': 'A', 'prior': float(p), 'outcome': int(rng.random() < p - 0.15)} for p in raw]
+    fit = fit_prior_calibration(rows, method)
+    grid = np.linspace(0., 1., 201)
+    mapped = [fit['map'](p) for p in grid]
+    assert all(b >= a - 1e-12 for a, b in zip(mapped, mapped[1:]))
+    assert all(0. < m < 1. for m in mapped)
+    out = calibrated_rows(rows + [{'answer': None, 'prior': None, 'outcome': 0}], fit['map'])
+    assert [r['raw_prior'] for r in out[:-1]] == [r['prior'] for r in rows] and out[-1]['prior'] is None
+    assert fit['map'](0.95) < 0.95  # overconfident input is pulled down

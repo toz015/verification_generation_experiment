@@ -192,9 +192,105 @@ def report(root, output):
     return '\n'.join(lines)
 
 
+KEY = [('abstain_all', 'Abstain on all'), ('raw', 'Prior only (no verifier)'), ('single_flash', 'Single Flash'),
+       ('independence:selected_triple', 'Triple, independence'), ('dependence:selected_triple', 'Triple, correlation-aware'),
+       ('dependence:always_selected_triple', 'Always ask all three, correlation-aware')]
+
+
+def prior_quality(run):
+    """Held-out prior (raw or calibrated) from the prior-only policy; one value per question."""
+    ds = run['decisions_primary']['raw']
+    ok = [i for i, d in enumerate(ds) if d['posterior'] is not None]
+    return ok, np.array([ds[i]['posterior'] for i in ok])
+
+
+def compare(roots, outcomes, output):
+    """roots: {label: result root}; outcomes: {run: [outcome per item]} from the bundle."""
+    data = {label: load(root) for label, root in roots.items()}
+    labels = list(roots)
+    lines = []
+    w = lines.append
+    w('## Prior quality on held-out questions (main split)\n')
+    w('| Generator | Prior | Mean prior | Accuracy | Brier | Questions with prior >= 0.95 | Their accuracy |')
+    w('|---|---|---|---|---|---|---|')
+    for g in GENERATORS:
+        for label in labels:
+            run = data[label][f'{g}/{MAIN}']
+            ok, p = prior_quality(run)
+            y = np.array(outcomes[f'{g}/{MAIN}'])[ok]
+            hi = p >= 0.95
+            w(f'| {g} | {label} | {p.mean():.3f} | {y.mean():.3f} | {np.mean((p-y)**2):.4f} | {int(hi.sum())} | '
+              f"{(y[hi].mean() if hi.any() else float('nan')):.3f} |")
+    w('')
+    losses = sorted(next(iter(data[labels[0]].values()))['policies'], key=float)
+    w('## Main split (seed 20261005, 249 questions)\n')
+    for g in GENERATORS:
+        for lk in losses:
+            w(f'**{g.capitalize()}, L = {float(lk):g}**\n')
+            w('| Policy | ' + ' | '.join(f'{lb}: released / wrong | U | vs Flash' for lb in labels) + ' |')
+            w('|---|' + '---|---|---|'*len(labels))
+            for key, name in KEY:
+                cells = []
+                for label in labels:
+                    s = data[label][f'{g}/{MAIN}']['policies'][lk][key]
+                    ci = s.get('paired_utility_vs_flash', {}).get('ci95', {})
+                    vs = '' if key == 'single_flash' else f"{fmt(s['utility_difference_vs_flash'], 2)} ({fmt(ci.get('low'), 2)} to {fmt(ci.get('high'), 2)})"
+                    cells += [f"{s['released']} / {s['wrong_released']}", fmt(s['mean_utility']), vs]
+                w(f'| {name} | ' + ' | '.join(cells) + ' |')
+            w('')
+    w('## All splits: difference in mean utility per question\n')
+    w('Range over five fold seeds, with the number of seeds where the first policy is ahead.\n')
+    pairs = [('single_flash', 'raw', 'Flash minus prior only'),
+             ('independence:selected_triple', 'single_flash', 'Triple (independence) minus Flash'),
+             ('dependence:selected_triple', 'single_flash', 'Triple (correlation-aware) minus Flash')]
+    w('| Generator | Questions | L | Comparison | ' + ' | '.join(labels) + ' |')
+    w('|---|---|---|---|' + '---|'*len(labels))
+    for g in GENERATORS:
+        for c in COHORTS:
+            for lk in losses:
+                for a, b, name in pairs:
+                    cells = []
+                    for label in labels:
+                        runs = [r for k, r in data[label].items() if k.startswith(f'{g}/{c}/')]
+                        d = [r['policies'][lk][a]['mean_utility'] - r['policies'][lk][b]['mean_utility'] for r in runs]
+                        cells.append(f'{fmt(min(d), 2)} to {fmt(max(d), 2)} ({sum(x > 0 for x in d)}/{len(d)})')
+                    n = len(runs[0]['item_ids'])
+                    w(f'| {g} | {n} | {float(lk):g} | {name} | ' + ' | '.join(cells) + ' |')
+    w('')
+    w('## Best policy by mean utility, per split (counts over 20 splits)\n')
+    for lk in losses:
+        for label in labels:
+            best = Counter()
+            for k, r in data[label].items():
+                cand = {key: r['policies'][lk][key]['mean_utility'] for key, _ in KEY}
+                best[max(cand, key=cand.get)] += 1
+            w(f'- L = {float(lk):g}, {label}: ' + ', '.join(f'{dict(KEY)[k]} {n}' for k, n in best.most_common()))
+    w('')
+    w('## Fixed orders on the main split, L = 19 (diagnostic)\n')
+    w('| Generator | Prior | Model | Orders ahead of Flash | Median vs Flash | Best vs Flash |')
+    w('|---|---|---|---|---|---|')
+    for g in GENERATORS:
+        for label in labels:
+            r = data[label][f'{g}/{MAIN}']
+            for model in ('independence', 'dependence'):
+                d = [s['utility_difference_vs_flash'] for k, s in r['policies'][losses[0]].items() if k.startswith(model+':triple:')]
+                w(f'| {g} | {label} | {model} | {sum(x > 0 for x in d)}/60 | {fmt(float(np.median(d)))} | {fmt(max(d))} |')
+    Path(output).mkdir(parents=True, exist_ok=True)
+    (Path(output)/'COMPARISON.md').write_text('\n'.join(lines) + '\n')
+    return '\n'.join(lines)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--compare', nargs='*', default=[], metavar='LABEL=ROOT',
+                        help='also write COMPARISON.md across result roots (e.g. raw=..., calibrated=...)')
+    parser.add_argument('--bundle', help='review bundle, for held-out outcomes in the comparison')
     args = parser.parse_args()
     print(report(args.root, args.output))
+    if args.compare:
+        from vgx.gpqa.dependence_triples import load_bundle
+        _, inputs, fits, _ = load_bundle(args.bundle)
+        outcomes = {run: fit['outcomes'] for run, fit in fits.items()}
+        print(compare(dict(x.split('=', 1) for x in args.compare), outcomes, args.output))
