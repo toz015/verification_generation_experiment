@@ -1,0 +1,15 @@
+{
+  "source_scoring_commit": "d037ab61907a1b6e668b217e22d2b18c5b5bab31",
+  "plan_id": "e8674593b22690bd7e312356c057739422076b6a3ed5934d51d613bff0ce5f2c",
+  "result_id": "784545b498902ad0ce630cf1cd12db98e7abe614142acafa60df5e459e8ed765",
+  "files": {
+    "README.txt": "f47b4bd889059052fa8ce716311a568b81ade7c4bc14e2774c4c52e00abec1d1",
+    "result.json": "3a5ee65a9d3130f400615528c4d7b3ec846c05f3e3551059c5314b62acae7438",
+    "sha256.txt": "a4d92172ee8c7f456a52b65cc3f8e3a0c24e353b4fe2a419dc2011210fb0cf51",
+    "step2_stdout.txt": "4c6bad4ac374f5dd9834cdf5a1807642d4da8bc99ff2885a353e139b03ba8ed5",
+    "step3_stdout.txt": "a4d92172ee8c7f456a52b65cc3f8e3a0c24e353b4fe2a419dc2011210fb0cf51",
+    "step4_stdout.txt": "832bd1238fe017bc0b9bbdd57100ab73ae4b10cc0f5d67bd288fc1a3d817f8d6",
+    "step5_stdout.txt": "890b9a8b5d6f0eb0deee067e332f7cb4764a1cfa71e6cc0dd5b1fef3805124e1",
+    "step6_stdout.txt": "960e5b23b62a59837f0b8d130955e8bee2b767cd0eb5533b90a3f2bc66a0c4c4"
+  }
+}
