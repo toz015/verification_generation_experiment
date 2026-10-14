@@ -34,3 +34,29 @@ OUT=results/gpqa_diamond_plan_score_20261013
 correct/incorrect flag per (generator, question). `result.json` holds only
 aggregate metrics and intervals and is the file to share; keep `outcomes.json`
 local.
+
+## Cost comparison (added 2026-10-14; not pre-declared)
+
+`vgx.gpqa.diamond_cost` compares, with raw confidence and the independence
+model, four ways to use the same frozen fits at each loss: confidence alone,
+the selected triple asked one at a time (the adaptive policy above), the same
+triple asked for every question, and all five asked for every question. It
+reports calls, the plan's expected cost and the measured cost of the Diamond
+requests per question, outputs, wrong outputs and utility. Intervals are
+descriptive paired bootstraps. Measured cost counts each generator's requests
+as if run alone; requests shared by both generators were paid once.
+
+```sh
+.venv/bin/python -m pytest -q tests/test_diamond_cost.py
+# label-free preview (no answers opened)
+.venv/bin/python -m vgx.gpqa.diamond_cost decisions \
+  --plan configs/gpqa_diamond_analysis_plan_20261012.json \
+  --signals results/gpqa_diamond_signals_20261012/signals.json
+.venv/bin/python -m vgx.gpqa.diamond_cost score \
+  --plan configs/gpqa_diamond_analysis_plan_20261012.json \
+  --signals results/gpqa_diamond_signals_20261012/signals.json \
+  --outcomes results/gpqa_diamond_plan_score_20261013/outcomes.json \
+  --output results/gpqa_diamond_cost_20261014/result.json
+```
+
+It reuses the existing `outcomes.json`; `result.json` holds aggregates only.
