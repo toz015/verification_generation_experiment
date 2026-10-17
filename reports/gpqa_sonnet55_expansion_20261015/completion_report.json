@@ -1,0 +1,98 @@
+{
+  "accuracy_computed": false,
+  "additional_estimated_usd": 2.98344,
+  "additional_responses": 395,
+  "answer_keys_read": false,
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 3.315822,
+    "limit_usd": 20.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 445
+  },
+  "bundle_id": "928331fec1a4e2086ebc007699b813b79031747263add74f93030eb8c0c5bd9c",
+  "confidence_calibrated": false,
+  "confirmed_billing_usd": null,
+  "duplicate_successful_requests": 0,
+  "estimated_usd": 3.315822,
+  "expansion_id": "f9ecf7c1e26c1e1f6c9ea918a1e152719ad131ee360757775cfe4aa16d6799a9",
+  "input_tokens": 175861,
+  "original_fifty_and_reports_unchanged": true,
+  "output_tokens_including_thinking": 296410,
+  "partitions": {
+    "calibration": {
+      "confidence_n": 248,
+      "confidence_values": {
+        "0.3": 1,
+        "0.35": 1,
+        "0.4": 7,
+        "0.5": 6,
+        "0.55": 5,
+        "0.6": 19,
+        "0.62": 2,
+        "0.68": 4,
+        "0.7": 7,
+        "0.72": 21,
+        "0.75": 2,
+        "0.8": 46,
+        "0.85": 25,
+        "0.88": 37,
+        "0.9": 10,
+        "0.93": 24,
+        "0.95": 7,
+        "0.96": 10,
+        "0.97": 14
+      },
+      "invalid": {
+        "nonterminal_json_or_unbalanced_fence": 1
+      },
+      "mean_raw_confidence": 0.797741935483871,
+      "responses": 249,
+      "stop_reasons": {
+        "end_turn": 249
+      },
+      "valid": 248
+    },
+    "evaluation": {
+      "confidence_n": 196,
+      "confidence_values": {
+        "0.28": 1,
+        "0.3": 1,
+        "0.45": 1,
+        "0.5": 2,
+        "0.55": 5,
+        "0.6": 13,
+        "0.67": 1,
+        "0.68": 2,
+        "0.7": 2,
+        "0.72": 11,
+        "0.75": 2,
+        "0.77": 1,
+        "0.8": 26,
+        "0.82": 1,
+        "0.85": 22,
+        "0.88": 21,
+        "0.9": 16,
+        "0.92": 1,
+        "0.93": 23,
+        "0.95": 15,
+        "0.96": 4,
+        "0.97": 19,
+        "0.98": 6
+      },
+      "invalid": {},
+      "mean_raw_confidence": 0.837295918367347,
+      "responses": 196,
+      "stop_reasons": {
+        "end_turn": 196
+      },
+      "valid": 196
+    }
+  },
+  "reported_thinking_tokens": 117500,
+  "reused_pilot_responses": 50,
+  "stage": "complete",
+  "target": 445
+}

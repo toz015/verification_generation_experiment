@@ -1,0 +1,24 @@
+{
+  "amendment_id": "33598e79b6b99cd0831a5aa2117ec81338798ec0c881cbcac1b07b1418d9de38",
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.332382,
+    "limit_usd": 20.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 50
+  },
+  "confidence_calibrated": false,
+  "errors": [],
+  "invalid": {},
+  "new_calls_this_invocation": 45,
+  "parent_study_id": "928cd2be92e2191b29527ba713661de3944d8bf1f17414f0296d6968b2d47c35",
+  "responses": 50,
+  "reused": 5,
+  "stage": "complete",
+  "strict_valid": 0,
+  "target": 50,
+  "updated_at_unix": 1792082936.371978,
+  "valid": 50
+}

@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "project": "llm-applications-490420",
+  "dataset_root": "results/gpqa_vertex_20261004",
+  "baseline_bundle": "results/gpqa_vertex_20261004/frozen",
+  "qwen_baseline": "results/gpqa_staged_generator_expansion_20261005/frozen_candidates.json",
+  "sample_size": 50,
+  "seed": 20261015,
+  "model": "anthropic/claude-sonnet-5-5",
+  "location": "global",
+  "generation": {
+    "max_tokens": 32768,
+    "thinking": {"type": "adaptive"},
+    "output_config": {"effort": "high"}
+  },
+  "interval_seconds": 10,
+  "stage_budget_usd": 20.0,
+  "authorized_total_budget_usd": 200.0,
+  "pricing": {
+    "checked_date": "2026-10-15",
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "usage_semantics": {"anthropic/claude-sonnet-5-5": "completion_includes_reasoning"},
+    "usd_per_million_tokens": {
+      "anthropic/claude-sonnet-5-5": {"input": 2.0, "output": 10.0, "cached_input": 2.0}
+    },
+    "notes": [
+      "Global online rates. Output usage includes thinking; never infer billable tokens from visible text.",
+      "No explicit prompt caching is requested. Unexpected cache usage blocks collection for accounting review.",
+      "Usage-based estimates are not confirmed Cloud billing."
+    ]
+  },
+  "documentation": {
+    "model": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/sonnet-5-5",
+    "parameters": "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
+    "thinking": "https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost"
+  },
+  "limitations": [
+    "Original preselected 50 development items; no Diamond requests or answer-key access.",
+    "Same original question, option order, system and answer/confidence prompt. Confidence is raw, never calibrated.",
+    "Adaptive thinking, effort high, 32768 total output tokens. Sampling parameters are omitted because Sonnet 5.5 rejects non-default values.",
+    "Historical Gemini and two-step Qwen use different generation protocols and serving dates; differences cannot be attributed solely to model weights.",
+    "First five must all have strict final JSON, end_turn, matching model identity and priced provider usage. Gate never uses correctness labels.",
+    "Only final text blocks are parsed; thinking blocks are retained in raw envelopes but never parsed for answers.",
+    "No automatic HTTP retry, malformed-response repair or candidate regeneration. An unresolved request remains blocked.",
+    "Local budget reservations are not a provider billing cap. Old unpriced usage is retained conservatively in the budget audit.",
+    "No verifier requests, likelihood fitting, policy changes or confidence calibration in this screen."
+  ]
+}
