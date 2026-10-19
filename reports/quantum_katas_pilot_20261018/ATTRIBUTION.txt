@@ -1,0 +1,18 @@
+Source dataset and evaluator: qiskit-community/Qiskit-QuantumKatas
+Repository: https://github.com/qiskit-community/Qiskit-QuantumKatas
+Pinned revision: 3790fb3e9892537b550c884ad54b65c73c13f1ad
+Dataset: dataset/qiskit_quantumkatas.jsonl
+Evaluator: benchmark/evaluator.py
+License: CC-BY-NC-SA-4.0; full upstream text is LICENSE.upstream.txt.
+
+private/tasks.jsonl contains 28 selected, unmodified source records.
+public/tasks.jsonl contains a projection of source prompts and identifiers,
+with local development-partition and revision metadata added.
+private/control_codes.jsonl and diagnostics/planned_jobs.jsonl contain
+deliberately incorrect variants and locally authored diagnostic tests.
+Mutations and diagnostic extensions are identified in the run records; they
+do not replace the upstream dataset or its original test results.
+
+Local audit date: 2026-10-18.
+The directory name "private" denotes the experimental oracle boundary, not
+a claim that the upstream solutions/tests are secret or inaccessible online.

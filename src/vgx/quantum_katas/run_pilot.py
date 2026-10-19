@@ -36,7 +36,6 @@ BOUND_FILES = {
     **{f'common/{n}': COMMON/n for n in ('api.py', 'llm.py', 'storage.py', 'vertex.py', 'vertex_partner.py',
                                          'budget.py', 'billing.py')},
 }
-MAX_REQUESTS = {'generator': 28, 'verifier': 84, 'official_checker': 28}
 
 
 def implementation() -> dict:
@@ -136,8 +135,8 @@ def prepare(config_path: str | Path, output: str | Path, *, mock_responses: dict
     if config.get('prompt_version') != prompt.PROMPT_VERSION:
         raise ValueError('run config prompt_version differs from the implemented parser')
     generator, verifiers = runners.load_specs(config['models'])
-    if len(verifiers) != 3:
-        raise ValueError('the pilot uses exactly three configured verifiers')
+    if not 3 <= len(verifiers) <= 5:
+        raise ValueError('the pilot uses three to five configured verifiers')
     is_mock = generator.provider == 'mock' and all(v.provider == 'mock' for v in verifiers)
     if is_mock != (mock_responses is not None):
         raise ValueError('mock providers and mock responses must be used together (dry run only)')
@@ -197,7 +196,8 @@ def prepare(config_path: str | Path, output: str | Path, *, mock_responses: dict
         'generator_request_keys': {r.meta['task_id']: gen_runner.cache_key(r) for r in gen_requests},
         'environment': env, 'environment_id': oracle.environment_identity(env, checker),
         'checker_limits': checker.limits(),
-        'request_ceilings': {**MAX_REQUESTS, 'smoke_tasks': config.get('smoke_tasks', 3)},
+        'request_ceilings': {'generator': len(public), 'verifier': len(public) * len(verifiers),
+                             'official_checker': len(public), 'smoke_tasks': config.get('smoke_tasks', 3)},
         'generator_reservation_usd': _reservations(config, [(gen_runner, r) for r in gen_requests]),
         'paid_api_calls_at_prepare': 0,
     }, 'plan_id')

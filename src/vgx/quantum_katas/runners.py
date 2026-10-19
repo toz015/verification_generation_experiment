@@ -15,9 +15,10 @@ from vgx.common.storage import digest
 from vgx.common.vertex import VertexBatchRunner
 from vgx.common.vertex_partner import VertexPartnerRunner
 
-PROVIDERS = ('vertex_openai', 'vertex_anthropic', 'mock')
+PROVIDERS = ('vertex_openai', 'vertex_anthropic', 'vertex_partner', 'mock')
 OPENAI_GENERATION = {'max_tokens', 'temperature', 'top_p', 'reasoning_effort'}
 ANTHROPIC_GENERATION = {'max_tokens', 'temperature', 'thinking', 'output_config'}
+PARTNER_GENERATION = {'max_tokens', 'temperature'}  # VertexPartnerRunner: no thinking, as in the GPQA screen
 
 
 @dataclass(frozen=True)
@@ -41,11 +42,14 @@ class ModelSpec:
             return
         if not self.location or not self.project:
             raise ValueError(f'explicit Vertex location and project required: {self.id}')
-        allowed = OPENAI_GENERATION if self.provider == 'vertex_openai' else ANTHROPIC_GENERATION
+        allowed = {'vertex_openai': OPENAI_GENERATION, 'vertex_anthropic': ANTHROPIC_GENERATION,
+                   'vertex_partner': PARTNER_GENERATION}[self.provider]
         if set(self.generation) - allowed:
             raise ValueError(f'unsupported generation settings for {self.provider}: {sorted(set(self.generation) - allowed)}')
         if self.provider == 'vertex_anthropic' and not self.model.startswith('anthropic/'):
             raise ValueError('vertex_anthropic requires an anthropic/ publisher model')
+        if self.provider == 'vertex_partner' and self.model.split('/')[0] not in ('mistralai', 'anthropic'):
+            raise ValueError('vertex_partner supports mistralai/ and anthropic/ publisher models')
 
     @property
     def identity(self) -> str:
@@ -56,6 +60,8 @@ class ModelSpec:
             return VertexBatchRunner(self.model, self.location, self.project, **self.generation)
         if self.provider == 'vertex_anthropic':
             return AnthropicVertexRunner(self.model, self.location, self.project, self.generation)
+        if self.provider == 'vertex_partner':
+            return VertexPartnerRunner(self.model, self.location, self.project, **self.generation)
         return MockRunner(self.model, self.generation['max_tokens'], mock_responses or {})
 
 

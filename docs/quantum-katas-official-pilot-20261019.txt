@@ -95,3 +95,28 @@ GPQA、common 模块均未修改；GPQA 缓存身份不变。
   同一题的多个候选不跨组；继续用固定官方 checker；在量子领域重新拟合 prior/likelihood，
   不拿 GPQA 参数充当校准结果；多次独立采样需改变请求身份（prompt 或 runner），不能只改
   meta；全量阶段另行确认预算，不在本次扩大付费规模。
+
+8. tony 已确认的模型与设置（2026-10-19）
+  两个 generator 各自一个运行目录、各生成一份候选（每题 2 个候选，按 generator 分开统计）：
+    configs/quantum_katas_official_pilot_qwen3_20261019.json
+      qwen/qwen3-235b-a22b-instruct-2507-maas，us-south1，单次调用，temperature 0、top_p 1、max_tokens 4096
+      （GPQA 后来对 Qwen 用了 draft+finalize 两步；本 pilot 每题冻结一次调用，故不采用）
+    configs/quantum_katas_official_pilot_sonnet55_20261019.json
+      anthropic/claude-sonnet-5-5，global，adaptive thinking、effort high、max_tokens 32768、不设采样参数
+  verifier：GPQA 的五个候选，transport 与生成设置照搬（提示词为 QuantumKatas 版本）：
+    gemini_flash  google/gemini-3.7-flash        global       max_tokens 4096, reasoning_effort low
+    gemini_lite   google/gemini-3.5-flash-lite   global       max_tokens 4096, reasoning_effort low
+    mistral_small mistralai/mistral-small-2503   us-central1  max_tokens 4096, temperature 0（partner rawPredict）
+    mistral_medium mistralai/mistral-medium-3    us-central1  max_tokens 4096, temperature 0（partner rawPredict）
+    claude_haiku  anthropic/claude-haiku-4-5     global       max_tokens 4096, temperature 0（partner rawPredict）
+  project：llm-applications-490420（与 GPQA 相同）。预算尚未授权，两个配置中 limit_usd 待填、
+  paid_collection_authorized=false。
+  请求量：每个运行 28 generator + 140 verifier；合计 336 个逻辑请求，官方 checker 最多 56 次。
+  冒烟：每个运行前三题 = 3 + 15 个请求。
+  费用（2026-10-19 官方价格）：
+                         预期      每次用满 max_tokens   本地账本保守预留（Gemini 每次 131k）
+    Qwen 运行            ~$0.2     ~$1.7                 $24.2
+    Sonnet 运行          ~$1.9     ~$10.8                $33.4
+    合计                 ~$2.1     ~$12.5                $57.6
+  预留随每次调用结算，限额只需覆盖实际用量加一次在途预留（约 $0.5），不必等于预留合计。
+  已确认账单：未知。

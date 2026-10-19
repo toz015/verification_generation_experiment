@@ -1,0 +1,360 @@
+可直接发送给 Claude 的实施任务：接入 QuantumKatas 官方 checker pilot
+交接日期：2026-10-18
+
+请在下面的现有仓库中完成实现与离线验证，再按已明确的模型和预算
+授权开展真实 pilot。请先阅读当前协议和已有代码，避免重复做数据集
+审计。本文中的模块划分和 CLI 名称是建议；评分与实验约束是已确定
+要求，不能自行更改。
+
+仓库绝对路径：
+/Users/wanghd/Documents/workplace/verification-generation-experiment
+
+一、目标与已确定的研究范围
+
+将 Qiskit QuantumKatas 接入现有固定候选的生成—验证实验框架：
+题目 x -> generator 产生完整程序 c 与自报概率 r -> 冻结 c ->
+多个 verifier 分别预测 c 通过官方 checker 的概率 -> 顺序策略选择
+继续查询、接受或弃答 -> 使用官方 checker 的结果 y 进行离线评价。
+
+此次目标是完成 28 题 development pilot 的工程接入与流程验证。
+不要求这 28 题证明最终方法优越性、给出正式风险保证或完成全量实验。
+原有方法、先验校准方式和顺序决策算法不应因换数据集而被擅自改写。
+需要数据集适配的地方单独实现；主实验不再做 checker 改进研究。
+
+用户已经明确：
+1. 使用固定版本的官方 checker，主标签直接采用官方返回的 passed。
+2. 保留全部 28 题，包括 SAT、QFT、QEC、CHSH；不因诊断重新筛题。
+3. 不修改题意、参考解、测试、容差、shots、随机种子或验收阈值。
+4. 不加入自定义测试、seed bank、多次投票、测试反馈修复或重生成。
+5. 已有额外诊断仅保留记录，不影响主标签，不作为继续接入的前提。
+6. 与其他论文比较时同时对齐数据版本、题集、生成/采样条件和指标。
+   使用相同 checker 是必要的评价口径对齐，但本 pilot 的子集及新增
+   confidence 输出提示不能被说成完整复现了别人全部实验条件。
+
+二、必须先读的现有材料
+
+以下路径均相对于上述仓库根目录。
+
+当前有效协议（优先遵循）：
+  configs/quantum_katas_official_protocol_20261018.json
+固定题单与已执行审计配置（保持原样）：
+  configs/quantum_katas_pilot_20261018.json
+固定量子环境依赖：
+  configs/quantum_katas_pilot_requirements.txt
+已更新的检查结果与接入设计：
+  docs/quantum-katas-pilot-20261018.txt
+
+已完成的开发审计资料：
+  reports/quantum_katas_pilot_20261018/manifest.json
+  reports/quantum_katas_pilot_20261018/summary.json
+  reports/quantum_katas_pilot_20261018/runs.jsonl
+  reports/quantum_katas_pilot_20261018/public/tasks.jsonl
+  reports/quantum_katas_pilot_20261018/private/tasks.jsonl
+  reports/quantum_katas_pilot_20261018/ATTRIBUTION.txt
+  reports/quantum_katas_pilot_20261018/LICENSE.upstream.txt
+
+完整上游数据及 evaluator 已下载到：
+  tmp/quantum_four_dataset_review_20261018/Qiskit-QuantumKatas/
+其中：
+  dataset/qiskit_quantumkatas.jsonl  -- 完整 350 题
+  benchmark/evaluator.py           -- 官方评分实现
+  uv.lock                         -- 上游依赖锁
+  LICENSE
+
+上游仓库：https://github.com/qiskit-community/Qiskit-QuantumKatas
+固定 commit：3790fb3e9892537b550c884ad54b65c73c13f1ad
+dataset SHA256：
+03abb872a87bc62c36c9ea453659cb741d7a8f4892a4c1b52c39a08f882e7b8c
+evaluator SHA256：
+f91f4f6da9efbdb8fb88dbbd964979a9272119fb517c844a6680cedceb1b1e2e
+
+已有独立解释器：
+  tmp/quantum_katas_pilot_20261018/venv/bin/python
+Python 3.12.13，Qiskit 2.3.0，Aer 0.17.2，NumPy 2.4.1，SciPy 1.17.0。
+主项目要求 NumPy <2.3；不要将量子依赖安装进主项目 .venv 或执行
+一次全项目 uv sync 来覆盖它。控制器用主环境，量子执行用独立环境，
+通过 JSON 协议连接。正式生成代码的隔离执行镜像也应固定这些版本。
+
+参考解已完成 190 次运行，全部通过：普通题各 5 次，两道随机题
+各 30 次。28 题覆盖 26 个顶层目录，包含经典辅助题；不是 190 个
+独立样本。没有启动真实 LLM 生成或 verifier 调用。
+
+已有审计脚本：
+  scripts/quantum_katas_pilot.py
+  scripts/quantum_katas_oracle_probes.py
+前者使用官方原样 _run_test_worker 和自己管理的 subprocess 超时，
+不是正式接入实现；后者是额外诊断。不要以运行后者作为交付条件。
+正式候选评分请调用完整的官方 evaluate_solution 入口。
+
+三、现有代码的复用边界
+
+优先复用：
+  src/vgx/common/llm.py                 Request / Call / CallLog
+  src/vgx/common/api.py                 RequestCache / 不确定请求恢复
+  src/vgx/common/budget.py              BudgetedRequestCache
+  src/vgx/common/billing.py             使用量和费用估算
+  src/vgx/common/storage.py             哈希、原子写入、锁、JSONL
+  src/vgx/common/vertex.py              VertexBatchRunner
+  src/vgx/common/vertex_partner.py      VertexPartnerRunner
+  src/vgx/gpqa/score.py                 二元预测指标与 VerifierLikelihood
+  src/vgx/gpqa/planner.py               NestedPlanner 数值核心
+
+参考其流程，但不要直接照搬 GPQA 数据结构：
+  src/vgx/gpqa/artifacts.py             FrozenCandidate 仅支持四选一
+  src/vgx/gpqa/prompt.py                ABCD 提示词与解析器
+  src/vgx/gpqa/signal_study.py          收集、transport 选择及身份校验
+  src/vgx/gpqa/sequential.py            顺序请求、checkpoint、恢复
+  src/vgx/gpqa/verifiers.py             绑定 GPQA prompt_version/选项结构
+  src/vgx/gpqa/offline_validation.py    outcome/valid/fit 仍绑定 ABCD
+
+不要把 Python 程序强塞进 FrozenCandidate.answer；不要只改字段名就
+宣称完成接入。GPQA 的 CorrectnessForecast 也不能原样拿来拟合代码，
+因为它通过 generator_answer/correct_index 推导结果，且要求 calibration
+分区。不能为绕过这个检查把 development 记录改标成 calibration。
+优先新增 vgx.quantum_katas；若确有必要抽公共核心，保持 GPQA 行为和
+历史缓存身份不变，并运行受影响的回归测试。
+
+如果之后选择 Anthropic 的 adaptive thinking 配置，注意已有
+src/vgx/gpqa/sonnet_screen.py:SonnetRunner 的请求参数处理，与普通
+VertexPartnerRunner 不同。不能直接把 thinking/output_config 参数
+传给只接受 max_tokens/temperature 的构造函数。只复用合适的
+transport 逻辑，不复用 GPQA screen 的样本限制或预算授权。
+
+四、实施步骤 A：加载、冻结与数据边界
+
+建议新建这些模块（可合理合并，避免过度拆分）：
+  src/vgx/quantum_katas/load.py
+  src/vgx/quantum_katas/artifacts.py
+  src/vgx/quantum_katas/prompt.py
+  src/vgx/quantum_katas/oracle.py
+  src/vgx/quantum_katas/oracle_worker.py
+  src/vgx/quantum_katas/run_pilot.py
+  src/vgx/quantum_katas/sequential.py
+  src/vgx/quantum_katas/report.py
+  src/vgx/quantum_katas/workflow.py
+
+加载器应：
+- 校验 commit 对应的文件哈希，按固定配置加载全部 28 个 task_id。
+- 检查 ID 唯一性和字段齐全，按 task_id 标识题目；entry_point 会重名。
+- PublicTask 仅含公开 prompt、入口、版本、分区等；oracle 记录单独保存
+  canonical_solution/test，公共模型请求不加载这些字段。
+- 保留上游 prompt 原文；可在外层增加本实验输出格式和执行环境说明。
+- 保存任务、候选、prompt、模型参数、checker、环境的版本与哈希。
+- 不覆盖原审计报告，新的实现和模型运行使用新的输出目录与 manifest。
+- 遵循上游 CC-BY-NC-SA-4.0，随选取的数据保留来源与许可说明。
+
+候选记录建议包括：
+  task_id, generation_id, candidate_id, partition=development,
+  raw_code, code_sha256, raw_p_correct,
+  generator_response_status, confidence_status,
+  model_identity, request_key, provider_execution_id,
+  prompt_sha256, raw_response_sha256, prompt_version, dataset_revision。
+候选身份应绑定代码与来源，不能在后续验证中覆写或修订。
+模型可见视图另做白名单投影；不要把完整候选 provenance 直接拼进
+verifier prompt。原始 r 与以后可能得到的 calibrated prior 分字段保存。
+
+五、实施步骤 B：提示词与响应解析
+
+Generator 接收原题和公开执行约定，生成完整可执行 Python 模块，
+包含必要 imports、所有要求的函数和辅助函数，不仅是 entry_point 的
+函数体。例如 MagicSquareGame/2.6 同时要求 Alice/Bob 两个函数。
+要求一次返回：
+  {"code": "完整 Python 源码", "p_correct": 0.0}
+其中 p_correct 的含义是该代码通过固定版本官方 checker 的概率。
+
+Verifier 接收原题、公开执行约定、同一份冻结程序，返回：
+  {"p_correct": 0.0}
+它只判断既定候选；不生成替代代码，不读取其他 verifier，不接收
+generator r、模型名称、参考解、test 源码或 checker 结果。
+评估端和数据收集端的物理/模块边界应支持这一信息限制。
+
+解析规则应在调用模型前固定：
+- 使用完整 JSON 解析，不用最短花括号正则截取（代码中有字典和括号）。
+- 拒绝重复 JSON 键、NaN/Infinity、布尔概率和越界概率；保留原始输出。
+- 可决定只允许 JSON，或允许恰好一层完整 JSON markdown fence；选定
+  后写入 prompt_version，不在看到失败输出后临时放宽或修复。
+- 不从 thinking/reasoning 段抽取答案，只解析 provider 的最终文本。
+- 代码字符串明确且可提取时即保存；语法错误代码也交官方 checker，
+  不由 AST 检查提前删题或替代官方标签。
+- 代码有效字段与 confidence 分别记录：有代码但 r 无效时可保存官方
+  结果，但顺序策略因无初始概率而弃答，不自行填 0.5。
+- 无可提取代码时记录 generator format failure，不伪造官方调用或
+  official_passed；端到端完成率/任务通过率统计中明确计入失败分母。
+- 不自动重生成、修复代码或请求模型补 JSON。verifier 格式失败记录
+  missing signal，顺序模式依现有失败策略弃答，不当作概率零。
+
+六、实施步骤 C：官方 checker 适配
+
+调用方式必须是：
+  evaluate_solution(frozen_code, original_test, entry_point, timeout=30.0)
+调用固定版本源码，保留其 extract_code_from_response、syntax check、
+multiprocessing 执行、测试函数选择和所有返回字段的原有行为。
+不要自行重写一套等价 assert 作为主 checker。
+若官方提取器对输入做了 strip/fence extraction，可额外保存执行代码
+哈希用于溯源；不能用自定义提取器替代或修补程序。
+
+主标签：y = int(official_result.passed)。
+同时保存 syntax_valid、test_passed、error_type、error_message、stdout、
+耗时、源码/代码/test/环境哈希。官方返回的语法、断言、超时、进程错误
+均保留原 passed，不因自己的原因分类而重新判分。
+尚未取得官方返回值的服务中断才是 missing/unresolved，不捏造标签。
+
+每个冻结候选一次官方评估，持久化后恢复时复用：
+- key 至少绑定 task_id、candidate/code hash、checker/test hash 和环境。
+- 先记录运行意图，再运行并持久化结果；已完成结果不重跑。
+- 如 worker 已执行但结果丢失，标记 unresolved，不能自动再抽一次随机
+  结果并假装是原结果。诊断性重跑必须另记，不能取代主标签。
+- 不更改官方随机行为，也不把 CHSH 30 次诊断的多数结果用于打标签。
+- 外层 supervisor 应给官方 30 秒计时留启动/回收余量；若外层自身
+  超时未获得官方返回，按服务异常记录，不能伪称官方 Timeout。
+
+参考审计使用的 venv + subprocess 不是运行任意生成代码的安全边界。
+模型代码应在隔离 worker/container 中执行：无 ADC/云凭据、禁网、
+不挂载用户主目录或整个仓库、固定依赖，并限制内存、进程和运行时间。
+这属于执行环境约束，不增加自定义语义判题。记录资源上限及平台。
+在没有该执行边界时仍可完成全部 adapter/mocked tests 和已审阅参考
+代码的 dry run，不要在有云凭据的宿主控制器直接 exec 模型输出。
+
+七、实施步骤 D：缓存、调用流程与顺序适配
+
+所有 LLM 调用使用现有 RequestCache / BudgetedRequestCache；记录
+真实 provider response、模型版本、token usage、延迟、费用估算。
+不确定的付费请求不自动重发；沿用已有 transport 的恢复规则。
+BudgetedRequestCache 已对明确 HTTP 429 拒绝做有界退避，不要再叠加
+一个宽泛的异常重试循环。缓存命中和新增付费执行分别计数。
+
+本 pilot 默认每题一次 generator、三个配置化 verifier，先不要多样本
+生成。同一冻结代码发给各 verifier，严格不让后一个看到前一个结果。
+有代码时可收集开发诊断信号，即使 r 无效；但顺序策略仍须按无 prior
+弃答，报表分别列出有代码/有 r/有标签/有 verifier 的样本数。
+
+开发收集与顺序执行是两个明确模式：
+1. collect-development：收集全部 verifier 概率，用于接口、分布和
+   缺失率检查；实际调用费用全部计入，不能说这些调用被策略省掉。
+2. run-sequential：接受已冻结 policy 和公共候选，由策略决定是否
+   query；只有决定后才请求或读取对应缓存信号。停止后不访问未来
+   verifier 或标签，checkpoint 恢复不得重复请求。
+   本轮用合成 policy / fixtures 验证接口，标为工程 dry run；不把
+   GPQA 已拟合的 likelihood 直接作为 QuantumKatas 的正式参数。
+
+复用 NestedPlanner 的数值核心，可参考 sequential.py 的恢复语义，
+但适配 code candidate 的有效性和 prompt。无需重写论文算法。
+未来在校准数据足够时，再按原方法拟合新领域的 prior/likelihood。
+全信号数据的 replay 可以作为开发演示，但只能报告模拟逻辑查询量，
+不能当成实际省下的 API 账单，也不能报告同批拟合/评分为独立验证。
+
+注意现有 common/api.request_key 绑定 runner identity + prompt + system，
+不绑定 Request.key/meta 中的 task_id 或 generation_id。第一轮只生成
+一次即可；未来若做多次独立采样，不能只改 meta 就把缓存命中算成
+新样本，也不能为此破坏已有 GPQA 缓存身份。
+
+八、实施步骤 E：离线验证与最小 CLI
+
+实现以下命令能力（下面名称是待实现接口，不是现成命令）：
+  python -m vgx.quantum_katas.workflow prepare --config ... --output ...
+  python -m vgx.quantum_katas.workflow dry-run --root ...
+  python -m vgx.quantum_katas.workflow collect-generators --root ...
+  python -m vgx.quantum_katas.workflow collect-verifiers --root ...
+  python -m vgx.quantum_katas.workflow score-official --root ...
+  python -m vgx.quantum_katas.workflow run-sequential --root ... --policy ...
+  python -m vgx.quantum_katas.workflow report --root ...
+默认禁用真实 API；收集命令显式 --allow-api 且具有完整模型/预算配置
+才可发起请求。prepare/dry-run/report 不得需要云凭据或网络。
+可以合理合并命令，但应保持准备、付费收集、私有打标、报告的边界。
+
+建议有针对性测试：
+1. loader 校验固定数据哈希、28 个 ID、完整函数需求和 public/private 分离。
+2. JSON 中含嵌套字典、引号和多行代码；异常概率、重复键、截断输出。
+3. 确定性已有 fixtures 经 adapter 与直接官方 evaluate_solution 的
+   结果一致；官方接受的 SAT return True 必须继续记为通过。
+4. 实际调用入口、官方异常字段、外层服务故障和主结果恢复符合协议。
+   随机任务不要求两次独立抽样结果相同，应验证原样调用与结果持久化。
+5. 改变 r/模型名/私有标签不改变 verifier prompt；改变代码会改变
+   候选身份和实际 provider 请求身份。私有标签路径不能进入在线策略。
+6. mock provider 完成 generator -> freeze -> verifier -> 官方标签 ->
+   report 的端到端流程；恢复后不重复调用、不重新抽取 checker 结果。
+7. 顺序策略停止后访问未来信号就立即令测试失败；非法/缺失信号按
+   协议处理，且 live 与 replay 的动作和已访问层数一致。
+8. 离线模式没有网络/凭据访问；缺失缓存给出清楚结果，不暗中发请求。
+9. 只对修改涉及的现有模块跑相应 GPQA/cache/budget/sequential 回归。
+
+新测试可放在 tests/test_quantum_katas_*.py；Qiskit 集成测试使用独立
+解释器/镜像，主项目导入 adapter 不应强制安装 Qiskit。
+dry run 使用 mock LLM 输出与少量已有、已审阅 fixtures；无需重做
+190 次参考重复检查或启动新的 mutation testing 项目。
+
+九、真实模型 pilot 的执行计划
+
+当前没有为 QuantumKatas 确定 generator/verifier 模型组合及美元预算。
+可以先完成上述全部离线工作，并准备可审阅的真实调用配置和成本表。
+随后一次性确认尚缺的模型、endpoint/project、thinking/采样参数、
+最大输出、预算；若用户之后已经明确这些条件，则直接按授权执行。
+不要把历史 GPQA 的 20/200 美元配置自动视为本实验的预算授权。
+不要因旧配置里出现 Qwen 就默认采用它，执行时按官方文档确认所选
+Vertex endpoint 的可用性、参数和价格。这里的 Claude 是实施助手，
+并不意味着已经指定 Claude 作为实验 generator 或 verifier。
+
+建议首轮规模：28 题 × 1 个 generator 候选 × 3 个 verifier。
+全部输出可用时，最多 28 次 generator + 84 次 verifier = 112 个
+逻辑模型请求；不含错误拒绝重试，缓存命中不算新的付费执行。
+官方 checker 对可提取的代码每候选一次，最多 28 次。
+可以先按固定题单顺序执行前三题，检查格式、调用身份、计费、冻结和
+隔离执行是否正常，再继续其余 25 题。前三题复用，不额外生成，
+继续与否依据工程故障/预算，不依据通过率或对我们方法是否有利。
+
+费用规划使用所选模型当前价格、输入长度和输出/推理 token 额度；
+分别列出保守预留、用量估算和已确认账单（若没有账单就写未知）。
+provider usage 中的 reasoning tokens 按对应计费规则处理，不只统计
+可见 JSON 长度。预算不足/不确定调用/无法定价时保存状态，完成
+不依赖这些调用的离线工作并明确报告阻塞原因。
+
+十、需要交付的报告与文件
+
+新的运行目录建议 results/quantum_katas_official_pilot_<run_id>/，含：
+  plan.json / manifest.json             配置与全部身份绑定
+  public_tasks.jsonl                    公开任务
+  frozen_candidates.jsonl              冻结代码、r 和 provenance
+  cache/                               原始调用、usage 与预算账本
+  private/official_results.jsonl        官方结果，仅打标/分析读取
+  verifier_signals.jsonl                每候选各 verifier 的概率与失败
+  sequential/                          工程 dry run 或正式策略的状态与轨迹
+  report.json / report.txt              数值结果及可读说明
+可调整文件组织，但必须保留私有标签边界、恢复能力和身份校验。
+
+pilot 报告至少包括：
+- 计划 28 题、完成数量、代码可提取率、置信度有效率、截断/格式失败。
+- 官方通过/失败/缺失数量、官方错误类型分布；分别报告全任务分母的
+  端到端通过比例，以及有正式 checker 返回值候选的通过比例。
+- generator r 与各 verifier s 的分布、Brier、log loss、AUROC。
+  每个指标注明有效 n；只有一个标签类别时 AUROC 写 N/A；小样本
+  ECE 若展示注明仅开发描述，不据此宣称可靠校准。
+- generator/verifier 各层耗时、token、估算费用、缓存命中与缺失原因。
+- 官方 checker 的实测时间；如果比较成本，区分本地计算与 API 费用。
+- 顺序执行的逻辑查询次数、实际新增调用次数和费用分别报告。
+- 原始 confidence 不覆盖；这 28 题不拟合并部署正式策略，不声称
+  相比已有论文全量结果有统计优势或达到 95%/99% 接受保证。
+
+最终交付还应包含实际可运行命令、测试结果、改动列表、未完成事项，
+以及下一阶段扩大到 350 题时的简短建议：保留这 28 题在开发侧，
+按题目/近似变体组划分 calibration/evaluation，同题多候选不跨组；
+使用官方 checker 并在新领域重新拟合参数，不拿 GPQA 参数充当
+量子领域校准结果。全量阶段另行安排，不在本次悄悄扩大付费规模。
+
+十一、执行时的收尾标准
+
+离线工程阶段完成标准：
+- 官方协议与 28 题均未被修改；新数据 adapter 和 CLI 可运行。
+- 完整 mock/dry run 成功；上述核心身份、解析、信息边界、官方
+  判定一致性、恢复与顺序访问测试通过；受影响 GPQA 回归通过。
+- 对新数据拟合/评分无需伪造 ABCD 标签或改 development 分区。
+- 已准备真实调用配置模板、请求数量和费用估算，缺失配置明确列出。
+
+真实 pilot 完成标准（有相应模型与预算授权后）：
+- 所有计划题目都有可追踪状态，无法完成的项有明确失败/缺失原因。
+- 生成候选未修复、未按结果筛除，官方返回值只记录一次并可恢复。
+- 模型与 checker 的输入输出可复核，报告分母、调用量、估算费用准确。
+- 明确区分实际完成的实验、工程 dry run 和尚未实施的正式策略评价。
+
+工作区已有大量与 GPQA 等任务有关的未跟踪文件和报告，请先检查
+git status 和适用的 AGENTS.md，不要清理、覆盖、重置或提交不相关工作。
+不要为这项交接自动创建其他聊天、发布结果或发送消息。

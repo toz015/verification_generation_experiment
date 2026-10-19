@@ -30,7 +30,7 @@ from vgx.quantum_katas.run_pilot import Run, SignalStore
 def synthetic_policy(root) -> dict:
     run = Run(root)
     model = VerifierLikelihood((0., 1/3, 2/3, 1.), (.15, .25, .6), (.6, .25, .15))
-    planner = NestedPlanner([model] * len(run.verifiers), [.02, .03, .04][:len(run.verifiers)], 1., 4., grid_size=1001)
+    planner = NestedPlanner([model] * len(run.verifiers), [.02 + .01*i for i in range(len(run.verifiers))], 1., 4., grid_size=1001)
     return sequential.make_policy(plan_id=run.plan_id, verifiers=run.verifiers, planner=planner,
                                   kind='synthetic_engineering_dry_run',
                                   note='Hand-set likelihoods and costs for interface testing only; not fitted to '
