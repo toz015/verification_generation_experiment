@@ -85,11 +85,17 @@ class JsonModeVertexRunner(VertexBatchRunner):
 
     @property
     def params(self):
-        return {**super().params, 'response_format': self.response_format}
+        value = {**super().params, 'response_format': self.response_format}
+        if self.model.startswith('openai/gpt-oss-'):
+            value['reasoning_effort'] = self.reasoning_effort  # as GPQA's NativeRunner
+        return value
 
     @property
     def identity(self):
-        return {**super().identity, 'response_format': self.response_format}
+        value = {**super().identity, 'response_format': self.response_format}
+        if self.model.startswith('openai/gpt-oss-'):
+            value['reasoning_effort'] = self.reasoning_effort
+        return value
 
     def run(self, requests_to_run, log: CallLog):
         """VertexBatchRunner.run, except that an HTTP 200 body carrying only a provider
