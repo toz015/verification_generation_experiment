@@ -49,8 +49,6 @@ class Run:
         self.root = Path(root)
         plan = json.loads((self.root/'plan.json').read_text())
         unseal(plan, 'plan_id')
-        if plan['implementation'] != implementation():
-            raise ValueError('bound implementation files changed after prepare; prepare a new run')
         if file_digest(self.root/'public_tasks.jsonl') != plan['public_tasks_sha256']:
             raise ValueError('public task file changed')
         self.plan = plan
@@ -66,6 +64,19 @@ class Run:
                 raise ValueError('mock provider fixture changed')
             self.mock_responses = json.loads(path.read_text())
         self.candidates = CandidateStore(self.root/'frozen_candidates.jsonl')
+        # Later code versions may load an existing run only if they reproduce its exact
+        # provider requests; collected verifier rows are also compared on re-collection.
+        self.implementation_changed = plan['implementation'] != implementation()
+        if self.implementation_changed:
+            runner = self.runner(self.generator)
+            for task in self.tasks:
+                request = generator_request(self.config['generation_id'], task, version=self.prompt_version)
+                if runner.cache_key(request) != plan['generator_request_keys'][task.task_id]:
+                    raise ValueError('implementation changed the frozen generator requests; prepare a new run')
+
+    @property
+    def prompt_version(self):
+        return self.config['prompt_version']
 
     @property
     def plan_id(self):
@@ -94,22 +105,25 @@ class Run:
             raise ValueError('paid collection needs an explicit budget and paid_collection_authorized=true in the run config')
 
 
-def generator_request(generation_id: str, task: PublicTask, operation_id=None) -> Request:
+def generator_request(generation_id: str, task: PublicTask, operation_id=None, *,
+                      version=prompt.PROMPT_VERSION) -> Request:
     # Provider identity is runner + prompt + system; generation_id is metadata only, so a
     # second independent sample would need a new prompt or runner identity, not new meta.
-    return Request(f'generator|{task.task_id}|{generation_id}', prompt.build_generator_prompt(task),
-                   prompt.GENERATOR_SYSTEM, {'role': 'generator', 'task_id': task.task_id, 'partition': task.partition,
+    return Request(f'generator|{task.task_id}|{generation_id}', prompt.build_generator_prompt(task, version),
+                   prompt.generator_system(version), {'role': 'generator', 'task_id': task.task_id, 'partition': task.partition,
                                              'generation_id': generation_id, 'operation_id': operation_id})
 
 
-def verifier_prompt_for(task: PublicTask, code: str) -> str:
+def verifier_prompt_for(task: PublicTask, code: str, version=prompt.PROMPT_VERSION) -> str:
     return prompt.build_verifier_prompt({'task_id': task.task_id, 'prompt': task.prompt, 'entry_point': task.entry_point,
-                                         'required_functions': list(task.required_functions), 'code': code})
+                                         'required_functions': list(task.required_functions), 'code': code}, version)
 
 
-def verifier_request(spec, candidate: FrozenCodeCandidate, task: PublicTask, operation_id=None) -> Request:
+def verifier_request(spec, candidate: FrozenCodeCandidate, task: PublicTask, operation_id=None, *,
+                     version=prompt.PROMPT_VERSION) -> Request:
     view = verifier_view(candidate, task)
-    return Request(f'{spec.id}|{candidate.candidate_id}', prompt.build_verifier_prompt(view), prompt.VERIFIER_SYSTEM,
+    return Request(f'{spec.id}|{candidate.candidate_id}', prompt.build_verifier_prompt(view, version),
+                   prompt.verifier_system(version),
                    {'role': 'verifier', 'task_id': task.task_id, 'partition': task.partition,
                     'candidate_id': candidate.candidate_id, 'verifier_id': spec.id, 'operation_id': operation_id})
 
@@ -132,8 +146,8 @@ def prepare(config_path: str | Path, output: str | Path, *, mock_responses: dict
         raise ValueError('unsupported QuantumKatas run config')
     if config.get('generation_id') != 'g0':
         raise ValueError('this pilot freezes exactly one generation per task (generation_id g0)')
-    if config.get('prompt_version') != prompt.PROMPT_VERSION:
-        raise ValueError('run config prompt_version differs from the implemented parser')
+    if config.get('prompt_version') not in prompt.PROMPT_VERSIONS:
+        raise ValueError('run config prompt_version is not implemented')
     generator, verifiers = runners.load_specs(config['models'])
     if not 3 <= len(verifiers) <= 5:
         raise ValueError('the pilot uses three to five configured verifiers')
@@ -180,7 +194,7 @@ def prepare(config_path: str | Path, output: str | Path, *, mock_responses: dict
         'holds the unmodified tests and reference solutions for official scoring only. "private" is an\n'
         'experimental boundary, not a claim that the upstream data is secret or absent from pretraining.\n')
     gen_runner = generator.runner(mock_responses)
-    gen_requests = [generator_request(config['generation_id'], t) for t in public]
+    gen_requests = [generator_request(config['generation_id'], t, version=config['prompt_version']) for t in public]
     plan = seal({
         'schema': 1, 'created_utc': datetime.now(timezone.utc).isoformat(), 'mode': 'dry_run' if is_mock else 'pilot',
         'config': config, 'config_sha256': file_digest(config_path),
@@ -190,7 +204,7 @@ def prepare(config_path: str | Path, output: str | Path, *, mock_responses: dict
         'task_ids': [t.task_id for t in public], 'public_tasks_sha256': file_digest(output/'public_tasks.jsonl'),
         'oracle_tasks_sha256': file_digest(output/'private'/'oracle_tasks.jsonl'),
         'reviewed_fixtures_sha256': file_digest(output/'private'/'reviewed_fixtures.jsonl') if reviewed_fixtures is not None else None,
-        'mock_provider_sha256': mock_sha, 'prompt_version': prompt.PROMPT_VERSION,
+        'mock_provider_sha256': mock_sha, 'prompt_version': config['prompt_version'],
         'generator_runner_identity': gen_runner.identity,
         'verifier_runner_identities': {v.id: v.runner(mock_responses).identity for v in verifiers},
         'generator_request_keys': {r.meta['task_id']: gen_runner.cache_key(r) for r in gen_requests},
@@ -224,22 +238,80 @@ def _blocking(error):
     return isinstance(error, (UncertainRequestError, BudgetLimitError, ProviderRejectedError))
 
 
-def collect_generators(root, *, allow_api=False, limit=None) -> dict:
+UNCERTAIN_POLICY = ('Authorized by tony 2026-10-19: a request with unknown provider outcome is recorded as a '
+                    'service failure (counted in denominators, reservation kept as spent) and never re-sent.')
+
+
+class AbandonedRequests:
+    """collection/abandoned_requests.jsonl: uncertain requests settled as service failures."""
+
+    def __init__(self, run: Run):
+        self.run, self.path = run, run.root/'collection'/'abandoned_requests.jsonl'
+
+    def keys(self) -> set:
+        return {r['request_key'] for r in read_jsonl(self.path)}
+
+    def settle_prior(self, cache, keyed_meta: dict) -> None:
+        """Abandon ledger entries left unresolved by an earlier invocation (same policy)."""
+        if not isinstance(cache, BudgetedRequestCache) or not cache.path.exists():
+            return
+        state = json.loads(cache.path.read_text())
+        for key, entry in state['requests'].items():
+            if entry['status'] == 'unresolved' and key in keyed_meta:
+                self.abandon(cache, key, keyed_meta[key])
+
+    def abandon(self, cache, request_key: str, meta: dict) -> None:
+        """Only an attempt whose outcome is unknown may be abandoned; its reservation stays committed."""
+        attempts = read_jsonl(str(cache.log(request_key).path) + '.attempts.jsonl', tolerate_tail=True)
+        started = {a['execution_id'] for a in attempts if a['event'] == 'started'}
+        closed = {a['execution_id'] for a in attempts if a['event'] in ('completed', 'rejected')}
+        if not started - closed or any(r.get('error') is None for r in cache.log(request_key).records()):
+            raise ValueError('only an unresolved request without a response can be abandoned')
+        reserved = None
+        if isinstance(cache, BudgetedRequestCache):
+            with file_lock(str(cache.path) + '.lock'):
+                state = cache._load()
+                entry = state['requests'].get(request_key)
+                if entry is not None and entry['status'] in ('unresolved', 'reserved'):
+                    entry['status'] = 'abandoned_unresolved'  # counted at reserved_usd, never released
+                    atomic_json(cache.path, state)
+                reserved = entry and entry['reserved_usd']
+        if request_key not in self.keys():
+            append_jsonl(self.path, {'request_key': request_key, **meta, 'reserved_usd_counted_as_spent': reserved,
+                                     'policy': UNCERTAIN_POLICY, 'created': time.time()})
+
+
+def collect_generators(root, *, allow_api=False, limit=None, continue_after_uncertain=False) -> dict:
     run = Run(root)
     run.check_api(allow_api, [run.generator])
     cache, runner = run.cache(), run.runner(run.generator)
+    abandoned = AbandonedRequests(run)
     operation_id = str(uuid.uuid4())
     tasks = run.tasks[:limit] if limit else run.tasks
     rows, errors = [], []
     with file_lock(run.root/'collection'/'generators.lock'):
+        if continue_after_uncertain:
+            abandoned.settle_prior(cache, {run.plan['generator_request_keys'][t.task_id]: {'role': 'generator',
+                                           'task_id': t.task_id} for t in run.tasks})
         for task in tasks:
-            request = generator_request(run.config['generation_id'], task, operation_id)
-            if runner.cache_key(request) != run.plan['generator_request_keys'][task.task_id]:
+            request = generator_request(run.config['generation_id'], task, operation_id, version=run.prompt_version)
+            key = runner.cache_key(request)
+            if key != run.plan['generator_request_keys'][task.task_id]:
                 raise ValueError('generator request identity changed since prepare')
+            if key in abandoned.keys():
+                rows.append({'task_id': task.task_id, 'status': 'generator_service_failure'})
+                continue
             try:
                 call, reused = cache.get(runner, request, allow_api=allow_api)
             except OfflineCacheMiss:
                 rows.append({'task_id': task.task_id, 'status': 'missing_cache'})
+                continue
+            except UncertainRequestError:
+                if not continue_after_uncertain:
+                    errors.append({'task_id': task.task_id, 'type': 'UncertainRequestError', 'request_key': key})
+                    break
+                abandoned.abandon(cache, key, {'role': 'generator', 'task_id': task.task_id})
+                rows.append({'task_id': task.task_id, 'status': 'generator_service_failure'})
                 continue
             except Exception as error:  # stop: never resend an uncertain/rejected/over-budget request
                 if not _blocking(error):
@@ -264,7 +336,7 @@ def collect_generators(root, *, allow_api=False, limit=None) -> dict:
                                 'model_version': meta.get('model_version')},
                 request_key=call.key, provider_execution_id=meta.get('execution_id'),
                 prompt_sha256=sha256_text(request.prompt), system_sha256=sha256_text(request.system),
-                raw_response_sha256=response_sha, prompt_version=prompt.PROMPT_VERSION,
+                raw_response_sha256=response_sha, prompt_version=run.prompt_version,
                 dataset_revision=task.revision, task_prompt_sha256=task.prompt_sha256)
             new = run.candidates.freeze(candidate)
             rows.append({'task_id': task.task_id, 'status': 'frozen' if new else 'already_frozen',
@@ -274,10 +346,15 @@ def collect_generators(root, *, allow_api=False, limit=None) -> dict:
                'new_provider_executions': sum(r.get('used_cached_response') is False for r in rows),
                'cache_hits': sum(r.get('used_cached_response') is True for r in rows),
                'missing_cache': sum(r['status'] == 'missing_cache' for r in rows),
-               'frozen_new': sum(r['status'] == 'frozen' for r in rows), 'rows': rows,
+               'frozen_new': sum(r['status'] == 'frozen' for r in rows),
+               'service_failures': sum(r['status'] == 'generator_service_failure' for r in rows), 'rows': rows,
                'budget': cache.summary() if isinstance(cache, BudgetedRequestCache) else None,
                'stage': 'blocked' if errors else 'complete', 'allow_api': allow_api, 'operation_id': operation_id}
     return _status(run, 'generators', summary)
+
+
+class _Abandoned(Exception):
+    pass
 
 
 class SignalStore:
@@ -314,7 +391,10 @@ def verifier_query(run: Run, cache, *, allow_api: bool, operation_id: str):
     def query(spec, candidate):
         task = tasks[candidate.task_id]
         runner = run.runner(spec)
-        request = verifier_request(spec, candidate, task, operation_id)
+        request = verifier_request(spec, candidate, task, operation_id, version=run.prompt_version)
+        if runner.cache_key(request) in AbandonedRequests(run).keys():
+            return {'score': None, 'failure': 'verifier_service_failure', 'request_key': runner.cache_key(request),
+                    'used_cached_response': None}
         call, reused = cache.get(runner, request, allow_api=allow_api)  # OfflineCacheMiss propagates
         finish = runners.finish_status(call)
         parsed = prompt.parse_verifier_response(call.response, truncated=finish == 'truncated')
@@ -325,27 +405,53 @@ def verifier_query(run: Run, cache, *, allow_api: bool, operation_id: str):
     return query
 
 
-def collect_verifiers(root, *, allow_api=False, limit=None) -> dict:
+def collect_verifiers(root, *, allow_api=False, limit=None, continue_after_uncertain=False) -> dict:
     """Development collection: every verifier for every candidate with code (all calls are spent)."""
     run = Run(root)
     run.check_api(allow_api, run.verifiers)
     cache = run.cache()
     operation_id = str(uuid.uuid4())
     store = SignalStore(run.root/'verifier_signals.jsonl')
+    abandoned = AbandonedRequests(run)
     query = verifier_query(run, cache, allow_api=allow_api, operation_id=operation_id)
     candidates = run.candidates.by_task()
     task_ids = [t.task_id for t in (run.tasks[:limit] if limit else run.tasks)]
     rows, errors = [], []
     with file_lock(run.root/'collection'/'verifiers.lock'):
+        if continue_after_uncertain:
+            abandoned.settle_prior(cache, {
+                run.runner(spec).cache_key(verifier_request(spec, c, run.task_map()[c.task_id], version=run.prompt_version)):
+                {'role': 'verifier', 'task_id': c.task_id, 'verifier_id': spec.id, 'candidate_id': c.candidate_id}
+                for c in candidates.values() if c.has_code for spec in run.verifiers})
         for tid in task_ids:
             candidate = candidates.get(tid)
             if candidate is None or not candidate.has_code:
                 continue
             for spec in run.verifiers:
+                request = verifier_request(spec, candidate, run.task_map()[tid], version=run.prompt_version)
+                key = run.runner(spec).cache_key(request)
                 try:
+                    if key in abandoned.keys():
+                        raise _Abandoned()
                     observation = query(spec, candidate)
                 except OfflineCacheMiss:
                     rows.append({'task_id': tid, 'verifier_id': spec.id, 'status': 'missing_cache'})
+                    continue
+                except (UncertainRequestError, _Abandoned) as error:
+                    if isinstance(error, UncertainRequestError):
+                        if not continue_after_uncertain:
+                            errors.append({'task_id': tid, 'verifier_id': spec.id, 'type': 'UncertainRequestError',
+                                           'request_key': key})
+                            break
+                        abandoned.abandon(cache, key, {'role': 'verifier', 'task_id': tid, 'verifier_id': spec.id,
+                                                       'candidate_id': candidate.candidate_id})
+                    row = {'candidate_id': candidate.candidate_id, 'task_id': tid, 'verifier_id': spec.id,
+                           'verifier_identity': spec.identity, 'p_correct': None, 'failure': 'verifier_service_failure',
+                           'finish_status': None, 'request_key': key, 'execution_id': None, 'prompt_sha256': None,
+                           'raw_response_sha256': None, 'latency_s': None}
+                    new = store.add(row)
+                    rows.append({'task_id': tid, 'verifier_id': spec.id, 'status': 'recorded' if new else 'already_recorded',
+                                 'used_cached_response': None, 'failure': row['failure']})
                     continue
                 except Exception as error:
                     if not _blocking(error):

@@ -85,7 +85,7 @@ def build(public, oracle_rows):
             if kind == 'reference_json_fence':
                 text = '```json\n' + text + '\n```'
         finish = 'length' if kind == 'truncated' else 'stop'
-        responses[mock_key(MOCK_GENERATOR, prompt.build_generator_prompt(task), prompt.GENERATOR_SYSTEM)] = {
+        responses[mock_key(MOCK_GENERATOR, prompt.build_generator_prompt(task), prompt.generator_system())] = {
             'text': text, 'finish_reason': finish}
         has_code = kind not in ('invalid_json', 'truncated')
         expected[tid] = {'kind': kind, 'has_code': has_code}
@@ -97,7 +97,7 @@ def build(public, oracle_rows):
             body = '{"p_correct": ' + score + '}'
             if model == MOCK_VERIFIERS[2] and tid in VERIFIER_C_INVALID:
                 body = VERIFIER_C_INVALID[tid]
-            responses[mock_key(model, verifier_prompt, prompt.VERIFIER_SYSTEM)] = {'text': body, 'finish_reason': 'stop'}
+            responses[mock_key(model, verifier_prompt, prompt.verifier_system())] = {'text': body, 'finish_reason': 'stop'}
     return responses, fixtures, expected
 
 

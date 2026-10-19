@@ -11,7 +11,7 @@ from pathlib import Path
 import statistics
 
 from vgx.common.billing import summarize_vertex_usage
-from vgx.common.storage import atomic_json
+from vgx.common.storage import atomic_json, read_jsonl
 from vgx.gpqa.score import binary_forecast_metrics
 from vgx.quantum_katas import oracle
 from vgx.quantum_katas.run_pilot import Run, SignalStore
@@ -65,6 +65,8 @@ def build_report(root) -> dict:
     generator = {
         'planned_tasks': planned, 'generated': len(candidates), 'not_generated': planned - len(candidates),
         'format_failures': dict(Counter(c.generator_failure for c in candidates.values() if not c.has_code)),
+        'service_failures': [r['task_id'] for r in read_jsonl(run.root/'collection'/'abandoned_requests.jsonl')
+                             if r['role'] == 'generator'],
         'truncated': sum(c.finish_status == 'truncated' for c in candidates.values()),
         'finish_status': dict(Counter(c.finish_status for c in candidates.values())),
         'code_extractable': len(with_code), 'code_extractable_rate_of_planned': len(with_code)/planned,
@@ -152,7 +154,7 @@ def render_text(r: dict) -> str:
     lines = [f"QuantumKatas 官方 checker pilot 报告（{r['mode']}，plan {r['plan_id'][:12]}）", '',
              f"计划 {g['planned_tasks']} 题；已生成 {g['generated']}；可提取代码 {g['code_extractable']}；"
              f"置信度有效 {g['confidence_valid']}；截断 {g['truncated']}。",
-             f"格式失败：{g['format_failures'] or '无'}；有代码但 r 无效：{ {k: v for k, v in g['confidence_status_with_code'].items() if k != 'valid'} or '无'}",
+             f"生成服务失败（结果未知、未重发）：{g['service_failures'] or '无'}；格式失败：{g['format_failures'] or '无'}；有代码但 r 无效：{ {k: v for k, v in g['confidence_status_with_code'].items() if k != 'valid'} or '无'}",
              f"官方返回 {c['official_returns']}：通过 {c['passed']}，失败 {c['failed']}；未解决 {c['unresolved'] or '无'}；未评分 {c['not_scored']}。",
              f"错误类型：{c['error_types']}",
              f"端到端通过比例 {c['end_to_end_pass_rate']['passed']}/{c['end_to_end_pass_rate']['denominator_all_planned_tasks']}；"

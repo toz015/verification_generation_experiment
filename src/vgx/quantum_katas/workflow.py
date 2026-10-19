@@ -169,6 +169,8 @@ def main(argv=None):
     for name in ('collect-generators', 'collect-verifiers'):
         p = sub.add_parser(name); p.add_argument('--root', type=Path, required=True)
         p.add_argument('--allow-api', action='store_true'); p.add_argument('--limit', type=int)
+        p.add_argument('--continue-after-uncertain', action='store_true',
+                       help='record an unknown-outcome request as a service failure and continue (never re-sent)')
     p = sub.add_parser('score-official'); p.add_argument('--root', type=Path, required=True); p.add_argument('--limit', type=int)
     p = sub.add_parser('synthetic-policy'); p.add_argument('--root', type=Path, required=True); p.add_argument('--output', type=Path, required=True)
     p = sub.add_parser('run-sequential'); p.add_argument('--root', type=Path, required=True)
@@ -180,9 +182,11 @@ def main(argv=None):
     elif args.command == 'dry-run':
         result = dry_run(args.root, checker=args.checker, interpreter=args.interpreter)
     elif args.command == 'collect-generators':
-        result = _brief(run_pilot.collect_generators(args.root, allow_api=args.allow_api, limit=args.limit))
+        result = _brief(run_pilot.collect_generators(args.root, allow_api=args.allow_api, limit=args.limit,
+                                                     continue_after_uncertain=args.continue_after_uncertain))
     elif args.command == 'collect-verifiers':
-        result = _brief(run_pilot.collect_verifiers(args.root, allow_api=args.allow_api, limit=args.limit))
+        result = _brief(run_pilot.collect_verifiers(args.root, allow_api=args.allow_api, limit=args.limit,
+                                                    continue_after_uncertain=args.continue_after_uncertain))
     elif args.command == 'score-official':
         result = run_pilot.score_official(args.root, limit=args.limit)
     elif args.command == 'synthetic-policy':

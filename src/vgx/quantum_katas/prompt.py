@@ -15,6 +15,11 @@ import re
 from vgx.quantum_katas.load import PublicTask
 
 PROMPT_VERSION = 'qkatas_official_v1_json_or_single_fence'
+# v2 (fixed 2026-10-19 after the v1 pilot, before any v2 call): same task text,
+# conditions and parser; the reply instruction forbids any text around the JSON,
+# and runners may additionally request provider JSON mode.
+PROMPT_VERSION_V2 = 'qkatas_official_v2_json_only'
+PROMPT_VERSIONS = (PROMPT_VERSION, PROMPT_VERSION_V2)
 
 EXECUTION_CONDITIONS = """\
 Execution conditions (public, fixed for every task):
@@ -77,17 +82,41 @@ def _conditions(functions, entry_point: str) -> str:
                                        entry_point=entry_point)
 
 
-def build_generator_prompt(task: PublicTask) -> str:
-    return GENERATOR_TEMPLATE.format(prompt=task.prompt,
+V2_REPLY = ('\n\nYour entire reply must be that single JSON object: no analysis, explanation, '
+            'Markdown or code fence before or after it. Do any reasoning silently.')
+V2_SYSTEM = ' Reply with one JSON object only, never with prose.'
+
+
+def _check(version):
+    if version not in PROMPT_VERSIONS:
+        raise ValueError(f'unknown prompt version: {version}')
+
+
+def generator_system(version: str = PROMPT_VERSION) -> str:
+    _check(version)
+    return GENERATOR_SYSTEM + (V2_SYSTEM if version == PROMPT_VERSION_V2 else '')
+
+
+def verifier_system(version: str = PROMPT_VERSION) -> str:
+    _check(version)
+    return VERIFIER_SYSTEM + (V2_SYSTEM if version == PROMPT_VERSION_V2 else '')
+
+
+def build_generator_prompt(task: PublicTask, version: str = PROMPT_VERSION) -> str:
+    _check(version)
+    text = GENERATOR_TEMPLATE.format(prompt=task.prompt,
                                      conditions=_conditions(task.required_functions, task.entry_point))
+    return text + (V2_REPLY if version == PROMPT_VERSION_V2 else '')
 
 
-def build_verifier_prompt(view: dict) -> str:
+def build_verifier_prompt(view: dict, version: str = PROMPT_VERSION) -> str:
     """view is the whitelisted verifier projection from artifacts.verifier_view."""
+    _check(version)
     if set(view) != {'task_id', 'prompt', 'entry_point', 'required_functions', 'code'}:
         raise ValueError('verifier prompt accepts only the whitelisted public view')
-    return VERIFIER_TEMPLATE.format(prompt=view['prompt'], code=view['code'],
+    text = VERIFIER_TEMPLATE.format(prompt=view['prompt'], code=view['code'],
                                     conditions=_conditions(view['required_functions'], view['entry_point']))
+    return text + (V2_REPLY if version == PROMPT_VERSION_V2 else '')
 
 
 class _NonFinite:

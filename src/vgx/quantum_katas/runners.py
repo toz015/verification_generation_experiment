@@ -16,9 +16,9 @@ from vgx.common.vertex import VertexBatchRunner
 from vgx.common.vertex_partner import VertexPartnerRunner
 
 PROVIDERS = ('vertex_openai', 'vertex_anthropic', 'vertex_partner', 'mock')
-OPENAI_GENERATION = {'max_tokens', 'temperature', 'top_p', 'reasoning_effort'}
+OPENAI_GENERATION = {'max_tokens', 'temperature', 'top_p', 'reasoning_effort', 'response_format'}
 ANTHROPIC_GENERATION = {'max_tokens', 'temperature', 'thinking', 'output_config'}
-PARTNER_GENERATION = {'max_tokens', 'temperature'}  # VertexPartnerRunner: no thinking, as in the GPQA screen
+PARTNER_GENERATION = {'max_tokens', 'temperature', 'response_format'}  # VertexPartnerRunner: no thinking, as in GPQA
 
 
 @dataclass(frozen=True)
@@ -50,19 +50,58 @@ class ModelSpec:
             raise ValueError('vertex_anthropic requires an anthropic/ publisher model')
         if self.provider == 'vertex_partner' and self.model.split('/')[0] not in ('mistralai', 'anthropic'):
             raise ValueError('vertex_partner supports mistralai/ and anthropic/ publisher models')
+        if 'response_format' in self.generation:
+            if self.generation['response_format'] != {'type': 'json_object'}:
+                raise ValueError('only {"type": "json_object"} response_format is supported')
+            if self.provider == 'vertex_partner' and not self.model.startswith('mistralai/'):
+                raise ValueError('JSON response_format is wired only for OpenAI-compatible bodies')
 
     @property
     def identity(self) -> str:
         return digest(asdict(self))
 
     def runner(self, mock_responses: dict | None = None):
+        generation = {k: v for k, v in self.generation.items() if k != 'response_format'}
+        response_format = self.generation.get('response_format')
         if self.provider == 'vertex_openai':
+            if response_format:
+                return JsonModeVertexRunner(self.model, self.location, self.project, response_format, **generation)
             return VertexBatchRunner(self.model, self.location, self.project, **self.generation)
         if self.provider == 'vertex_anthropic':
             return AnthropicVertexRunner(self.model, self.location, self.project, self.generation)
         if self.provider == 'vertex_partner':
+            if response_format:
+                return JsonModePartnerRunner(self.model, self.location, self.project, response_format, **generation)
             return VertexPartnerRunner(self.model, self.location, self.project, **self.generation)
         return MockRunner(self.model, self.generation['max_tokens'], mock_responses or {})
+
+
+class JsonModeVertexRunner(VertexBatchRunner):
+    """OpenAI-compatible Vertex endpoint with provider JSON mode; part of request identity."""
+
+    def __init__(self, model, location, project, response_format, **generation):
+        super().__init__(model, location, project, **generation)
+        self.response_format = dict(response_format)
+
+    @property
+    def params(self):
+        return {**super().params, 'response_format': self.response_format}
+
+    @property
+    def identity(self):
+        return {**super().identity, 'response_format': self.response_format}
+
+
+class JsonModePartnerRunner(VertexPartnerRunner):
+    """Mistral rawPredict (OpenAI-style body) with JSON mode; identity includes params."""
+
+    def __init__(self, model, location, project, response_format, **generation):
+        super().__init__(model, location, project, **generation)
+        self.response_format = dict(response_format)
+
+    @property
+    def params(self):
+        return {**super().params, 'response_format': self.response_format}
 
 
 class AnthropicVertexRunner(VertexPartnerRunner):

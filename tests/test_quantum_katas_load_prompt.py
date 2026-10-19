@@ -111,3 +111,15 @@ def test_verifier_parse(text, p, failure):
     parsed = parse_verifier_response(text)
     assert (parsed.p_correct, parsed.failure) == (p, failure)
     assert parse_verifier_response('{"p_correct": 0.4}', truncated=True).failure == 'truncated_output'
+
+
+@needs_source
+def test_prompt_v2_only_appends_json_only_instruction_and_v1_is_unchanged():
+    from vgx.quantum_katas import prompt
+    public, _ = load.load_tasks(load.DEFAULT_SOURCE, load.DEFAULT_PILOT)
+    task = public[0]
+    v1, v2 = prompt.build_generator_prompt(task), prompt.build_generator_prompt(task, prompt.PROMPT_VERSION_V2)
+    assert v2 == v1 + prompt.V2_REPLY and prompt.generator_system() == prompt.GENERATOR_SYSTEM
+    assert prompt.verifier_system(prompt.PROMPT_VERSION_V2).startswith(prompt.VERIFIER_SYSTEM)
+    with pytest.raises(ValueError):
+        prompt.build_generator_prompt(task, 'unknown')
