@@ -1,0 +1,26 @@
+QuantumKatas 官方 checker pilot 报告（pilot，plan 6f4e01eb12c3）
+
+计划 28 题；已生成 27；可提取代码 27；置信度有效 26；截断 0。
+生成服务失败（结果未知、未重发）：['RippleCarryAdder/3.3']；格式失败：无；有代码但 r 无效：{'missing': 1}
+官方返回 27：通过 13，失败 14；未解决 无；未评分 0。
+错误类型：{'none': 13, 'AssertionError': 4, 'CircuitError': 5, 'TypeError': 2, 'QiskitError': 1, 'ValueError': 1, 'AttributeError': 1}
+端到端通过比例 13/28；有官方返回的通过比例 {'passed': 13, 'n': 27, 'rate': 0.48148148148148145}
+样本数：有代码 27，有 r 26，有标签 27，有标签且有 r 26。
+
+预测指标（各自有效 n）：
+  generator_r: n=26 brier=0.4104576923076922 log_loss=1.4854996103922973 auroc=0.8195266272189349
+  gemini_flash: n=27 brier=0.08413707407407406 log_loss=0.28561585929151956 auroc=0.967032967032967
+  gemini_lite: n=27 brier=0.24935185185185185 log_loss=8.083866697601726 auroc=0.7692307692307692
+  mistral_small: n=27 brier=0.43722222222222223 log_loss=13.571407349565906 auroc=0.576923076923077
+  mistral_medium: n=27 brier=0.38565185185185197 log_loss=2.3862638191384113 auroc=0.7692307692307693
+  claude_haiku: n=25 brier=0.181836 log_loss=0.5680089572877209 auroc=0.8474025974025974
+
+调用：成功执行 162，估算费用 $0.2040（https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)；非账单），已确认账单：未知。
+顺序执行（synthetic_engineering_dry_run）：动作 {'assert': 20, 'abstain': 7}；逻辑查询 24；新增实际调用 0；replay 一致 {'agree': 27, 'n': 27}
+
+说明：
+  - Development pilot: 28 fixed tasks, one generation each; not a representative performance sample.
+  - Raw generator r is reported as-is; no prior or verifier likelihood is fitted or deployed here.
+  - No 95%/99% acceptance guarantee or advantage over published full-benchmark results is claimed.
+  - Same official checker is necessary but not sufficient for cross-paper comparability (task subset and added confidence output differ).
+  - Logical sequential queries over collected signals are not saved API spend.

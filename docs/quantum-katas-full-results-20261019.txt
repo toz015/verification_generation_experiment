@@ -1,0 +1,54 @@
+QuantumKatas 全量（322 题）收集与 5 折分组交叉拟合结果
+日期：2026-10-19
+
+一、做了什么
+- 数据：Qiskit QuantumKatas 固定 commit 3790fb3e，官方 evaluate_solution（timeout 30 s）原样打标。
+  28 道 pilot 题只作开发（工程检查、prompt v1/v2 调试），不参与拟合和评估。
+- 划分：其余 322 题按 kata 分组（tutorials/examples 按第二级目录），参考解 token Jaccard ≥ 0.8
+  的近似题合并，得到 35 组；种子 20261019 分为 5 折（65/65/64/64/64）。
+  configs/quantum_katas_split_20261019.json，在任何生成前提交。
+- 模型：generator 为 Qwen3-235B instruct（us-south1，temperature 0，max_tokens 8192，JSON 模式）
+  和 Claude Sonnet 5.5（adaptive thinking，effort high，32768，结构化输出），每题各一个候选。
+  verifier 为 GPQA 的五个候选：gemini-3.7-flash、gemini-3.5-flash-lite、mistral-small、
+  mistral-medium、claude-haiku-4-5（结构化输出），全部候选全部 verifier 都收集。
+- 分析：configs/quantum_katas_crossfit_20261019.json 与 src/vgx/quantum_katas/crossfit.py
+  在读取全量标签前提交。设置照搬 GPQA Sonnet 研究：raw r 作先验、3 bin + Laplace 似然、
+  条件独立、精确嵌套 planner、loss 19/99、utility_per_usd 10、按训练折 J0 从 60 个有序三元组选顺序。
+  每个留出折只用其余 4 折拟合；汇总 322 题的样本外决策。
+
+二、数据与标签
+                        Qwen3-235B          Sonnet 5.5
+  有可提取代码          310/322（12 截断）   322/322
+  官方通过              176/310（端到端 176/322）  287/322
+  generator r AUROC     0.81                0.80
+  gemini_flash AUROC    0.94                0.78
+  claude_haiku AUROC    0.85                0.67
+  收集估算费用          $1.88               $4.21
+  QuantumKatas 累计估算（含 v1/v2 开发 pilot）约 $7.4；已确认账单未知。
+
+三、交叉拟合结果（322 题样本外汇总；utility 差值为配对 bootstrap 95% CI）
+  loss 19（需要 ≥95% 正确才值得接受）
+    Qwen   仅先验       接受 251，错 81（32%）
+    Qwen   gemini_flash 接受 192，错 27（14%），每题 0.84 次查询，相对先验 +3.15（+2.33, +3.99）
+    Qwen   选定三元组   接受 192，错 31（16%），每题 1.50 次查询，相对先验 +2.90（+2.17, +3.68）
+    Sonnet 仅先验       接受 35，错 1（3%）
+    Sonnet 选定三元组   接受 78，错 2（3%），每题 0.83 次查询，相对先验 +0.06（−0.08, +0.15）
+  loss 99
+    Qwen：先验接受 74（错 4）；verifier 反而接受 176/171（错 20/19），utility 更差。
+    Sonnet：三种策略都不接受任何答案。
+
+四、结论（开发性描述，不是正式风险保证）
+1. verifier 对两个 generator 都提供了信息：Qwen 的接受错误率从 32% 降到 14–16%，
+   Brier 从 0.32 降到 0.18–0.19；Sonnet 的覆盖从 11% 翻倍到 24%，错误率保持约 3%。
+2. 但按预注册的效用标准，Qwen 所有策略的 utility 仍为负：raw r 严重过度自信，
+   接受集合的错误率远高于 5% 目标；loss 99 时更强的先验错误使 verifier 后验也过度自信。
+3. Sonnet 的提升方向为正，但置信区间跨 0，样本量下不能宣称显著。
+4. 三元组相对单个 gemini_flash 没有稳定优势；各折选中的三元组不同。
+5. 下一步候选（属于看到结果后的追加分析，需单独标注）：在训练折上拟合 raw r → prior 的校准，
+   再用同一流程比较；不需要新的模型调用。
+
+五、工程事项
+- 结果未知的请求按 tony 授权记为服务失败、不重发（v2 Qwen 1 次）。
+- Vertex MaaS 两次把限流错误以 HTTP 200 返回（无输出、无用量），按 429 处理后续跑，原始记录存档。
+- 本次结果副本：reports/quantum_katas_full_20261019/（交叉拟合 analysis、各运行 report）。
+  原始缓存、冻结候选与私有官方结果在本机 results/ 下（gitignore）。
