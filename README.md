@@ -4,6 +4,12 @@ This repository explores confidence and verifier signals for selective scientifi
 QA. The GPQA pilot is motivated by Green–Laffont sequential verification; frozen
 model forecasts do not test strategic truthfulness or incentive compatibility.
 
+## QuantumKatas experiments
+
+Code-generation verification on the pinned Qiskit QuantumKatas benchmark
+(official checker labels, 5-fold grouped cross-fitting over 322 tasks). To run
+your own experiments, start with the [QuantumKatas guide](docs/quantum-katas-guide.md).
+
 ## Current experiment decision (2026-10-06)
 
 Use Gemini and Qwen as generators, with their frozen answers and **raw,
