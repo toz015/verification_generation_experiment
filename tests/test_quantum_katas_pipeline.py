@@ -221,3 +221,30 @@ def test_no_prior_means_abstain_without_queries(tmp_path):
                                (_candidate(None, code=None), 'no_extractable_code')):
         result = sequential.execute_candidate(candidate, policy, lambda *a: pytest.fail('queried'), tmp_path/f'{failure}.json')
         assert result['action'] == 'abstain' and result['failure'] == failure and result['prior'] is None
+
+
+def test_http_200_throttle_body_is_recorded_as_429_not_a_cached_output(tmp_path, monkeypatch):
+    import requests
+    from vgx.common.api import ProviderRejectedError
+    from vgx.common.llm import CallLog, Request
+    runner = ModelSpec('q', 'vertex_openai', 'qwen/qwen3-235b-a22b-instruct-2507-maas', 'us-south1', 'p',
+                       {'max_tokens': 64, 'response_format': {'type': 'json_object'}}).runner()
+
+    class Response:
+        status_code = 200
+
+        def json(self):
+            return {'error': 'Prediction failed: request is throttled due to too many requests.', 'id': 'x'}
+
+    class Session:
+        def post(self, *a, **k):
+            return Response()
+
+        def close(self):
+            pass
+    monkeypatch.setattr(requests, 'Session', Session)
+    monkeypatch.setattr('vgx.common.vertex._get_adc_token', lambda project: 'token')
+    log = CallLog(tmp_path/'calls.jsonl')
+    with pytest.raises(ProviderRejectedError) as error:
+        runner.run([Request('k', 'prompt', None)], log)
+    assert error.value.status == 429 and log.responses() == {}

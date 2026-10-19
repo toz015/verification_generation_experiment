@@ -91,6 +91,48 @@ class JsonModeVertexRunner(VertexBatchRunner):
     def identity(self):
         return {**super().identity, 'response_format': self.response_format}
 
+    def run(self, requests_to_run, log: CallLog):
+        """VertexBatchRunner.run, except that an HTTP 200 body carrying only a provider
+        `error` (observed for MaaS throttling: no choices, no usage) is recorded as the
+        429 rejection it is, so it is neither cached as a model output nor priced."""
+        from dataclasses import replace
+        import requests
+        from vgx.common.vertex import _get_adc_token
+        if len({r.key for r in requests_to_run}) != len(requests_to_run):
+            raise ValueError('request keys must be unique within a batch')
+        outputs = {}
+        for request in requests_to_run:
+            cached = log.responses().get(self.cache_key(request))
+            if cached is not None:
+                outputs[request.key] = cached
+                continue
+            token = _get_adc_token(self.project)
+            session = requests.Session()
+            body = self.request_body(request)
+
+            def send():
+                response = session.post(self._endpoint(), headers={
+                    'Authorization': f'Bearer {token}', 'x-goog-user-project': self.project,
+                    'Content-Type': 'application/json'}, json=body, timeout=300)
+                try:
+                    payload = response.json()
+                except ValueError:
+                    payload = {'invalid_response': True}
+                if (response.status_code == 200 and isinstance(payload, dict) and payload.get('error')
+                        and 'choices' not in payload and 'usage' not in payload):
+                    message = str(payload['error'])
+                    status = 429 if 'throttled' in message or 'too many requests' in message.lower() else 502
+                    return status, {'error': {'code': status, 'message': message[:2000], 'status': 'HTTP_200_ERROR_BODY'}}
+                return response.status_code, payload
+
+            try:
+                billed = replace(request, meta={**request.meta, 'resource_project': self.project,
+                                                'quota_project': self.project})
+                outputs[request.key] = execute_request(self, billed, log, send).response
+            finally:
+                session.close()
+        return outputs
+
 
 class JsonModePartnerRunner(VertexPartnerRunner):
     """Mistral rawPredict (OpenAI-style body) with JSON mode; identity includes params."""
