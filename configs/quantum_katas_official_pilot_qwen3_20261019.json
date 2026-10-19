@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "quantum_katas_official_pilot",
-  "status": "proposed: models and settings chosen by tony 2026-10-19 (GPQA settings); budget NOT yet authorized",
+  "status": "authorized by tony 2026-10-19: total $200 for QuantumKatas pilot (split qwen3 $60 / sonnet55 $140); macOS sandbox approved for model code",
   "source": "tmp/quantum_four_dataset_review_20261018/Qiskit-QuantumKatas",
   "pilot": "configs/quantum_katas_pilot_20261018.json",
   "protocol": "configs/quantum_katas_official_protocol_20261018.json",
@@ -82,7 +82,7 @@
   },
   "budget": {
     "project": "llm-applications-490420",
-    "limit_usd": "SET AFTER AUTHORIZATION",
+    "limit_usd": 60.0,
     "gemini_output_reserve": 131072,
     "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)",
     "pricing": {
@@ -126,14 +126,14 @@
       }
     }
   },
-  "paid_collection_authorized": false,
+  "paid_collection_authorized": true,
   "checker": {
     "interpreter": "tmp/quantum_katas_pilot_20261018/venv/bin/python",
     "backend": "macos_sandbox",
     "workers": 2,
     "supervisor_timeout_s": 120,
     "cpu_seconds": 120,
-    "model_code_execution_approved": false
+    "model_code_execution_approved": true
   },
   "notes": [
     "Generator settings copied from GPQA: Qwen3-235B instruct single call at temperature 0/top_p 1/4096 (GPQA later used a two-step draft+finalize for Qwen; not used here because the pilot freezes one call per task).",
