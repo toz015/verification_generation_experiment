@@ -59,3 +59,14 @@ def test_extended_stopping_arms_are_consistent():
     assert arms['prior_only']['queries'] == 0 and len(folds) == 5
     ref = crossfit.analyze_generator(rows, cfg)['pooled']['19']['arms']['triple']
     assert (ref['released'], ref['queries']) == (arms['adaptive_triple']['released'], arms['adaptive_triple']['queries'])
+
+
+def test_calibrated_prior_uses_training_folds_only():
+    from vgx.quantum_katas import crossfit_calibrated
+    rows = synthetic_rows(100, seed=2)
+    cal = crossfit_calibrated.calibrator(rows)
+    out = cal(0, rows)
+    flipped = [dict(r, outcome=1-r['outcome']) if r['fold'] == 0 else r for r in rows]
+    again = crossfit_calibrated.calibrator(flipped)(0, flipped)
+    assert [r['prior'] for r in out] == [r['prior'] for r in again]  # fold-0 labels never used for fold 0
+    assert all(r['raw_prior'] == s['prior'] for r, s in zip(out, rows) if s['valid'])

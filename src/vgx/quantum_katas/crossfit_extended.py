@@ -45,14 +45,19 @@ def _summary(rows, ds, settings, loss, seed=20261019):
     return s, u
 
 
-def arms_for(rows, cfg, loss):
-    """Cross-fitted decisions for every arm at one loss, plus the per-fold fits."""
+def arms_for(rows, cfg, loss, transform=None):
+    """Cross-fitted decisions for every arm at one loss, plus the per-fold fits.
+
+    transform(k, rows) may return per-fold copies (e.g. a prior map fitted on the
+    training folds of k); it must not use fold-k labels."""
     settings, verifiers = cfg['settings'], cfg['verifiers']
     edges = tuple(np.linspace(0., 1., settings['probability_bins']+1).tolist())
     names = ('prior_only', 'adaptive_single', 'adaptive_triple', 'fixed_triple', 'fixed_five')
     arms = {a: [None]*len(rows) for a in names}
     folds = {}
-    for k in sorted({r['fold'] for r in rows}):
+    original = rows
+    for k in sorted({r['fold'] for r in original}):
+        rows = transform(k, original) if transform else original
         train = [r for r in rows if r['fold'] != k]
         fitted = crossfit.fit_fold(train, verifiers, settings)
         ranked = crossfit.select_order(train, fitted, verifiers, loss, settings)
@@ -68,6 +73,7 @@ def arms_for(rows, cfg, loss):
                     arms[name][i] = (crossfit.decide(r, planner, order, costs, edges) if not force else
                                      execute(prior, r['valid'], planner, order, costs,
                                              {v: r['signals'][v] for v in order}, edges, force_all=True))
+        folds[str(k)]['priors'] = {i: r['prior'] for i, r in enumerate(rows) if r['fold'] == k and r['valid']}
         for i, r in enumerate(rows):
             if r['fold'] == k:
                 arms['prior_only'][i] = baseline_decision(r['prior'] if r['valid'] else 0.0, r['valid'], loss,
