@@ -1,0 +1,25 @@
+QuantumKatas 官方 checker pilot 报告（full_cross_fit_collection，plan 933a6d924928）
+
+计划 322 题；已生成 322；可提取代码 308；置信度有效 308；截断 0。
+生成服务失败（结果未知、未重发）：无；格式失败：{'unexpected_fields': 14}；有代码但 r 无效：无
+官方返回 308：通过 195，失败 113；未解决 无；未评分 0。
+错误类型：{'none': 195, 'AssertionError': 56, 'ImportError': 5, 'ModuleNotFoundError': 4, 'AttributeError': 17, 'ValueError': 8, 'TypeError': 6, 'QiskitError': 8, 'AerError': 3, 'SyntaxError': 3, 'CircuitError': 2, 'RuntimeError': 1}
+端到端通过比例 195/322；有官方返回的通过比例 {'passed': 195, 'n': 308, 'rate': 0.6331168831168831}
+样本数：有代码 308，有 r 308，有标签 308，有标签且有 r 308。
+
+预测指标（各自有效 n）：
+  generator_r: n=308 brier=0.2607584415584416 log_loss=0.8233367180168317 auroc=0.8071477195371002
+  gemini_flash: n=307 brier=0.1324437361563518 log_loss=1.322292355749241 auroc=0.8921016483516484
+  gemini_lite: n=308 brier=0.32437499999999997 log_loss=11.377913636759933 auroc=0.5990469707283868
+  mistral_small: n=308 brier=0.39376850649350653 log_loss=10.146901023043391 auroc=0.6102110279101429
+  mistral_medium: n=308 brier=0.32317954545454547 log_loss=1.9580069001075067 auroc=0.655525300658044
+  claude_haiku: n=308 brier=0.2556477272727272 log_loss=0.7481461187500011 auroc=0.7413660086226459
+
+调用：成功执行 1861，估算费用 $1.5510（https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)；非账单），已确认账单：未知。
+
+说明：
+  - Development pilot: 28 fixed tasks, one generation each; not a representative performance sample.
+  - Raw generator r is reported as-is; no prior or verifier likelihood is fitted or deployed here.
+  - No 95%/99% acceptance guarantee or advantage over published full-benchmark results is claimed.
+  - Same official checker is necessary but not sufficient for cross-paper comparability (task subset and added confidence output differ).
+  - Logical sequential queries over collected signals are not saved API spend.

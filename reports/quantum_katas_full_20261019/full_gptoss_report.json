@@ -1,0 +1,922 @@
+{
+  "calls_and_costs": {
+    "by_role_model": [
+      {
+        "estimated_usd_for_priced_calls": 0.02860803,
+        "mean_estimated_usd_per_priced_call": 0.00044012353846153843,
+        "model": "openai/gpt-oss-120b-maas",
+        "output_tokens_including_reasoning": 69114,
+        "partition": "fold_0",
+        "priced_calls": 65,
+        "prompt_tokens": 41411,
+        "role": "generator",
+        "successful_calls": 65
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.035866350000000005,
+        "mean_estimated_usd_per_priced_call": 0.00055179,
+        "model": "openai/gpt-oss-120b-maas",
+        "output_tokens_including_reasoning": 88951,
+        "partition": "fold_1",
+        "priced_calls": 65,
+        "prompt_tokens": 42711,
+        "role": "generator",
+        "successful_calls": 65
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.027891900000000008,
+        "mean_estimated_usd_per_priced_call": 0.0004358109375000001,
+        "model": "openai/gpt-oss-120b-maas",
+        "output_tokens_including_reasoning": 67753,
+        "partition": "fold_2",
+        "priced_calls": 64,
+        "prompt_tokens": 38898,
+        "role": "generator",
+        "successful_calls": 64
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.032783490000000005,
+        "mean_estimated_usd_per_priced_call": 0.0005122420312500001,
+        "model": "openai/gpt-oss-120b-maas",
+        "output_tokens_including_reasoning": 80790,
+        "partition": "fold_3",
+        "priced_calls": 64,
+        "prompt_tokens": 41101,
+        "role": "generator",
+        "successful_calls": 64
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.04694922,
+        "mean_estimated_usd_per_priced_call": 0.0007335815625,
+        "model": "openai/gpt-oss-120b-maas",
+        "output_tokens_including_reasoning": 120290,
+        "partition": "fold_4",
+        "priced_calls": 64,
+        "prompt_tokens": 40498,
+        "role": "generator",
+        "successful_calls": 64
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.08395600000000002,
+        "mean_estimated_usd_per_priced_call": 0.0013326349206349208,
+        "model": "anthropic/claude-haiku-4-5",
+        "output_tokens_including_reasoning": 819,
+        "partition": "fold_0",
+        "priced_calls": 63,
+        "prompt_tokens": 79861,
+        "role": "verifier",
+        "successful_calls": 63
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.09085800000000002,
+        "mean_estimated_usd_per_priced_call": 0.0013978153846153848,
+        "model": "anthropic/claude-haiku-4-5",
+        "output_tokens_including_reasoning": 845,
+        "partition": "fold_1",
+        "priced_calls": 65,
+        "prompt_tokens": 86633,
+        "role": "verifier",
+        "successful_calls": 65
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.07536600000000002,
+        "mean_estimated_usd_per_priced_call": 0.0012355081967213117,
+        "model": "anthropic/claude-haiku-4-5",
+        "output_tokens_including_reasoning": 793,
+        "partition": "fold_2",
+        "priced_calls": 61,
+        "prompt_tokens": 71401,
+        "role": "verifier",
+        "successful_calls": 61
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.08045000000000004,
+        "mean_estimated_usd_per_priced_call": 0.001297580645161291,
+        "model": "anthropic/claude-haiku-4-5",
+        "output_tokens_including_reasoning": 806,
+        "partition": "fold_3",
+        "priced_calls": 62,
+        "prompt_tokens": 76420,
+        "role": "verifier",
+        "successful_calls": 62
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.07852599999999997,
+        "mean_estimated_usd_per_priced_call": 0.001377649122807017,
+        "model": "anthropic/claude-haiku-4-5",
+        "output_tokens_including_reasoning": 741,
+        "partition": "fold_4",
+        "priced_calls": 57,
+        "prompt_tokens": 74821,
+        "role": "verifier",
+        "successful_calls": 57
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.02108499999999999,
+        "mean_estimated_usd_per_priced_call": 0.00033468253968253953,
+        "model": "google/gemini-3.5-flash-lite",
+        "output_tokens_including_reasoning": 664,
+        "partition": "fold_0",
+        "priced_calls": 63,
+        "prompt_tokens": 64750,
+        "role": "verifier",
+        "successful_calls": 63
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.02249469999999999,
+        "mean_estimated_usd_per_priced_call": 0.0003460723076923075,
+        "model": "google/gemini-3.5-flash-lite",
+        "output_tokens_including_reasoning": 682,
+        "partition": "fold_1",
+        "priced_calls": 65,
+        "prompt_tokens": 69299,
+        "role": "verifier",
+        "successful_calls": 65
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.018569699999999995,
+        "mean_estimated_usd_per_priced_call": 0.00030442131147540973,
+        "model": "google/gemini-3.5-flash-lite",
+        "output_tokens_including_reasoning": 630,
+        "partition": "fold_2",
+        "priced_calls": 61,
+        "prompt_tokens": 56649,
+        "role": "verifier",
+        "successful_calls": 61
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.0196602,
+        "mean_estimated_usd_per_priced_call": 0.0003171,
+        "model": "google/gemini-3.5-flash-lite",
+        "output_tokens_including_reasoning": 636,
+        "partition": "fold_3",
+        "priced_calls": 62,
+        "prompt_tokens": 60234,
+        "role": "verifier",
+        "successful_calls": 62
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.019548699999999992,
+        "mean_estimated_usd_per_priced_call": 0.0003429596491228069,
+        "model": "google/gemini-3.5-flash-lite",
+        "output_tokens_including_reasoning": 595,
+        "partition": "fold_4",
+        "priced_calls": 57,
+        "prompt_tokens": 60204,
+        "role": "verifier",
+        "successful_calls": 57
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.12994875,
+        "mean_estimated_usd_per_priced_call": 0.0020626785714285716,
+        "model": "google/gemini-3.7-flash",
+        "output_tokens_including_reasoning": 21703,
+        "partition": "fold_0",
+        "priced_calls": 63,
+        "prompt_tokens": 64750,
+        "role": "verifier",
+        "successful_calls": 63
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.16348049999999997,
+        "mean_estimated_usd_per_priced_call": 0.002515084615384615,
+        "model": "google/gemini-3.7-flash",
+        "output_tokens_including_reasoning": 29735,
+        "partition": "fold_1",
+        "priced_calls": 65,
+        "prompt_tokens": 69299,
+        "role": "verifier",
+        "successful_calls": 65
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.1331655,
+        "mean_estimated_usd_per_priced_call": 0.002183040983606557,
+        "model": "google/gemini-3.7-flash",
+        "output_tokens_including_reasoning": 24181,
+        "partition": "fold_2",
+        "priced_calls": 61,
+        "prompt_tokens": 56649,
+        "role": "verifier",
+        "successful_calls": 61
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.14005050000000002,
+        "mean_estimated_usd_per_priced_call": 0.002258879032258065,
+        "model": "google/gemini-3.7-flash",
+        "output_tokens_including_reasoning": 25300,
+        "partition": "fold_3",
+        "priced_calls": 62,
+        "prompt_tokens": 60234,
+        "role": "verifier",
+        "successful_calls": 62
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.13991325000000004,
+        "mean_estimated_usd_per_priced_call": 0.002498450892857144,
+        "model": "google/gemini-3.7-flash",
+        "output_tokens_including_reasoning": 25540,
+        "partition": "fold_4",
+        "priced_calls": 56,
+        "prompt_tokens": 58851,
+        "role": "verifier",
+        "successful_calls": 56
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.026779199999999993,
+        "mean_estimated_usd_per_priced_call": 0.00042506666666666657,
+        "model": "mistralai/mistral-medium-3",
+        "output_tokens_including_reasoning": 731,
+        "partition": "fold_0",
+        "priced_calls": 63,
+        "prompt_tokens": 63293,
+        "role": "verifier",
+        "successful_calls": 63
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.02891040000000001,
+        "mean_estimated_usd_per_priced_call": 0.00044477538461538474,
+        "model": "mistralai/mistral-medium-3",
+        "output_tokens_including_reasoning": 762,
+        "partition": "fold_1",
+        "priced_calls": 65,
+        "prompt_tokens": 68466,
+        "role": "verifier",
+        "successful_calls": 65
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.02377280000000001,
+        "mean_estimated_usd_per_priced_call": 0.0003897180327868854,
+        "model": "mistralai/mistral-medium-3",
+        "output_tokens_including_reasoning": 718,
+        "partition": "fold_2",
+        "priced_calls": 61,
+        "prompt_tokens": 55842,
+        "role": "verifier",
+        "successful_calls": 61
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.025499199999999996,
+        "mean_estimated_usd_per_priced_call": 0.00041127741935483865,
+        "model": "mistralai/mistral-medium-3",
+        "output_tokens_including_reasoning": 733,
+        "partition": "fold_3",
+        "priced_calls": 62,
+        "prompt_tokens": 60083,
+        "role": "verifier",
+        "successful_calls": 62
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.0250892,
+        "mean_estimated_usd_per_priced_call": 0.0004401614035087719,
+        "model": "mistralai/mistral-medium-3",
+        "output_tokens_including_reasoning": 677,
+        "partition": "fold_4",
+        "priced_calls": 57,
+        "prompt_tokens": 59338,
+        "role": "verifier",
+        "successful_calls": 57
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.0065401999999999995,
+        "mean_estimated_usd_per_priced_call": 0.0001038126984126984,
+        "model": "mistralai/mistral-small-2503",
+        "output_tokens_including_reasoning": 703,
+        "partition": "fold_0",
+        "priced_calls": 63,
+        "prompt_tokens": 63293,
+        "role": "verifier",
+        "successful_calls": 63
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.0070652999999999975,
+        "mean_estimated_usd_per_priced_call": 0.00010869692307692304,
+        "model": "mistralai/mistral-small-2503",
+        "output_tokens_including_reasoning": 729,
+        "partition": "fold_1",
+        "priced_calls": 65,
+        "prompt_tokens": 68466,
+        "role": "verifier",
+        "successful_calls": 65
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.0057891,
+        "mean_estimated_usd_per_priced_call": 9.490327868852459e-05,
+        "model": "mistralai/mistral-small-2503",
+        "output_tokens_including_reasoning": 683,
+        "partition": "fold_2",
+        "priced_calls": 61,
+        "prompt_tokens": 55842,
+        "role": "verifier",
+        "successful_calls": 61
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.006216500000000002,
+        "mean_estimated_usd_per_priced_call": 0.00010026612903225811,
+        "model": "mistralai/mistral-small-2503",
+        "output_tokens_including_reasoning": 694,
+        "partition": "fold_3",
+        "priced_calls": 62,
+        "prompt_tokens": 60083,
+        "role": "verifier",
+        "successful_calls": 62
+      },
+      {
+        "estimated_usd_for_priced_calls": 0.0061275999999999995,
+        "mean_estimated_usd_per_priced_call": 0.00010750175438596491,
+        "model": "mistralai/mistral-small-2503",
+        "output_tokens_including_reasoning": 646,
+        "partition": "fold_4",
+        "priced_calls": 57,
+        "prompt_tokens": 59338,
+        "role": "verifier",
+        "successful_calls": 57
+      }
+    ],
+    "collection_status": {
+      "generators": {
+        "allow_api": true,
+        "budget": {
+          "confirmed_billing_usd": null,
+          "estimated_usd": 0.18148744,
+          "limit_usd": 30.0,
+          "outstanding_reserved_usd": 0,
+          "project": "llm-applications-490420",
+          "rejected_requests": 0,
+          "successful_priced_calls": 337
+        },
+        "cache_hits": 3,
+        "errors": [],
+        "frozen_new": 319,
+        "missing_cache": 0,
+        "new_provider_executions": 319,
+        "operation_id": "0b353750-a5b9-4115-ae6a-8bc2e1c770a1",
+        "plan_id": "933a6d9249284f8e76d6df637ba27b05e5f617553f81d5d68c41af45dd1ae83f",
+        "processed": 322,
+        "requested_tasks": 322,
+        "service_failures": 0,
+        "stage": "complete",
+        "updated_utc": "2026-10-19T22:00:12.973212+00:00"
+      },
+      "verifiers": {
+        "allow_api": true,
+        "budget": {
+          "confirmed_billing_usd": null,
+          "estimated_usd": 1.55096129,
+          "limit_usd": 30.0,
+          "outstanding_reserved_usd": 0.4958955,
+          "project": "llm-applications-490420",
+          "rejected_requests": 0,
+          "successful_priced_calls": 1861
+        },
+        "cache_hits": 15,
+        "errors": [],
+        "invalid_signals": 1,
+        "missing_cache": 0,
+        "mode": "collect-development",
+        "new_provider_executions": 1524,
+        "note": "Development collection queries every verifier; none of these calls is saved by a policy.",
+        "operation_id": "1a516ae5-c45b-4db1-9492-fabcbf817ca7",
+        "plan_id": "933a6d9249284f8e76d6df637ba27b05e5f617553f81d5d68c41af45dd1ae83f",
+        "processed": 1540,
+        "stage": "complete",
+        "updated_utc": "2026-10-19T22:43:25.870034+00:00"
+      }
+    },
+    "confirmed_billing_usd": null,
+    "estimated_usd_for_priced_calls": 1.55096129,
+    "latency_s": {
+      "generator": {
+        "histogram_0.1": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "max": 131.346,
+        "median": 7.2775,
+        "min": 1.507,
+        "n": 322
+      },
+      "verifier": {
+        "histogram_0.1": [
+          0,
+          0,
+          0,
+          13,
+          41,
+          99,
+          296,
+          345,
+          190,
+          87
+        ],
+        "max": 278.538,
+        "median": 0.79,
+        "min": 0.329,
+        "n": 1539
+      }
+    },
+    "pricing_basis": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)",
+    "rejected_attempt_records": 7,
+    "successful_executions": 1861,
+    "unresolved_attempts": 0
+  },
+  "caveats": [
+    "Development pilot: 28 fixed tasks, one generation each; not a representative performance sample.",
+    "Raw generator r is reported as-is; no prior or verifier likelihood is fitted or deployed here.",
+    "No 95%/99% acceptance guarantee or advantage over published full-benchmark results is claimed.",
+    "Same official checker is necessary but not sufficient for cross-paper comparability (task subset and added confidence output differ).",
+    "Logical sequential queries over collected signals are not saved API spend."
+  ],
+  "forecasts": {
+    "claude_haiku": {
+      "auroc": 0.7413660086226459,
+      "brier": 0.2556477272727272,
+      "ece": 0.22100649350649357,
+      "ece_note": "development description only (small n); not evidence of calibration",
+      "log_loss": 0.7481461187500011,
+      "n": 308,
+      "positives": 195,
+      "reliability": [
+        {
+          "count": 11,
+          "empirical_accuracy": 0.5454545454545454,
+          "lower": 0.0,
+          "mean_confidence": 0.1409090909090909,
+          "upper": 0.2
+        },
+        {
+          "count": 11,
+          "empirical_accuracy": 0.18181818181818182,
+          "lower": 0.2,
+          "mean_confidence": 0.2590909090909091,
+          "upper": 0.4
+        },
+        {
+          "count": 2,
+          "empirical_accuracy": 0.0,
+          "lower": 0.4,
+          "mean_confidence": 0.45,
+          "upper": 0.6000000000000001
+        },
+        {
+          "count": 71,
+          "empirical_accuracy": 0.49295774647887325,
+          "lower": 0.6000000000000001,
+          "mean_confidence": 0.7487323943661971,
+          "upper": 0.8
+        },
+        {
+          "count": 213,
+          "empirical_accuracy": 0.7136150234741784,
+          "lower": 0.8,
+          "mean_confidence": 0.9188262910798123,
+          "upper": 1.0
+        }
+      ]
+    },
+    "claude_haiku_distribution": {
+      "histogram_0.1": [
+        1,
+        10,
+        10,
+        1,
+        2,
+        0,
+        0,
+        71,
+        39,
+        174
+      ],
+      "max": 0.99,
+      "median": 0.92,
+      "min": 0.05,
+      "n": 308
+    },
+    "gemini_flash": {
+      "auroc": 0.8921016483516484,
+      "brier": 0.1324437361563518,
+      "ece": 0.11333224755700319,
+      "ece_note": "development description only (small n); not evidence of calibration",
+      "log_loss": 1.322292355749241,
+      "n": 307,
+      "positives": 195,
+      "reliability": [
+        {
+          "count": 89,
+          "empirical_accuracy": 0.1348314606741573,
+          "lower": 0.0,
+          "mean_confidence": 0.02471910112359551,
+          "upper": 0.2
+        },
+        {
+          "count": 6,
+          "empirical_accuracy": 0.5,
+          "lower": 0.2,
+          "mean_confidence": 0.26666666666666666,
+          "upper": 0.4
+        },
+        {
+          "count": 6,
+          "empirical_accuracy": 0.3333333333333333,
+          "lower": 0.4,
+          "mean_confidence": 0.47500000000000003,
+          "upper": 0.6000000000000001
+        },
+        {
+          "count": 2,
+          "empirical_accuracy": 1.0,
+          "lower": 0.6000000000000001,
+          "mean_confidence": 0.7,
+          "upper": 0.8
+        },
+        {
+          "count": 204,
+          "empirical_accuracy": 0.8627450980392157,
+          "lower": 0.8,
+          "mean_confidence": 0.9712892156862745,
+          "upper": 1.0
+        }
+      ]
+    },
+    "gemini_flash_distribution": {
+      "histogram_0.1": [
+        83,
+        6,
+        4,
+        2,
+        3,
+        3,
+        1,
+        1,
+        14,
+        190
+      ],
+      "max": 1.0,
+      "median": 0.95,
+      "min": 0.0,
+      "n": 307
+    },
+    "gemini_lite": {
+      "auroc": 0.5990469707283868,
+      "brier": 0.32437499999999997,
+      "ece": 0.3258116883116884,
+      "ece_note": "development description only (small n); not evidence of calibration",
+      "log_loss": 11.377913636759933,
+      "n": 308,
+      "positives": 195,
+      "reliability": [
+        {
+          "count": 46,
+          "empirical_accuracy": 0.3695652173913043,
+          "lower": 0.0,
+          "mean_confidence": 0.0,
+          "upper": 0.2
+        },
+        {
+          "count": 262,
+          "empirical_accuracy": 0.6793893129770993,
+          "lower": 0.8,
+          "mean_confidence": 0.9975190839694658,
+          "upper": 1.0
+        }
+      ]
+    },
+    "gemini_lite_distribution": {
+      "histogram_0.1": [
+        46,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        259
+      ],
+      "max": 1.0,
+      "median": 1.0,
+      "min": 0.0,
+      "n": 308
+    },
+    "generator_r": {
+      "auroc": 0.8071477195371002,
+      "brier": 0.2607584415584416,
+      "ece": 0.25402597402597393,
+      "ece_note": "development description only (small n); not evidence of calibration",
+      "log_loss": 0.8233367180168317,
+      "n": 308,
+      "positives": 195,
+      "reliability": [
+        {
+          "count": 2,
+          "empirical_accuracy": 0.0,
+          "lower": 0.0,
+          "mean_confidence": 0.135,
+          "upper": 0.2
+        },
+        {
+          "count": 8,
+          "empirical_accuracy": 0.25,
+          "lower": 0.2,
+          "mean_confidence": 0.2825,
+          "upper": 0.4
+        },
+        {
+          "count": 4,
+          "empirical_accuracy": 0.25,
+          "lower": 0.4,
+          "mean_confidence": 0.525,
+          "upper": 0.6000000000000001
+        },
+        {
+          "count": 58,
+          "empirical_accuracy": 0.29310344827586204,
+          "lower": 0.6000000000000001,
+          "mean_confidence": 0.7398275862068965,
+          "upper": 0.8
+        },
+        {
+          "count": 236,
+          "empirical_accuracy": 0.7415254237288136,
+          "lower": 0.8,
+          "mean_confidence": 0.9563559322033898,
+          "upper": 1.0
+        }
+      ]
+    },
+    "generator_r_distribution": {
+      "histogram_0.1": [
+        0,
+        2,
+        3,
+        5,
+        2,
+        0,
+        17,
+        43,
+        20,
+        216
+      ],
+      "max": 0.99,
+      "median": 0.96,
+      "min": 0.12,
+      "n": 308
+    },
+    "mistral_medium": {
+      "auroc": 0.655525300658044,
+      "brier": 0.32317954545454547,
+      "ece": 0.31548701298701304,
+      "ece_note": "development description only (small n); not evidence of calibration",
+      "log_loss": 1.9580069001075067,
+      "n": 308,
+      "positives": 195,
+      "reliability": [
+        {
+          "count": 3,
+          "empirical_accuracy": 0.0,
+          "lower": 0.0,
+          "mean_confidence": 0.0,
+          "upper": 0.2
+        },
+        {
+          "count": 2,
+          "empirical_accuracy": 0.5,
+          "lower": 0.6000000000000001,
+          "mean_confidence": 0.725,
+          "upper": 0.8
+        },
+        {
+          "count": 303,
+          "empirical_accuracy": 0.6402640264026402,
+          "lower": 0.8,
+          "mean_confidence": 0.9594719471947195,
+          "upper": 1.0
+        }
+      ]
+    },
+    "mistral_medium_distribution": {
+      "histogram_0.1": [
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        7,
+        296
+      ],
+      "max": 1.0,
+      "median": 0.95,
+      "min": 0.0,
+      "n": 308
+    },
+    "mistral_small": {
+      "auroc": 0.6102110279101429,
+      "brier": 0.39376850649350653,
+      "ece": 0.39522727272727265,
+      "ece_note": "development description only (small n); not evidence of calibration",
+      "log_loss": 10.146901023043391,
+      "n": 308,
+      "positives": 195,
+      "reliability": [
+        {
+          "count": 64,
+          "empirical_accuracy": 0.59375,
+          "lower": 0.0,
+          "mean_confidence": 0.0,
+          "upper": 0.2
+        },
+        {
+          "count": 244,
+          "empirical_accuracy": 0.6434426229508197,
+          "lower": 0.8,
+          "mean_confidence": 0.9865983606557376,
+          "upper": 1.0
+        }
+      ]
+    },
+    "mistral_small_distribution": {
+      "histogram_0.1": [
+        64,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        244
+      ],
+      "max": 1.0,
+      "median": 1.0,
+      "min": 0.0,
+      "n": 308
+    }
+  },
+  "generator": {
+    "code_extractable": 308,
+    "code_extractable_rate_of_planned": 0.9565217391304348,
+    "confidence_status_with_code": {
+      "valid": 308
+    },
+    "confidence_valid": 308,
+    "confidence_valid_rate_of_planned": 0.9565217391304348,
+    "finish_status": {
+      "complete": 322
+    },
+    "format_failures": {
+      "unexpected_fields": 14
+    },
+    "generated": 322,
+    "not_generated": 0,
+    "planned_tasks": 322,
+    "service_failures": [],
+    "truncated": 0
+  },
+  "mode": "full_cross_fit_collection",
+  "official_checker": {
+    "backend": "macos_sandbox",
+    "candidates_with_code": 308,
+    "end_to_end_pass_rate": {
+      "denominator_all_planned_tasks": 322,
+      "passed": 195,
+      "rate": 0.6055900621118012
+    },
+    "error_types": {
+      "AerError": 3,
+      "AssertionError": 56,
+      "AttributeError": 17,
+      "CircuitError": 2,
+      "ImportError": 5,
+      "ModuleNotFoundError": 4,
+      "QiskitError": 8,
+      "RuntimeError": 1,
+      "SyntaxError": 3,
+      "TypeError": 6,
+      "ValueError": 8,
+      "none": 195
+    },
+    "evaluate_elapsed_s": {
+      "histogram_0.1": [
+        43,
+        133,
+        125,
+        5,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "max": 7.829793167067692,
+      "median": 0.1984357493929565,
+      "min": 2.554222010076046e-05,
+      "n": 308
+    },
+    "failed": 113,
+    "limits": {
+      "backend": "macos_sandbox",
+      "enforced": {
+        "core_dumps": 0,
+        "cpu_seconds_rlimit": 120,
+        "environment": "cleared (PATH, HOME/TMPDIR=job dir, single-thread BLAS/OMP)",
+        "file_size_bytes_rlimit": 67108864,
+        "home_and_repo_reads": "denied except pinned interpreter",
+        "keychain_services": "denied",
+        "network": "denied by sandbox-exec",
+        "supervisor_wall_timeout_s": 120,
+        "writes": "job directory only"
+      },
+      "not_enforced": [
+        "memory limit (macOS ignores RLIMIT_AS/RLIMIT_DATA)",
+        "process-count limit (RLIMIT_NPROC is per user on macOS)"
+      ]
+    },
+    "not_scored": 0,
+    "note": "Local checker compute time; not comparable to API dollars without a common cost model.",
+    "official_returns": 308,
+    "pass_rate_with_official_return": {
+      "n": 308,
+      "passed": 195,
+      "rate": 0.6331168831168831
+    },
+    "passed": 195,
+    "supervisor_wall_elapsed_s": {
+      "histogram_0.1": [
+        3,
+        40,
+        241,
+        19,
+        3,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "max": 7.905326290987432,
+      "median": 0.2737589165335521,
+      "min": 0.0720024579204619,
+      "n": 308
+    },
+    "syntax_invalid": 3,
+    "unresolved": {}
+  },
+  "partition": "development",
+  "plan_id": "933a6d9249284f8e76d6df637ba27b05e5f617553f81d5d68c41af45dd1ae83f",
+  "samples": {
+    "planned": 322,
+    "verifiers": {
+      "claude_haiku": {
+        "failures": {},
+        "not_collected": 0,
+        "recorded": 308,
+        "valid": 308
+      },
+      "gemini_flash": {
+        "failures": {
+          "verifier_service_failure": 1
+        },
+        "not_collected": 0,
+        "recorded": 308,
+        "valid": 307
+      },
+      "gemini_lite": {
+        "failures": {},
+        "not_collected": 0,
+        "recorded": 308,
+        "valid": 308
+      },
+      "mistral_medium": {
+        "failures": {},
+        "not_collected": 0,
+        "recorded": 308,
+        "valid": 308
+      },
+      "mistral_small": {
+        "failures": {},
+        "not_collected": 0,
+        "recorded": 308,
+        "valid": 308
+      }
+    },
+    "with_code": 308,
+    "with_label_and_r": 308,
+    "with_official_label": 308,
+    "with_valid_r": 308
+  },
+  "schema": 1,
+  "sequential": null
+}
