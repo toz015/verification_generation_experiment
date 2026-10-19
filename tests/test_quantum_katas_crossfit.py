@@ -45,3 +45,17 @@ def test_crossfit_pools_every_task_and_fits_out_of_fold(monkeypatch):
         for fit in by_loss.values():
             assert len(fit['selected_triple']) == 3
     assert out['counts']['valid'] == sum(r['valid'] for r in rows)
+
+
+def test_extended_stopping_arms_are_consistent():
+    from vgx.quantum_katas import crossfit_extended
+    rows = synthetic_rows(120, seed=1)
+    cfg = {**CFG, 'settings': {**CFG['settings'], 'bootstrap_repeats': 50}}
+    st, folds = crossfit_extended.stopping(rows, cfg, 19.0)
+    arms = st['arms']
+    valid = sum(r['valid'] for r in rows)
+    assert arms['fixed_five']['queries'] == 5 * valid and arms['fixed_triple']['queries'] == 3 * valid
+    assert arms['adaptive_triple']['queries'] <= arms['fixed_triple']['queries']
+    assert arms['prior_only']['queries'] == 0 and len(folds) == 5
+    ref = crossfit.analyze_generator(rows, cfg)['pooled']['19']['arms']['triple']
+    assert (ref['released'], ref['queries']) == (arms['adaptive_triple']['released'], arms['adaptive_triple']['queries'])
