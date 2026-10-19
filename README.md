@@ -1,7 +1,8 @@
 # Verification-generation experiment
 
 This repository explores confidence and verifier signals for selective scientific
-QA. The GPQA pilot is motivated by Green–Laffont sequential verification; frozen
+QA. For a map of branches, datasets and where results live, see the
+[repository overview](docs/repo-overview.md). The GPQA pilot is motivated by Green–Laffont sequential verification; frozen
 model forecasts do not test strategic truthfulness or incentive compatibility.
 
 ## QuantumKatas experiments
