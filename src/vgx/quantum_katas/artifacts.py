@@ -11,7 +11,7 @@ import json
 from pathlib import Path
 
 from vgx.common.storage import append_jsonl, digest, file_lock, read_jsonl
-from vgx.quantum_katas.load import PublicTask, sha256_text
+from vgx.quantum_katas.load import PARTITIONS, PublicTask, sha256_text
 
 CONFIDENCE_STATUSES = ('valid', 'missing', 'non_numeric', 'boolean', 'non_finite', 'out_of_range', 'not_applicable')
 
@@ -40,8 +40,8 @@ class FrozenCodeCandidate:
     task_prompt_sha256: str
 
     def __post_init__(self):
-        if self.partition != 'development':
-            raise ValueError('pilot candidates are development records')
+        if self.partition not in PARTITIONS:
+            raise ValueError(f'unknown candidate partition: {self.partition}')
         if self.generator_response_status not in ('code_extracted', 'format_failure'):
             raise ValueError('invalid generator response status')
         if self.confidence_status not in CONFIDENCE_STATUSES:

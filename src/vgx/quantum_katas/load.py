@@ -24,6 +24,7 @@ SOURCE_SHA256 = {
 }
 FIELDS = ('task_id', 'prompt', 'canonical_solution', 'test', 'entry_point')
 PILOT_TASK_COUNT = 28
+PARTITIONS = ('development',) + tuple(f'fold_{k}' for k in range(5))
 DEFAULT_SOURCE = Path('tmp/quantum_four_dataset_review_20261018/Qiskit-QuantumKatas')
 DEFAULT_PILOT = Path('configs/quantum_katas_pilot_20261018.json')
 DEFAULT_PROTOCOL = Path('configs/quantum_katas_official_protocol_20261018.json')
@@ -46,8 +47,8 @@ class PublicTask:
     prompt_sha256: str
 
     def __post_init__(self):
-        if self.partition != 'development':
-            raise ValueError('this pilot contains development tasks only')
+        if self.partition not in PARTITIONS:
+            raise ValueError(f'unknown partition: {self.partition}')
         if self.prompt_sha256 != sha256_text(self.prompt):
             raise ValueError(f'public prompt hash mismatch: {self.task_id}')
         if self.entry_point not in self.required_functions:
@@ -108,8 +109,23 @@ def load_pilot_ids(pilot_config: str | Path) -> tuple[list[str], dict]:
 
 def load_tasks(source: str | Path, pilot_config: str | Path) -> tuple[list[PublicTask], list[OracleTask]]:
     """Return the fixed pilot in config order; no task is dropped or edited."""
-    verify_sources(source)
     ids, _ = load_pilot_ids(pilot_config)
+    return _project(source, [(tid, 'development') for tid in ids])
+
+
+def load_split_tasks(source: str | Path, split_path: str | Path) -> tuple[list[PublicTask], list[OracleTask]]:
+    """All 322 non-development tasks, ordered by fold then task_id, partition fold_k."""
+    from vgx.quantum_katas import split as split_rules
+    value = json.loads(Path(split_path).read_text())
+    if value != split_rules.build(source):
+        raise ValueError('pre-registered split file does not reproduce from its rules')
+    order = sorted(value['task_fold'].items(), key=lambda kv: (kv[1], kv[0]))
+    return _project(source, [(tid, f'fold_{fold}') for tid, fold in order])
+
+
+def _project(source, assignments) -> tuple[list[PublicTask], list[OracleTask]]:
+    verify_sources(source)
+    ids = [tid for tid, _ in assignments]
     rows = [json.loads(line) for line in (Path(source)/'dataset/qiskit_quantumkatas.jsonl').read_text().splitlines()
             if line.strip()]
     by_id = {}
@@ -123,9 +139,9 @@ def load_tasks(source: str | Path, pilot_config: str | Path) -> tuple[list[Publi
     if missing:
         raise ValueError(f'pilot task IDs missing upstream: {missing}')
     public, oracle = [], []
-    for tid in ids:
+    for tid, partition in assignments:
         row = by_id[tid]
-        public.append(PublicTask(tid, REVISION, 'development', tid.split('/')[0], row['entry_point'],
+        public.append(PublicTask(tid, REVISION, partition, tid.split('/')[0], row['entry_point'],
                                  required_functions(row['prompt']), row['prompt'], sha256_text(row['prompt'])))
         oracle.append(OracleTask(tid, row['entry_point'], row['test'], row['canonical_solution'],
                                  sha256_text(row['test']), sha256_text(row['canonical_solution'])))

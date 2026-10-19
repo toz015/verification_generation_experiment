@@ -165,7 +165,10 @@ def prepare(config_path: str | Path, output: str | Path, *, mock_responses: dict
             or protocol['official_evaluator']['timeout_s'] != oracle.OFFICIAL_TIMEOUT_S
             or protocol['official_evaluator']['evaluations_per_frozen_candidate'] != 1):
         raise ValueError('run config does not match the official protocol')
-    public, private = load.load_tasks(source, config['pilot'])
+    if 'split' in config:
+        public, private = load.load_split_tasks(source, config['split'])
+    else:
+        public, private = load.load_tasks(source, config['pilot'])
     checker = oracle.CheckerConfig(**config['checker'])
     if (checker.backend == 'mock') != (mock_environment is not None):
         raise ValueError('a synthetic environment is allowed only with the mock checker backend')
@@ -196,7 +199,9 @@ def prepare(config_path: str | Path, output: str | Path, *, mock_responses: dict
     gen_runner = generator.runner(mock_responses)
     gen_requests = [generator_request(config['generation_id'], t, version=config['prompt_version']) for t in public]
     plan = seal({
-        'schema': 1, 'created_utc': datetime.now(timezone.utc).isoformat(), 'mode': 'dry_run' if is_mock else 'pilot',
+        'schema': 1, 'created_utc': datetime.now(timezone.utc).isoformat(),
+        'mode': 'dry_run' if is_mock else ('full_cross_fit_collection' if 'split' in config else 'pilot'),
+        'split_sha256': file_digest(config['split']) if 'split' in config else None,
         'config': config, 'config_sha256': file_digest(config_path),
         'sources': sources, 'pilot_config_sha256': file_digest(config['pilot']),
         'protocol_sha256': file_digest(config['protocol']), 'requirements_sha256': file_digest(config['requirements']),
@@ -232,6 +237,29 @@ def _status(run: Run, name: str, value: dict) -> dict:
     atomic_json(run.root/'collection'/f'{name}.json', value)
     append_jsonl(run.root/'collection'/'history.jsonl', {'name': name, **value})
     return value
+
+
+def _run_items(items, one, workers):
+    """Run one(item) -> (rows, error) over items; after the first error no new item starts."""
+    import threading
+    from concurrent.futures import ThreadPoolExecutor
+    if isinstance(workers, bool) or not isinstance(workers, int) or not 1 <= workers <= 16:
+        raise ValueError('workers must be an integer in [1, 16]')
+    stop, rows, errors, lock = threading.Event(), [], [], threading.Lock()
+
+    def guarded(item):
+        if stop.is_set():
+            return
+        out, error = one(item)
+        with lock:
+            rows.extend(out)
+            if error is not None:
+                errors.append(error)
+                stop.set()
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for future in [pool.submit(guarded, item) for item in items]:
+            future.result()
+    return rows, errors
 
 
 def _blocking(error):
@@ -281,44 +309,38 @@ class AbandonedRequests:
                                      'policy': UNCERTAIN_POLICY, 'created': time.time()})
 
 
-def collect_generators(root, *, allow_api=False, limit=None, continue_after_uncertain=False) -> dict:
+def collect_generators(root, *, allow_api=False, limit=None, continue_after_uncertain=False, workers=1) -> dict:
     run = Run(root)
     run.check_api(allow_api, [run.generator])
     cache, runner = run.cache(), run.runner(run.generator)
     abandoned = AbandonedRequests(run)
     operation_id = str(uuid.uuid4())
     tasks = run.tasks[:limit] if limit else run.tasks
-    rows, errors = [], []
     with file_lock(run.root/'collection'/'generators.lock'):
         if continue_after_uncertain:
             abandoned.settle_prior(cache, {run.plan['generator_request_keys'][t.task_id]: {'role': 'generator',
                                            'task_id': t.task_id} for t in run.tasks})
-        for task in tasks:
+        def one(task):
             request = generator_request(run.config['generation_id'], task, operation_id, version=run.prompt_version)
             key = runner.cache_key(request)
             if key != run.plan['generator_request_keys'][task.task_id]:
                 raise ValueError('generator request identity changed since prepare')
             if key in abandoned.keys():
-                rows.append({'task_id': task.task_id, 'status': 'generator_service_failure'})
-                continue
+                return [{'task_id': task.task_id, 'status': 'generator_service_failure'}], None
             try:
                 call, reused = cache.get(runner, request, allow_api=allow_api)
             except OfflineCacheMiss:
-                rows.append({'task_id': task.task_id, 'status': 'missing_cache'})
-                continue
+                return [{'task_id': task.task_id, 'status': 'missing_cache'}], None
             except UncertainRequestError:
                 if not continue_after_uncertain:
-                    errors.append({'task_id': task.task_id, 'type': 'UncertainRequestError', 'request_key': key})
-                    break
+                    return [], {'task_id': task.task_id, 'type': 'UncertainRequestError', 'request_key': key}
                 abandoned.abandon(cache, key, {'role': 'generator', 'task_id': task.task_id})
-                rows.append({'task_id': task.task_id, 'status': 'generator_service_failure'})
-                continue
+                return [{'task_id': task.task_id, 'status': 'generator_service_failure'}], None
             except Exception as error:  # stop: never resend an uncertain/rejected/over-budget request
                 if not _blocking(error):
                     raise
-                errors.append({'task_id': task.task_id, 'type': type(error).__name__,
-                               'http_status': getattr(error, 'status', None), 'message': str(error)})
-                break
+                return [], {'task_id': task.task_id, 'type': type(error).__name__,
+                            'http_status': getattr(error, 'status', None), 'message': str(error)}
             finish = runners.finish_status(call)
             parsed = prompt.parse_generator_response(call.response, truncated=finish == 'truncated')
             code_sha = sha256_text(parsed.code) if parsed.code is not None else None
@@ -339,9 +361,11 @@ def collect_generators(root, *, allow_api=False, limit=None, continue_after_unce
                 raw_response_sha256=response_sha, prompt_version=run.prompt_version,
                 dataset_revision=task.revision, task_prompt_sha256=task.prompt_sha256)
             new = run.candidates.freeze(candidate)
-            rows.append({'task_id': task.task_id, 'status': 'frozen' if new else 'already_frozen',
-                         'used_cached_response': reused, 'has_code': candidate.has_code,
-                         'confidence_status': candidate.confidence_status, 'failure': candidate.generator_failure})
+            return [{'task_id': task.task_id, 'status': 'frozen' if new else 'already_frozen',
+                     'used_cached_response': reused, 'has_code': candidate.has_code,
+                     'confidence_status': candidate.confidence_status, 'failure': candidate.generator_failure}], None
+
+        rows, errors = _run_items(tasks, one, workers)
     summary = {'requested_tasks': len(tasks), 'processed': len(rows), 'errors': errors,
                'new_provider_executions': sum(r.get('used_cached_response') is False for r in rows),
                'cache_hits': sum(r.get('used_cached_response') is True for r in rows),
@@ -405,7 +429,7 @@ def verifier_query(run: Run, cache, *, allow_api: bool, operation_id: str):
     return query
 
 
-def collect_verifiers(root, *, allow_api=False, limit=None, continue_after_uncertain=False) -> dict:
+def collect_verifiers(root, *, allow_api=False, limit=None, continue_after_uncertain=False, workers=1) -> dict:
     """Development collection: every verifier for every candidate with code (all calls are spent)."""
     run = Run(root)
     run.check_api(allow_api, run.verifiers)
@@ -416,17 +440,17 @@ def collect_verifiers(root, *, allow_api=False, limit=None, continue_after_uncer
     query = verifier_query(run, cache, allow_api=allow_api, operation_id=operation_id)
     candidates = run.candidates.by_task()
     task_ids = [t.task_id for t in (run.tasks[:limit] if limit else run.tasks)]
-    rows, errors = [], []
     with file_lock(run.root/'collection'/'verifiers.lock'):
         if continue_after_uncertain:
             abandoned.settle_prior(cache, {
                 run.runner(spec).cache_key(verifier_request(spec, c, run.task_map()[c.task_id], version=run.prompt_version)):
                 {'role': 'verifier', 'task_id': c.task_id, 'verifier_id': spec.id, 'candidate_id': c.candidate_id}
                 for c in candidates.values() if c.has_code for spec in run.verifiers})
-        for tid in task_ids:
+        def one(tid):
+            rows = []
             candidate = candidates.get(tid)
             if candidate is None or not candidate.has_code:
-                continue
+                return rows, None
             for spec in run.verifiers:
                 request = verifier_request(spec, candidate, run.task_map()[tid], version=run.prompt_version)
                 key = run.runner(spec).cache_key(request)
@@ -440,9 +464,8 @@ def collect_verifiers(root, *, allow_api=False, limit=None, continue_after_uncer
                 except (UncertainRequestError, _Abandoned) as error:
                     if isinstance(error, UncertainRequestError):
                         if not continue_after_uncertain:
-                            errors.append({'task_id': tid, 'verifier_id': spec.id, 'type': 'UncertainRequestError',
-                                           'request_key': key})
-                            break
+                            return rows, {'task_id': tid, 'verifier_id': spec.id, 'type': 'UncertainRequestError',
+                                          'request_key': key}
                         abandoned.abandon(cache, key, {'role': 'verifier', 'task_id': tid, 'verifier_id': spec.id,
                                                        'candidate_id': candidate.candidate_id})
                     row = {'candidate_id': candidate.candidate_id, 'task_id': tid, 'verifier_id': spec.id,
@@ -456,9 +479,8 @@ def collect_verifiers(root, *, allow_api=False, limit=None, continue_after_uncer
                 except Exception as error:
                     if not _blocking(error):
                         raise
-                    errors.append({'task_id': tid, 'verifier_id': spec.id, 'type': type(error).__name__,
-                                   'http_status': getattr(error, 'status', None), 'message': str(error)})
-                    break
+                    return rows, {'task_id': tid, 'verifier_id': spec.id, 'type': type(error).__name__,
+                                  'http_status': getattr(error, 'status', None), 'message': str(error)}
                 row = {'candidate_id': candidate.candidate_id, 'task_id': tid, 'verifier_id': spec.id,
                        'verifier_identity': spec.identity, 'p_correct': observation['score'],
                        'failure': observation['failure'], 'finish_status': observation['finish_status'],
@@ -468,8 +490,9 @@ def collect_verifiers(root, *, allow_api=False, limit=None, continue_after_uncer
                 new = store.add(row)
                 rows.append({'task_id': tid, 'verifier_id': spec.id, 'status': 'recorded' if new else 'already_recorded',
                              'used_cached_response': observation['used_cached_response'], 'failure': row['failure']})
-            if errors:
-                break
+            return rows, None
+
+        rows, errors = _run_items(task_ids, one, workers)
     summary = {'mode': 'collect-development', 'processed': len(rows), 'errors': errors,
                'new_provider_executions': sum(r.get('used_cached_response') is False for r in rows),
                'cache_hits': sum(r.get('used_cached_response') is True for r in rows),
