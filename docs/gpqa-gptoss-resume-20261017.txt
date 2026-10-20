@@ -1,0 +1,35 @@
+GPT-OSS development pilot: authorized 30-second resume amendment (2026-10-17)
+
+Keep the original sealed continuation, source code, parser, prompts, model,
+settings, prices, shared USD 1 budget and all 18 received replies unchanged.
+The malformed reply is a received reply and must not be repaired or retried.
+The new module imports the existing collector and adds transport scheduling.
+No change to the actual provider request or cache identity is authorized.
+
+Only the 32 missing requests may be sent. Wait at least 30 seconds after each
+attempt completes before the next request. Explicit HTTP 429 permits at most
+two retries after 60 and 120 seconds from rejection completion. Count the
+historical 429 toward the same three-attempt total. Already elapsed backoff
+does not need to be repeated; attempt counts survive process interruption.
+Other HTTP errors, unknown outcomes, usage/cost problems and exhausted retry
+allowance block the run. Never repair/retry malformed successful responses.
+
+Plan/status/audit live under the existing root's resume_30s_20261017 directory.
+The shared cache/budget stays at the existing root; no additional allowance.
+Snapshot previous status and budget before running. On completion update the
+root status so the unchanged gptoss_continuation report command can freeze
+candidates and compare the four generators on the original 50 development
+items. No Diamond labels, calibration, verifier calls or new baseline calls.
+
+Commands from repository root:
+.venv/bin/python -m vgx.gpqa.gptoss_resume prepare
+.venv/bin/python -m vgx.gpqa.gptoss_resume collect
+.venv/bin/python -m vgx.gpqa.gptoss_resume collect --allow-api
+.venv/bin/python -m vgx.gpqa.gptoss_resume audit
+.venv/bin/python -m vgx.gpqa.gptoss_continuation report
+
+No unit tests requested or run for this amendment. Validate the actual frozen
+inputs, source/request identities, durable request histories, budget and 18
+preserved response hashes before collection and again after completion.
+Only aggregate results, plans, safe status/audits, documentation and hashes
+may be copied to reports. Do not export raw replies/questions/answer keys.

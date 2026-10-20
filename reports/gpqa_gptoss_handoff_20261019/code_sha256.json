@@ -1,0 +1,22 @@
+{
+  "configs/gpqa_replacement_generators_20261014.json": "5e4e81572df10b16b43613d77ef03e0d9a32247cbc78a5045cf84d2b8e26d1f6",
+  "scripts/export_gpqa_gptoss_handoff_20261019.py": "86420116634134a10db0081a6c918e232ffaf5efb7b4d853be303d58aecb9319",
+  "src/vgx/gpqa/gptoss_continuation.py": "58606762d092b384f3bb51f2feec3d83d0b8e6d7c323bb759005ac5a460ffef9",
+  "src/vgx/gpqa/gptoss_expansion.py": "83a0286d778cfd85a022e51327f956362e76ca7097ec063524a86774c15b8c9b",
+  "src/vgx/gpqa/gptoss_finish50.py": "ce6d4487a1ac335e0961e3fcf3129cf8eaa56afeb1e30542d20abd15c3bef71d",
+  "src/vgx/gpqa/gptoss_offline_score.py": "2c17caf81873aac637bf4a2186dba61d98e0173d5814bc57c9dd4f1306c87def",
+  "src/vgx/gpqa/gptoss_resume.py": "aeba360935cf55390fbb0bfdefd9730eac13fe6b84e6c92030cbc44d2b740ceb",
+  "src/vgx/gpqa/gptoss_resume_report.py": "8036b5928a9c6a97b068ada3eaeb7f0647e83e917df1b15285c0ebac9cabe1be",
+  "src/vgx/gpqa/gptoss_retry176_expansion.py": "3459040fc458f8d10c75eab07a1455b2c48199baf19a1ca21e034ac700a7bdb9",
+  "src/vgx/gpqa/gptoss_retry176_offline_score.py": "336c4e54976a52b1c6e852d1de309b3604c696a775af8bb09f3c597b13a74ba0",
+  "src/vgx/gpqa/gptoss_retry179_expansion.py": "7603c45bea219cc1cc53c612967a06840c6c165b98755778c34ff0e71e1d8d2f",
+  "src/vgx/gpqa/gptoss_retry179_ledgerfix.py": "a8b7d1b83c831ad95efd5b8797b34c6f506d5dc9e7bb13c9902a6f875f14034e",
+  "src/vgx/gpqa/gptoss_retry179_ledgerfix_score.py": "d886741fa8e62157ad98134143d17cd2dddecc5d86e778044a3cd8ee42d875ec",
+  "src/vgx/gpqa/gptoss_retry179_offline_score.py": "b6290228c3e85f7b1d4d14ab0470942251b53dee0bd204d8b7d13384a16c732c",
+  "src/vgx/gpqa/gptoss_retry22.py": "1b964344f4346f11f942d3ad3d560f916b61c2667758a8f8235ce142bec1a274",
+  "src/vgx/gpqa/gptoss_retry65_expansion.py": "c787586f3375e037a4c952d2b97e35995bab66edd56f9524d6b2f15b02ff8c46",
+  "src/vgx/gpqa/gptoss_retry65_offline_score.py": "1c1de3952668a0fbaf020c4d2e0ea2c4d84a8d0d1ae948299741b62627e97384",
+  "src/vgx/gpqa/gptoss_retry96_expansion.py": "974061c9455b56fdee74fef860c704052b2bf24c00b59111345c7f87c05a9f7c",
+  "src/vgx/gpqa/gptoss_retry96_offline_score.py": "7a2badc64a63e14045272166eecca7552562cb2ba291fcf0010b309bec3a2edd",
+  "src/vgx/gpqa/gptoss_skip22.py": "3ab0aded0a0ab6c7e72be14a8043a68cc0e2d8dbbfede76af0ce8f9a76c4d581"
+}

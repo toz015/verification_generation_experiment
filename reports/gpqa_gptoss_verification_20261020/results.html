@@ -1,0 +1,302 @@
+<title>GPQA gpt-oss-120b 验证结果</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<style>
+/* Layout: one reading column (~760px) of findings, each backed by a small table or a chart pair. */
+:root{
+  --bg:#f7f8f6; --surface:#ffffff; --ink:#15181a; --ink-2:#4b5257; --ink-3:#7a8287; --rule:#dfe3e1; --accent:#1d5c63;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --target:#7a8287; --good:#0f7a43; --bad:#b4372f; --chip:#eef1ef;
+  --display:"Newsreader",Georgia,serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121415; --surface:#1a1d1e; --ink:#eef0ee; --ink-2:#b9c0c3; --ink-3:#8b9397; --rule:#2c3133; --accent:#7cc2c9;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --target:#8b9397; --good:#4fc286; --bad:#ef7a70; --chip:#22272a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121415; --surface:#1a1d1e; --ink:#eef0ee; --ink-2:#b9c0c3; --ink-3:#8b9397; --rule:#2c3133; --accent:#7cc2c9;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --target:#8b9397; --good:#4fc286; --bad:#ef7a70; --chip:#22272a; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+main{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--display);font-weight:600;text-wrap:balance;margin:0}
+h1{font-size:2rem;line-height:1.15}
+h2{font-size:1.35rem}
+h3{font-size:.95rem;margin:0;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font:500 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lede{color:var(--ink-2)}
+section{display:flex;flex-direction:column;gap:14px}
+.findings{display:flex;flex-direction:column;gap:12px;margin:0;padding:0;list-style:none}
+.findings li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:14px 16px}
+.findings b{font-weight:600}
+.tag{font:500 .7rem/1.6 var(--mono);padding:1px 7px;border-radius:999px;background:var(--chip);color:var(--ink-2);white-space:nowrap}
+.tag.yes{color:var(--good)} .tag.no{color:var(--bad)}
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.86rem}
+th,td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--rule);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font:500 .72rem/1.3 var(--mono);color:var(--ink-3);text-transform:uppercase;letter-spacing:.04em}
+tbody tr:last-child td{border-bottom:0}
+td.grp{font-weight:600;background:var(--chip)}
+.ok{color:var(--good);font-weight:600} .miss{color:var(--bad);font-weight:600}
+.note{font-size:.82rem;color:var(--ink-3)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.seg button{font:500 .8rem var(--body);background:var(--surface);color:var(--ink-2);border:0;padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.chart{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:12px 12px 8px;min-width:0;position:relative}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{font:11px var(--body);fill:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font:12px/1.4 var(--body);padding:6px 8px;border-radius:6px;white-space:nowrap}
+.setup{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 24px;font-size:.88rem}
+.setup div{min-width:0}
+.setup dt{font:500 .72rem var(--mono);color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+.setup dd{margin:2px 0 0}
+details{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:10px 14px}
+summary{cursor:pointer;font-weight:500}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+pre.prompt{background:var(--chip);border-radius:6px;padding:10px 12px;font:12px/1.5 var(--mono);white-space:pre-wrap;overflow-x:auto;margin:0}
+.formula{font:13px/1.7 var(--mono);background:var(--chip);border-radius:6px;padding:10px 12px;overflow-x:auto}
+.appendix{border-top:2px solid var(--rule);padding-top:28px}
+</style>
+
+<main>
+<header style="display:flex;flex-direction:column;gap:10px">
+  <div class="eyebrow">GPQA · 开发 249 题拟合 · Diamond 196 题评估</div>
+  <h1>GPQA gpt-oss-120b 验证结果</h1>
+  <p class="lede">gpt-oss-120b 回答 445 道 GPQA 题并给出 r（自报正确概率），答案冻结后由五个候选 verifier 逐个打分，
+  顺序策略决定继续问、接受还是弃答。似然、成本和 verifier 顺序只在开发集上拟合，冻结后在 Diamond 上评估。
+  正文使用 raw r 作先验；Sonnet 5.5 用同一流程作对照。</p>
+</header>
+
+<section aria-labelledby="h-find">
+  <h2 id="h-find">结论</h2>
+  <ul class="findings">
+    <li><span class="tag yes">成立</span><div><b>顺序验证能提前停止，省下一半以上调用。</b>
+      gpt-oss 平均每题问 1.44 次，固定问 3 个是 2.97 次，
+      接受数相同，效用略高（+0.033 <span class="note">(+0.030, +0.036)</span>）。Sonnet 为 0.69 次对 3.00 次。</div></li>
+    <li><span class="tag yes">成立</span><div><b>verifier 显著提高了可接受的答案数。</b>
+      阈值 0.99 时，gpt-oss 只用 r 只敢接受 1 题，顺序验证接受 47 题且 0 错；
+      阈值 0.95 时从 49 题增加到 101 题。Sonnet 在 0.95 时从 44 增加到 59，均无错题，效用提升 +0.064 <span class="note">(+0.030, +0.100)</span>。</div></li>
+    <li><span class="tag no">未达到</span><div><b>阈值 0.95 时，gpt-oss 多接受的题里有错题，错误率超过 5% 目标。</b>
+      顺序验证接受的 101 题中错 7 题（6.9%），
+      而只用 r 时接受的 49 题全对，所以这个阈值下效用反而低于只用 r（-0.476 <span class="note">(-0.998, -0.014)</span>）。
+      gpt-oss 平均自报 r 约 80%，实际正确率约 66%；附录 A 校准先验后，接受 90 题、错 3 题（3.3%），达到目标。</div></li>
+  </ul>
+</section>
+
+<section aria-labelledby="h-setup">
+  <h2 id="h-setup">实验设置</h2>
+  <h3>数据集</h3>
+  <p>GPQA（Idavidrein/gpqa，固定 revision 83022cef）是研究生水平的生物、化学、物理四选一题，答案由领域专家撰写并验证。
+  开发集是 Main 中不属于 Diamond 的 249 题，评估集是 Diamond 中的 196 题（Diamond 共 198 题，去掉 2 道选项重复的题）。
+  选项顺序用固定种子打乱后冻结，所有 generator 看到完全相同的题目和选项顺序。</p>
+  <h3>开发集与评估集的划分</h3>
+  <p>Diamond 是 GPQA 中最难、专家一致性最高的子集，也是文献里最常报告的部分，因此作为评估集；它与开发集没有重叠。
+  verifier 的似然、平均成本和三个 verifier 的顺序只在开发集上拟合，冻结后才读取 Diamond 的 verifier 信号和标签。</p>
+  <h3>Prompt</h3>
+  <p>generator 看到题目和四个选项，返回答案字母和 p_correct；verifier 看到同样的题目、选项和冻结的答案，只返回 p_correct，
+  看不到 generator 的 r、模型名、标准答案或其他 verifier 的结果。无法解析的回复记为无效并计入分母，不修复、不重新生成。</p>
+  <details><summary>Generator prompt</summary><pre class="prompt">[system] You are answering a graduate-level multiple-choice science question.
+
+Subject: {subject}
+
+Question: {question}
+
+A. {option A}
+B. {option B}
+C. {option C}
+D. {option D}
+
+Choose the best answer. Report your probability that your selected answer is correct.
+Reply with JSON only: {&quot;answer&quot;: &quot;A&quot;|&quot;B&quot;|&quot;C&quot;|&quot;D&quot;, &quot;p_correct&quot;: 0.0}</pre></details>
+  <details><summary>Verifier prompt</summary><pre class="prompt">[system] You evaluate whether a proposed answer to a graduate-level multiple-choice science question is correct.
+
+Subject / Question / A–D options (same as above)
+
+Fixed candidate answer: {letter}. {option text}
+
+Assess whether the fixed candidate answer is correct. Consider the question and all options. Do not suggest a
+replacement answer. Return only the requested JSON object, without explanation.
+Report the probability that the fixed candidate answer is correct as a number from 0 to 1. Intermediate values are
+allowed; do not restrict your answer to 0 or 1. Return {&quot;p_correct&quot;: &lt;number&gt;}.</pre></details>
+  <h3>模型</h3>
+  <p>Generator：gpt-oss-120b（Vertex us-central1，medium reasoning，temperature 0，max_tokens 32768）。445 题中有效 438 题（5 个非法 JSON、2 个提前终止），
+  请求超时的题按原做法重发，没有服务失败。Verifier：gemini-3.7-flash、gemini-3.5-flash-lite、mistral-small、mistral-medium、claude-haiku-4-5，
+  与 GPQA 此前所有实验相同；与其他 generator 选到相同答案的题直接复用历史 verifier 回复。</p>
+  <h3>Verifier likelihood 与决策规则</h3>
+  <p>在开发集上，对每个 verifier 把分数分成 3 个等宽档，用 Laplace 平滑估计答对与答错时各档的概率；多个 verifier 在给定对错时视为条件独立。
+  先验 b₀ 取 generator 的 raw r，每问一个 verifier 就用 Bayes 规则更新：</p>
+  <div class="formula">P(x | y) = (n<sub>y,x</sub> + 1) / (n<sub>y</sub> + 3),  y ∈ {对, 错}<br>
+  b′ = b·P(x|对) / [ b·P(x|对) + (1−b)·P(x|错) ]<br>
+  A(b) = max(0, (1+L)·b − L)   （接受当且仅当 b ≥ L/(1+L)）<br>
+  Q<sub>k</sub>(b) = −λ·c<sub>k</sub> + Σ<sub>x</sub> P(x|b)·J<sub>k+1</sub>(b′),   J<sub>k</sub>(b) = max(A(b), Q<sub>k</sub>(b))</div>
+  <p>奖励 1、错误损失 L、弃答 0；c<sub>k</sub> 为开发集上的平均 token 费用，λ = 每美元 10 个效用单位。仅当 Q<sub>k</sub> 严格大于 A 时继续问。
+  三个 verifier 的顺序在开发集上从 60 种有序组合中按平均 J₀ 选出。主设定 L = 19（阈值 0.95），并报告 L = 99（阈值 0.99）。</p>
+</section>
+
+<section aria-labelledby="h-gen">
+  <h2 id="h-gen">Generator 本身：四个模型对比</h2>
+  <p>同一 445 题、同一选项顺序；无效回复按答错计。r 未校准。</p>
+  <div class="tw"><table>
+    <thead><tr><th>Generator</th><th>开发集正确</th><th>正确率</th><th>Diamond 正确</th><th>正确率</th><th>Diamond 平均 r</th><th>Diamond Brier</th></tr></thead>
+    <tbody><tr><td>gpt-oss-120b</td><td>162/249</td><td>65.1%</td><td>130/196</td><td>66.3%</td><td>79.7%</td><td>0.180</td></tr>
+<tr><td>Gemini 3.8 Flash</td><td>211/249</td><td>84.7%</td><td>180/196</td><td>91.8%</td><td>94.8%</td><td>0.061</td></tr>
+<tr><td>Qwen3-235B（两步）</td><td>157/249</td><td>63.1%</td><td>125/196</td><td>63.8%</td><td>92.3%</td><td>0.300</td></tr>
+<tr><td>Sonnet 5.5</td><td>217/249</td><td>87.1%</td><td>180/196</td><td>91.8%</td><td>83.7%</td><td>0.070</td></tr></tbody></table></div>
+  <p class="note">各模型的生成协议不同（Qwen 两步、Sonnet adaptive high、gpt-oss medium reasoning），差异不能全部归因于模型本身。</p>
+</section>
+
+<section aria-labelledby="h-main">
+  <h2 id="h-main">Diamond 上的结果</h2>
+  <h3>阈值 0.95（L = 19）</h3>
+  <div class="tw"><table>
+    <thead><tr><th>策略</th><th>接受</th><th>错</th><th>错误率</th><th>每题调用</th><th>平均效用</th></tr></thead>
+    <tbody><tr><td class="grp" colspan="6">gpt-oss-120b</td></tr>
+<tr><td>只用 generator 的 r</td><td>49</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.250</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>101</td><td>7</td><td class="miss">6.9%</td><td>1.44</td><td>-0.226</td></tr>
+<tr><td class="grp" colspan="6">Sonnet 5.5（对照）</td></tr>
+<tr><td>只用 generator 的 r</td><td>44</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.224</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>59</td><td>0</td><td class="ok">0.0%</td><td>0.69</td><td>+0.289</td></tr></tbody></table></div>
+  <h3>阈值 0.99（L = 99）</h3>
+  <div class="tw"><table>
+    <thead><tr><th>策略</th><th>接受</th><th>错</th><th>错误率</th><th>每题调用</th><th>平均效用</th></tr></thead>
+    <tbody><tr><td class="grp" colspan="6">gpt-oss-120b</td></tr>
+<tr><td>只用 generator 的 r</td><td>1</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.005</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>47</td><td>0</td><td class="ok">0.0%</td><td>0.73</td><td>+0.225</td></tr>
+<tr><td class="grp" colspan="6">Sonnet 5.5（对照）</td></tr>
+<tr><td>只用 generator 的 r</td><td>0</td><td>0</td><td class="">—</td><td>0.00</td><td>+0.000</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>0</td><td>0</td><td class="">—</td><td>0.00</td><td>+0.000</td></tr></tbody></table></div>
+  <p class="note">绿色为错误率不超过目标（5% 或 1%），红色为超过。"每题调用"按 196 题平均，无效答案不调用 verifier。效用扣除 verifier 成本。</p>
+</section>
+
+<section aria-labelledby="h-curve">
+  <h2 id="h-curve">风险—覆盖：所有阈值</h2>
+  <p>两个 generator 使用同一组阈值（0.50 到 0.99）。灰色虚线是目标错误率 1 − 阈值。</p>
+  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-cov" aria-pressed="true">覆盖率</button><button class="m-err" aria-pressed="false">接受集合错误率</button></div></div>
+  <div class="legend" data-legend="main"></div>
+  <div class="charts" data-prior="raw" data-series="main"><div class="chart" data-g="gptoss"></div><div class="chart" data-g="sonnet55"></div></div>
+</section>
+
+<section aria-labelledby="h-stop">
+  <h2 id="h-stop">提前停止：一个一个问 vs 每次都问同样 3 个</h2>
+  <div class="tw"><table>
+    <thead><tr><th>策略（阈值 0.95）</th><th>接受</th><th>错</th><th>每题调用</th><th>每题费用（千分之一美元）</th><th>平均效用</th></tr></thead>
+    <tbody><tr><td class="grp" colspan="6">gpt-oss-120b</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>101</td><td>7</td><td>1.44</td><td>2.54</td><td>-0.226</td></tr>
+<tr><td>固定问同样 3 个</td><td>101</td><td>7</td><td>2.97</td><td>6.93</td><td>-0.259</td></tr>
+<tr><td class="grp" colspan="6">Sonnet 5.5（对照）</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>59</td><td>0</td><td>0.69</td><td>1.30</td><td>+0.289</td></tr>
+<tr><td>固定问同样 3 个</td><td>59</td><td>0</td><td>3.00</td><td>6.79</td><td>+0.243</td></tr></tbody></table></div>
+  <p class="note">自适应相对固定问 3 个的效用差：gpt-oss +0.033 <span class="note">(+0.030, +0.036)</span>，Sonnet +0.046 <span class="note">(+0.043, +0.049)</span>。费用为 usage 估算。问全部 5 个见附录 B。</p>
+</section>
+
+<section aria-labelledby="h-ver">
+  <h2 id="h-ver">为什么是这几个 verifier</h2>
+  <p>候选池是 GPQA 一直使用的五个 verifier。三元组由开发集上的 J₀ 标准自动选出，同时考虑区分能力和成本；
+  AUROC 在 Diamond 上计算，似然比（最低档 / 最高档）来自开发集拟合，离 1 越远越有用。</p>
+  <div class="tw"><table>
+    <thead><tr><th>verifier</th><th>gpt-oss AUROC</th><th>似然比 低/高</th><th>入选</th><th>Sonnet AUROC</th><th>似然比 低/高</th><th>入选</th><th>每次费用（千分之一美元）</th></tr></thead>
+    <tbody><tr><td>gemini_flash</td><td>0.96</td><td>0.05 / 3.54</td><td>✓</td><td>0.85</td><td>0.14 / 1.36</td><td>✓</td><td>1.88</td></tr>
+<tr><td>claude_haiku</td><td>0.76</td><td>0.58 / 1.48</td><td>✓</td><td>0.66</td><td>0.71 / 1.29</td><td>✓</td><td>2.50</td></tr>
+<tr><td>gemini_lite</td><td>0.65</td><td>0.22 / 1.42</td><td>✓</td><td>0.53</td><td>0.62 / 1.10</td><td>✓</td><td>1.67</td></tr>
+<tr><td>mistral_medium</td><td>0.50</td><td>1.03 / 0.99</td><td></td><td>0.48</td><td>0.96 / 1.07</td><td></td><td>0.15</td></tr>
+<tr><td>mistral_small</td><td>0.56</td><td>0.77 / 1.17</td><td></td><td>0.43</td><td>0.91 / 1.11</td><td></td><td>0.04</td></tr></tbody></table></div>
+</section>
+
+<section aria-labelledby="h-lim">
+  <h2 id="h-lim">局限</h2>
+  <p class="note">开发集经过多轮探索，Diamond 此前也用于其他 generator 的比较，因此结果是描述性的，不是全新盲测，也不是风险保证。
+  条件独立是建模假设。区间来自 Diamond 196 题的 bootstrap，不包含拟合与顺序选择的不确定性。
+  费用为 usage 估算：gpt-oss 生成约 $0.22，本次新增 verifier 调用约 $0.59，已确认账单未知。</p>
+</section>
+
+<section class="appendix" aria-labelledby="h-appA">
+  <div class="eyebrow">附录 A</div>
+  <h2 id="h-appA">把 r 校准成先验之后</h2>
+  <p><b>为什么做：</b>决策规则把 b₀ 当作真实概率；gpt-oss 平均自报 80% 而实际只有约 66%，这会让阈值 0.95 不再对应 5% 的错误率。
+  这里在开发集上用单调分箱（GPQA 代码中的 <code>fit_prior_calibration</code>）拟合 r → 先验，其余流程不变，检验先验准确时方法能否达到目标。
+  这是看到正文结果后加入的次要分析。</p>
+  <div class="tw"><table>
+    <thead><tr><th>策略（校准先验，阈值 0.95）</th><th>接受</th><th>错</th><th>错误率</th><th>每题调用</th><th>平均效用</th></tr></thead>
+    <tbody><tr><td class="grp" colspan="6">gpt-oss-120b</td></tr>
+<tr><td>只用 generator 的 r</td><td>0</td><td>0</td><td class="">—</td><td>0.00</td><td>+0.000</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>90</td><td>3</td><td class="ok">3.3%</td><td>1.47</td><td>+0.125</td></tr>
+<tr><td class="grp" colspan="6">Sonnet 5.5（对照）</td></tr>
+<tr><td>只用 generator 的 r</td><td>68</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.347</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>103</td><td>0</td><td class="ok">0.0%</td><td>1.13</td><td>+0.504</td></tr></tbody></table></div>
+  <p class="note">校准后 gpt-oss 自适应相对只用校准先验的效用差 +0.125 <span class="note">(-0.261, +0.421)</span>。</p>
+  <div class="legend" data-legend="main"></div>
+  <div class="charts" data-prior="calibrated" data-series="main"><div class="chart" data-g="gptoss"></div><div class="chart" data-g="sonnet55"></div></div>
+</section>
+
+<section class="appendix" aria-labelledby="h-appB">
+  <div class="eyebrow">附录 B</div>
+  <h2 id="h-appB">自适应 vs 固定问 3 个 / 5 个</h2>
+  <div class="tw"><table>
+    <thead><tr><th>策略（raw r，阈值 0.95）</th><th>接受</th><th>错</th><th>每题调用</th><th>每题费用（千分之一美元）</th><th>平均效用</th></tr></thead>
+    <tbody><tr><td class="grp" colspan="6">gpt-oss-120b</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>101</td><td>7</td><td>1.44</td><td>2.54</td><td>-0.226</td></tr>
+<tr><td>固定问同样 3 个</td><td>101</td><td>7</td><td>2.97</td><td>6.93</td><td>-0.259</td></tr>
+<tr><td>固定问全部 5 个</td><td>106</td><td>7</td><td>4.95</td><td>7.13</td><td>-0.235</td></tr>
+<tr><td class="grp" colspan="6">Sonnet 5.5（对照）</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>59</td><td>0</td><td>0.69</td><td>1.30</td><td>+0.289</td></tr>
+<tr><td>固定问同样 3 个</td><td>59</td><td>0</td><td>3.00</td><td>6.79</td><td>+0.243</td></tr>
+<tr><td>固定问全部 5 个</td><td>60</td><td>0</td><td>5.00</td><td>6.98</td><td>+0.246</td></tr></tbody></table></div>
+  <p class="note">自适应相对问全部 5 个：gpt-oss +0.009 <span class="note">(-0.379, +0.397)</span>，Sonnet +0.043 <span class="note">(+0.016, +0.068)</span>。</p>
+  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-cov" aria-pressed="true">覆盖率</button><button class="m-err" aria-pressed="false">接受集合错误率</button></div></div>
+  <div class="legend" data-legend="fixed"></div>
+  <div class="charts" data-prior="raw" data-series="fixed"><div class="chart" data-g="gptoss"></div><div class="chart" data-g="sonnet55"></div></div>
+</section>
+</main>
+<script>
+const D={"gptoss": {"raw": [{"t": 0.5, "arms": {"adaptive_triple": {"accepted": 145, "wrong": 17, "coverage": 0.7397959183673469, "error_rate": 0.11724137931034483}, "fixed_five": {"accepted": 143, "wrong": 17, "coverage": 0.7295918367346939, "error_rate": 0.11888111888111888}, "fixed_triple": {"accepted": 143, "wrong": 17, "coverage": 0.7295918367346939, "error_rate": 0.11888111888111888}, "prior_only": {"accepted": 178, "wrong": 50, "coverage": 0.9081632653061225, "error_rate": 0.2808988764044944}}}, {"t": 0.6, "arms": {"adaptive_triple": {"accepted": 145, "wrong": 17, "coverage": 0.7397959183673469, "error_rate": 0.11724137931034483}, "fixed_five": {"accepted": 141, "wrong": 17, "coverage": 0.7193877551020408, "error_rate": 0.12056737588652482}, "fixed_triple": {"accepted": 143, "wrong": 17, "coverage": 0.7295918367346939, "error_rate": 0.11888111888111888}, "prior_only": {"accepted": 174, "wrong": 46, "coverage": 0.8877551020408163, "error_rate": 0.26436781609195403}}}, {"t": 0.7000000000000001, "arms": {"adaptive_triple": {"accepted": 144, "wrong": 17, "coverage": 0.7346938775510204, "error_rate": 0.11805555555555555}, "fixed_five": {"accepted": 138, "wrong": 17, "coverage": 0.7040816326530612, "error_rate": 0.12318840579710146}, "fixed_triple": {"accepted": 141, "wrong": 17, "coverage": 0.7193877551020408, "error_rate": 0.12056737588652482}, "prior_only": {"accepted": 137, "wrong": 27, "coverage": 0.6989795918367347, "error_rate": 0.19708029197080293}}}, {"t": 0.8, "arms": {"adaptive_triple": {"accepted": 141, "wrong": 17, "coverage": 0.7193877551020408, "error_rate": 0.12056737588652482}, "fixed_five": {"accepted": 135, "wrong": 16, "coverage": 0.6887755102040817, "error_rate": 0.11851851851851852}, "fixed_triple": {"accepted": 138, "wrong": 17, "coverage": 0.7040816326530612, "error_rate": 0.12318840579710146}, "prior_only": {"accepted": 125, "wrong": 21, "coverage": 0.6377551020408163, "error_rate": 0.168}}}, {"t": 0.85, "arms": {"adaptive_triple": {"accepted": 131, "wrong": 14, "coverage": 0.6683673469387755, "error_rate": 0.10687022900763359}, "fixed_five": {"accepted": 129, "wrong": 14, "coverage": 0.6581632653061225, "error_rate": 0.10852713178294573}, "fixed_triple": {"accepted": 130, "wrong": 15, "coverage": 0.6632653061224489, "error_rate": 0.11538461538461539}, "prior_only": {"accepted": 125, "wrong": 21, "coverage": 0.6377551020408163, "error_rate": 0.168}}}, {"t": 0.9, "arms": {"adaptive_triple": {"accepted": 123, "wrong": 13, "coverage": 0.6275510204081632, "error_rate": 0.10569105691056911}, "fixed_five": {"accepted": 123, "wrong": 14, "coverage": 0.6275510204081632, "error_rate": 0.11382113821138211}, "fixed_triple": {"accepted": 124, "wrong": 14, "coverage": 0.6326530612244898, "error_rate": 0.11290322580645161}, "prior_only": {"accepted": 75, "wrong": 3, "coverage": 0.3826530612244898, "error_rate": 0.04}}}, {"t": 0.9333333333333333, "arms": {"adaptive_triple": {"accepted": 116, "wrong": 10, "coverage": 0.5918367346938775, "error_rate": 0.08620689655172414}, "fixed_five": {"accepted": 111, "wrong": 9, "coverage": 0.5663265306122449, "error_rate": 0.08108108108108109}, "fixed_triple": {"accepted": 116, "wrong": 10, "coverage": 0.5918367346938775, "error_rate": 0.08620689655172414}, "prior_only": {"accepted": 49, "wrong": 0, "coverage": 0.25, "error_rate": 0.0}}}, {"t": 0.95, "arms": {"adaptive_triple": {"accepted": 101, "wrong": 7, "coverage": 0.5153061224489796, "error_rate": 0.06930693069306931}, "fixed_five": {"accepted": 106, "wrong": 7, "coverage": 0.5408163265306123, "error_rate": 0.0660377358490566}, "fixed_triple": {"accepted": 101, "wrong": 7, "coverage": 0.5153061224489796, "error_rate": 0.06930693069306931}, "prior_only": {"accepted": 49, "wrong": 0, "coverage": 0.25, "error_rate": 0.0}}}, {"t": 0.97, "arms": {"adaptive_triple": {"accepted": 94, "wrong": 3, "coverage": 0.47959183673469385, "error_rate": 0.031914893617021274}, "fixed_five": {"accepted": 89, "wrong": 3, "coverage": 0.45408163265306123, "error_rate": 0.033707865168539325}, "fixed_triple": {"accepted": 92, "wrong": 3, "coverage": 0.46938775510204084, "error_rate": 0.03260869565217391}, "prior_only": {"accepted": 14, "wrong": 0, "coverage": 0.07142857142857142, "error_rate": 0.0}}}, {"t": 0.98, "arms": {"adaptive_triple": {"accepted": 66, "wrong": 1, "coverage": 0.336734693877551, "error_rate": 0.015151515151515152}, "fixed_five": {"accepted": 74, "wrong": 1, "coverage": 0.37755102040816324, "error_rate": 0.013513513513513514}, "fixed_triple": {"accepted": 66, "wrong": 1, "coverage": 0.336734693877551, "error_rate": 0.015151515151515152}, "prior_only": {"accepted": 2, "wrong": 0, "coverage": 0.01020408163265306, "error_rate": 0.0}}}, {"t": 0.99, "arms": {"adaptive_triple": {"accepted": 47, "wrong": 0, "coverage": 0.23979591836734693, "error_rate": 0.0}, "fixed_five": {"accepted": 51, "wrong": 0, "coverage": 0.2602040816326531, "error_rate": 0.0}, "fixed_triple": {"accepted": 54, "wrong": 0, "coverage": 0.2755102040816326, "error_rate": 0.0}, "prior_only": {"accepted": 1, "wrong": 0, "coverage": 0.00510204081632653, "error_rate": 0.0}}}], "calibrated": [{"t": 0.5, "arms": {"adaptive_triple": {"accepted": 143, "wrong": 17, "coverage": 0.7295918367346939, "error_rate": 0.11888111888111888}, "fixed_five": {"accepted": 136, "wrong": 17, "coverage": 0.6938775510204082, "error_rate": 0.125}, "fixed_triple": {"accepted": 140, "wrong": 17, "coverage": 0.7142857142857143, "error_rate": 0.12142857142857143}, "prior_only": {"accepted": 136, "wrong": 26, "coverage": 0.6938775510204082, "error_rate": 0.19117647058823528}}}, {"t": 0.6, "arms": {"adaptive_triple": {"accepted": 134, "wrong": 16, "coverage": 0.6836734693877551, "error_rate": 0.11940298507462686}, "fixed_five": {"accepted": 132, "wrong": 16, "coverage": 0.673469387755102, "error_rate": 0.12121212121212122}, "fixed_triple": {"accepted": 131, "wrong": 16, "coverage": 0.6683673469387755, "error_rate": 0.12213740458015267}, "prior_only": {"accepted": 125, "wrong": 21, "coverage": 0.6377551020408163, "error_rate": 0.168}}}, {"t": 0.7000000000000001, "arms": {"adaptive_triple": {"accepted": 124, "wrong": 10, "coverage": 0.6326530612244898, "error_rate": 0.08064516129032258}, "fixed_five": {"accepted": 126, "wrong": 14, "coverage": 0.6428571428571429, "error_rate": 0.1111111111111111}, "fixed_triple": {"accepted": 131, "wrong": 16, "coverage": 0.6683673469387755, "error_rate": 0.12213740458015267}, "prior_only": {"accepted": 125, "wrong": 21, "coverage": 0.6377551020408163, "error_rate": 0.168}}}, {"t": 0.8, "arms": {"adaptive_triple": {"accepted": 110, "wrong": 9, "coverage": 0.5612244897959183, "error_rate": 0.08181818181818182}, "fixed_five": {"accepted": 111, "wrong": 9, "coverage": 0.5663265306122449, "error_rate": 0.08108108108108109}, "fixed_triple": {"accepted": 110, "wrong": 9, "coverage": 0.5612244897959183, "error_rate": 0.08181818181818182}, "prior_only": {"accepted": 75, "wrong": 3, "coverage": 0.3826530612244898, "error_rate": 0.04}}}, {"t": 0.85, "arms": {"adaptive_triple": {"accepted": 110, "wrong": 9, "coverage": 0.5612244897959183, "error_rate": 0.08181818181818182}, "fixed_five": {"accepted": 110, "wrong": 9, "coverage": 0.5612244897959183, "error_rate": 0.08181818181818182}, "fixed_triple": {"accepted": 110, "wrong": 9, "coverage": 0.5612244897959183, "error_rate": 0.08181818181818182}, "prior_only": {"accepted": 75, "wrong": 3, "coverage": 0.3826530612244898, "error_rate": 0.04}}}, {"t": 0.9, "arms": {"adaptive_triple": {"accepted": 96, "wrong": 3, "coverage": 0.4897959183673469, "error_rate": 0.03125}, "fixed_five": {"accepted": 101, "wrong": 6, "coverage": 0.5153061224489796, "error_rate": 0.0594059405940594}, "fixed_triple": {"accepted": 101, "wrong": 7, "coverage": 0.5153061224489796, "error_rate": 0.06930693069306931}, "prior_only": {"accepted": 49, "wrong": 0, "coverage": 0.25, "error_rate": 0.0}}}, {"t": 0.9333333333333333, "arms": {"adaptive_triple": {"accepted": 96, "wrong": 3, "coverage": 0.4897959183673469, "error_rate": 0.03125}, "fixed_five": {"accepted": 91, "wrong": 3, "coverage": 0.4642857142857143, "error_rate": 0.03296703296703297}, "fixed_triple": {"accepted": 94, "wrong": 3, "coverage": 0.47959183673469385, "error_rate": 0.031914893617021274}, "prior_only": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}}}, {"t": 0.95, "arms": {"adaptive_triple": {"accepted": 90, "wrong": 3, "coverage": 0.45918367346938777, "error_rate": 0.03333333333333333}, "fixed_five": {"accepted": 88, "wrong": 3, "coverage": 0.4489795918367347, "error_rate": 0.03409090909090909}, "fixed_triple": {"accepted": 90, "wrong": 3, "coverage": 0.45918367346938777, "error_rate": 0.03333333333333333}, "prior_only": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}}}, {"t": 0.97, "arms": {"adaptive_triple": {"accepted": 63, "wrong": 1, "coverage": 0.32142857142857145, "error_rate": 0.015873015873015872}, "fixed_five": {"accepted": 64, "wrong": 1, "coverage": 0.32653061224489793, "error_rate": 0.015625}, "fixed_triple": {"accepted": 66, "wrong": 1, "coverage": 0.336734693877551, "error_rate": 0.015151515151515152}, "prior_only": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}}}, {"t": 0.98, "arms": {"adaptive_triple": {"accepted": 46, "wrong": 0, "coverage": 0.23469387755102042, "error_rate": 0.0}, "fixed_five": {"accepted": 54, "wrong": 1, "coverage": 0.2755102040816326, "error_rate": 0.018518518518518517}, "fixed_triple": {"accepted": 46, "wrong": 0, "coverage": 0.23469387755102042, "error_rate": 0.0}, "prior_only": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}}}, {"t": 0.99, "arms": {"adaptive_triple": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}, "fixed_five": {"accepted": 8, "wrong": 0, "coverage": 0.04081632653061224, "error_rate": 0.0}, "fixed_triple": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}, "prior_only": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}}}]}, "sonnet55": {"raw": [{"t": 0.5, "arms": {"adaptive_triple": {"accepted": 188, "wrong": 12, "coverage": 0.9591836734693877, "error_rate": 0.06382978723404255}, "fixed_five": {"accepted": 186, "wrong": 12, "coverage": 0.9489795918367347, "error_rate": 0.06451612903225806}, "fixed_triple": {"accepted": 188, "wrong": 12, "coverage": 0.9591836734693877, "error_rate": 0.06382978723404255}, "prior_only": {"accepted": 193, "wrong": 15, "coverage": 0.9846938775510204, "error_rate": 0.07772020725388601}}}, {"t": 0.6, "arms": {"adaptive_triple": {"accepted": 186, "wrong": 11, "coverage": 0.9489795918367347, "error_rate": 0.05913978494623656}, "fixed_five": {"accepted": 183, "wrong": 11, "coverage": 0.9336734693877551, "error_rate": 0.060109289617486336}, "fixed_triple": {"accepted": 182, "wrong": 11, "coverage": 0.9285714285714286, "error_rate": 0.06043956043956044}, "prior_only": {"accepted": 186, "wrong": 11, "coverage": 0.9489795918367347, "error_rate": 0.05913978494623656}}}, {"t": 0.7000000000000001, "arms": {"adaptive_triple": {"accepted": 178, "wrong": 9, "coverage": 0.9081632653061225, "error_rate": 0.05056179775280899}, "fixed_five": {"accepted": 176, "wrong": 10, "coverage": 0.8979591836734694, "error_rate": 0.056818181818181816}, "fixed_triple": {"accepted": 177, "wrong": 10, "coverage": 0.9030612244897959, "error_rate": 0.05649717514124294}, "prior_only": {"accepted": 168, "wrong": 6, "coverage": 0.8571428571428571, "error_rate": 0.03571428571428571}}}, {"t": 0.8, "arms": {"adaptive_triple": {"accepted": 153, "wrong": 6, "coverage": 0.7806122448979592, "error_rate": 0.0392156862745098}, "fixed_five": {"accepted": 152, "wrong": 5, "coverage": 0.7755102040816326, "error_rate": 0.03289473684210526}, "fixed_triple": {"accepted": 154, "wrong": 6, "coverage": 0.7857142857142857, "error_rate": 0.03896103896103896}, "prior_only": {"accepted": 154, "wrong": 4, "coverage": 0.7857142857142857, "error_rate": 0.025974025974025976}}}, {"t": 0.85, "arms": {"adaptive_triple": {"accepted": 133, "wrong": 4, "coverage": 0.6785714285714286, "error_rate": 0.03007518796992481}, "fixed_five": {"accepted": 132, "wrong": 4, "coverage": 0.673469387755102, "error_rate": 0.030303030303030304}, "fixed_triple": {"accepted": 134, "wrong": 5, "coverage": 0.6836734693877551, "error_rate": 0.03731343283582089}, "prior_only": {"accepted": 127, "wrong": 2, "coverage": 0.6479591836734694, "error_rate": 0.015748031496062992}}}, {"t": 0.9, "arms": {"adaptive_triple": {"accepted": 101, "wrong": 0, "coverage": 0.5153061224489796, "error_rate": 0.0}, "fixed_five": {"accepted": 109, "wrong": 1, "coverage": 0.5561224489795918, "error_rate": 0.009174311926605505}, "fixed_triple": {"accepted": 100, "wrong": 0, "coverage": 0.5102040816326531, "error_rate": 0.0}, "prior_only": {"accepted": 84, "wrong": 0, "coverage": 0.42857142857142855, "error_rate": 0.0}}}, {"t": 0.9333333333333333, "arms": {"adaptive_triple": {"accepted": 70, "wrong": 0, "coverage": 0.35714285714285715, "error_rate": 0.0}, "fixed_five": {"accepted": 80, "wrong": 0, "coverage": 0.40816326530612246, "error_rate": 0.0}, "fixed_triple": {"accepted": 81, "wrong": 0, "coverage": 0.413265306122449, "error_rate": 0.0}, "prior_only": {"accepted": 44, "wrong": 0, "coverage": 0.22448979591836735, "error_rate": 0.0}}}, {"t": 0.95, "arms": {"adaptive_triple": {"accepted": 59, "wrong": 0, "coverage": 0.3010204081632653, "error_rate": 0.0}, "fixed_five": {"accepted": 60, "wrong": 0, "coverage": 0.30612244897959184, "error_rate": 0.0}, "fixed_triple": {"accepted": 59, "wrong": 0, "coverage": 0.3010204081632653, "error_rate": 0.0}, "prior_only": {"accepted": 44, "wrong": 0, "coverage": 0.22448979591836735, "error_rate": 0.0}}}, {"t": 0.97, "arms": {"adaptive_triple": {"accepted": 35, "wrong": 0, "coverage": 0.17857142857142858, "error_rate": 0.0}, "fixed_five": {"accepted": 34, "wrong": 0, "coverage": 0.17346938775510204, "error_rate": 0.0}, "fixed_triple": {"accepted": 35, "wrong": 0, "coverage": 0.17857142857142858, "error_rate": 0.0}, "prior_only": {"accepted": 25, "wrong": 0, "coverage": 0.12755102040816327, "error_rate": 0.0}}}, {"t": 0.98, "arms": {"adaptive_triple": {"accepted": 25, "wrong": 0, "coverage": 0.12755102040816327, "error_rate": 0.0}, "fixed_five": {"accepted": 25, "wrong": 0, "coverage": 0.12755102040816327, "error_rate": 0.0}, "fixed_triple": {"accepted": 25, "wrong": 0, "coverage": 0.12755102040816327, "error_rate": 0.0}, "prior_only": {"accepted": 6, "wrong": 0, "coverage": 0.030612244897959183, "error_rate": 0.0}}}, {"t": 0.99, "arms": {"adaptive_triple": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}, "fixed_five": {"accepted": 2, "wrong": 0, "coverage": 0.01020408163265306, "error_rate": 0.0}, "fixed_triple": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}, "prior_only": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}}}], "calibrated": [{"t": 0.5, "arms": {"adaptive_triple": {"accepted": 188, "wrong": 12, "coverage": 0.9591836734693877, "error_rate": 0.06382978723404255}, "fixed_five": {"accepted": 188, "wrong": 12, "coverage": 0.9591836734693877, "error_rate": 0.06382978723404255}, "fixed_triple": {"accepted": 187, "wrong": 12, "coverage": 0.9540816326530612, "error_rate": 0.06417112299465241}, "prior_only": {"accepted": 194, "wrong": 16, "coverage": 0.9897959183673469, "error_rate": 0.08247422680412371}}}, {"t": 0.6, "arms": {"adaptive_triple": {"accepted": 187, "wrong": 12, "coverage": 0.9540816326530612, "error_rate": 0.06417112299465241}, "fixed_five": {"accepted": 185, "wrong": 12, "coverage": 0.9438775510204082, "error_rate": 0.06486486486486487}, "fixed_triple": {"accepted": 185, "wrong": 12, "coverage": 0.9438775510204082, "error_rate": 0.06486486486486487}, "prior_only": {"accepted": 194, "wrong": 16, "coverage": 0.9897959183673469, "error_rate": 0.08247422680412371}}}, {"t": 0.7000000000000001, "arms": {"adaptive_triple": {"accepted": 180, "wrong": 11, "coverage": 0.9183673469387755, "error_rate": 0.06111111111111111}, "fixed_five": {"accepted": 179, "wrong": 11, "coverage": 0.9132653061224489, "error_rate": 0.061452513966480445}, "fixed_triple": {"accepted": 179, "wrong": 11, "coverage": 0.9132653061224489, "error_rate": 0.061452513966480445}, "prior_only": {"accepted": 173, "wrong": 7, "coverage": 0.8826530612244898, "error_rate": 0.04046242774566474}}}, {"t": 0.8, "arms": {"adaptive_triple": {"accepted": 172, "wrong": 7, "coverage": 0.8775510204081632, "error_rate": 0.040697674418604654}, "fixed_five": {"accepted": 170, "wrong": 7, "coverage": 0.8673469387755102, "error_rate": 0.041176470588235294}, "fixed_triple": {"accepted": 172, "wrong": 7, "coverage": 0.8775510204081632, "error_rate": 0.040697674418604654}, "prior_only": {"accepted": 170, "wrong": 7, "coverage": 0.8673469387755102, "error_rate": 0.041176470588235294}}}, {"t": 0.85, "arms": {"adaptive_triple": {"accepted": 170, "wrong": 7, "coverage": 0.8673469387755102, "error_rate": 0.041176470588235294}, "fixed_five": {"accepted": 169, "wrong": 7, "coverage": 0.8622448979591837, "error_rate": 0.04142011834319527}, "fixed_triple": {"accepted": 170, "wrong": 7, "coverage": 0.8673469387755102, "error_rate": 0.041176470588235294}, "prior_only": {"accepted": 170, "wrong": 7, "coverage": 0.8673469387755102, "error_rate": 0.041176470588235294}}}, {"t": 0.9, "arms": {"adaptive_triple": {"accepted": 149, "wrong": 6, "coverage": 0.7602040816326531, "error_rate": 0.040268456375838924}, "fixed_five": {"accepted": 140, "wrong": 5, "coverage": 0.7142857142857143, "error_rate": 0.03571428571428571}, "fixed_triple": {"accepted": 148, "wrong": 6, "coverage": 0.7551020408163265, "error_rate": 0.04054054054054054}, "prior_only": {"accepted": 127, "wrong": 2, "coverage": 0.6479591836734694, "error_rate": 0.015748031496062992}}}, {"t": 0.9333333333333333, "arms": {"adaptive_triple": {"accepted": 108, "wrong": 0, "coverage": 0.5510204081632653, "error_rate": 0.0}, "fixed_five": {"accepted": 122, "wrong": 3, "coverage": 0.6224489795918368, "error_rate": 0.02459016393442623}, "fixed_triple": {"accepted": 108, "wrong": 0, "coverage": 0.5510204081632653, "error_rate": 0.0}, "prior_only": {"accepted": 68, "wrong": 0, "coverage": 0.3469387755102041, "error_rate": 0.0}}}, {"t": 0.95, "arms": {"adaptive_triple": {"accepted": 103, "wrong": 0, "coverage": 0.5255102040816326, "error_rate": 0.0}, "fixed_five": {"accepted": 101, "wrong": 0, "coverage": 0.5153061224489796, "error_rate": 0.0}, "fixed_triple": {"accepted": 102, "wrong": 0, "coverage": 0.5204081632653061, "error_rate": 0.0}, "prior_only": {"accepted": 68, "wrong": 0, "coverage": 0.3469387755102041, "error_rate": 0.0}}}, {"t": 0.97, "arms": {"adaptive_triple": {"accepted": 55, "wrong": 0, "coverage": 0.28061224489795916, "error_rate": 0.0}, "fixed_five": {"accepted": 56, "wrong": 0, "coverage": 0.2857142857142857, "error_rate": 0.0}, "fixed_triple": {"accepted": 56, "wrong": 0, "coverage": 0.2857142857142857, "error_rate": 0.0}, "prior_only": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}}}, {"t": 0.98, "arms": {"adaptive_triple": {"accepted": 29, "wrong": 0, "coverage": 0.14795918367346939, "error_rate": 0.0}, "fixed_five": {"accepted": 33, "wrong": 0, "coverage": 0.1683673469387755, "error_rate": 0.0}, "fixed_triple": {"accepted": 29, "wrong": 0, "coverage": 0.14795918367346939, "error_rate": 0.0}, "prior_only": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}}}, {"t": 0.99, "arms": {"adaptive_triple": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}, "fixed_five": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}, "fixed_triple": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}, "prior_only": {"accepted": 0, "wrong": 0, "coverage": 0.0, "error_rate": null}}}]}};
+const SETS={main:[["prior_only","只用 r","--s1","circle"],["adaptive_triple","自适应顺序验证","--s3","diamond"]],
+  fixed:[["adaptive_triple","自适应顺序验证","--s3","diamond"],["fixed_triple","固定问同样 3 个","--s1","circle"],["fixed_five","固定问全部 5 个","--s2","square"]]};
+const NAMES={"gptoss": "gpt-oss-120b", "sonnet55": "Sonnet 5.5（对照）"};
+let metric="cov";
+function marker(shape,x,y,col){const s=4.5;if(shape==="circle")return `<circle cx="${x}" cy="${y}" r="${s}" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;
+ if(shape==="square")return `<rect x="${x-s}" y="${y-s}" width="${2*s}" height="${2*s}" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;
+ return `<path d="M${x} ${y-s-1}L${x+s+1} ${y}L${x} ${y+s+1}L${x-s-1} ${y}Z" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;}
+function draw(el,g,prior,SERIES){
+  const pts=D[g][prior];
+  const W=360,H=240,m={l:40,r:14,t:26,b:34}, iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const xs=t=>m.l+(t-0.5)/(0.99-0.5)*iw;
+  const ymax=metric==="cov"?1:0.4, ys=v=>m.t+ih-(Math.min(v,ymax)/ymax)*ih;
+  const val=a=>metric==="cov"?a.coverage:a.error_rate;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${NAMES[g]}">`;
+  s+=`<text x="${m.l}" y="14" style="font-weight:600;fill:var(--ink)">${NAMES[g]}</text>`;
+  const ticks=metric==="cov"?[0,.25,.5,.75,1]:[0,.1,.2,.3,.4];
+  for(const t of ticks)s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${ys(t)}" y2="${ys(t)}" stroke="var(--rule)"/><text x="${m.l-6}" y="${ys(t)+4}" text-anchor="end">${Math.round(t*100)}%</text>`;
+  for(const t of [.5,.6,.7,.8,.9,.95,.99])s+=`<text x="${xs(t)}" y="${H-14}" text-anchor="middle">${t}</text>`;
+  s+=`<text x="${m.l+iw/2}" y="${H-1}" text-anchor="middle">接受阈值</text>`;
+  if(metric==="err")s+=`<path d="${pts.map((p,i)=>(i?"L":"M")+xs(p.t)+" "+ys(1-p.t)).join("")}" fill="none" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  for(const [k,,col,shape] of SERIES){
+    const p=metric==="cov"?pts:pts.filter(q=>q.arms[k].accepted>0);
+    if(!p.length)continue;
+    s+=`<path d="${p.map((q,i)=>(i?"L":"M")+xs(q.t)+" "+ys(val(q.arms[k])||0)).join("")}" fill="none" stroke="var(${col})" stroke-width="2"/>`;
+    for(const q of p)s+=marker(shape,xs(q.t),ys(val(q.arms[k])||0),`var(${col})`);
+  }
+  pts.forEach(q=>{s+=`<rect x="${xs(q.t)-9}" y="${m.t}" width="18" height="${ih}" fill="transparent" data-t="${q.t}"/>`;});
+  el.innerHTML=s+`</svg><div class="tip" hidden></div>`;
+  const tip=el.querySelector(".tip");
+  el.querySelectorAll("rect[data-t]").forEach(r=>{
+    r.addEventListener("mousemove",ev=>{const q=pts.find(p=>String(p.t)===r.dataset.t);
+      tip.innerHTML=`阈值 ${q.t.toFixed(3)}<br>`+SERIES.map(([k,l])=>`${l}：接受 ${q.arms[k].accepted}，错 ${q.arms[k].wrong}`).join("<br>");
+      tip.hidden=false;const b=el.getBoundingClientRect();let x=ev.clientX-b.left+12;if(x>b.width-190)x=ev.clientX-b.left-200;tip.style.left=x+"px";tip.style.top=(ev.clientY-b.top-10)+"px";});
+    r.addEventListener("mouseleave",()=>tip.hidden=true);});
+}
+function render(){
+  const leg=S=>S.map(([,l,c,sh])=>`<span><svg width="14" height="14" aria-hidden="true">${marker(sh,7,7,`var(${c})`)}</svg>${l}</span>`).join("")+(metric==="err"?`<span><svg width="20" height="4" aria-hidden="true"><line x1="0" x2="20" y1="2" y2="2" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/></svg>目标错误率</span>`:"");
+  document.querySelectorAll("[data-legend]").forEach(e=>e.innerHTML=leg(SETS[e.dataset.legend]));
+  document.querySelectorAll(".charts[data-prior]").forEach(c=>c.querySelectorAll(".chart").forEach(el=>draw(el,el.dataset.g,c.dataset.prior,SETS[c.dataset.series])));
+  document.querySelectorAll(".m-cov").forEach(b=>b.setAttribute("aria-pressed",metric==="cov"));
+  document.querySelectorAll(".m-err").forEach(b=>b.setAttribute("aria-pressed",metric==="err"));
+}
+document.querySelectorAll(".m-cov").forEach(b=>b.onclick=()=>{metric="cov";render();});
+document.querySelectorAll(".m-err").forEach(b=>b.onclick=()=>{metric="err";render();});
+render();
+</script>

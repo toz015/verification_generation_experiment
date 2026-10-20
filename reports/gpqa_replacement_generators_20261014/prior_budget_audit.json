@@ -1,0 +1,82 @@
+{
+  "authorized_total_budget_usd": 200,
+  "confirmed_billing_usd": null,
+  "input_files": [
+    {
+      "path": "results/gpqa_diamond_signals_20261012/cache/budget.json",
+      "sha256": "e2a367a8bb9e2fee867e2cb8133f616972b1447e4d0398aa58bd23504adf4559"
+    },
+    {
+      "path": "results/gpqa_generator_comparison_20261005/cache/budget.json",
+      "sha256": "7bb280dc468dffdb0976d9385d6cfe3183711eb19996f6c9789f611d029a495f"
+    },
+    {
+      "path": "results/gpqa_generator_comparison_20261005_v2/cache/budget.json",
+      "sha256": "026cc4baacfcb861af3a25776a76ce64df98f261859bafb8f55e3aa2c2040d76"
+    },
+    {
+      "path": "results/gpqa_qwen_completion_20261005/cache/budget.json",
+      "sha256": "ad0d18de5c0f4b0fb79844935f9896af9274552da5efefce57adc2f2dd991ba9"
+    },
+    {
+      "path": "results/gpqa_qwen_verifier_completion_20261006/cache/budget.json",
+      "sha256": "9dd04531971627c743db7dc5a7913f8ebb6447e2f1e327c0b0badc4ab4c9c0a8"
+    },
+    {
+      "path": "results/gpqa_reasoning_comparison_20261005_v2/cache/budget.json",
+      "sha256": "03826d2be2d03357edf3c4891136f2bd741936ac69500101a2d96b4154a74afc"
+    },
+    {
+      "path": "results/gpqa_reasoning_comparison_20261005_v3/cache/budget.json",
+      "sha256": "a837711ddbfd84b88fae184ccaf4816316e9518472dda7537a056c56005beb05"
+    },
+    {
+      "path": "results/gpqa_signal_study_20261005/cache/budget.json",
+      "sha256": "3ffd2dd3b272e05ff3504bad49dec85186875c47c0b3f7c68f87965fc256817c"
+    },
+    {
+      "path": "results/gpqa_signal_study_20261005_v2/cache/budget.json",
+      "sha256": "a8ec181e1b0f945b52259677af4cac30f7d5723b487f33b49dd6c48bbbee0eae"
+    },
+    {
+      "path": "results/gpqa_signal_study_4096_20261005/cache/budget.json",
+      "sha256": "51662f3a590c3bf7366954111ac7a3049d4e0ccea58526659c5d3e432b13e35a"
+    },
+    {
+      "path": "results/gpqa_staged_generator_expansion_20261005/cache/budget.json",
+      "sha256": "e07147dd18eac7266dfb24c6a075e38e075e0f63ff969fe756a6afb6e52ef4fa"
+    },
+    {
+      "path": "results/gpqa_staged_qwen_pilot_20261005/cache/budget.json",
+      "sha256": "e6919c8c0d48853d8757f0f2450a2aa6845017bcc182c916254da459c9a6bf01"
+    },
+    {
+      "path": "results/gpqa_vertex_20261004/cache/budget.json",
+      "sha256": "f13ad80c14babb794e4e151adac227077c93e531e6e92268cd2e66b631cecd97"
+    }
+  ],
+  "new_pilot_cap_usd": 10,
+  "offline_reconciliations": [
+    {
+      "estimated_usd": 6.204000000000001e-05,
+      "historical_ledger_unchanged": true,
+      "study": "gpqa_generator_comparison_20261005"
+    },
+    {
+      "estimated_usd": 0.0028385999999999997,
+      "historical_ledger_unchanged": true,
+      "study": "gpqa_signal_study_20261005"
+    }
+  ],
+  "prior_unpriced_reservations_usd": 0.00408694,
+  "prior_usage_estimated_usd": 9.45361405,
+  "project": "llm-applications-490420",
+  "scope": "local Vertex budget ledgers only; not the entire cloud project invoice",
+  "unresolved": [
+    {
+      "reason": "missing provider usage; reservation retained, not a confirmed cost",
+      "reserved_usd": 0.00408694,
+      "study": "gpqa_reasoning_comparison_20261005_v2"
+    }
+  ]
+}
