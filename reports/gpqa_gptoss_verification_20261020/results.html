@@ -79,6 +79,8 @@ pre.prompt{background:var(--chip);border-radius:6px;padding:10px 12px;font:12px/
       每题平均调用：gpt-oss 1.46、Qwen 1.74、Gemini 1.09、Sonnet 0.69；固定问同样 3 个约为 2.9–3.0 次。接受数和效用与固定问 3 个基本相同或略好。</div></li>
     <li><span class="tag yes">成立</span><div><b>r 过度自信时，verifier 大幅减少错误接受；r 偏保守时，verifier 提高覆盖。</b>
       阈值 0.95：gpt-oss 接受 49（错 0）→ 102（错 7）；Qwen 接受 120（错 27）→ 122（错 10）；Gemini 接受 159（错 4）→ 147（错 3）；Sonnet 接受 44（错 0）→ 59（错 0）。</div></li>
+    <li><span class="tag yes">成立</span><div><b>阈值越高，差距越明显：只用 r 几乎不再接受，顺序验证仍保留相当覆盖且错误率低。</b>
+      gpt-oss：阈值 0.97：只用 r 接受 14 题（错 0），顺序验证接受 95 题（错 3，3.2%）；阈值 0.98：只用 r 接受 2 题（错 0），顺序验证接受 66 题（错 1，1.5%）。Qwen：阈值 0.97：只用 r 接受 31 题（错 4），顺序验证接受 115 题（错 7，6.1%）。</div></li>
     <li><span class="tag no">部分未达到</span><div><b>阈值 0.95 时，r 偏离实际正确率的两个模型达不到 5% 的错误率目标。</b>
       gpt-oss 经验证后错误率 6.9%；Qwen 经验证后错误率 8.2%；Gemini 经验证后错误率 2.0%；Sonnet 经验证后错误率 0.0%。附录 A 给出校准先验后的结果。</div></li>
   </ul>
@@ -133,7 +135,7 @@ allowed; do not restrict your answer to 0 or 1. Return {&quot;p_correct&quot;: &
   A(b) = max(0, (1+L)·b − L)   （接受当且仅当 b ≥ L/(1+L)）<br>
   Q<sub>k</sub>(b) = −λ·c<sub>k</sub> + Σ<sub>x</sub> P(x|b)·J<sub>k+1</sub>(b′),   J<sub>k</sub>(b) = max(A(b), Q<sub>k</sub>(b))</div>
   <p>奖励 1、错误损失 L、弃答 0；c<sub>k</sub> 为开发集上的平均 token 费用，λ = 每美元 10 个效用单位。仅当 Q<sub>k</sub> 严格大于 A 时继续问。
-  三个 verifier 的顺序在开发集上从 60 种有序组合中按平均 J₀ 选出。主设定 L = 19（阈值 0.95），并报告 L = 99（阈值 0.99）。</p>
+  三个 verifier 的顺序在开发集上从 60 种有序组合中按平均 J₀ 选出。主设定 L = 19（阈值 0.95）；L = 99（阈值 0.99）放在附录 C。</p>
 </section>
 
 <section aria-labelledby="h-gen">
@@ -165,30 +167,17 @@ allowed; do not restrict your answer to 0 or 1. Return {&quot;p_correct&quot;: &
 <tr><td class="grp" colspan="6">Sonnet 5.5</td></tr>
 <tr><td>只用 generator 的 r</td><td>44</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.224</td></tr>
 <tr><td>自适应顺序验证（本文方法）</td><td>59</td><td>0</td><td class="ok">0.0%</td><td>0.69</td><td>+0.289</td></tr></tbody></table></div>
-  <h3>阈值 0.99（L = 99）</h3>
-  <div class="tw"><table>
-    <thead><tr><th>策略</th><th>接受</th><th>错</th><th>错误率</th><th>每题调用</th><th>平均效用</th></tr></thead>
-    <tbody><tr><td class="grp" colspan="6">gpt-oss-120b</td></tr>
-<tr><td>只用 generator 的 r</td><td>1</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.005</td></tr>
-<tr><td>自适应顺序验证（本文方法）</td><td>47</td><td>0</td><td class="ok">0.0%</td><td>0.73</td><td>+0.225</td></tr>
-<tr><td class="grp" colspan="6">Qwen3-235B（两步）</td></tr>
-<tr><td>只用 generator 的 r</td><td>1</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.005</td></tr>
-<tr><td>自适应顺序验证（本文方法）</td><td>78</td><td>3</td><td class="miss">3.8%</td><td>1.54</td><td>-1.165</td></tr>
-<tr><td class="grp" colspan="6">Gemini 3.8 Flash</td></tr>
-<tr><td>只用 generator 的 r</td><td>61</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.311</td></tr>
-<tr><td>自适应顺序验证（本文方法）</td><td>56</td><td>0</td><td class="ok">0.0%</td><td>0.67</td><td>+0.278</td></tr>
-<tr><td class="grp" colspan="6">Sonnet 5.5</td></tr>
-<tr><td>只用 generator 的 r</td><td>0</td><td>0</td><td class="">—</td><td>0.00</td><td>+0.000</td></tr>
-<tr><td>自适应顺序验证（本文方法）</td><td>0</td><td>0</td><td class="">—</td><td>0.00</td><td>+0.000</td></tr></tbody></table></div>
-  <p class="note">绿色为错误率不超过目标（5% 或 1%），红色为超过。"每题调用"按 196 题平均，无效答案不调用 verifier。效用扣除 verifier 成本。</p>
+  <p class="note">绿色为错误率不超过 5%，红色为超过。"每题调用"按 196 题平均，无效答案不调用 verifier。效用扣除 verifier 成本。</p>
 </section>
 
 <section aria-labelledby="h-curve">
   <h2 id="h-curve">风险—覆盖：所有阈值</h2>
-  <p>两个 generator 使用同一组阈值（0.50 到 0.99）。灰色虚线是目标错误率 1 − 阈值。</p>
-  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-cov" aria-pressed="true">覆盖率</button><button class="m-err" aria-pressed="false">接受集合错误率</button></div></div>
+  <p>每个点是一个接受阈值（0.50 到 0.98，四个 generator 相同）。横轴是覆盖率（接受的题占 196 题的比例），纵轴是被接受答案中的错误率；
+  越靠右下越好。悬停可看阈值和接受数。</p>
+  <p>以 gpt-oss 为例，阈值升高时只用 r 很快几乎全部弃答，而 verifier 能把一部分答案的信念推过阈值。阈值 0.95：只用 r 接受 49 题（错 0），顺序验证接受 102 题（错 7，6.9%）；阈值 0.97：只用 r 接受 14 题（错 0），顺序验证接受 95 题（错 3，3.2%）；阈值 0.98：只用 r 接受 2 题（错 0），顺序验证接受 66 题（错 1，1.5%）。Qwen 的 r 过度自信，顺序验证在每个阈值上的错误率都明显更低（见“错误率 vs 阈值”）。</p>
+  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-rc" aria-pressed="true">错误率 vs 覆盖率</button><button class="m-cov" aria-pressed="false">覆盖率 vs 阈值</button><button class="m-err" aria-pressed="false">错误率 vs 阈值</button></div></div>
   <div class="legend" data-legend="main"></div>
-  <div class="charts" data-prior="raw" data-series="main"><div class="chart" data-g="gptoss"></div><div class="chart" data-g="qwen"></div><div class="chart" data-g="gemini"></div><div class="chart" data-g="sonnet55"></div></div>
+  <div class="charts" data-prior="raw" data-series="main" data-tmax="0.98"><div class="chart" data-g="gptoss"></div><div class="chart" data-g="qwen"></div><div class="chart" data-g="gemini"></div><div class="chart" data-g="sonnet55"></div></div>
 </section>
 
 <section aria-labelledby="h-stop">
@@ -253,7 +242,7 @@ allowed; do not restrict your answer to 0 or 1. Return {&quot;p_correct&quot;: &
 <tr><td>自适应顺序验证（本文方法）</td><td>103</td><td>0</td><td class="ok">0.0%</td><td>1.13</td><td>+0.504</td></tr></tbody></table></div>
   <p class="note">校准后自适应相对只用校准先验的效用差：gpt-oss +0.129 <span class="note">(-0.256, +0.426)</span>，Qwen +0.021 <span class="note">(-0.202, +0.152)</span>，Gemini -0.098 <span class="note">(-0.139, -0.061)</span>，Sonnet +0.157 <span class="note">(+0.108, +0.210)</span>。</p>
   <div class="legend" data-legend="main"></div>
-  <div class="charts" data-prior="calibrated" data-series="main"><div class="chart" data-g="gptoss"></div><div class="chart" data-g="qwen"></div><div class="chart" data-g="gemini"></div><div class="chart" data-g="sonnet55"></div></div>
+  <div class="charts" data-prior="calibrated" data-series="main" data-tmax="0.98"><div class="chart" data-g="gptoss"></div><div class="chart" data-g="qwen"></div><div class="chart" data-g="gemini"></div><div class="chart" data-g="sonnet55"></div></div>
 </section>
 
 <section class="appendix" aria-labelledby="h-appB">
@@ -278,9 +267,29 @@ allowed; do not restrict your answer to 0 or 1. Return {&quot;p_correct&quot;: &
 <tr><td>固定问同样 3 个</td><td>59</td><td>0</td><td>3.00</td><td>6.79</td><td>+0.243</td></tr>
 <tr><td>固定问全部 5 个</td><td>60</td><td>0</td><td>5.00</td><td>6.98</td><td>+0.246</td></tr></tbody></table></div>
   <p class="note">自适应相对问全部 5 个：gpt-oss +0.009 <span class="note">(-0.378, +0.398)</span>，Qwen +0.030 <span class="note">(+0.015, +0.045)</span>，Gemini +0.157 <span class="note">(+0.039, +0.367)</span>，Sonnet +0.043 <span class="note">(+0.016, +0.068)</span>。</p>
-  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-cov" aria-pressed="true">覆盖率</button><button class="m-err" aria-pressed="false">接受集合错误率</button></div></div>
+  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-rc" aria-pressed="true">错误率 vs 覆盖率</button><button class="m-cov" aria-pressed="false">覆盖率 vs 阈值</button><button class="m-err" aria-pressed="false">错误率 vs 阈值</button></div></div>
   <div class="legend" data-legend="fixed"></div>
-  <div class="charts" data-prior="raw" data-series="fixed"><div class="chart" data-g="gptoss"></div><div class="chart" data-g="qwen"></div><div class="chart" data-g="gemini"></div><div class="chart" data-g="sonnet55"></div></div>
+  <div class="charts" data-prior="raw" data-series="fixed" data-tmax="0.98"><div class="chart" data-g="gptoss"></div><div class="chart" data-g="qwen"></div><div class="chart" data-g="gemini"></div><div class="chart" data-g="sonnet55"></div></div>
+</section>
+
+<section class="appendix" aria-labelledby="h-appC">
+  <div class="eyebrow">附录 C</div>
+  <h2 id="h-appC">阈值 0.99（L = 99）</h2>
+  <div class="tw"><table>
+    <thead><tr><th>策略</th><th>接受</th><th>错</th><th>错误率</th><th>每题调用</th><th>平均效用</th></tr></thead>
+    <tbody><tr><td class="grp" colspan="6">gpt-oss-120b</td></tr>
+<tr><td>只用 generator 的 r</td><td>1</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.005</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>47</td><td>0</td><td class="ok">0.0%</td><td>0.73</td><td>+0.225</td></tr>
+<tr><td class="grp" colspan="6">Qwen3-235B（两步）</td></tr>
+<tr><td>只用 generator 的 r</td><td>1</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.005</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>78</td><td>3</td><td class="miss">3.8%</td><td>1.54</td><td>-1.165</td></tr>
+<tr><td class="grp" colspan="6">Gemini 3.8 Flash</td></tr>
+<tr><td>只用 generator 的 r</td><td>61</td><td>0</td><td class="ok">0.0%</td><td>0.00</td><td>+0.311</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>56</td><td>0</td><td class="ok">0.0%</td><td>0.67</td><td>+0.278</td></tr>
+<tr><td class="grp" colspan="6">Sonnet 5.5</td></tr>
+<tr><td>只用 generator 的 r</td><td>0</td><td>0</td><td class="">—</td><td>0.00</td><td>+0.000</td></tr>
+<tr><td>自适应顺序验证（本文方法）</td><td>0</td><td>0</td><td class="">—</td><td>0.00</td><td>+0.000</td></tr></tbody></table></div>
+  <p class="note">绿色为错误率不超过 1%，红色为超过。正文的曲线只画到阈值 0.98。</p>
 </section>
 </main>
 <script>
@@ -288,21 +297,22 @@ const D={"gptoss": {"raw": [{"t": 0.5, "arms": {"adaptive_triple": {"accepted": 
 const SETS={main:[["prior_only","只用 r","--s1","circle"],["adaptive_triple","自适应顺序验证","--s3","diamond"]],
   fixed:[["adaptive_triple","自适应顺序验证","--s3","diamond"],["fixed_triple","固定问同样 3 个","--s1","circle"],["fixed_five","固定问全部 5 个","--s2","square"]]};
 const NAMES={"gptoss": "gpt-oss-120b", "qwen": "Qwen3-235B（两步）", "gemini": "Gemini 3.8 Flash", "sonnet55": "Sonnet 5.5"};
-let metric="cov";
+let metric="rc";
 function marker(shape,x,y,col){const s=4.5;if(shape==="circle")return `<circle cx="${x}" cy="${y}" r="${s}" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;
  if(shape==="square")return `<rect x="${x-s}" y="${y-s}" width="${2*s}" height="${2*s}" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;
  return `<path d="M${x} ${y-s-1}L${x+s+1} ${y}L${x} ${y+s+1}L${x-s-1} ${y}Z" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;}
-function draw(el,g,prior,SERIES){
-  const pts=D[g][prior];
+function draw(el,g,prior,SERIES,tmax){
+  const pts=D[g][prior].filter(p=>p.t<=tmax+1e-9);
+  if(metric==="rc")return drawRC(el,g,pts,SERIES);
   const W=360,H=240,m={l:40,r:14,t:26,b:34}, iw=W-m.l-m.r, ih=H-m.t-m.b;
-  const xs=t=>m.l+(t-0.5)/(0.99-0.5)*iw;
+  const xs=t=>m.l+(t-0.5)/(tmax-0.5)*iw;
   const ymax=metric==="cov"?1:0.4, ys=v=>m.t+ih-(Math.min(v,ymax)/ymax)*ih;
   const val=a=>metric==="cov"?a.coverage:a.error_rate;
   let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${NAMES[g]}">`;
   s+=`<text x="${m.l}" y="14" style="font-weight:600;fill:var(--ink)">${NAMES[g]}</text>`;
   const ticks=metric==="cov"?[0,.25,.5,.75,1]:[0,.1,.2,.3,.4];
   for(const t of ticks)s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${ys(t)}" y2="${ys(t)}" stroke="var(--rule)"/><text x="${m.l-6}" y="${ys(t)+4}" text-anchor="end">${Math.round(t*100)}%</text>`;
-  for(const t of [.5,.6,.7,.8,.9,.95,.99])s+=`<text x="${xs(t)}" y="${H-14}" text-anchor="middle">${t}</text>`;
+  for(const t of [.5,.6,.7,.8,.9,.95,.99].filter(t=>t<=tmax+1e-9))s+=`<text x="${xs(t)}" y="${H-14}" text-anchor="middle">${t}</text>`;
   s+=`<text x="${m.l+iw/2}" y="${H-1}" text-anchor="middle">接受阈值</text>`;
   if(metric==="err")s+=`<path d="${pts.map((p,i)=>(i?"L":"M")+xs(p.t)+" "+ys(1-p.t)).join("")}" fill="none" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/>`;
   for(const [k,,col,shape] of SERIES){
@@ -320,13 +330,40 @@ function draw(el,g,prior,SERIES){
       tip.hidden=false;const b=el.getBoundingClientRect();let x=ev.clientX-b.left+12;if(x>b.width-190)x=ev.clientX-b.left-200;tip.style.left=x+"px";tip.style.top=(ev.clientY-b.top-10)+"px";});
     r.addEventListener("mouseleave",()=>tip.hidden=true);});
 }
+function drawRC(el,g,pts,SERIES){
+  const W=360,H=250,m={l:40,r:14,t:26,b:36}, iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const xs=v=>m.l+v*iw, ymax=0.4, ys=v=>m.t+ih-(Math.min(v,ymax)/ymax)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${NAMES[g]}">`;
+  s+=`<text x="${m.l}" y="14" style="font-weight:600;fill:var(--ink)">${NAMES[g]}</text>`;
+  for(const t of [0,.1,.2,.3,.4])s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${ys(t)}" y2="${ys(t)}" stroke="var(--rule)"/><text x="${m.l-6}" y="${ys(t)+4}" text-anchor="end">${Math.round(t*100)}%</text>`;
+  for(const t of [0,.25,.5,.75,1])s+=`<text x="${xs(t)}" y="${H-16}" text-anchor="middle">${Math.round(t*100)}%</text>`;
+  s+=`<text x="${m.l+iw/2}" y="${H-2}" text-anchor="middle">覆盖率</text>`;
+  s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${ys(.05)}" y2="${ys(.05)}" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  const hits=[];
+  for(const [k,l,col,shape] of SERIES){
+    const p=pts.filter(q=>q.arms[k].accepted>0);
+    if(!p.length)continue;
+    s+=`<path d="${p.map((q,i)=>(i?"L":"M")+xs(q.arms[k].coverage)+" "+ys(q.arms[k].error_rate)).join("")}" fill="none" stroke="var(${col})" stroke-width="2" opacity=".85"/>`;
+    for(const q of p){const x=xs(q.arms[k].coverage),y=ys(q.arms[k].error_rate);s+=marker(shape,x,y,`var(${col})`);hits.push([x,y,q,k,l]);}
+  }
+  hits.forEach((h,i)=>{s+=`<circle cx="${h[0]}" cy="${h[1]}" r="9" fill="transparent" data-i="${i}"/>`;});
+  el.innerHTML=s+`</svg><div class="tip" hidden></div>`;
+  const tip=el.querySelector(".tip");
+  el.querySelectorAll("circle[data-i]").forEach(c=>{
+    c.addEventListener("mousemove",ev=>{const [,,q,k,l]=hits[+c.dataset.i],a=q.arms[k];
+      tip.innerHTML=`${l}<br>阈值 ${q.t.toFixed(3)}<br>接受 ${a.accepted}，错 ${a.wrong}（${(100*a.error_rate).toFixed(1)}%）`;
+      tip.hidden=false;const b=el.getBoundingClientRect();let x=ev.clientX-b.left+12;if(x>b.width-190)x=ev.clientX-b.left-200;tip.style.left=x+"px";tip.style.top=(ev.clientY-b.top-10)+"px";});
+    c.addEventListener("mouseleave",()=>tip.hidden=true);});
+}
 function render(){
-  const leg=S=>S.map(([,l,c,sh])=>`<span><svg width="14" height="14" aria-hidden="true">${marker(sh,7,7,`var(${c})`)}</svg>${l}</span>`).join("")+(metric==="err"?`<span><svg width="20" height="4" aria-hidden="true"><line x1="0" x2="20" y1="2" y2="2" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/></svg>目标错误率</span>`:"");
+  const leg=S=>S.map(([,l,c,sh])=>`<span><svg width="14" height="14" aria-hidden="true">${marker(sh,7,7,`var(${c})`)}</svg>${l}</span>`).join("")+(metric!=="cov"?`<span><svg width="20" height="4" aria-hidden="true"><line x1="0" x2="20" y1="2" y2="2" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/></svg>目标错误率</span>`:"");
   document.querySelectorAll("[data-legend]").forEach(e=>e.innerHTML=leg(SETS[e.dataset.legend]));
-  document.querySelectorAll(".charts[data-prior]").forEach(c=>c.querySelectorAll(".chart").forEach(el=>draw(el,el.dataset.g,c.dataset.prior,SETS[c.dataset.series])));
+  document.querySelectorAll(".charts[data-prior]").forEach(c=>c.querySelectorAll(".chart").forEach(el=>draw(el,el.dataset.g,c.dataset.prior,SETS[c.dataset.series],+(c.dataset.tmax||0.99))));
+  document.querySelectorAll(".m-rc").forEach(b=>b.setAttribute("aria-pressed",metric==="rc"));
   document.querySelectorAll(".m-cov").forEach(b=>b.setAttribute("aria-pressed",metric==="cov"));
   document.querySelectorAll(".m-err").forEach(b=>b.setAttribute("aria-pressed",metric==="err"));
 }
+document.querySelectorAll(".m-rc").forEach(b=>b.onclick=()=>{metric="rc";render();});
 document.querySelectorAll(".m-cov").forEach(b=>b.onclick=()=>{metric="cov";render();});
 document.querySelectorAll(".m-err").forEach(b=>b.onclick=()=>{metric="err";render();});
 render();
