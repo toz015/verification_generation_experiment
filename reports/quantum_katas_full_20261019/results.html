@@ -81,7 +81,7 @@ pre.prompt{background:var(--chip);border-radius:6px;padding:10px 12px;font:12px/
       Sonnet 的候选 89% 都能通过，verifier 在它上面没有可测的优势。</div></li>
     <li><span class="tag yes">成立</span><div><b>顺序验证能提前停止，省下大部分调用。</b>
       每题平均调用：Qwen 1.50、gpt-oss 0.94、Sonnet 0.83，
-      固定问 3 个都是约 2.9–3.0 次，固定问 5 个约 4.8–5.0 次；接受数与效用和固定问 3 个基本相同或略好。</div></li>
+      而固定策略对每个候选都问满 3 次或 5 次；接受数与效用和固定问 3 个基本相同或略好。</div></li>
     <li><span class="tag yes">成立</span><div><b>和只用 r 相比，verifier 显著减少了错误接受。</b>
       阈值 0.95 时，Qwen 的错误接受从 81 降到 31，
       gpt-oss 从 26 降到 22（同时多接受了 18 题）；
@@ -163,7 +163,7 @@ Reply with exactly one JSON object and nothing else: {&quot;p_correct&quot;: &lt
 <tr><td class="grp" colspan="6">Sonnet 5.5</td></tr>
 <tr><td>只用 generator 的 r</td><td>35</td><td>1</td><td class="ok">2.9%</td><td>0.00</td><td>+0.047</td></tr>
 <tr><td>自适应顺序验证（本文方法）</td><td>78</td><td>2</td><td class="ok">2.6%</td><td>0.83</td><td>+0.111</td></tr></tbody></table></div>
-  <p class="note">绿色为接受集合错误率 ≤ 5%，红色为超过。效用：正确 +1，错误 −19，弃答 0，扣除 verifier 成本，按 322 题平均。</p>
+  <p class="note">绿色为接受集合错误率 ≤ 5%，红色为超过。"每题调用"是 322 题的平均 verifier 调用次数。效用：正确 +1，错误 −19，弃答 0，扣除 verifier 成本，按 322 题平均。</p>
 </section>
 
 <section aria-labelledby="h-curve">
@@ -190,6 +190,8 @@ Reply with exactly one JSON object and nothing else: {&quot;p_correct&quot;: &lt
 <tr><td>自适应顺序验证（本文方法）</td><td>78</td><td>2</td><td>0.83</td><td>0.48</td><td>+0.111</td></tr>
 <tr><td>固定问同样 3 个</td><td>78</td><td>2</td><td>3.00</td><td>2.75</td><td>+0.090</td></tr>
 <tr><td>固定问全部 5 个</td><td>95</td><td>2</td><td>5.00</td><td>3.89</td><td>+0.132</td></tr></tbody></table></div>
+  <p class="note">"每题调用"是 322 题的平均 verifier 调用次数。没有可执行代码或 r 无效的题不调用 verifier（Qwen 12 题、gpt-oss 14 题），
+  所以固定问 3 个的平均值略低于 3（如 3 × 310 / 322 = 2.89），固定问 5 个略低于 5。</p>
   <p class="note">自适应相对固定问 3 个的效用差：Qwen -0.042 <span class="note">(-0.161, +0.018)</span>，gpt-oss +0.073 <span class="note">(+0.007, +0.197)</span>，Sonnet +0.020 <span class="note">(+0.019, +0.022)</span>。
   相对固定问 5 个：Qwen +0.029 <span class="note">(-0.264, +0.324)</span>，gpt-oss +0.078 <span class="note">(+0.012, +0.202)</span>，Sonnet -0.021 <span class="note">(-0.049, +0.004)</span>。费用为 usage 估算。</p>
 </section>
