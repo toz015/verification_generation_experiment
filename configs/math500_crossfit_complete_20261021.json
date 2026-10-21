@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "kind": "math500_crossfit",
+  "split": "configs/math500_split_20261021.json",
+  "generators": {
+    "qwen3": "results/math500_full_qwen3_20261021",
+    "gptoss": "results/math500_full_gptoss_20261021",
+    "sonnet55": "results/math500_full_sonnet55_20261021",
+    "qwen3complete": "results/math500_full_qwen3complete_20261021"
+  },
+  "verification": "results/math500_full_verification_20261021_complete",
+  "verifiers": [
+    "gemini_flash",
+    "gemini_lite",
+    "mistral_small",
+    "mistral_medium",
+    "claude_haiku"
+  ],
+  "single_arm_verifier": "gemini_flash",
+  "settings": {
+    "probability_bins": 3,
+    "laplace": 1.0,
+    "correct_reward": 1.0,
+    "losses": [
+      19.0,
+      99.0
+    ],
+    "utility_per_usd": 10.0,
+    "bootstrap_repeats": 10000,
+    "likelihood_model": "conditional_independence",
+    "prior": "raw_unmodified_p_correct",
+    "order_selection": "maximize mean training-fold prior exact J0 across all 60 ordered triples; lexicographic ties",
+    "cost_fit": "mean training-fold provider-token cost for each verifier, including returned malformed replies"
+  },
+  "notes": [
+    "Settings copied unchanged from the QuantumKatas/GPQA analysis; fixed before grading MATH-500.",
+    "single_arm_verifier is required by the shared code but not reported (owner: no single-verifier conclusions)."
+  ]
+}
