@@ -1,0 +1,6 @@
+antlr4-python3-runtime==4.11.1
+mpmath==1.3.0
+numpy==2.2.6
+regex==2026.9.29
+sympy==1.12
+word2number==1.1
