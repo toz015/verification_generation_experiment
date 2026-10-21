@@ -44,10 +44,10 @@ QK_RUN = 'results/quantum_katas_full_qwen3_20261019'
 class RawRunner(JsonModeVertexRunner):
     """Qwen chat completions with optional JSON mode and extra body params (seed, logprobs)."""
 
-    def __init__(self, project, *, max_tokens, temperature, json_mode, extra):
+    def __init__(self, project, *, max_tokens, temperature, json_mode, extra, attempt=1):
         super().__init__(MODEL, 'us-south1', project, {'type': 'json_object'}, max_tokens=max_tokens,
                          temperature=temperature, top_p=1.0)
-        self.json_mode, self.extra = json_mode, dict(extra)
+        self.json_mode, self.extra, self.attempt = json_mode, dict(extra), attempt
 
     @property
     def params(self):
@@ -61,7 +61,10 @@ class RawRunner(JsonModeVertexRunner):
         value = dict(super().identity)
         if not self.json_mode:
             value.pop('response_format')
-        return {**value, 'extra': self.extra, 'raw_collection': 'qwen_raw_v1'}
+        value = {**value, 'extra': self.extra, 'raw_collection': 'qwen_raw_v1'}
+        # attempt > 1 only re-sends a job whose first attempt was a service failure (owner request
+        # 2026-10-21); it changes request identity, never the body sent to the provider.
+        return value if self.attempt == 1 else {**value, 'attempt': self.attempt}
 
 
 def _gpqa_items():
@@ -266,6 +269,17 @@ def stage2(samples_path, candidates_dir, interpreter):
     return jobs
 
 
+def retry_jobs(jobs, collected_paths):
+    """Second attempt for every job whose only row is a service failure (same prompt and body)."""
+    rows = []
+    for path in collected_paths:
+        if Path(path).exists():
+            rows += [json.loads(l) for l in open(path)]
+    ok = {(r['kind'], r['item_id'], r['sample']) for r in rows if r.get('status') == 'ok'}
+    failed = {(r['kind'], r['item_id'], r['sample']) for r in rows if r.get('status') == 'service_failure'} - ok
+    return [(k, i, s, t, sy, dict(cfg, attempt=2)) for k, i, s, t, sy, cfg in jobs if (k, i, s) in failed]
+
+
 def parse(kind, text):
     try:
         if kind == 'gpqa_letter' or '_peg_' in kind:
@@ -360,11 +374,14 @@ def main():
     p.add_argument('--allow-api', action='store_true')
     p.add_argument('--workers', type=int, default=8)
     p.add_argument('--stage', type=int, default=1)
+    p.add_argument('--retry-from', help='comma-separated collected.jsonl files whose service failures to re-send once')
     p.add_argument('--samples', default='results/qwen_raw_20261021/samples/collected.jsonl,'
                                        'results/qwen_raw_20261021/samples_nolp/collected.jsonl')
     p.add_argument('--interpreter', default='tmp/math_grader_venv_20261020/bin/python')
     a = p.parse_args()
     jobs = stage1(a.project, a.n) if a.stage == 1 else stage2(a.samples, a.out/'candidates', a.interpreter)
+    if a.retry_from:
+        jobs = retry_jobs(jobs, a.retry_from.split(','))
     print(json.dumps(run(a.out, jobs, project=a.project, limit_usd=a.limit_usd, allow_api=a.allow_api,
                          workers=a.workers, kinds=a.kinds), indent=2, default=str))
 
