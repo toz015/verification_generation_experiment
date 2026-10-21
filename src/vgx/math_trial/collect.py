@@ -30,8 +30,8 @@ def spec(cfg):
     return runners.ModelSpec(**cfg['generator'])
 
 
-def request(item, generation_id):
-    return Request(f'generator|{item["item_id"]}|{generation_id}', prompt.build_generator_prompt(item['problem']),
+def request(item, generation_id, version=prompt.PROMPT_VERSION):
+    return Request(f'generator|{item["item_id"]}|{generation_id}', prompt.build_generator_prompt(item['problem'], version),
                    prompt.GENERATOR_SYSTEM, {'role': 'generator', 'item_id': item['item_id']})
 
 
@@ -45,10 +45,10 @@ def prepare(cfg_path, out):
         sample[name] = [{k: it[k] for k in ('item_id', 'problem', 'stratum', 'topic')} for it in chosen]
         sources[name] = dict(meta, allocation=alloc)
     plan = seal({'config_sha256': file_digest(cfg_path), 'config': cfg, 'sources': sources,
-                 'prompt_version': prompt.PROMPT_VERSION, 'runner': runner.identity,
+                 'prompt_version': cfg.get('prompt_version', prompt.PROMPT_VERSION), 'runner': runner.identity,
                  'implementation_sha256': {m.__name__: file_digest(m.__file__) for m in (data, prompt)} |
                                           {'collect': file_digest(__file__)},
-                 'request_keys': {it['item_id']: runner.cache_key(request(it, cfg['generation_id']))
+                 'request_keys': {it['item_id']: runner.cache_key(request(it, cfg['generation_id'], cfg.get('prompt_version', prompt.PROMPT_VERSION)))
                                   for rows in sample.values() for it in rows},
                  'sample': sample, 'answer_keys_read_for_sampling': False}, 'plan_id')
     out.mkdir(parents=True, exist_ok=True)
@@ -84,7 +84,7 @@ def collect(out, *, allow_api=False, workers=4, limit=None):
     def one(it):
         if stop.is_set():
             return
-        req = request(it, cfg['generation_id'])
+        req = request(it, cfg['generation_id'], plan['prompt_version'])
         if runner.cache_key(req) != plan['request_keys'][it['item_id']]:
             raise ValueError('request identity changed since prepare')
         key = plan['request_keys'][it['item_id']]

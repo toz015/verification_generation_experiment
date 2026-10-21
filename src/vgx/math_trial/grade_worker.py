@@ -3,7 +3,7 @@
 Mirrors evaluation/evaluate.py + parser.run_execute at the pinned commit: the reference is
 parsed with parse_ground_truth(..., 'omni-math') (answer wrapped in \\boxed{}), the
 prediction is wrapped in \\boxed{} and passed through extract_answer and strip_string, and
-math_equal(pred, gt, timeout=True) decides. A comparison taking over 3 s counts as
+math_equal(pred, gt) decides, exactly as official math_equal_process. A comparison over 3 s counts as
 incorrect, as in the official pool timeout. Standard library only, besides the grader.
 """
 import json
@@ -29,7 +29,7 @@ def main(grader_dir):
             signal.alarm(3)
             _, gt = parse_ground_truth({'gt_cot': r['reference'], 'gt': r['reference']}, 'omni-math')
             pred = strip_string(extract_answer('\\boxed{' + r['answer'] + '}', 'omni-math'))
-            out.update(pred=pred, gt=gt, correct=bool(math_equal(pred, gt, timeout=True)), status='graded')
+            out.update(pred=pred, gt=gt, correct=bool(math_equal(pred, gt)), status='graded')
         except Timeout:
             out.update(correct=False, status='timeout')
         except Exception as exc:  # official evaluate.py aborts here; we record and count as incorrect

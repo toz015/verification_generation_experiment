@@ -1,0 +1,22 @@
+{
+  "answered": 6930,
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 1.64726405,
+    "limit_usd": 10.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 3185
+  },
+  "errors": [],
+  "failures": {
+    "claude_haiku": 0,
+    "gemini_flash": 0,
+    "gemini_lite": 0,
+    "mistral_medium": 0,
+    "mistral_small": 0
+  },
+  "jobs": 6930,
+  "stage": "complete"
+}
