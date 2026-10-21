@@ -165,8 +165,8 @@ Reply with exactly one JSON object and nothing else: {&quot;p_correct&quot;: &lt
 
 <section aria-labelledby="h-curve">
   <h2 id="h-curve">风险—覆盖：所有阈值</h2>
-  <p>三个 generator 使用同一组阈值（0.50 到 0.99），不针对某个模型调整。灰色虚线是目标错误率 1 − 阈值。</p>
-  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-cov" aria-pressed="true">覆盖率</button><button class="m-err" aria-pressed="false">接受集合错误率</button></div></div>
+  <p>三个 generator 使用同一组阈值（0.50 到 0.99），不针对某个模型调整。默认的“错误率 vs 覆盖率”图里，每个点是一个阈值：横轴是覆盖率（接受的题占 322 题的比例），纵轴是被接受代码中的错误率，越靠右下越好；灰色虚线是 5% 错误率。切到“vs 阈值”两张图时，灰色虚线是目标错误率 1 − 阈值。悬停可看阈值和接受数。</p>
+  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-rc" aria-pressed="true">错误率 vs 覆盖率</button><button class="m-cov" aria-pressed="false">覆盖率 vs 阈值</button><button class="m-err" aria-pressed="false">错误率 vs 阈值</button></div></div>
   <div class="legend" data-legend="main"></div>
   <div class="charts" data-prior="raw" data-series="main"><div class="chart" data-g="qwen3"></div><div class="chart" data-g="gptoss"></div><div class="chart" data-g="sonnet55"></div></div>
 </section>
@@ -255,7 +255,7 @@ Reply with exactly one JSON object and nothing else: {&quot;p_correct&quot;: &lt
 <tr><td>固定问同样 3 个</td><td>78</td><td>2</td><td>3.00</td><td>2.75</td><td>+0.090</td></tr>
 <tr><td>固定问全部 5 个</td><td>95</td><td>2</td><td>5.00</td><td>3.89</td><td>+0.132</td></tr></tbody></table></div>
   <p class="note">自适应相对问全部 5 个的效用差：Qwen +0.029 <span class="note">(-0.264, +0.324)</span>，gpt-oss +0.078 <span class="note">(+0.012, +0.202)</span>，Sonnet -0.021 <span class="note">(-0.049, +0.004)</span>。</p>
-  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-cov" aria-pressed="true">覆盖率</button><button class="m-err" aria-pressed="false">接受集合错误率</button></div></div>
+  <div class="controls"><div class="seg" role="group" aria-label="指标"><button class="m-rc" aria-pressed="true">错误率 vs 覆盖率</button><button class="m-cov" aria-pressed="false">覆盖率 vs 阈值</button><button class="m-err" aria-pressed="false">错误率 vs 阈值</button></div></div>
   <div class="legend" data-legend="fixed"></div>
   <div class="charts" data-prior="raw" data-series="fixed"><div class="chart" data-g="qwen3"></div><div class="chart" data-g="gptoss"></div><div class="chart" data-g="sonnet55"></div></div>
 </section>
@@ -265,21 +265,22 @@ const D={"qwen3": {"raw": [{"t": 0.5, "arms": {"adaptive_single": {"accepted": 2
 const SETS={main:[["prior_only","只用 r","--s1","circle"],["adaptive_triple","自适应顺序验证","--s3","diamond"]],
   fixed:[["adaptive_triple","自适应顺序验证","--s3","diamond"],["fixed_triple","固定问同样 3 个","--s1","circle"],["fixed_five","固定问全部 5 个","--s2","square"]]};
 const NAMES={"qwen3": "Qwen3-235B", "gptoss": "gpt-oss-120b", "sonnet55": "Sonnet 5.5"};
-let metric="cov";
+let metric="rc";
 function marker(shape,x,y,col){const s=4.5;if(shape==="circle")return `<circle cx="${x}" cy="${y}" r="${s}" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;
  if(shape==="square")return `<rect x="${x-s}" y="${y-s}" width="${2*s}" height="${2*s}" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;
  return `<path d="M${x} ${y-s-1}L${x+s+1} ${y}L${x} ${y+s+1}L${x-s-1} ${y}Z" fill="${col}" stroke="var(--surface)" stroke-width="2"/>`;}
-function draw(el,g,prior,SERIES){
-  const pts=D[g][prior];
+function draw(el,g,prior,SERIES,tmax){
+  const pts=D[g][prior].filter(p=>p.t<=tmax+1e-9);
+  if(metric==="rc")return drawRC(el,g,pts,SERIES);
   const W=360,H=240,m={l:40,r:14,t:26,b:34}, iw=W-m.l-m.r, ih=H-m.t-m.b;
-  const xs=t=>m.l+(t-0.5)/(0.99-0.5)*iw;
+  const xs=t=>m.l+(t-0.5)/(tmax-0.5)*iw;
   const ymax=metric==="cov"?1:0.4, ys=v=>m.t+ih-(Math.min(v,ymax)/ymax)*ih;
   const val=a=>metric==="cov"?a.coverage:a.error_rate;
   let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${NAMES[g]}">`;
   s+=`<text x="${m.l}" y="14" style="font-weight:600;fill:var(--ink)">${NAMES[g]}</text>`;
   const ticks=metric==="cov"?[0,.25,.5,.75,1]:[0,.1,.2,.3,.4];
   for(const t of ticks)s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${ys(t)}" y2="${ys(t)}" stroke="var(--rule)"/><text x="${m.l-6}" y="${ys(t)+4}" text-anchor="end">${Math.round(t*100)}%</text>`;
-  for(const t of [.5,.6,.7,.8,.9,.95,.99])s+=`<text x="${xs(t)}" y="${H-14}" text-anchor="middle">${t}</text>`;
+  for(const t of [.5,.6,.7,.8,.9,.95,.99].filter(t=>t<=tmax+1e-9))s+=`<text x="${xs(t)}" y="${H-14}" text-anchor="middle">${t}</text>`;
   s+=`<text x="${m.l+iw/2}" y="${H-1}" text-anchor="middle">接受阈值</text>`;
   if(metric==="err")s+=`<path d="${pts.map((p,i)=>(i?"L":"M")+xs(p.t)+" "+ys(1-p.t)).join("")}" fill="none" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/>`;
   for(const [k,,col,shape] of SERIES){
@@ -297,13 +298,40 @@ function draw(el,g,prior,SERIES){
       tip.hidden=false;const b=el.getBoundingClientRect();let x=ev.clientX-b.left+12;if(x>b.width-190)x=ev.clientX-b.left-200;tip.style.left=x+"px";tip.style.top=(ev.clientY-b.top-10)+"px";});
     r.addEventListener("mouseleave",()=>tip.hidden=true);});
 }
+function drawRC(el,g,pts,SERIES){
+  const W=360,H=250,m={l:40,r:14,t:26,b:36}, iw=W-m.l-m.r, ih=H-m.t-m.b;
+  const xs=v=>m.l+v*iw, ymax=0.4, ys=v=>m.t+ih-(Math.min(v,ymax)/ymax)*ih;
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${NAMES[g]}">`;
+  s+=`<text x="${m.l}" y="14" style="font-weight:600;fill:var(--ink)">${NAMES[g]}</text>`;
+  for(const t of [0,.1,.2,.3,.4])s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${ys(t)}" y2="${ys(t)}" stroke="var(--rule)"/><text x="${m.l-6}" y="${ys(t)+4}" text-anchor="end">${Math.round(t*100)}%</text>`;
+  for(const t of [0,.25,.5,.75,1])s+=`<text x="${xs(t)}" y="${H-16}" text-anchor="middle">${Math.round(t*100)}%</text>`;
+  s+=`<text x="${m.l+iw/2}" y="${H-2}" text-anchor="middle">覆盖率</text>`;
+  s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${ys(.05)}" y2="${ys(.05)}" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  const hits=[];
+  for(const [k,l,col,shape] of SERIES){
+    const p=pts.filter(q=>q.arms[k].accepted>0);
+    if(!p.length)continue;
+    s+=`<path d="${p.map((q,i)=>(i?"L":"M")+xs(q.arms[k].coverage)+" "+ys(q.arms[k].error_rate)).join("")}" fill="none" stroke="var(${col})" stroke-width="2" opacity=".85"/>`;
+    for(const q of p){const x=xs(q.arms[k].coverage),y=ys(q.arms[k].error_rate);s+=marker(shape,x,y,`var(${col})`);hits.push([x,y,q,k,l]);}
+  }
+  hits.forEach((h,i)=>{s+=`<circle cx="${h[0]}" cy="${h[1]}" r="9" fill="transparent" data-i="${i}"/>`;});
+  el.innerHTML=s+`</svg><div class="tip" hidden></div>`;
+  const tip=el.querySelector(".tip");
+  el.querySelectorAll("circle[data-i]").forEach(c=>{
+    c.addEventListener("mousemove",ev=>{const [,,q,k,l]=hits[+c.dataset.i],a=q.arms[k];
+      tip.innerHTML=`${l}<br>阈值 ${q.t.toFixed(3)}<br>接受 ${a.accepted}，错 ${a.wrong}（${(100*a.error_rate).toFixed(1)}%）`;
+      tip.hidden=false;const b=el.getBoundingClientRect();let x=ev.clientX-b.left+12;if(x>b.width-190)x=ev.clientX-b.left-200;tip.style.left=x+"px";tip.style.top=(ev.clientY-b.top-10)+"px";});
+    c.addEventListener("mouseleave",()=>tip.hidden=true);});
+}
 function render(){
-  const leg=S=>S.map(([,l,c,sh])=>`<span><svg width="14" height="14" aria-hidden="true">${marker(sh,7,7,`var(${c})`)}</svg>${l}</span>`).join("")+(metric==="err"?`<span><svg width="20" height="4" aria-hidden="true"><line x1="0" x2="20" y1="2" y2="2" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/></svg>目标错误率</span>`:"");
+  const leg=S=>S.map(([,l,c,sh])=>`<span><svg width="14" height="14" aria-hidden="true">${marker(sh,7,7,`var(${c})`)}</svg>${l}</span>`).join("")+(metric!=="cov"?`<span><svg width="20" height="4" aria-hidden="true"><line x1="0" x2="20" y1="2" y2="2" stroke="var(--target)" stroke-width="1.5" stroke-dasharray="4 4"/></svg>目标错误率</span>`:"");
   document.querySelectorAll("[data-legend]").forEach(e=>e.innerHTML=leg(SETS[e.dataset.legend]));
-  document.querySelectorAll(".charts[data-prior]").forEach(c=>c.querySelectorAll(".chart").forEach(el=>draw(el,el.dataset.g,c.dataset.prior,SETS[c.dataset.series])));
+  document.querySelectorAll(".charts[data-prior]").forEach(c=>c.querySelectorAll(".chart").forEach(el=>draw(el,el.dataset.g,c.dataset.prior,SETS[c.dataset.series],+(c.dataset.tmax||0.99))));
+  document.querySelectorAll(".m-rc").forEach(b=>b.setAttribute("aria-pressed",metric==="rc"));
   document.querySelectorAll(".m-cov").forEach(b=>b.setAttribute("aria-pressed",metric==="cov"));
   document.querySelectorAll(".m-err").forEach(b=>b.setAttribute("aria-pressed",metric==="err"));
 }
+document.querySelectorAll(".m-rc").forEach(b=>b.onclick=()=>{metric="rc";render();});
 document.querySelectorAll(".m-cov").forEach(b=>b.onclick=()=>{metric="cov";render();});
 document.querySelectorAll(".m-err").forEach(b=>b.onclick=()=>{metric="err";render();});
 render();
