@@ -84,8 +84,51 @@ def _qk_tasks():
     return Run(QK_RUN).tasks
 
 
-def stage1(project, n):
+def _peg_subject(subject):
+    return ''.join(' ' + e for e in subject.split('_'))  # PEG format_subject, verbatim
+
+
+def peg_generator_prompt(subject, question, choices, get_correct):
+    # PEG initial_policy_diffModel_GPQA.ipynb build_generator_prompt (toz015/neurips2025-repo@0ade29f), verbatim.
+    prompt = 'The following are multiple choice questions (with answers) about {}.\n\n'.format(_peg_subject(subject))
+    prompt += f'{question}'
+    for i, c in enumerate(choices):
+        prompt += '\n{}'.format(f'{chr(65+i)}. {c}')
+    return prompt + ('\nAnswer:' if get_correct else '\nIncorrect Answer:')
+
+
+def peg_discriminator_prompt(subject, question, proposed_answer):
+    # PEG build_discriminator_prompt, verbatim.
+    return f"""You are an expert evaluator of questions about {_peg_subject(subject)}. 
+Determine if the proposed answer is correct. Output ONLY 'A' or 'B'.
+Question: {question}
+Proposed Answer: {proposed_answer}
+
+Is this answer correct? Respond ONLY with:
+A. Correct
+B. Incorrect
+
+Answer:
+"""
+
+
+PEG_TOKEN = dict(max_tokens=1, temperature=0.0, json_mode=False, extra={'logprobs': True, 'top_logprobs': 20})
+
+
+def peg_gpqa():
     jobs = []
+    for it in _gpqa_items():
+        for flag, kind in ((True, 'gpqa_peg_gen_correct'), (False, 'gpqa_peg_gen_incorrect')):
+            jobs.append((kind, it['item_id'], 0, peg_generator_prompt(it['subject'], it['question'], it['choices'], flag),
+                         None, PEG_TOKEN))
+        for i, c in enumerate(it['choices']):
+            jobs.append(('gpqa_peg_disc', it['item_id'], i, peg_discriminator_prompt(it['subject'], it['question'], c),
+                         None, PEG_TOKEN))
+    return jobs
+
+
+def stage1(project, n):
+    jobs = peg_gpqa()
     for it in _gpqa_items():
         body = _gpqa_body(it)
         jobs.append(('gpqa_option_probs', it['item_id'], 0, body +
@@ -102,27 +145,137 @@ def stage1(project, n):
                               extra={'seed': s, 'logprobs': True, 'top_logprobs': 5})))
     for it in _math_items():
         for s in range(n):
+            # nolp: same sample without token logprobs. Long logprob replies stalled past 900 s on
+            # 2026-10-21 (most recorded as uncertain), so completeness takes priority (owner).
+            jobs.append(('math500_samples_nolp', it['item_id'], s, mprompt.build_generator_prompt(it['problem']),
+                         mprompt.GENERATOR_SYSTEM, dict(max_tokens=16384, temperature=0.7, json_mode=True,
+                                                        extra={'seed': s})))
             jobs.append(('math500_samples', it['item_id'], s, mprompt.build_generator_prompt(it['problem']),
                          mprompt.GENERATOR_SYSTEM, dict(max_tokens=16384, temperature=0.7, json_mode=True,
                                                         extra={'seed': s, 'logprobs': True})))
     for t in _qk_tasks():
         for s in range(n):
+            jobs.append(('qkatas_samples_nolp', t.task_id, s, qprompt.build_generator_prompt(t, qprompt.PROMPT_VERSION_V2),
+                         qprompt.generator_system(qprompt.PROMPT_VERSION_V2),
+                         dict(max_tokens=8192, temperature=0.7, json_mode=True, extra={'seed': s})))
             jobs.append(('qkatas_samples', t.task_id, s, qprompt.build_generator_prompt(t, qprompt.PROMPT_VERSION_V2),
                          qprompt.generator_system(qprompt.PROMPT_VERSION_V2),
                          dict(max_tokens=8192, temperature=0.7, json_mode=True, extra={'seed': s, 'logprobs': True})))
     return jobs
 
 
+# ---------------------------------------------------------------- stage 2: Qwen as judge
+JUDGE_JSON = dict(max_tokens=512, temperature=0.0, json_mode=True, extra={'logprobs': True, 'top_logprobs': 5})
+MATH_RUNS = {g: f'results/math500_full_{g}_20261021' for g in ('qwen3', 'gptoss', 'sonnet55')}
+QK_RUNS = {g: f'results/quantum_katas_full_{g}_20261019' for g in ('qwen3', 'gptoss', 'sonnet55')}
+
+
+def _samples(paths, kind):
+    """OK sample rows of `kind` and its no-logprob variant from every collected.jsonl in paths (comma-separated)."""
+    rows = []
+    for path in str(paths).split(','):
+        if Path(path).exists():
+            rows += [json.loads(l) for l in open(path)]
+    return [r for r in rows if r['kind'] in (kind, kind + '_nolp') and r.get('status') == 'ok']
+
+
+def math_candidates(samples_path, interpreter):
+    """Distinct answers per MATH problem (Qwen samples + frozen answers of three generators), clustered
+    with the official grader; candidates.json records every source so nothing is lost."""
+    import subprocess
+    from vgx.math_trial import data
+    by = {it['item_id']: [] for it in _math_items()}
+    for r in _samples(samples_path, 'math500_samples'):
+        if isinstance(r.get('answer'), str) and r['answer'].strip():
+            by[r['item_id']].append({'answer': r['answer'], 'source': f"qwen_{r['kind']}_{r['sample']}"})
+    for g, d in MATH_RUNS.items():
+        for r in json.loads((Path(d)/'frozen_candidates.json').read_text())['rows']:
+            if r.get('answer') is not None:
+                by[r['item_id']].append({'answer': r['answer'], 'source': f'frozen_{g}'})
+    payload = ''.join(json.dumps({'item_id': k, 'answers': [c['answer'] for c in v]})+'\n' for k, v in by.items())
+    grader_dir = str(Path(data.SOURCES['omnimath_rule']['path']).parent/'evaluation')
+    proc = subprocess.run([interpreter, '-I', str(Path(__file__).parent/'math_trial'/'cluster_worker.py'), grader_dir],
+                          input=payload, capture_output=True, text=True, timeout=7200)
+    if proc.returncode:
+        raise RuntimeError(proc.stderr[-2000:])
+    out = {}
+    for line in proc.stdout.splitlines():
+        r = json.loads(line); cands = by[r['item_id']]
+        out[r['item_id']] = [{'answer': cands[c[0]]['answer'], 'sources': [cands[i]['source'] for i in c],
+                              'members': [cands[i]['answer'] for i in c]} for c in r['clusters']]
+    return out
+
+
+def qk_candidates(samples_path):
+    tasks = {t.task_id: t for t in _qk_tasks()}
+    by = {t: {} for t in tasks}
+    for r in _samples(samples_path, 'qkatas_samples'):
+        if r.get('code'):
+            by[r['item_id']].setdefault(r['code'], []).append(f"qwen_{r['kind']}_{r['sample']}")
+    for g, d in QK_RUNS.items():
+        for c in Run(d).candidates.all():
+            if c.has_code:
+                by[c.task_id].setdefault(c.raw_code, []).append(f'frozen_{g}')
+    return {t: [{'code': code, 'sources': src} for code, src in v.items()] for t, v in by.items()}
+
+
+def stage2(samples_path, candidates_dir, interpreter):
+    from vgx.gpqa.prompt import build_verifier_prompt as gpqa_verifier_text
+    from vgx.math_trial import data
+    jobs = []
+    cdir = Path(candidates_dir); cdir.mkdir(parents=True, exist_ok=True)
+    # GPQA: Qwen as verifier on each option with the GPQA verifier prompt (PEG A/B already in stage 1).
+    for it in _gpqa_items():
+        body = _gpqa_body(it)
+        for i, letter in enumerate(LETTERS):
+            text = (body + f"Fixed candidate answer: {letter}. {it['choices'][i]}\n\n"
+                    'Assess whether this fixed answer is correct. Do not suggest a replacement answer.\n'
+                    'Reply with JSON only: {"p_correct": 0.0}')
+            jobs.append(('gpqa_judge_p', it['item_id'], i, text, 'You evaluate whether a proposed answer to a '
+                         'graduate-level multiple-choice science question is correct.', JUDGE_JSON))
+    # MATH: clustered candidates -> PEG discriminator, verbal judge, and (>=2 candidates) option distributions.
+    path = cdir/'math500_candidates.json'
+    if path.exists():
+        mc = json.loads(path.read_text())
+    else:
+        mc = math_candidates(samples_path, interpreter); path.write_text(json.dumps(mc))
+    meta = {it['item_id']: it for it in data.load('math500')[0]}
+    for item_id, cands in mc.items():
+        prob, subject = meta[item_id]['problem'], meta[item_id]['topic']
+        for i, c in enumerate(cands):
+            jobs.append(('math500_peg_disc', item_id, i, peg_discriminator_prompt(subject, prob, c['answer']), None, PEG_TOKEN))
+            jobs.append(('math500_judge_p', item_id, i, mprompt.build_verifier_prompt(prob, c['answer']),
+                         mprompt.VERIFIER_SYSTEM, JUDGE_JSON))
+        if 2 <= len(cands) <= 20:
+            answers = [c['answer'] for c in cands]
+            for flag, kind in ((True, 'math500_peg_gen_correct'), (False, 'math500_peg_gen_incorrect')):
+                jobs.append((kind, item_id, 0, peg_generator_prompt(subject, prob, answers, flag), None, PEG_TOKEN))
+    # QuantumKatas: distinct code candidates -> PEG discriminator and the QK verifier prompt (v2).
+    qc = qk_candidates(samples_path)
+    (cdir/'qkatas_candidates.json').write_text(json.dumps(qc))
+    tasks = {t.task_id: t for t in _qk_tasks()}
+    for tid, cands in qc.items():
+        t = tasks[tid]
+        for i, c in enumerate(cands):
+            view = {'task_id': tid, 'prompt': t.prompt, 'entry_point': t.entry_point,
+                    'required_functions': list(t.required_functions), 'code': c['code']}
+            jobs.append(('qkatas_peg_disc', tid, i, peg_discriminator_prompt('quantum computing', t.prompt, c['code']),
+                         None, PEG_TOKEN))
+            jobs.append(('qkatas_judge_p', tid, i, qprompt.build_verifier_prompt(view, qprompt.PROMPT_VERSION_V2),
+                         qprompt.verifier_system(qprompt.PROMPT_VERSION_V2), JUDGE_JSON))
+    return jobs
+
+
 def parse(kind, text):
     try:
-        if kind == 'gpqa_letter':
+        if kind == 'gpqa_letter' or '_peg_' in kind:
             return {'letter': text.strip()[:1] or None}
         if kind.endswith('_yesno'):
             return {'token': text.strip()}
         value = json.loads(text)
         if kind == 'gpqa_option_probs':
             return {'probs': {l: value.get(l) for l in LETTERS}}
-        if kind == 'qkatas_samples':
+        if kind.startswith('qkatas_samples'):
             p = qprompt.parse_generator_response(text)
             return {'code': p.code, 'p_correct': p.p_correct, 'failure': p.failure}
         if kind.endswith('_judge_p'):
@@ -139,7 +292,7 @@ def run(out, jobs, *, project, limit_usd, allow_api=False, workers=8, kinds=None
     jobs = [j for j in jobs if kinds is None or j[0] in kinds]
     # Priority under a retirement deadline: short GPQA jobs first, then sample seeds in rounds
     # (all datasets get seed 0 before any gets seed 1), so a cut-off leaves balanced partial data.
-    rank = {'gpqa_option_probs': 0, 'gpqa_letter': 1}
+    rank = {'gpqa_option_probs': 0, 'gpqa_letter': 1, 'gpqa_peg_gen_correct': 1, 'gpqa_peg_gen_incorrect': 1, 'gpqa_peg_disc': 1}
     jobs.sort(key=lambda j: (rank.get(j[0], 2), j[2], j[0]))
     built = []
     for kind, item, s, text, system, cfg in jobs:
@@ -170,7 +323,7 @@ def run(out, jobs, *, project, limit_usd, allow_api=False, workers=8, kinds=None
             except (ProviderRejectedError, BudgetLimitError) as exc:
                 stop.set()
                 with lock:
-                    errors.append({'job': req.key, 'type': type(exc).__name__, 'http_status': getattr(exc, 'status', None)})
+                    errors.append({'job': req.key, 'type': type(exc).__name__, 'http_status': getattr(exc, 'status', None), 'message': str(exc)[:200]})
                 return
             else:
                 pr = (call.meta or {}).get('provider_response') or {}
@@ -185,7 +338,19 @@ def run(out, jobs, *, project, limit_usd, allow_api=False, workers=8, kinds=None
     return {'jobs': len(built), 'collected': sum(b[5] in have for b in built), 'errors': errors[:3], 'budget': cache.summary()}
 
 
+def _long_read_timeout():
+    """This CLI only: 900 s read timeout instead of the runners' 300 s. Long MATH samples with logprobs
+    exceeded 300 s while the endpoint was congested (2026-10-21) and were recorded as uncertain."""
+    import requests as _requests
+    original = _requests.Session.post
+    def post(session, *args, **kwargs):
+        kwargs['timeout'] = 900
+        return original(session, *args, **kwargs)
+    _requests.Session.post = post
+
+
 def main():
+    _long_read_timeout()
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument('--out', type=Path, default=Path('results/qwen_raw_20261021'))
     p.add_argument('--project', default='llm-applications-490420')
@@ -194,8 +359,12 @@ def main():
     p.add_argument('--kinds', nargs='*')
     p.add_argument('--allow-api', action='store_true')
     p.add_argument('--workers', type=int, default=8)
+    p.add_argument('--stage', type=int, default=1)
+    p.add_argument('--samples', default='results/qwen_raw_20261021/samples/collected.jsonl,'
+                                       'results/qwen_raw_20261021/samples_nolp/collected.jsonl')
+    p.add_argument('--interpreter', default='tmp/math_grader_venv_20261020/bin/python')
     a = p.parse_args()
-    jobs = stage1(a.project, a.n)
+    jobs = stage1(a.project, a.n) if a.stage == 1 else stage2(a.samples, a.out/'candidates', a.interpreter)
     print(json.dumps(run(a.out, jobs, project=a.project, limit_usd=a.limit_usd, allow_api=a.allow_api,
                          workers=a.workers, kinds=a.kinds), indent=2, default=str))
 
