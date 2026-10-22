@@ -36,6 +36,25 @@ from vgx.quantum_katas.run_pilot import AbandonedRequests, Run
 from vgx.quantum_katas.runners import JsonModeVertexRunner
 
 MODEL = 'qwen/qwen3-235b-a22b-instruct-2507-maas'
+# Other generators (2026-10-22, owner: "start working on the other model's response generation").
+# Settings follow each model's main experiments; token-only jobs get room for gpt-oss reasoning and
+# keep logprobs, so the answer token's distribution is read after the final-channel marker.
+PROFILES = {
+    'qwen3': {'model': MODEL, 'location': 'us-south1', 'effort': 'low', 'short_max': 1, 'json_max': 512,
+              'gpqa_max': 4096, 'math_max': 16384, 'qk_max': 8192,
+              'top_k': 20, 'price': {'input': 0.22, 'output': 0.88, 'cached_input': 0.22}},
+    'gptoss': {'model': 'openai/gpt-oss-120b-maas', 'location': 'us-central1', 'effort': 'medium', 'short_max': 4096,
+               'json_max': 8192, 'gpqa_max': 32768, 'math_max': 32768, 'qk_max': 32768,
+               'top_k': 5, 'price': {'input': 0.09, 'output': 0.36, 'cached_input': 0.09}},
+}
+P = PROFILES['qwen3']
+
+
+def configure(name):
+    global P, PEG_TOKEN, JUDGE_JSON
+    P = PROFILES[name]
+    PEG_TOKEN = dict(max_tokens=P['short_max'], temperature=0.0, json_mode=False, extra={'logprobs': True, 'top_logprobs': P['top_k']})
+    JUDGE_JSON = dict(max_tokens=P['json_max'], temperature=0.0, json_mode=True, extra={'logprobs': True, 'top_logprobs': 5})
 LETTERS = 'ABCD'
 GPQA_BUNDLE = 'results/gpqa_staged_generator_expansion_20261005/frozen_candidates.json'
 QK_RUN = 'results/quantum_katas_full_qwen3_20261019'
@@ -45,8 +64,8 @@ class RawRunner(JsonModeVertexRunner):
     """Qwen chat completions with optional JSON mode and extra body params (seed, logprobs)."""
 
     def __init__(self, project, *, max_tokens, temperature, json_mode, extra, attempt=1):
-        super().__init__(MODEL, 'us-south1', project, {'type': 'json_object'}, max_tokens=max_tokens,
-                         temperature=temperature, top_p=1.0)
+        super().__init__(P['model'], P['location'], project, {'type': 'json_object'}, max_tokens=max_tokens,
+                         temperature=temperature, top_p=1.0, reasoning_effort=P['effort'])
         self.json_mode, self.extra, self.attempt = json_mode, dict(extra), attempt
 
     @property
@@ -137,33 +156,36 @@ def stage1(project, n):
         jobs.append(('gpqa_option_probs', it['item_id'], 0, body +
                      'For each option, report your probability that it is the correct answer. The four probabilities '
                      'must sum to 1.\nReply with JSON only: {"A": 0.0, "B": 0.0, "C": 0.0, "D": 0.0}', GPQA_SYSTEM,
-                     dict(max_tokens=512, temperature=0.0, json_mode=True, extra={'logprobs': True, 'top_logprobs': 5})))
+                     dict(max_tokens=P['json_max'], temperature=0.0, json_mode=True, extra={'logprobs': True, 'top_logprobs': 5})))
         jobs.append(('gpqa_letter', it['item_id'], 0, body + 'Reply with the letter of the best answer only.', GPQA_SYSTEM,
-                     dict(max_tokens=1, temperature=0.0, json_mode=False, extra={'logprobs': True, 'top_logprobs': 5})))
+                     dict(max_tokens=P['short_max'], temperature=0.0, json_mode=False, extra={'logprobs': True, 'top_logprobs': 5})))
         gen = body + ('Choose the best answer. Report your probability that your selected answer is correct.\n'
                       'Reply with JSON only: {"answer": "A"|"B"|"C"|"D", "p_correct": 0.0}')
         for s in range(n):
+            # nolp variant for reasoning generators: logprobs would cover the whole reasoning trace.
+            jobs.append(('gpqa_samples_nolp', it['item_id'], s, gen, GPQA_SYSTEM,
+                         dict(max_tokens=P['gpqa_max'], temperature=0.7, json_mode=True, extra={'seed': s})))
             jobs.append(('gpqa_samples', it['item_id'], s, gen, GPQA_SYSTEM,
-                         dict(max_tokens=4096, temperature=0.7, json_mode=True,
+                         dict(max_tokens=P['gpqa_max'], temperature=0.7, json_mode=True,
                               extra={'seed': s, 'logprobs': True, 'top_logprobs': 5})))
     for it in _math_items():
         for s in range(n):
             # nolp: same sample without token logprobs. Long logprob replies stalled past 900 s on
             # 2026-10-21 (most recorded as uncertain), so completeness takes priority (owner).
             jobs.append(('math500_samples_nolp', it['item_id'], s, mprompt.build_generator_prompt(it['problem']),
-                         mprompt.GENERATOR_SYSTEM, dict(max_tokens=16384, temperature=0.7, json_mode=True,
+                         mprompt.GENERATOR_SYSTEM, dict(max_tokens=P['math_max'], temperature=0.7, json_mode=True,
                                                         extra={'seed': s})))
             jobs.append(('math500_samples', it['item_id'], s, mprompt.build_generator_prompt(it['problem']),
-                         mprompt.GENERATOR_SYSTEM, dict(max_tokens=16384, temperature=0.7, json_mode=True,
+                         mprompt.GENERATOR_SYSTEM, dict(max_tokens=P['math_max'], temperature=0.7, json_mode=True,
                                                         extra={'seed': s, 'logprobs': True})))
     for t in _qk_tasks():
         for s in range(n):
             jobs.append(('qkatas_samples_nolp', t.task_id, s, qprompt.build_generator_prompt(t, qprompt.PROMPT_VERSION_V2),
                          qprompt.generator_system(qprompt.PROMPT_VERSION_V2),
-                         dict(max_tokens=8192, temperature=0.7, json_mode=True, extra={'seed': s})))
+                         dict(max_tokens=P['qk_max'], temperature=0.7, json_mode=True, extra={'seed': s})))
             jobs.append(('qkatas_samples', t.task_id, s, qprompt.build_generator_prompt(t, qprompt.PROMPT_VERSION_V2),
                          qprompt.generator_system(qprompt.PROMPT_VERSION_V2),
-                         dict(max_tokens=8192, temperature=0.7, json_mode=True, extra={'seed': s, 'logprobs': True})))
+                         dict(max_tokens=P['qk_max'], temperature=0.7, json_mode=True, extra={'seed': s, 'logprobs': True})))
     return jobs
 
 
@@ -269,7 +291,7 @@ def stage2(samples_path, candidates_dir, interpreter):
     return jobs
 
 
-def retry_jobs(jobs, collected_paths):
+def retry_jobs(jobs, collected_paths, attempt=2):
     """Second attempt for every job whose only row is a service failure (same prompt and body)."""
     rows = []
     for path in collected_paths:
@@ -277,7 +299,7 @@ def retry_jobs(jobs, collected_paths):
             rows += [json.loads(l) for l in open(path)]
     ok = {(r['kind'], r['item_id'], r['sample']) for r in rows if r.get('status') == 'ok'}
     failed = {(r['kind'], r['item_id'], r['sample']) for r in rows if r.get('status') == 'service_failure'} - ok
-    return [(k, i, s, t, sy, dict(cfg, attempt=2)) for k, i, s, t, sy, cfg in jobs if (k, i, s) in failed]
+    return [(k, i, s, t, sy, dict(cfg, attempt=attempt)) for k, i, s, t, sy, cfg in jobs if (k, i, s) in failed]
 
 
 def parse(kind, text):
@@ -287,6 +309,10 @@ def parse(kind, text):
         if kind.endswith('_yesno'):
             return {'token': text.strip()}
         value = json.loads(text)
+        if isinstance(value, dict) and set(value) == {'final'} and isinstance(value['final'], str):
+            # gpt-oss sometimes wraps its JSON in {"final": "<json>"}; unwrap for raw-data parsing only
+            # (the main experiments' strict parser is unchanged; the response itself is stored as is).
+            value = dict(json.loads(value['final']), _unwrapped_final=True)
         if kind == 'gpqa_option_probs':
             return {'probs': {l: value.get(l) for l in LETTERS}}
         if kind.startswith('qkatas_samples'):
@@ -294,14 +320,14 @@ def parse(kind, text):
             return {'code': p.code, 'p_correct': p.p_correct, 'failure': p.failure}
         if kind.endswith('_judge_p'):
             return {'p_correct': value.get('p_correct')}
-        return {'answer': value.get('answer'), 'p_correct': value.get('p_correct')}
+        return {'answer': value.get('answer'), 'p_correct': value.get('p_correct'), **({'unwrapped_final': True} if value.get('_unwrapped_final') else {})}
     except Exception as exc:
         return {'parse_error': type(exc).__name__}
 
 
 def run(out, jobs, *, project, limit_usd, allow_api=False, workers=8, kinds=None):
     out = Path(out); out.mkdir(parents=True, exist_ok=True)
-    pricing = {'usd_per_million_tokens': {MODEL: {'input': 0.22, 'output': 0.88, 'cached_input': 0.22}}}
+    pricing = {'usd_per_million_tokens': {P['model']: P['price']}}
     cache = BudgetedRequestCache(out/'cache', project=project, pricing=pricing, limit_usd=limit_usd)
     jobs = [j for j in jobs if kinds is None or j[0] in kinds]
     # Priority under a retirement deadline: short GPQA jobs first, then sample seeds in rounds
@@ -364,6 +390,8 @@ def _long_read_timeout():
 
 
 def main():
+    import sys
+    configure(sys.argv[sys.argv.index('--model')+1] if '--model' in sys.argv else 'qwen3')
     _long_read_timeout()
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument('--out', type=Path, default=Path('results/qwen_raw_20261021'))
@@ -374,6 +402,7 @@ def main():
     p.add_argument('--allow-api', action='store_true')
     p.add_argument('--workers', type=int, default=8)
     p.add_argument('--stage', type=int, default=1)
+    p.add_argument('--model', default='qwen3', choices=sorted(PROFILES))
     p.add_argument('--retry-from', help='comma-separated collected.jsonl files whose service failures to re-send once')
     p.add_argument('--samples', default='results/qwen_raw_20261021/samples/collected.jsonl,'
                                        'results/qwen_raw_20261021/samples_nolp/collected.jsonl')
