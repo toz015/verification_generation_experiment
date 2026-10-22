@@ -1,0 +1,83 @@
+注：2026-10-20 按 tony 的意见，删去与单个 verifier 的比较；最新版本见 reports/quantum_katas_full_20261019/results.html。
+
+QuantumKatas：提前停止、verifier 选择依据、实验设置与 loss 敏感性
+日期：2026-10-19
+性质：在主结果之后追加的二次分析（对应 GPQA 的 diamond_cost 与 verifier 选择报告）。
+      不做 prior 校准；与主分析使用同一批行、同一划分、同一拟合与 planner。
+代码：src/vgx/quantum_katas/crossfit_extended.py
+结果：reports/quantum_katas_full_20261019/crossfit_extended_analysis.json
+
+一、实验设置
+- 数据：Qiskit QuantumKatas commit 3790fb3e，350 题。28 道 pilot 题仅作开发，不参与拟合与评估。
+  其余 322 题按 kata 分组（tutorials/examples 按子目录），参考解 token Jaccard ≥ 0.8 的近似题合并，
+  35 组，种子 20261019 分 5 折（65/65/64/64/64），在生成前提交。
+- 标签：官方 evaluate_solution(code, test, entry_point, timeout=30) 的 passed，每个冻结候选只评一次，
+  在 macOS sandbox（禁网、禁读主目录和仓库）中执行。
+- Generator（每题一个候选，冻结后不修改）：
+    Qwen3-235B-A22B-Instruct-2507，Vertex us-south1，temperature 0，top_p 1，max_tokens 8192，JSON 模式。
+    Claude Sonnet 5.5，Vertex global，adaptive thinking，effort high，max_tokens 32768，结构化输出。
+  输出 {"code", "p_correct"}；p_correct 是"通过官方 checker 的概率"，原样作为先验 r。
+- Verifier（与 GPQA 相同的五个候选，transport 与设置照搬，提示词为 QuantumKatas 版）：
+    gemini-3.7-flash、gemini-3.5-flash-lite（reasoning low，4096，JSON 模式），
+    mistral-small-2503、mistral-medium-3（temperature 0，4096，JSON 模式），
+    claude-haiku-4-5（temperature 0，4096，结构化输出）。
+  只看到题面、执行约定和冻结代码，看不到 r、模型名、参考解、测试和其他 verifier 的结果。
+  322 题 × 5 个 verifier 全部收集，策略的查询成本是反事实估算，和收集费用分开报告。
+- 方法（与 GPQA Sonnet 研究相同）：先验 = raw r；每个 verifier 3 个等宽 bin + Laplace 1 拟合
+  P(bin | 通过/失败)；条件独立；精确嵌套 planner；奖励 1、错误 loss L、弃答 0，每美元 10 个效用单位；
+  接受阈值 L/(1+L)。三元组顺序在训练折上按平均 J0 从 60 个有序三元组中选。
+  每个留出折只用其余 4 折拟合，汇总 322 题样本外决策。主损失 L=19（阈值 0.95），敏感性 L=99。
+
+二、提前停止：自适应 vs 每题固定问 3 个 / 5 个（L=19）
+                         接受  错  错误率  每题调用  每题实测费用  平均效用
+  Qwen   仅先验           251   81   32%     0        0           −4.25
+         自适应三元组     192   31   16%     1.50     $0.0022     −1.35
+         固定三元组       191   30   16%     2.89     $0.0039     −1.31
+         固定五个         191   31   16%     4.81     $0.0048     −1.38
+  Sonnet 仅先验            35    1    3%     0        0           +0.047
+         自适应三元组      78    2    3%     0.83     $0.0005     +0.111
+         固定三元组        78    2    3%     3.00     $0.0028     +0.090
+         固定五个          95    2    2%     5.00     $0.0039     +0.132
+  - Qwen：自适应三元组比固定三元组少 48% 的调用（448 次），效用差 −0.04（−0.16, +0.02），
+    在问过 verifier 的 288 题里有 235 题不到第三个就停下。
+  - Sonnet：自适应三元组比固定三元组少 72% 的调用（700 次），接受数相同（78），
+    效用 +0.02（+0.019, +0.022）；固定五个多接受 17 题，效用比自适应高 0.02（−0.049, +0.004，跨 0）。
+  - L=99：Qwen 自适应与固定三元组接受相同（171），自适应调用少 37%；Sonnet 任何策略都不接受。
+
+三、为什么是这几个 verifier
+  先验信息（全部有效候选，描述性）：
+                   Qwen AUROC  失败/通过平均分   Sonnet AUROC  失败/通过平均分   每次约
+  gemini_flash     0.94        0.20 / 0.93       0.78          0.78 / 0.95       $0.002
+  claude_haiku     0.85        0.45 / 0.84       0.67          0.67 / 0.74       $0.001–0.002
+  mistral_small    0.73        0.20 / 0.61       0.58          0.39 / 0.48       <$0.001
+  mistral_medium   0.78        0.81 / 0.95       0.61          0.88 / 0.92       ~$0.001
+  gemini_lite      0.71        0.47 / 0.85       0.50          0.68 / 0.69       <$0.001
+  - 训练折上 Qwen 的 gemini_flash 似然比为低/中/高 bin 0.07 / 0.81 / 4.76，信息量最大；
+  - 选定三元组（5 折 × 2 个 loss）：Qwen 每折都选 flash 和 haiku，第三个多为 mistral_small；
+    Sonnet 每折都选 flash，其余随折变化。三元组的选择综合了似然比和成本，不只按单个 AUROC 排名。
+  - 依赖：同类内 Spearman 相关 0.1–0.7（例如 Qwen 通过样本 flash–haiku 0.72），
+    条件独立是假设，多个 verifier 叠加后的后验可能偏乐观。
+  - Sonnet 的候选 89% 通过，verifier 打分大多接近上限，区分度明显低于 Qwen 的候选。
+
+四、loss（penalty）敏感性：两个 generator 用同一组 L，不针对某个模型调参
+  接受阈值 = L/(1+L)：L=4→0.80，9→0.90，19→0.95，49→0.98，99→0.99。（接受数, 错, 效用）
+                   L=4              L=9              L=19            L=49            L=99
+  Qwen 先验        273,100,−0.71    264,92,−2.04     251,81,−4.25    214,60,−8.65    74,4,−1.01
+  Qwen 三元组      218,49,−0.10     207,42,−0.68     192,31,−1.35    177,20,−2.58    171,19,−5.39
+  Sonnet 先验      214,9,+0.53      115,2,+0.30      35,1,+0.05      0,0,0           0,0,0
+  Sonnet 三元组    203,8,+0.49      139,4,+0.30      78,2,+0.11      4,0,+0.01       0,0,0
+  - Sonnet 的 r 只有 11% ≥ 0.95、0% ≥ 0.99，而实际通过率 89%：它系统性地不够自信，
+    所以高阈值下几乎什么都不接受；在 L=9（阈值 0.90）时 verifier 把接受数从 115 提到 139–142。
+  - Qwen 的 r 81% ≥ 0.95、通过率 57%：系统性过度自信；verifier 在每个 L 下都大幅减少错误接受，
+    但 L ≥ 9 时效用仍为负。
+
+五、结论
+1. 提前停止有效：两个 generator 上，自适应策略都只用固定三元组 28%–52% 的调用，达到相同或几乎相同的
+   接受数和效用。
+2. verifier 选择有依据：gemini_flash 在两个数据上都最有信息、成本低，每折都被选中；
+   其余 verifier 对 Sonnet 的候选区分度弱。
+3. 对 loss 的处理：L 代表错误答案的代价，应由应用场景决定，不宜按某个 generator 的自信程度调整。
+   建议主结果保持 L=19/99（与 GPQA 一致），把同一组 L 的扫描作为敏感性分析（风险—覆盖曲线）报告，
+   并注明是在看到主结果之后加入的。
+4. 局限：raw r 作先验，不校准；条件独立是假设；bootstrap 区间只反映留出样本的抽样不确定性，
+   不包含拟合与顺序选择的不确定性；费用为 usage 估算，不是账单。

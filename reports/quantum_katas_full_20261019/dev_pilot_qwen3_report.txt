@@ -1,0 +1,26 @@
+QuantumKatas 官方 checker pilot 报告（pilot，plan e34db1f41f58）
+
+计划 28 题；已生成 28；可提取代码 25；置信度有效 25；截断 3。
+格式失败：{'truncated_output': 3}；有代码但 r 无效：无
+官方返回 25：通过 16，失败 9；未解决 无；未评分 0。
+错误类型：{'none': 16, 'CircuitError': 4, 'TypeError': 1, 'AssertionError': 3, 'AttributeError': 1}
+端到端通过比例 16/28；有官方返回的通过比例 {'passed': 16, 'n': 25, 'rate': 0.64}
+样本数：有代码 25，有 r 25，有标签 25，有标签且有 r 25。
+
+预测指标（各自有效 n）：
+  generator_r: n=25 brier=0.33917200000000003 log_loss=1.3023041729975326 auroc=0.7152777777777778
+  gemini_flash: n=25 brier=0.032076 log_loss=0.10014672139879527 auroc=0.9930555555555556
+  gemini_lite: n=25 brier=0.2285 log_loss=5.978917236920665 auroc=0.78125
+  mistral_small: n=25 brier=0.3961 log_loss=13.095544511024334 auroc=0.6458333333333334
+  mistral_medium: n=25 brier=0.328112 log_loss=1.1460811493808318 auroc=0.6805555555555556
+  claude_haiku: n=2 brier=0.0025000000000000044 log_loss=0.05129329438755058 auroc=N/A (one label class)
+
+调用：成功执行 153，估算费用 $0.2347（https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)；非账单），已确认账单：未知。
+顺序执行（synthetic_engineering_dry_run）：动作 {'assert': 23, 'abstain': 5}；逻辑查询 13；新增实际调用 0；replay 一致 {'agree': 28, 'n': 28}
+
+说明：
+  - Development pilot: 28 fixed tasks, one generation each; not a representative performance sample.
+  - Raw generator r is reported as-is; no prior or verifier likelihood is fitted or deployed here.
+  - No 95%/99% acceptance guarantee or advantage over published full-benchmark results is claimed.
+  - Same official checker is necessary but not sufficient for cross-paper comparability (task subset and added confidence output differ).
+  - Logical sequential queries over collected signals are not saved API spend.

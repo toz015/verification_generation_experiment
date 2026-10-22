@@ -1,0 +1,104 @@
+Offline probability-only three-verifier experiment: reviewer entry point
+
+Branch: codex/gpqa-pilot
+Analysis ID: 8219549684e380b6c1a8238c6c90caa77c92c47eae180a5753f1d5251fcb311f
+
+Scope
+-----
+Five probability-format verifiers, all 10 triples and all 6 fixed orders per
+triple, on frozen Gemini and Qwen development candidates. Each run uses three
+folds; five split seeds and two overlapping cohorts (249 and 199 questions)
+are included. R=1, L=19/99, utility cost=10*estimated USD. Raw generator
+confidence is unchanged. There is no new API collection, Diamond scoring,
+confidence calibration, generator feedback call, or reward training.
+
+Read SUMMARY_ZH.txt first, then all_policy_results.csv and
+ten_combinations_six_orders.csv. The latter contains descriptive ranges, not
+validated winners. likelihood_and_cost.csv and training_order_rankings.csv
+show the inputs and training-only selection criterion.
+
+Portable evidence
+-----------------
+review_bundle.zip contains:
+
+* inputs/development_rows.json: frozen candidate answer letters, raw priors,
+  development correctness indicators, all five probability signals and priced
+  provider-usage estimates. No question text or answer-option text.
+* source_fits/: all 20 original training/held-out fit files, byte-for-byte.
+* experiment/protocol.json: model/pricing metadata, full configuration,
+  implementation hashes, original cache/source hashes and runtime versions.
+* experiment/report.json, status.json, and each run's results.json: original
+  summaries, full fixed-order rankings, fold membership and sealed selections.
+* experiment/.../planner_*.json: all 120 sealed selected planner artifacts.
+* experiment/.../decisions_*.packed.json: ALL per-item decisions for all 101
+  policies in each run/loss, including aliases and baselines. Repeated trace,
+  observation and feedback objects are pooled by reference to keep Git small.
+  This is lossless, and the unpacked JSON digest is recorded in each file.
+* manifest.json: hashes of all members, original result-file hashes, and
+  logical hashes of the unpooled decision files.
+
+The bundle intentionally excludes raw GPQA text, evaluation answer keys, raw
+provider replies and credentials. Verifying signal parsing against provider
+text or independently reconciling original token records requires the local
+request caches. The portable rows contain derived signals and costs, not an
+independent attestation of provider usage. Costs are estimates, not bills.
+
+Offline commands from repository root
+-------------------------------------
+Use the repository's CPU Python environment; no GPU or API login is needed.
+See experiment/protocol.json inside the ZIP for the original runtime versions.
+
+Verify archive membership/hashes and every decision pooling round trip:
+
+PYTHONPATH=src .venv/bin/python -m vgx.gpqa.probability_triples_review verify \
+  --bundle reports/gpqa_probability_triples_20261011/review_bundle.zip
+
+Recompute one entire run from the portable inputs, including likelihood refits,
+all 60 orders, all baselines, both losses and bootstrap summaries:
+
+PYTHONPATH=src .venv/bin/python -m vgx.gpqa.probability_triples_review replay \
+  --bundle reports/gpqa_probability_triples_20261011/review_bundle.zip \
+  --run qwen/all_calibration/seed_20261005 \
+  --output /tmp/gpqa_triples_qwen_review
+
+The output directory must be empty. The command compares all resulting
+summaries, selections and unpacked per-item decisions against the frozen run.
+Repeat with gemini, remaining_calibration, and seeds 20261005 through 20261009
+to reproduce all 20 runs. It spends no API budget. Numeric/software version
+differences may affect exact comparisons; investigate rather than overwrite
+the frozen evidence.
+
+Review priorities
+-----------------
+1. Confirm no held-out outcomes, held-out costs or future verifier scores
+   enter likelihood fitting, sequence ranking or sequential decisions.
+2. Check A/J/Q recurrence, Bayes updates, fixed-order query prefixes, ties,
+   failure-to-abstain behavior and charging for returned malformed signals.
+3. Confirm training likelihoods, smoothing/binning, expected token costs and
+   the explicit USD-to-utility conversion are used consistently.
+4. Distinguish exhaustive fixed-order results from the strategy selected on
+   training J0; do not choose the best observed held-out cell as a winner.
+5. Recompute releases/errors/coverage, both cost definitions, paired utility
+   differences and query counts. Equal totals can hide different decisions.
+6. Assess the conditional-independence model, raw-prior overconfidence and
+   omission of format-failure probability from the planner's value tables.
+7. Treat fixed-out-of-fold bootstrap intervals as descriptive. The 199 cohort
+   is contained in the 249 cohort; split seeds do not add independent questions.
+8. Do not claim a 5% statistical guarantee, an independent final test, actual
+   generator private-belief feedback, or incentive compatibility from this run.
+
+Primary findings to cross-check
+------------------------------
+Qwen: raw 154 releases/38 wrong; Flash 158/20; selected triple 158/20.
+Flash uses 207 queries; selected triple uses 413. Against Flash the triple
+adds 7 correct + 2 wrong releases and removes 7 correct + 2 wrong releases.
+Gemini: raw 190/19; Flash 187/17; selected triple 179/16.
+The triple has 7 fewer correct and 1 fewer wrong release than Flash, net.
+Gemini retains two invalid candidates as abstentions; denominators remain 249.
+Across splits, three-verifier incremental utility is not consistently positive.
+Primary mean utilities remain negative, so retain the abstain-all baseline.
+
+Existing audit.json records independent saved-metric/accounting/seal checks.
+The original analysis checked 300 likelihood/cost refits and 579,800 lazy
+execution/replay agreements. These counts are software checks, not sample sizes.
+No new statistical tests or API experiments are needed to review these files.

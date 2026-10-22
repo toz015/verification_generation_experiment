@@ -1,0 +1,194 @@
+QuantumKatas：28 题开发 pilot、验收器诊断与接入建议
+日期：2026-10-18
+
+结论
+可以继续作为生成—验证实验的候选数据集，但目前不能把原测试通过
+直接当作可靠的语义正确标签。28 题参考解运行稳定；已实际复现三处
+测试覆盖缺口，以及同一错误候选被随机判成通过/失败的问题。
+建议先完成验收器修订，再启动付费模型生成与验证的开发 pilot。
+
+1. 本轮实际完成的工作
+
+固定上游版本：3790fb3e9892537b550c884ad54b65c73c13f1ad。
+https://github.com/qiskit-community/Qiskit-QuantumKatas/tree/3790fb3e9892537b550c884ad54b65c73c13f1ad
+从完整 350 题中，在运行前固定 28 个 task_id，全部标为 development。
+覆盖 26 个顶层目录，包括经典辅助题 TruthTables/5。
+规则：每目录按参考解非空非注释行数排序取中位题；GHZGame 和
+MagicSquareGame 改选量子协议题，再加 CHSH/BB84 两道随机阈值题。
+这是一组接口、题型和验收行为的覆盖样本，不是无偏性能样本；没有
+按运行结果替换失败题，也没有把重复运行计为新的独立题目。
+
+环境：macOS arm64，Python 3.12.13；Qiskit 2.3.0、Aer 0.17.2、
+NumPy 2.4.1、SciPy 1.17.0。依赖来自该版本 uv.lock 的 Python 3.12
+解析结果。完整依赖另存固定 requirements 和执行 manifest。
+使用独立 venv：主项目为了 vLLM/Numba 将 NumPy 限制为 <2.3，
+不应把本轮量子运行环境直接混入现有实验环境。
+
+每次检查新建 Python 进程、临时工作目录和最小环境变量，30 秒超时，
+最多并发 2 个任务，每进程限制 BLAS/OMP 线程。运行上游原样
+_run_test_worker，保留原 exec namespace 和 test_{entry_point} 调用语义；
+父进程用 subprocess 管理超时，代替上游 multiprocessing.Queue。
+28 题均有预期名字的 test 函数，没有触发其回退分派逻辑。
+没有修改参考解、原测试或添加随机种子。本机运行代码仅限审阅后的
+参考解及我们构造的诊断程序；这个 subprocess 包装不是恶意代码沙箱。
+
+2. 执行结果
+
+原始测试共 221 次检查：
+  190 次参考解：190/190 通过；28/28 题全部观察到通过。
+  28 次空实现控制：28/28 被拒绝。
+  3 次针对性错误实现：3/3 被错误接受，详见下文。
+其中每题参考解运行 5 次，CHSHGame/2.4、KeyDistribution_BB84/1.2
+分别运行到 30 次。有限次通过不证明不存在罕见随机失败。
+
+参考解每次独立进程的墙钟耗时：中位数 0.229 秒，最大 4.953 秒。
+最大值来自首个 BasicGates 检查，其他运行大多在亚秒级。
+221 次原始检查整体耗时 30.764 秒（2 个进程并发）。
+耗时包含进程启动、导入和测试，不能等同纯模拟时间，也不是云端成本。
+后续另做 34 次诊断、5 个包装器控制，不混入上述参考通过率。
+包装器的成功、断言失败、语法错误、缺失入口、超时分类均符合预期。
+
+完整题单与参考运行通过次数；括号为中位墙钟秒数：
+  BasicGates/2.5                            5/5   (0.247)
+  BoundedKnapsack/1.4                       5/5   (0.240)
+  CHSHGame/2.2                              5/5   (0.236)
+  CHSHGame/2.4                             30/30  (0.359)
+  DeutschJozsa/1.6                          5/5   (0.226)
+  DistinguishUnitaries/1.2                   5/5   (0.236)
+  GHZGame/2.2                               5/5   (0.242)
+  GraphColoring/5                           5/5   (0.196)
+  GroversAlgorithm/1.3                      5/5   (0.203)
+  JointMeasurements/11                     5/5   (0.221)
+  KeyDistribution_BB84/1.2                 30/30  (0.230)
+  KeyDistribution_BB84/2.2                  5/5   (0.227)
+  MagicSquareGame/2.6                       5/5   (0.289)
+  MarkingOracles/11                         5/5   (0.196)
+  Measurements/1.13                        5/5   (0.219)
+  PhaseEstimation/2                        5/5   (0.201)
+  QEC_BitFlipCode/6                         5/5   (0.203)
+  QFT/1.3                                  5/5   (0.228)
+  RippleCarryAdder/3.3                      5/5   (0.207)
+  SimonsAlgorithm/1.3                       5/5   (0.231)
+  SolveSATWithGrover/3.1                    5/5   (0.235)
+  SuperdenseCoding/3                       5/5   (0.232)
+  Superposition/1.5                        5/5   (0.200)
+  Teleportation/1.4                        5/5   (0.202)
+  TruthTables/5                            5/5   (0.054)
+  UnitaryPatterns/11                       5/5   (0.202)
+  examples/BasicQuantumTeleportation      5/5   (0.204)
+  tutorials/SingleQubitGates/4             5/5   (0.226)
+
+3. 已证实的验收问题及处理建议
+
+SolveSATWithGrover/3.1：只写 return True 就能通过原测试。
+题目要求实现 Grover 算法的端到端测试，验收却只是重复调用并检查
+返回 bool/True，无法确认做了任何量子运算。建议从主实验排除这道
+自报成功题，或重新定义输出为可独立验证的电路/执行结果。
+
+PhaseEstimation/2：每个 qubit 只加 H 门也能通过原测试。
+原测试只检查一、二 qubit 全零输入，无法区分 QFT 与 H 的张量积。
+已另写诊断扩展，检查 n=1..4 的完整酉矩阵：参考解通过，H-only
+错误实现失败。扩展明确采用 qubits[0] 为逻辑最高位的约定，以匹配
+上游参考解；它与 Qiskit QFTGate 的默认寄存器顺序不能直接混用。
+正式接入前应将位序写进公开题意，并冻结全局相位等价和容差规则。
+当前扩展用于诊断，尚未覆盖所有嵌入寄存器或正式替换上游测试。
+
+QEC_BitFlipCode/6：忽略 data/ancillas，硬编码 CNOT(0,2)、CNOT(0,1)
+也能通过原测试，因为原测试只使用同一种 qubit 布局。
+已另写诊断扩展，覆盖 3 个 qubit 的所有布局以及 |0>、|1>、|+>
+和带复相位的叠加态：参考解通过，硬编码错误实现失败。
+建议将该扩展纳入版本化的验收器，而不是静默修改上游结果。
+
+CHSHGame/2.4：原测试对同一错误候选会给不同标签。
+把参考解测量旋转统一加 0.15 弧度，其余代码不变；在运行前固定
+这个候选和 30 次重复计划。原测试结果为 22 次通过、8 次失败，
+失败均为 AssertionError，不是超时或环境错误。
+这不否定参考解的 30/30，而是说明“参考解稳定”不能推出“标签稳定”。
+若目标是固定程序语义正确性，建议用状态/测量概率的确定性检查；
+若保留抽样验收，必须冻结 seed bank、shots、阈值与聚合规则，并
+明确预测的是该有限验收事件。只固定一个 seed 不会自动修复覆盖不足。
+正式规则确定前，该题只保留作开发诊断，不进入最终标签集。
+
+其余 24 题目前可作为下一轮开发候选，不应称为全部审计合格：
+本轮只验证参考执行、空实现拒绝和有限静态覆盖，没有对每题做完整
+语义审计或系统 mutation testing。BB84 的原测试还包含精确状态向量
+检查；不能因为它含 shots 就推断它与 CHSH 有同样的标签漂移。
+
+4. 接入现有框架的具体方式（设计建议，尚未实现生产接入）
+
+现有 vgx.common.llm.Request、RequestCache/BudgetedRequestCache、
+Vertex transport、调用身份与预算日志可以复用。
+vgx.gpqa.score 的二元预测指标、VerifierLikelihood 及
+vgx.gpqa.planner.NestedPlanner 的数值核心可以复用。
+vgx.gpqa.artifacts.FrozenCandidate 强制 A/B/C/D 和四个选项，
+vgx.gpqa.sequential 的加载/有效性检查、VerifierSpec 的提示词约束
+也与 GPQA 绑定，不能直接把代码放进 answer 字段来复用。
+
+建议增加独立 vgx.quantum_katas adapter，并保留现有 GPQA 行为：
+  (a) PublicTask：task_id、revision、prompt、entry_point、group_id、
+      partition、公开执行约定；oracle/reference 另存评估端。
+  (b) Generator：返回一个严格 JSON，包含完整 Python 模块 code 和
+      p_correct；一次生成后冻结代码、原始置信度、原响应及其哈希。
+      不能沿用抓取最短 {...} 的解析方式，因为代码本身含括号/字典；
+      应解析完整 JSON 并拒绝非有限概率、布尔概率和含糊的多份结果。
+  (c) FrozenCodeCandidate：以 task_id + generation_id 区分独立生成；
+      保存 code_sha256、prompt/response hash、model identity 和 r。
+      entry_point 在不同题之间有重名，不可充当全局键。
+  (d) Verifier：只接收公开题意、执行约定及同一份冻结代码，输出
+      p_correct；不提供 generator 的 r、模型名、参考解、隐藏测试、
+      标签或其他 verifier 的结果。候选不能随验证反馈被修订。
+  (e) Oracle：在独立无凭据、禁网、有内存/进程/时间限额的隔离执行
+      环境中运行候选，保存 oracle_version、test_hash、环境镜像 hash、
+      seed bank、结果和错误分类。当前参考审计脚本不执行模型代码。
+  (f) Calibration：按题目/近似题族分组，重新拟合 raw r -> prior 及
+      verifier likelihood；不能沿用 GPQA 拟合出的参数。
+  (g) Sequential：保留 accept/abstain/query 的方法；为代码候选增加
+      执行适配，只有策略决定 query 后才获取该层 verifier 信号。
+
+标签定义应先固定为“通过指定版本的验收协议”，并说明它是语义正确
+的操作性近似。验收器缺口未修复时，不应把该标签直接称为数学真值。
+基础设施故障（依赖/进程故障）与候选失败（语法/断言/已定义的时间
+限制）需分别记录；前者不应静默变成 y=0。
+
+本轮 28 题及其同义/近似变体应留在开发侧。后续完整数据集需按原题
+和模板族去重分组切分；一道题的多个候选保持同一 partition。
+重复生成增加候选数量，不会增加独立题目数量；不能用这 28 题证明
+最终校准水平或风险控制保证，也不能直接用人工错误变体替代自然
+模型输出的正负例比例。
+
+5. 建议的下一步顺序
+
+先确定并冻结验收器 v2：排除 SAT 自报成功题；补强 QFT/QEC；
+处理 CHSH 的随机标签；继续补查其余题的常量输出、qubit 布局、
+输入规模、相干相位等常见漏洞。所有变更保留与上游 v1 的对应关系。
+然后增加代码候选 adapter，先用已知参考/错误程序做无 API 的端到端
+dry run，再对开发题生成真实候选并收集 verifier 概率。
+实际生成成功率、代码解析率、r 的分布、正负例比例、verifier 区分度
+和 API 成本目前尚未测量；本轮没有付费模型调用。
+
+成本评估必须包含“直接运行冻结 checker”的基线。本轮中位执行仅
+约 0.23 秒，LLM 验证不能仅凭相较于三个 LLM 全查更省，就声称整体
+成本最优。需要在相同任务、资源与标签目标下测量实际价格及延迟。
+
+6. 产物与复现
+
+configs/quantum_katas_pilot_20261018.json：运行前固定的 28 题清单和次数。
+configs/quantum_katas_pilot_requirements.txt：独立环境固定依赖。
+scripts/quantum_katas_pilot.py：只运行已审阅参考解/控制程序的审计脚本。
+scripts/quantum_katas_oracle_probes.py：独立的随机稳定性与覆盖诊断。
+reports/quantum_katas_pilot_20261018/：manifest、逐次日志、summary、
+  public/tasks.jsonl、private/tasks.jsonl、错误实现及 diagnostics。
+公开投影只含 task_id、partition、prompt、entry_point、revision；已核对
+没有混入 canonical_solution/test。此处 private 是实验边界，原资料
+公开可见，不能据此排除预训练污染或记忆效应。
+
+依赖安装使用单独 venv，不修改主环境。复现原始检查可在安装固定
+依赖后运行：
+  tmp/quantum_katas_pilot_20261018/venv/bin/python \
+    scripts/quantum_katas_pilot.py --output reports/quantum_katas_pilot_rerun
+需要 pinned source 的四个文件：dataset/qiskit_quantumkatas.jsonl、
+benchmark/evaluator.py、uv.lock、LICENSE；脚本校验其 SHA256。
+使用 --source 指定源码目录。输出目录必须不存在，以免覆盖或混合记录。
+诊断脚本目前针对本轮固定报告目录，重复诊断应另建目录并记录新计划。
+
+上游授权 CC-BY-NC-SA-4.0；完整 license 与来源说明随报告保存。

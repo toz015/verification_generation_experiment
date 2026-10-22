@@ -1,0 +1,46 @@
+{
+  "source_scoring_commit": "bb0c2ffd23dbbc8015a7a25aa5b743b519d415ce",
+  "plan_id": "e8674593b22690bd7e312356c057739422076b6a3ed5934d51d613bff0ce5f2c",
+  "signals_id": "e9c41742bbb31a47835507adb4938a18cb1a454fd61e4eef0fdb98b85901ac8a",
+  "outcomes_id": "3dc1759c9092962fdb444f3a1992dd3924b38d4613a0e9519a790e8fddd4d8e0",
+  "result_id": "4e033ed15a9687134d54c7a4b818f51dd65e5a48e1af9f1e49d333486c0e734b",
+  "protected_inputs_unchanged": true,
+  "preview_checks": [
+    {
+      "generator": "qwen",
+      "loss": 19,
+      "released": 122,
+      "calls": 342,
+      "matches_expected_and_published": true
+    },
+    {
+      "generator": "qwen",
+      "loss": 99,
+      "released": 78,
+      "calls": 302,
+      "matches_expected_and_published": true
+    },
+    {
+      "generator": "gemini",
+      "loss": 19,
+      "released": 147,
+      "calls": 213,
+      "matches_expected_and_published": true
+    },
+    {
+      "generator": "gemini",
+      "loss": 99,
+      "released": 56,
+      "calls": 131,
+      "matches_expected_and_published": true
+    }
+  ],
+  "files": {
+    "README.txt": "4a5d656fd32c9b5e6d984c16416e5f982d0142e526ba55ce116bf4e862b62e8b",
+    "result.json": "eb79329f0058dec577fbea0ea2e4c0a64cdbdf8bddc6ff39d2772f746b8a5cc0",
+    "sha256.txt": "72750196946d6b8ed29330d0831e43769cab531fa243ba7f541a974e53ea0df5",
+    "step2_stdout.txt": "bf509fc57255f67f5df4b75a2b4b125e94611765e3b1f1b5dcefc7ed6b66bd1b",
+    "step3_stdout.txt": "a6ed57131ca6faeac97be0b3d4437d21ac7530379d5442529bcc516dcbcd56cc",
+    "step4_stdout.txt": "9c69dd77965a3064cf3c6ed5e88da7e3d0b9e40fe683576a8aaf75b4af5d9f84"
+  }
+}

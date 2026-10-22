@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "kind": "math500_full_verification",
+  "status": "five verifiers on every frozen MATH-500 answer from Qwen3, gpt-oss and Sonnet 5.5; cap $10",
+  "generators": {
+    "qwen3": "results/math500_full_qwen3_20261021",
+    "gptoss": "results/math500_full_gptoss_20261021",
+    "sonnet55": "results/math500_full_sonnet55_20261021"
+  },
+  "verifiers": [
+    {
+      "id": "gemini_flash",
+      "provider": "vertex_openai",
+      "model": "google/gemini-3.7-flash",
+      "location": "global",
+      "project": "llm-applications-490420",
+      "generation": {
+        "max_tokens": 4096,
+        "reasoning_effort": "low",
+        "response_format": {
+          "type": "json_object"
+        }
+      }
+    },
+    {
+      "id": "gemini_lite",
+      "provider": "vertex_openai",
+      "model": "google/gemini-3.5-flash-lite",
+      "location": "global",
+      "project": "llm-applications-490420",
+      "generation": {
+        "max_tokens": 4096,
+        "reasoning_effort": "low",
+        "response_format": {
+          "type": "json_object"
+        }
+      }
+    },
+    {
+      "id": "mistral_small",
+      "provider": "vertex_partner",
+      "model": "mistralai/mistral-small-2503",
+      "location": "us-central1",
+      "project": "llm-applications-490420",
+      "generation": {
+        "max_tokens": 4096,
+        "temperature": 0.0,
+        "response_format": {
+          "type": "json_object"
+        }
+      }
+    },
+    {
+      "id": "mistral_medium",
+      "provider": "vertex_partner",
+      "model": "mistralai/mistral-medium-3",
+      "location": "us-central1",
+      "project": "llm-applications-490420",
+      "generation": {
+        "max_tokens": 4096,
+        "temperature": 0.0,
+        "response_format": {
+          "type": "json_object"
+        }
+      }
+    },
+    {
+      "id": "claude_haiku",
+      "provider": "vertex_anthropic",
+      "model": "anthropic/claude-haiku-4-5",
+      "location": "global",
+      "project": "llm-applications-490420",
+      "generation": {
+        "max_tokens": 4096,
+        "temperature": 0.0,
+        "output_config": {
+          "format": {
+            "type": "json_schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "p_correct": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "p_correct"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    }
+  ],
+  "budget": {
+    "project": "llm-applications-490420",
+    "limit_usd": 10.0,
+    "gemini_output_reserve": 131072,
+    "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)",
+    "pricing": {
+      "usd_per_million_tokens": {
+        "google/gemini-3.7-flash": {
+          "input": 0.75,
+          "output": 3.75,
+          "cached_input": 0.075
+        },
+        "google/gemini-3.5-flash-lite": {
+          "input": 0.3,
+          "output": 2.5,
+          "cached_input": 0.03
+        },
+        "mistralai/mistral-small-2503": {
+          "input": 0.1,
+          "output": 0.3
+        },
+        "mistralai/mistral-medium-3": {
+          "input": 0.4,
+          "output": 2.0
+        },
+        "anthropic/claude-haiku-4-5": {
+          "input": 1.0,
+          "output": 5.0,
+          "cached_input": 1.0
+        }
+      }
+    }
+  },
+  "paid_collection_authorized": true,
+  "notes": [
+    "Verifier settings identical to GPQA/QuantumKatas (JSON mode; Haiku structured output). Verifiers see problem + frozen final answer only."
+  ]
+}

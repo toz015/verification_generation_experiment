@@ -1,0 +1,172 @@
+{
+  "committed_estimate_and_reservations_usd": 14.08198693,
+  "confirmed_billing_usd": null,
+  "excluded_verified_zero_cost_mock_ledgers": [
+    {
+      "basis": "Pinned dry-run plan; all providers offline_mock; all106 ledger entries settled at zero cost and reserve.",
+      "estimated_usd": 0.0,
+      "mock_entries": 106,
+      "outstanding_reserved_usd": 0.0,
+      "path": "results/quantum_katas_official_dryrun_20261019/run/cache/budget.json",
+      "plan_path": "results/quantum_katas_official_dryrun_20261019/run/plan.json",
+      "plan_sha256": "cb105a1b5a5305a2ac4fcec5dd132fa52ed97195a8ed17a1b7dff2e916097cf5",
+      "project": "offline-mock",
+      "sha256": "6260c3d3e2cd1a393938e04e16b5cd101f654cf9f68ea0770cd28ec9e313daa2"
+    }
+  ],
+  "ledgers": [
+    {
+      "estimated_usd": 1.9604986,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_diamond_signals_20261012/cache/budget.json",
+      "sha256": "e2a367a8bb9e2fee867e2cb8133f616972b1447e4d0398aa58bd23504adf4559",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0,
+      "outstanding_reserved_usd": 0.0040326,
+      "path": "results/gpqa_generator_comparison_20261005/cache/budget.json",
+      "sha256": "7bb280dc468dffdb0976d9385d6cfe3183711eb19996f6c9789f611d029a495f",
+      "unsettled_states": {
+        "unpriced": 1
+      }
+    },
+    {
+      "estimated_usd": 0.11409813,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_generator_comparison_20261005_v2/cache/budget.json",
+      "sha256": "026cc4baacfcb861af3a25776a76ce64df98f261859bafb8f55e3aa2c2040d76",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0.07472277,
+      "outstanding_reserved_usd": 0.07201584,
+      "path": "results/gpqa_gptoss_continuation_20261017/cache/budget.json",
+      "sha256": "8ef8cb6d2ae40932eed4360ebf53e83fdc55ed69b7afffb458cdf74beb3cb6f8",
+      "unsettled_states": {
+        "unresolved": 6
+      }
+    },
+    {
+      "estimated_usd": 0.21054352,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_qwen_completion_20261005/cache/budget.json",
+      "sha256": "ad0d18de5c0f4b0fb79844935f9896af9274552da5efefce57adc2f2dd991ba9",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 1.0451689,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_qwen_verifier_completion_20261006/cache/budget.json",
+      "sha256": "9dd04531971627c743db7dc5a7913f8ebb6447e2f1e327c0b0badc4ab4c9c0a8",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0.09020504,
+      "outstanding_reserved_usd": 0.00408694,
+      "path": "results/gpqa_reasoning_comparison_20261005_v2/cache/budget.json",
+      "sha256": "03826d2be2d03357edf3c4891136f2bd741936ac69500101a2d96b4154a74afc",
+      "unsettled_states": {
+        "unpriced": 1
+      }
+    },
+    {
+      "estimated_usd": 0.10983417,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_reasoning_comparison_20261005_v3/cache/budget.json",
+      "sha256": "a837711ddbfd84b88fae184ccaf4816316e9518472dda7537a056c56005beb05",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0.08860824,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_replacement_generators_20261014/cache/budget.json",
+      "sha256": "191207fc0bb8131c973fb089300f31cbec02ac6924a022a3c8d71a9aff83860a",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0.1239745,
+      "outstanding_reserved_usd": 0.3283319,
+      "path": "results/gpqa_signal_study_20261005/cache/budget.json",
+      "sha256": "3ffd2dd3b272e05ff3504bad49dec85186875c47c0b3f7c68f87965fc256817c",
+      "unsettled_states": {
+        "unpriced": 1
+      }
+    },
+    {
+      "estimated_usd": 0.5440552,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_signal_study_20261005_v2/cache/budget.json",
+      "sha256": "a8ec181e1b0f945b52259677af4cac30f7d5723b487f33b49dd6c48bbbee0eae",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 2.6260761,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_signal_study_4096_20261005/cache/budget.json",
+      "sha256": "51662f3a590c3bf7366954111ac7a3049d4e0ccea58526659c5d3e432b13e35a",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 3.315822,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_sonnet55_20261015/cache/budget.json",
+      "sha256": "5d185b7a903b9212f261364d69ee295b8b53863c4438106d43633425708181c2",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_sonnet55_20261015/resume_after_enable_20261015/budget.json",
+      "sha256": "6400a78d4d98720ff2d67da915e5f009df1da580a54d6cb2cfdcb1ffec82801b",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0.22246335,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_sonnet55_verification_20261016/cache/budget.json",
+      "sha256": "1188d17c1e5cf5aa9f10269bde3ba2faac6d3a1d4e50c9dc60a2e482b73144f3",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0.82612284,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_staged_generator_expansion_20261005/cache/budget.json",
+      "sha256": "e07147dd18eac7266dfb24c6a075e38e075e0f63ff969fe756a6afb6e52ef4fa",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0.01424038,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_staged_qwen_pilot_20261005/cache/budget.json",
+      "sha256": "e6919c8c0d48853d8757f0f2450a2aa6845017bcc182c916254da459c9a6bf01",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 1.91270913,
+      "outstanding_reserved_usd": 0,
+      "path": "results/gpqa_vertex_20261004/cache/budget.json",
+      "sha256": "f13ad80c14babb794e4e151adac227077c93e531e6e92268cd2e66b631cecd97",
+      "unsettled_states": {}
+    },
+    {
+      "estimated_usd": 0.014410860000000001,
+      "outstanding_reserved_usd": 0.00433862,
+      "path": "results/quantum_katas_official_pilot_qwen3_20261019/cache/budget.json",
+      "sha256": "aadf49ed2eaeae866f223f189d0ddcb86cf596c1f36eec8f24fda11e11a923c5",
+      "unsettled_states": {
+        "reserved": 1
+      }
+    },
+    {
+      "estimated_usd": 0.0409433,
+      "outstanding_reserved_usd": 0.334684,
+      "path": "results/quantum_katas_official_pilot_sonnet55_20261019/cache/budget.json",
+      "sha256": "21c18b11c6e03add336fffb96423e7b24fb5b24c18ec1834e66fff8a87a00e80",
+      "unsettled_states": {
+        "reserved": 1
+      }
+    }
+  ],
+  "note": "All real project ledgers and historical unknown reserves retained; only the pinned zero-cost offline mock ledger is excluded."
+}

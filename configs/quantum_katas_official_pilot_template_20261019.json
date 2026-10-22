@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "kind": "quantum_katas_official_pilot",
+  "status": "template_unauthorized: fill every CHOOSE field after tony confirms; prepare rejects this file as-is",
+  "source": "tmp/quantum_four_dataset_review_20261018/Qiskit-QuantumKatas",
+  "pilot": "configs/quantum_katas_pilot_20261018.json",
+  "protocol": "configs/quantum_katas_official_protocol_20261018.json",
+  "requirements": "configs/quantum_katas_pilot_requirements.txt",
+  "generation_id": "g0",
+  "prompt_version": "qkatas_official_v1_json_or_single_fence",
+  "smoke_tasks": 3,
+  "models": {
+    "generator": {
+      "id": "generator",
+      "provider": "CHOOSE vertex_openai | vertex_anthropic",
+      "model": "CHOOSE (see configs/quantum_katas_vertex_pricing_20261019.json example_specs)",
+      "location": "CHOOSE (global unless the model requires a region)",
+      "project": "CHOOSE Vertex project ID",
+      "generation": {"max_tokens": 32768}
+    },
+    "verifiers": [
+      {"id": "verifier_1", "provider": "CHOOSE", "model": "CHOOSE", "location": "CHOOSE", "project": "CHOOSE",
+       "generation": {"max_tokens": 16384}},
+      {"id": "verifier_2", "provider": "CHOOSE", "model": "CHOOSE", "location": "CHOOSE", "project": "CHOOSE",
+       "generation": {"max_tokens": 16384}},
+      {"id": "verifier_3", "provider": "CHOOSE", "model": "CHOOSE", "location": "CHOOSE", "project": "CHOOSE",
+       "generation": {"max_tokens": 16384}}
+    ]
+  },
+  "budget": {
+    "project": "CHOOSE (must equal every model's project)",
+    "limit_usd": "CHOOSE positive number",
+    "gemini_output_reserve": 131072,
+    "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)",
+    "pricing": {"usd_per_million_tokens": {"CHOOSE model": {"input": 0.0, "output": 0.0, "cached_input": 0.0}}}
+  },
+  "paid_collection_authorized": false,
+  "checker": {
+    "interpreter": "tmp/quantum_katas_pilot_20261018/venv/bin/python",
+    "backend": "macos_sandbox",
+    "workers": 2,
+    "supervisor_timeout_s": 120,
+    "cpu_seconds": 120,
+    "model_code_execution_approved": false
+  }
+}

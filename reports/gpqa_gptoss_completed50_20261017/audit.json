@@ -1,0 +1,35 @@
+{
+  "all_received_gptoss_estimated_usd": 0.01704483,
+  "answer_keys_read": false,
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.01618524,
+    "limit_usd": 1.0,
+    "outstanding_reserved_usd": 0.02392047,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 45
+  },
+  "completion_id": "c086fae4ecb13656b34cb207fea20ee5655ce95b9597915206a1de7219a124e4",
+  "confidence_calibrated": false,
+  "evaluation_requests": 0,
+  "input_tokens": 15535,
+  "invalid": {
+    "invalid_final_json": 1
+  },
+  "minimum_seconds_after_previous_attempt": 30.713784063339233,
+  "new_estimated_usd": 0.0005487300000000007,
+  "new_provider_attempts": 2,
+  "new_rejections": {},
+  "new_responses": 2,
+  "old_unknown_reservations_preserved": true,
+  "original_48_responses_unchanged": true,
+  "output_tokens_including_reasoning": 43463,
+  "remaining_requests": 0,
+  "responses": 50,
+  "stage": "complete",
+  "target": 50,
+  "unknown_usage_reserved_usd": 0.02392047,
+  "valid": 49,
+  "verifier_requests": 0
+}

@@ -1,0 +1,2826 @@
+{
+  "config_sha256": "8b4b1b3e1c90e7e8ff21f94ada45ef4bac8d82a6d29a8408645f68d6954f0d7a",
+  "kind": "offline_summary_no_api",
+  "schema": 1,
+  "settings": {
+    "bootstrap_repeats": 10000,
+    "correct_reward": 1.0,
+    "cost_fit": "mean development provider-token cost for each verifier, including returned malformed replies",
+    "laplace": 1.0,
+    "likelihood_model": "conditional_independence",
+    "losses": [
+      19.0,
+      99.0
+    ],
+    "order_selection": "maximize mean development-prior exact J0 across all 60 ordered triples; lexicographic ties",
+    "prior": "raw_unmodified_p_correct",
+    "probability_bins": 3,
+    "utility_per_usd": 10.0
+  },
+  "studies": {
+    "gptoss": {
+      "curves": {
+        "calibrated": [
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 145,
+                "calls_per_task": 1.1377551020408163,
+                "coverage": 0.7397959183673469,
+                "error_rate": 0.11724137931034483,
+                "mean_utility": 0.5452239907011192,
+                "mean_utility_ci95": [
+                  0.45312910529131,
+                  0.6323889357718894
+                ],
+                "measured_usd_per_task": 0.0022978091836734693,
+                "wrong": 17
+              },
+              "fixed_five": {
+                "accepted": 139,
+                "calls_per_task": 5.0,
+                "coverage": 0.7091836734693877,
+                "error_rate": 0.1223021582733813,
+                "mean_utility": 0.47290776353686637,
+                "mean_utility_ci95": [
+                  0.3810710288429888,
+                  0.5597700084348237
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 17
+              },
+              "fixed_triple": {
+                "accepted": 142,
+                "calls_per_task": 3.0,
+                "coverage": 0.7244897959183674,
+                "error_rate": 0.11971830985915492,
+                "mean_utility": 0.4900620714697171,
+                "mean_utility_ci95": [
+                  0.39822533677583954,
+                  0.5767967653472681
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 17
+              },
+              "prior_only": {
+                "accepted": 139,
+                "calls_per_task": 0.0,
+                "coverage": 0.7091836734693877,
+                "error_rate": 0.19424460431654678,
+                "mean_utility": 0.4336734693877551,
+                "mean_utility_ci95": [
+                  0.33163265306122447,
+                  0.5357142857142857
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 27
+              }
+            },
+            "loss": 1.0,
+            "t": 0.5
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 136,
+                "calls_per_task": 1.3112244897959184,
+                "coverage": 0.6938775510204082,
+                "error_rate": 0.11764705882352941,
+                "mean_utility": 0.4647332875246873,
+                "mean_utility_ci95": [
+                  0.3575033063693219,
+                  0.5680220585140305
+                ],
+                "measured_usd_per_task": 0.002782369897959184,
+                "wrong": 16
+              },
+              "fixed_five": {
+                "accepted": 135,
+                "calls_per_task": 5.0,
+                "coverage": 0.6887755102040817,
+                "error_rate": 0.11851851851851852,
+                "mean_utility": 0.42188735537360106,
+                "mean_utility_ci95": [
+                  0.3147444982307439,
+                  0.5239281717001317
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 16
+              },
+              "fixed_triple": {
+                "accepted": 134,
+                "calls_per_task": 3.0,
+                "coverage": 0.6836734693877551,
+                "error_rate": 0.11940298507462686,
+                "mean_utility": 0.41863350004114563,
+                "mean_utility_ci95": [
+                  0.3114906428982884,
+                  0.5207380918778794
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 16
+              },
+              "prior_only": {
+                "accepted": 127,
+                "calls_per_task": 0.0,
+                "coverage": 0.6479591836734694,
+                "error_rate": 0.16535433070866143,
+                "mean_utility": 0.38010204081632654,
+                "mean_utility_ci95": [
+                  0.26785714285714285,
+                  0.4923469387755102
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 21
+              }
+            },
+            "loss": 1.5,
+            "t": 0.6
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 126,
+                "calls_per_task": 0.9693877551020408,
+                "coverage": 0.6428571428571429,
+                "error_rate": 0.07936507936507936,
+                "mean_utility": 0.45448976924237433,
+                "mean_utility_ci95": [
+                  0.3378810988601843,
+                  0.563933555011092
+                ],
+                "measured_usd_per_task": 0.001825571683673469,
+                "wrong": 10
+              },
+              "fixed_five": {
+                "accepted": 128,
+                "calls_per_task": 5.0,
+                "coverage": 0.6530612244897959,
+                "error_rate": 0.109375,
+                "mean_utility": 0.35215946421713845,
+                "mean_utility_ci95": [
+                  0.22290776353686634,
+                  0.47295028054366844
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 14
+              },
+              "fixed_triple": {
+                "accepted": 133,
+                "calls_per_task": 3.0,
+                "coverage": 0.6785714285714286,
+                "error_rate": 0.12030075187969924,
+                "mean_utility": 0.34550424834046534,
+                "mean_utility_ci95": [
+                  0.207749146299649,
+                  0.47135458847651984
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 16
+              },
+              "prior_only": {
+                "accepted": 127,
+                "calls_per_task": 0.0,
+                "coverage": 0.6479591836734694,
+                "error_rate": 0.16535433070866143,
+                "mean_utility": 0.29081632653061223,
+                "mean_utility_ci95": [
+                  0.14285714285714285,
+                  0.4319727891156462
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 21
+              }
+            },
+            "loss": 2.3333333333333335,
+            "t": 0.7000000000000001
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 116,
+                "calls_per_task": 0.9540816326530612,
+                "coverage": 0.5918367346938775,
+                "error_rate": 0.07758620689655173,
+                "mean_utility": 0.3447965961878703,
+                "mean_utility_ci95": [
+                  0.1918202468729427,
+                  0.4878087109825028
+                ],
+                "measured_usd_per_task": 0.0016183522959183673,
+                "wrong": 9
+              },
+              "fixed_five": {
+                "accepted": 118,
+                "calls_per_task": 5.0,
+                "coverage": 0.6020408163265306,
+                "error_rate": 0.0847457627118644,
+                "mean_utility": 0.28413225333278475,
+                "mean_utility_ci95": [
+                  0.1157649063940092,
+                  0.43209143700625413
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 10
+              },
+              "fixed_triple": {
+                "accepted": 114,
+                "calls_per_task": 3.0,
+                "coverage": 0.5816326530612245,
+                "error_rate": 0.07894736842105263,
+                "mean_utility": 0.2910824796329824,
+                "mean_utility_ci95": [
+                  0.1380212551431864,
+                  0.43393962249012524
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 9
+              },
+              "prior_only": {
+                "accepted": 75,
+                "calls_per_task": 0.0,
+                "coverage": 0.3826530612244898,
+                "error_rate": 0.04,
+                "mean_utility": 0.30612244897959184,
+                "mean_utility_ci95": [
+                  0.1989795918367347,
+                  0.4030612244897959
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 3
+              }
+            },
+            "loss": 4.0,
+            "t": 0.8
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 112,
+                "calls_per_task": 1.1275510204081634,
+                "coverage": 0.5714285714285714,
+                "error_rate": 0.08035714285714286,
+                "mean_utility": 0.24450111972309085,
+                "mean_utility_ci95": [
+                  0.04439985172493899,
+                  0.4291903123315606
+                ],
+                "measured_usd_per_task": 0.0019616135204081632,
+                "wrong": 9
+              },
+              "fixed_five": {
+                "accepted": 112,
+                "calls_per_task": 5.0,
+                "coverage": 0.5714285714285714,
+                "error_rate": 0.08035714285714286,
+                "mean_utility": 0.20249960027156022,
+                "mean_utility_ci95": [
+                  0.00352000843482544,
+                  0.3878737499314241
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 9
+              },
+              "fixed_triple": {
+                "accepted": 112,
+                "calls_per_task": 3.0,
+                "coverage": 0.5714285714285714,
+                "error_rate": 0.08035714285714286,
+                "mean_utility": 0.20434778575543128,
+                "mean_utility_ci95": [
+                  0.005368193918696546,
+                  0.3897219354152952
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 9
+              },
+              "prior_only": {
+                "accepted": 75,
+                "calls_per_task": 0.0,
+                "coverage": 0.3826530612244898,
+                "error_rate": 0.04,
+                "mean_utility": 0.28061224489795916,
+                "mean_utility_ci95": [
+                  0.14795918367346936,
+                  0.3945578231292517
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 3
+              }
+            },
+            "loss": 5.666666666666667,
+            "t": 0.85
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 102,
+                "calls_per_task": 1.2959183673469388,
+                "coverage": 0.5204081632653061,
+                "error_rate": 0.06862745098039216,
+                "mean_utility": 0.138198369147054,
+                "mean_utility_ci95": [
+                  -0.12590066409207334,
+                  0.37323478765198115
+                ],
+                "measured_usd_per_task": 0.0024150625,
+                "wrong": 7
+              },
+              "fixed_five": {
+                "accepted": 102,
+                "calls_per_task": 5.0,
+                "coverage": 0.5204081632653061,
+                "error_rate": 0.058823529411764705,
+                "mean_utility": 0.15147919210829486,
+                "mean_utility_ci95": [
+                  -0.09341876707537863,
+                  0.37086694721033575
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 6
+              },
+              "fixed_triple": {
+                "accepted": 102,
+                "calls_per_task": 3.0,
+                "coverage": 0.5204081632653061,
+                "error_rate": 0.06862745098039216,
+                "mean_utility": 0.10230696942890065,
+                "mean_utility_ci95": [
+                  -0.16299915302007892,
+                  0.33700084697992105
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 7
+              },
+              "prior_only": {
+                "accepted": 49,
+                "calls_per_task": 0.0,
+                "coverage": 0.25,
+                "error_rate": 0.0,
+                "mean_utility": 0.25,
+                "mean_utility_ci95": [
+                  0.19387755102040816,
+                  0.3112244897959184
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 9.0,
+            "t": 0.9
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 97,
+                "calls_per_task": 1.3877551020408163,
+                "coverage": 0.49489795918367346,
+                "error_rate": 0.030927835051546393,
+                "mean_utility": 0.23919531779748185,
+                "mean_utility_ci95": [
+                  -0.04795580633203386,
+                  0.4623921712758188
+                ],
+                "measured_usd_per_task": 0.0024583895408163267,
+                "wrong": 3
+              },
+              "fixed_five": {
+                "accepted": 92,
+                "calls_per_task": 5.0,
+                "coverage": 0.46938775510204084,
+                "error_rate": 0.03260869565217391,
+                "mean_utility": 0.17698939618992757,
+                "mean_utility_ci95": [
+                  -0.10872488952435819,
+                  0.40147919210829497
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 3
+              },
+              "fixed_triple": {
+                "accepted": 95,
+                "calls_per_task": 3.0,
+                "coverage": 0.4846938775510204,
+                "error_rate": 0.031578947368421054,
+                "mean_utility": 0.19414370412277823,
+                "mean_utility_ci95": [
+                  -0.09157058159150762,
+                  0.41863350004114563
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 3
+              },
+              "prior_only": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 14.0,
+            "t": 0.9333333333333333
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 91,
+                "calls_per_task": 1.5051020408163265,
+                "coverage": 0.4642857142857143,
+                "error_rate": 0.03296703296703297,
+                "mean_utility": 0.12908202163224164,
+                "mean_utility_ci95": [
+                  -0.2559391206000041,
+                  0.4256745618956756
+                ],
+                "measured_usd_per_task": 0.0028933742346938774,
+                "wrong": 3
+              },
+              "fixed_five": {
+                "accepted": 88,
+                "calls_per_task": 5.0,
+                "coverage": 0.4489795918367347,
+                "error_rate": 0.03409090909090909,
+                "mean_utility": 0.08005062067972357,
+                "mean_utility_ci95": [
+                  -0.30260244054476615,
+                  0.3759689880266623
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 3
+              },
+              "fixed_triple": {
+                "accepted": 91,
+                "calls_per_task": 3.0,
+                "coverage": 0.4642857142857143,
+                "error_rate": 0.03296703296703297,
+                "mean_utility": 0.09720492861257414,
+                "mean_utility_ci95": [
+                  -0.2854481326119158,
+                  0.393123295959513
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 3
+              },
+              "prior_only": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 19.0,
+            "t": 0.95
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 66,
+                "calls_per_task": 0.8673469387755102,
+                "coverage": 0.336734693877551,
+                "error_rate": 0.015151515151515152,
+                "mean_utility": 0.15034398418641648,
+                "mean_utility_ci95": [
+                  -0.22389858717186467,
+                  0.3654029096290734
+                ],
+                "measured_usd_per_task": 0.0015694920918367346,
+                "wrong": 1
+              },
+              "fixed_five": {
+                "accepted": 64,
+                "calls_per_task": 5.0,
+                "coverage": 0.32653061224489793,
+                "error_rate": 0.015625,
+                "mean_utility": 0.0936560628565943,
+                "mean_utility_ci95": [
+                  -0.28219427727946,
+                  0.30964245741441737
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 1
+              },
+              "fixed_triple": {
+                "accepted": 66,
+                "calls_per_task": 3.0,
+                "coverage": 0.336734693877551,
+                "error_rate": 0.015151515151515152,
+                "mean_utility": 0.10570832997311831,
+                "mean_utility_ci95": [
+                  -0.27014201016293604,
+                  0.3216947245309415
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 1
+              },
+              "prior_only": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 32.333333333333336,
+            "t": 0.97
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 46,
+                "calls_per_task": 0.7193877551020408,
+                "coverage": 0.23469387755102042,
+                "error_rate": 0.0,
+                "mean_utility": 0.21999988057521394,
+                "mean_utility_ci95": [
+                  0.16716941321387427,
+                  0.2773630777855497
+                ],
+                "measured_usd_per_task": 0.0012596607142857142,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 54,
+                "calls_per_task": 5.0,
+                "coverage": 0.2755102040816326,
+                "error_rate": 0.018518518518518517,
+                "mean_utility": -0.04239835891211316,
+                "mean_utility_ci95": [
+                  -0.5832146854427254,
+                  0.25862204925115206
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 1
+              },
+              "fixed_triple": {
+                "accepted": 46,
+                "calls_per_task": 3.0,
+                "coverage": 0.23469387755102042,
+                "error_rate": 0.0,
+                "mean_utility": 0.17373554085747203,
+                "mean_utility_ci95": [
+                  0.11761309187788019,
+                  0.23496003065339038
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 49.0,
+            "t": 0.98
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 28,
+                "calls_per_task": 5.0,
+                "coverage": 0.14285714285714285,
+                "error_rate": 0.0,
+                "mean_utility": 0.0800506206797235,
+                "mean_utility_ci95": [
+                  0.03413225333278473,
+                  0.13107102884298882
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 0,
+                "calls_per_task": 3.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": -0.06095833669354836,
+                "mean_utility_ci95": [
+                  -0.06095833669354836,
+                  -0.06095833669354836
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 99.0,
+            "t": 0.99
+          }
+        ],
+        "raw": [
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 147,
+                "calls_per_task": 1.4591836734693877,
+                "coverage": 0.75,
+                "error_rate": 0.11564625850340136,
+                "mean_utility": 0.5628797803756583,
+                "mean_utility_ci95": [
+                  0.4705484293398206,
+                  0.6507648143299456
+                ],
+                "measured_usd_per_task": 0.0015983061224489796,
+                "wrong": 17
+              },
+              "fixed_five": {
+                "accepted": 145,
+                "calls_per_task": 5.0,
+                "coverage": 0.7397959183673469,
+                "error_rate": 0.11724137931034483,
+                "mean_utility": 0.5035200084348256,
+                "mean_utility_ci95": [
+                  0.411683273740948,
+                  0.595356743128703
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 17
+              },
+              "fixed_triple": {
+                "accepted": 146,
+                "calls_per_task": 3.0,
+                "coverage": 0.7448979591836735,
+                "error_rate": 0.11643835616438356,
+                "mean_utility": 0.5354258879608295,
+                "mean_utility_ci95": [
+                  0.44358915326695186,
+                  0.6272626226547069
+                ],
+                "measured_usd_per_task": 0.003911307653061225,
+                "wrong": 17
+              },
+              "prior_only": {
+                "accepted": 180,
+                "calls_per_task": 0.0,
+                "coverage": 0.9183673469387755,
+                "error_rate": 0.2777777777777778,
+                "mean_utility": 0.40816326530612246,
+                "mean_utility_ci95": [
+                  0.2857142857142857,
+                  0.5306122448979592
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 50
+              }
+            },
+            "loss": 1.0,
+            "t": 0.5
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 147,
+                "calls_per_task": 1.7857142857142858,
+                "coverage": 0.75,
+                "error_rate": 0.11564625850340136,
+                "mean_utility": 0.5167285856649111,
+                "mean_utility_ci95": [
+                  0.4073212327662113,
+                  0.6201061273617511
+                ],
+                "measured_usd_per_task": 0.0018831227040816327,
+                "wrong": 17
+              },
+              "fixed_five": {
+                "accepted": 143,
+                "calls_per_task": 5.0,
+                "coverage": 0.7295918367346939,
+                "error_rate": 0.11888111888111888,
+                "mean_utility": 0.449948579863397,
+                "mean_utility_ci95": [
+                  0.3402547023123766,
+                  0.5545404165980907
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 17
+              },
+              "fixed_triple": {
+                "accepted": 145,
+                "calls_per_task": 3.0,
+                "coverage": 0.7397959183673469,
+                "error_rate": 0.11724137931034483,
+                "mean_utility": 0.4869565002057274,
+                "mean_utility_ci95": [
+                  0.377262622654707,
+                  0.5915483369404213
+                ],
+                "measured_usd_per_task": 0.003911307653061225,
+                "wrong": 17
+              },
+              "prior_only": {
+                "accepted": 176,
+                "calls_per_task": 0.0,
+                "coverage": 0.8979591836734694,
+                "error_rate": 0.26136363636363635,
+                "mean_utility": 0.3112244897959184,
+                "mean_utility_ci95": [
+                  0.16071428571428573,
+                  0.45663265306122447
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 46
+              }
+            },
+            "loss": 1.5,
+            "t": 0.6
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 146,
+                "calls_per_task": 1.1326530612244898,
+                "coverage": 0.7448979591836735,
+                "error_rate": 0.11643835616438356,
+                "mean_utility": 0.4346658111662004,
+                "mean_utility_ci95": [
+                  0.2952589328852761,
+                  0.5641270118580446
+                ],
+                "measured_usd_per_task": 0.0023015489795918365,
+                "wrong": 17
+              },
+              "fixed_five": {
+                "accepted": 140,
+                "calls_per_task": 5.0,
+                "coverage": 0.7142857142857143,
+                "error_rate": 0.12142857142857143,
+                "mean_utility": 0.3623635458497915,
+                "mean_utility_ci95": [
+                  0.22290776353686634,
+                  0.4916152465300636
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 17
+              },
+              "fixed_triple": {
+                "accepted": 143,
+                "calls_per_task": 3.0,
+                "coverage": 0.7295918367346939,
+                "error_rate": 0.11888111888111888,
+                "mean_utility": 0.37951785378264213,
+                "mean_utility_ci95": [
+                  0.24001955446291423,
+                  0.5088120714697165
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 17
+              },
+              "prior_only": {
+                "accepted": 139,
+                "calls_per_task": 0.0,
+                "coverage": 0.7091836734693877,
+                "error_rate": 0.19424460431654678,
+                "mean_utility": 0.25,
+                "mean_utility_ci95": [
+                  0.09013605442176865,
+                  0.40476190476190466
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 27
+              }
+            },
+            "loss": 2.3333333333333335,
+            "t": 0.7000000000000001
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 143,
+                "calls_per_task": 1.163265306122449,
+                "coverage": 0.7295918367346939,
+                "error_rate": 0.11888111888111888,
+                "mean_utility": 0.27429127448156676,
+                "mean_utility_ci95": [
+                  0.06940160827050072,
+                  0.45908618651636557
+                ],
+                "measured_usd_per_task": 0.002305627551020408,
+                "wrong": 17
+              },
+              "fixed_five": {
+                "accepted": 138,
+                "calls_per_task": 5.0,
+                "coverage": 0.7040816326530612,
+                "error_rate": 0.11594202898550725,
+                "mean_utility": 0.23311184516951944,
+                "mean_utility_ci95": [
+                  0.029030212516458157,
+                  0.411683273740948
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 16
+              },
+              "fixed_triple": {
+                "accepted": 140,
+                "calls_per_task": 3.0,
+                "coverage": 0.7142857142857143,
+                "error_rate": 0.12142857142857143,
+                "mean_utility": 0.21965390820441089,
+                "mean_utility_ci95": [
+                  0.015572275551349662,
+                  0.403327377592166
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 17
+              },
+              "prior_only": {
+                "accepted": 127,
+                "calls_per_task": 0.0,
+                "coverage": 0.6479591836734694,
+                "error_rate": 0.16535433070866143,
+                "mean_utility": 0.11224489795918367,
+                "mean_utility_ci95": [
+                  -0.10714285714285714,
+                  0.3163265306122449
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 21
+              }
+            },
+            "loss": 4.0,
+            "t": 0.8
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 133,
+                "calls_per_task": 1.3571428571428572,
+                "coverage": 0.6785714285714286,
+                "error_rate": 0.10526315789473684,
+                "mean_utility": 0.17705461633544545,
+                "mean_utility_ci95": [
+                  -0.07149105650433064,
+                  0.4050776259497749
+                ],
+                "measured_usd_per_task": 0.002690698469387755,
+                "wrong": 14
+              },
+              "fixed_five": {
+                "accepted": 131,
+                "calls_per_task": 5.0,
+                "coverage": 0.6683673469387755,
+                "error_rate": 0.10687022900763359,
+                "mean_utility": 0.1293703485708799,
+                "mean_utility_ci95": [
+                  -0.11892897115701129,
+                  0.35726150503346493
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 14
+              },
+              "fixed_triple": {
+                "accepted": 134,
+                "calls_per_task": 3.0,
+                "coverage": 0.6836734693877551,
+                "error_rate": 0.11194029850746269,
+                "mean_utility": 0.11251105106155374,
+                "mean_utility_ci95": [
+                  -0.1476930305710994,
+                  0.34554676534726747
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 15
+              },
+              "prior_only": {
+                "accepted": 127,
+                "calls_per_task": 0.0,
+                "coverage": 0.6479591836734694,
+                "error_rate": 0.16535433070866143,
+                "mean_utility": -0.06632653061224494,
+                "mean_utility_ci95": [
+                  -0.35884353741496605,
+                  0.20578231292517005
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 21
+              }
+            },
+            "loss": 5.666666666666667,
+            "t": 0.85
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 129,
+                "calls_per_task": 1.403061224489796,
+                "coverage": 0.6581632653061225,
+                "error_rate": 0.10077519379844961,
+                "mean_utility": -0.03134594038018435,
+                "mean_utility_ci95": [
+                  -0.3939217671872429,
+                  0.29418599923366523
+                ],
+                "measured_usd_per_task": 0.0027439971938775505,
+                "wrong": 13
+              },
+              "fixed_five": {
+                "accepted": 125,
+                "calls_per_task": 5.0,
+                "coverage": 0.6377551020408163,
+                "error_rate": 0.112,
+                "mean_utility": -0.13933713442231743,
+                "mean_utility_ci95": [
+                  -0.5117861140141541,
+                  0.19739755945523366
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 14
+              },
+              "fixed_triple": {
+                "accepted": 128,
+                "calls_per_task": 3.0,
+                "coverage": 0.6530612244897959,
+                "error_rate": 0.109375,
+                "mean_utility": -0.12218282648946667,
+                "mean_utility_ci95": [
+                  -0.49463180608130347,
+                  0.21455186738808435
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 14
+              },
+              "prior_only": {
+                "accepted": 75,
+                "calls_per_task": 0.0,
+                "coverage": 0.3826530612244898,
+                "error_rate": 0.04,
+                "mean_utility": 0.22959183673469388,
+                "mean_utility_ci95": [
+                  0.04081632653061224,
+                  0.3826530612244898
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 3
+              }
+            },
+            "loss": 9.0,
+            "t": 0.9
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 118,
+                "calls_per_task": 1.2959183673469388,
+                "coverage": 0.6020408163265306,
+                "error_rate": 0.0847457627118644,
+                "mean_utility": -0.18740118982472032,
+                "mean_utility_ci95": [
+                  -0.6678967276567129,
+                  0.23799607175002038
+                ],
+                "measured_usd_per_task": 0.0023920650510204076,
+                "wrong": 10
+              },
+              "fixed_five": {
+                "accepted": 113,
+                "calls_per_task": 5.0,
+                "coverage": 0.576530612244898,
+                "error_rate": 0.07964601769911504,
+                "mean_utility": -0.17505142013660308,
+                "mean_utility_ci95": [
+                  -0.6291330527896641,
+                  0.22290776353686634
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 9
+              },
+              "fixed_triple": {
+                "accepted": 118,
+                "calls_per_task": 3.0,
+                "coverage": 0.6020408163265306,
+                "error_rate": 0.0847457627118644,
+                "mean_utility": -0.22422364281599744,
+                "mean_utility_ci95": [
+                  -0.7038154795506913,
+                  0.19924574493910474
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 10
+              },
+              "prior_only": {
+                "accepted": 49,
+                "calls_per_task": 0.0,
+                "coverage": 0.25,
+                "error_rate": 0.0,
+                "mean_utility": 0.25,
+                "mean_utility_ci95": [
+                  0.19387755102040816,
+                  0.3112244897959184
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 14.0,
+            "t": 0.9333333333333333
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 102,
+                "calls_per_task": 1.4642857142857142,
+                "coverage": 0.5204081632653061,
+                "error_rate": 0.06862745098039216,
+                "mean_utility": -0.2217743839491442,
+                "mean_utility_ci95": [
+                  -0.7514893257475621,
+                  0.24382703566028213
+                ],
+                "measured_usd_per_task": 0.0026299545918367345,
+                "wrong": 7
+              },
+              "fixed_five": {
+                "accepted": 107,
+                "calls_per_task": 5.0,
+                "coverage": 0.5459183673469388,
+                "error_rate": 0.06542056074766354,
+                "mean_utility": -0.2311738691161947,
+                "mean_utility_ci95": [
+                  -0.7770922364631333,
+                  0.22800980435319285
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 7
+              },
+              "fixed_triple": {
+                "accepted": 102,
+                "calls_per_task": 3.0,
+                "coverage": 0.5204081632653061,
+                "error_rate": 0.06862745098039216,
+                "mean_utility": -0.2548358877139566,
+                "mean_utility_ci95": [
+                  -0.7854481326119156,
+                  0.2094498265717578
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 7
+              },
+              "prior_only": {
+                "accepted": 49,
+                "calls_per_task": 0.0,
+                "coverage": 0.25,
+                "error_rate": 0.0,
+                "mean_utility": 0.25,
+                "mean_utility_ci95": [
+                  0.19387755102040816,
+                  0.3112244897959184
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 19.0,
+            "t": 0.95
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 95,
+                "calls_per_task": 1.4234693877551021,
+                "coverage": 0.4846938775510204,
+                "error_rate": 0.031578947368421054,
+                "mean_utility": -0.0526112539602534,
+                "mean_utility_ci95": [
+                  -0.7079017527216026,
+                  0.4484274590229489
+                ],
+                "measured_usd_per_task": 0.002570352806122449,
+                "wrong": 3
+              },
+              "fixed_five": {
+                "accepted": 92,
+                "calls_per_task": 5.0,
+                "coverage": 0.46938775510204084,
+                "error_rate": 0.03260869565217391,
+                "mean_utility": -0.10362284870803151,
+                "mean_utility_ci95": [
+                  -0.7583847534699363,
+                  0.39637715129196843
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 3
+              },
+              "fixed_triple": {
+                "accepted": 93,
+                "calls_per_task": 3.0,
+                "coverage": 0.4744897959183674,
+                "error_rate": 0.03225806451612903,
+                "mean_utility": -0.09667262240783399,
+                "mean_utility_ci95": [
+                  -0.7514345271697388,
+                  0.403327377592166
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 3
+              },
+              "prior_only": {
+                "accepted": 14,
+                "calls_per_task": 0.0,
+                "coverage": 0.07142857142857142,
+                "error_rate": 0.0,
+                "mean_utility": 0.07142857142857142,
+                "mean_utility_ci95": [
+                  0.03571428571428571,
+                  0.10714285714285714
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 32.333333333333336,
+            "t": 0.97
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 66,
+                "calls_per_task": 0.8673469387755102,
+                "coverage": 0.336734693877551,
+                "error_rate": 0.015151515151515152,
+                "mean_utility": 0.06530997058097435,
+                "mean_utility_ci95": [
+                  -0.47900062798819115,
+                  0.3654029096290734
+                ],
+                "measured_usd_per_task": 0.0015694920918367346,
+                "wrong": 1
+              },
+              "fixed_five": {
+                "accepted": 84,
+                "calls_per_task": 5.0,
+                "coverage": 0.42857142857142855,
+                "error_rate": 0.03571428571428571,
+                "mean_utility": -0.3995412160549702,
+                "mean_utility_ci95": [
+                  -1.3944391752386436,
+                  0.3555608247613562
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 3
+              },
+              "fixed_triple": {
+                "accepted": 66,
+                "calls_per_task": 3.0,
+                "coverage": 0.336734693877551,
+                "error_rate": 0.015151515151515152,
+                "mean_utility": 0.020674316367676165,
+                "mean_utility_ci95": [
+                  -0.5252440509792622,
+                  0.3216947245309415
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 1
+              },
+              "prior_only": {
+                "accepted": 2,
+                "calls_per_task": 0.0,
+                "coverage": 0.01020408163265306,
+                "error_rate": 0.0,
+                "mean_utility": 0.01020408163265306,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.025510204081632654
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 49.0,
+            "t": 0.98
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 47,
+                "calls_per_task": 0.7295918367346939,
+                "coverage": 0.23979591836734693,
+                "error_rate": 0.0,
+                "mean_utility": 0.22492005899234693,
+                "mean_utility_ci95": [
+                  0.17208959163100726,
+                  0.2822832562026827
+                ],
+                "measured_usd_per_task": 0.0012749520408163267,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 51,
+                "calls_per_task": 5.0,
+                "coverage": 0.2602040816326531,
+                "error_rate": 0.0,
+                "mean_utility": 0.1973975594552337,
+                "mean_utility_ci95": [
+                  0.14127511047564184,
+                  0.25862204925115206
+                ],
+                "measured_usd_per_task": 0.007222622959183673,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 54,
+                "calls_per_task": 3.0,
+                "coverage": 0.2755102040816326,
+                "error_rate": 0.0,
+                "mean_utility": 0.21455186738808427,
+                "mean_utility_ci95": [
+                  0.15332737759216591,
+                  0.2757763571840027
+                ],
+                "measured_usd_per_task": 0.007028277040816326,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 1,
+                "calls_per_task": 0.0,
+                "coverage": 0.00510204081632653,
+                "error_rate": 0.0,
+                "mean_utility": 0.00510204081632653,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.015306122448979591
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 99.0,
+            "t": 0.99
+          }
+        ]
+      },
+      "fitted_L19": {
+        "claude_haiku": {
+          "lr": [
+            0.5841045182362548,
+            0.3788786064235166,
+            1.4780671215708119
+          ],
+          "usd": 0.00253133064516129
+        },
+        "gemini_flash": {
+          "lr": [
+            0.05124177873760675,
+            0.17365269461077845,
+            3.624056235355376
+          ],
+          "usd": 0.0018779183467741935
+        },
+        "gemini_lite": {
+          "lr": [
+            0.21090909090909088,
+            0.5272727272727272,
+            1.4311688311688313
+          ],
+          "usd": 0.0016865846774193549
+        },
+        "mistral_medium": {
+          "lr": [
+            1.0007878978884337,
+            0.5209580838323353,
+            1.0093562874251496
+          ],
+          "usd": 0.00014905322580645162
+        },
+        "mistral_small": {
+          "lr": [
+            0.7540182792310116,
+            1.0419161676646707,
+            1.1938622754491017
+          ],
+          "usd": 3.5765322580645166e-05
+        }
+      },
+      "n": {
+        "development": 249,
+        "development_valid": 248,
+        "diamond": 196,
+        "diamond_valid": 196
+      },
+      "paired": {
+        "calibrated": {
+          "adaptive_triple_minus_fixed_five": {
+            "ci95": [
+              0.01911727120664292,
+              0.07956750957146971
+            ],
+            "mean": 0.04903140095251809
+          },
+          "adaptive_triple_minus_fixed_triple": {
+            "ci95": [
+              0.02837005255307768,
+              0.03528411769153226
+            ],
+            "mean": 0.03187709301966754
+          },
+          "adaptive_triple_minus_prior_only": {
+            "ci95": [
+              -0.2559391206000041,
+              0.4256745618956756
+            ],
+            "mean": 0.12908202163224164
+          }
+        },
+        "raw": {
+          "adaptive_triple_minus_fixed_five": {
+            "ci95": [
+              -0.37829313279578475,
+              0.3977866096051576
+            ],
+            "mean": 0.009399485167050638
+          },
+          "adaptive_triple_minus_fixed_triple": {
+            "ci95": [
+              0.02984595508455398,
+              0.03619533376578957
+            ],
+            "mean": 0.03306150376481237
+          },
+          "adaptive_triple_minus_prior_only": {
+            "ci95": [
+              -0.9925569721972206,
+              -0.009307411438189191
+            ],
+            "mean": -0.4717743839491442
+          }
+        }
+      },
+      "pass_rate": {
+        "development": 0.6586345381526104,
+        "diamond": 0.673469387755102
+      },
+      "prior_distribution": {
+        "pass_rate_valid": 0.6666666666666666,
+        "share_ge_0.95": 0.24324324324324326
+      },
+      "protocol_id": "08a94f51e394e111bc6108851a0e2dfe1b260b194bae862112bc0be8938dca97",
+      "selected_triple_L19": [
+        "gemini_flash",
+        "gemini_lite",
+        "claude_haiku"
+      ],
+      "study": "results/gpqa_gptoss_verification_regen_20261020",
+      "verifier_auroc_diamond": {
+        "claude_haiku": 0.75390625,
+        "gemini_flash": 0.9614701704545454,
+        "gemini_lite": 0.6545801526717556,
+        "mistral_medium": 0.4950875946969697,
+        "mistral_small": 0.5577059659090908
+      }
+    },
+    "sonnet55": {
+      "curves": {
+        "calibrated": [
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 188,
+                "calls_per_task": 0.4642857142857143,
+                "coverage": 0.9591836734693877,
+                "error_rate": 0.06382978723404255,
+                "mean_utility": 0.834555450666557,
+                "mean_utility_ci95": [
+                  0.7622419249809703,
+                  0.9014948590705234
+                ],
+                "measured_usd_per_task": 0.00032828137755102043,
+                "wrong": 12
+              },
+              "fixed_five": {
+                "accepted": 188,
+                "calls_per_task": 5.0,
+                "coverage": 0.9591836734693877,
+                "error_rate": 0.06382978723404255,
+                "mean_utility": 0.776593574925938,
+                "mean_utility_ci95": [
+                  0.70006296268104,
+                  0.8429201055381829
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 12
+              },
+              "fixed_triple": {
+                "accepted": 187,
+                "calls_per_task": 3.0,
+                "coverage": 0.9540816326530612,
+                "error_rate": 0.06417112299465241,
+                "mean_utility": 0.7981923405612245,
+                "mean_utility_ci95": [
+                  0.7216617283163265,
+                  0.8645188711734694
+                ],
+                "measured_usd_per_task": 0.0037001604591836742,
+                "wrong": 12
+              },
+              "prior_only": {
+                "accepted": 194,
+                "calls_per_task": 0.0,
+                "coverage": 0.9897959183673469,
+                "error_rate": 0.08247422680412371,
+                "mean_utility": 0.826530612244898,
+                "mean_utility_ci95": [
+                  0.7448979591836735,
+                  0.9030612244897959
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 16
+              }
+            },
+            "loss": 1.0,
+            "t": 0.5
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 187,
+                "calls_per_task": 0.5714285714285714,
+                "coverage": 0.9540816326530612,
+                "error_rate": 0.06417112299465241,
+                "mean_utility": 0.7970519116503457,
+                "mean_utility_ci95": [
+                  0.7069096395333588,
+                  0.878863302810237
+                ],
+                "measured_usd_per_task": 0.0005708836734693878,
+                "wrong": 12
+              },
+              "fixed_five": {
+                "accepted": 185,
+                "calls_per_task": 5.0,
+                "coverage": 0.9438775510204082,
+                "error_rate": 0.06486486486486487,
+                "mean_utility": 0.7306752075789992,
+                "mean_utility_ci95": [
+                  0.6388384728851217,
+                  0.8148588810483869
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 12
+              },
+              "fixed_triple": {
+                "accepted": 185,
+                "calls_per_task": 3.0,
+                "coverage": 0.9438775510204082,
+                "error_rate": 0.06486486486486487,
+                "mean_utility": 0.7573760140306122,
+                "mean_utility_ci95": [
+                  0.6655392793367346,
+                  0.8390086670918366
+                ],
+                "measured_usd_per_task": 0.0037001604591836742,
+                "wrong": 12
+              },
+              "prior_only": {
+                "accepted": 194,
+                "calls_per_task": 0.0,
+                "coverage": 0.9897959183673469,
+                "error_rate": 0.08247422680412371,
+                "mean_utility": 0.7857142857142857,
+                "mean_utility_ci95": [
+                  0.6862244897959183,
+                  0.8801020408163265
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 16
+              }
+            },
+            "loss": 1.5,
+            "t": 0.6
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 180,
+                "calls_per_task": 0.45918367346938777,
+                "coverage": 0.9183673469387755,
+                "error_rate": 0.06111111111111111,
+                "mean_utility": 0.7229566541550086,
+                "mean_utility_ci95": [
+                  0.6064686440674202,
+                  0.8276843551616158
+                ],
+                "measured_usd_per_task": 0.0011162525510204082,
+                "wrong": 11
+              },
+              "fixed_five": {
+                "accepted": 179,
+                "calls_per_task": 5.0,
+                "coverage": 0.9132653061224489,
+                "error_rate": 0.061452513966480445,
+                "mean_utility": 0.6660493572388632,
+                "mean_utility_ci95": [
+                  0.5504030987354619,
+                  0.7697908538375026
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 11
+              },
+              "fixed_triple": {
+                "accepted": 179,
+                "calls_per_task": 3.0,
+                "coverage": 0.9132653061224489,
+                "error_rate": 0.061452513966480445,
+                "mean_utility": 0.667899607238863,
+                "mean_utility_ci95": [
+                  0.5522533487354617,
+                  0.7716411038375027
+                ],
+                "measured_usd_per_task": 0.0067851359693877535,
+                "wrong": 11
+              },
+              "prior_only": {
+                "accepted": 173,
+                "calls_per_task": 0.0,
+                "coverage": 0.8826530612244898,
+                "error_rate": 0.04046242774566474,
+                "mean_utility": 0.7636054421768707,
+                "mean_utility_ci95": [
+                  0.6649659863945577,
+                  0.8537414965986394
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 7
+              }
+            },
+            "loss": 2.3333333333333335,
+            "t": 0.7000000000000001
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 172,
+                "calls_per_task": 1.4438775510204083,
+                "coverage": 0.8775510204081632,
+                "error_rate": 0.040697674418604654,
+                "mean_utility": 0.6891076599839533,
+                "mean_utility_ci95": [
+                  0.5467353083201326,
+                  0.8159222732011707
+                ],
+                "measured_usd_per_task": 0.0010864349489795918,
+                "wrong": 7
+              },
+              "fixed_five": {
+                "accepted": 170,
+                "calls_per_task": 5.0,
+                "coverage": 0.8673469387755102,
+                "error_rate": 0.041176470588235294,
+                "mean_utility": 0.6286343912524687,
+                "mean_utility_ci95": [
+                  0.4857772483953258,
+                  0.7561854116606318
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 7
+              },
+              "fixed_triple": {
+                "accepted": 172,
+                "calls_per_task": 3.0,
+                "coverage": 0.8775510204081632,
+                "error_rate": 0.040697674418604654,
+                "mean_utility": 0.6566154204657669,
+                "mean_utility_ci95": [
+                  0.5137582776086239,
+                  0.7841664408739302
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 7
+              },
+              "prior_only": {
+                "accepted": 170,
+                "calls_per_task": 0.0,
+                "coverage": 0.8673469387755102,
+                "error_rate": 0.041176470588235294,
+                "mean_utility": 0.6887755102040817,
+                "mean_utility_ci95": [
+                  0.5459183673469388,
+                  0.8163265306122449
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 7
+              }
+            },
+            "loss": 4.0,
+            "t": 0.8
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 170,
+                "calls_per_task": 1.7755102040816326,
+                "coverage": 0.8673469387755102,
+                "error_rate": 0.041176470588235294,
+                "mean_utility": 0.6169660472898837,
+                "mean_utility_ci95": [
+                  0.4279896249044225,
+                  0.7823323342239619
+                ],
+                "measured_usd_per_task": 0.0013272051020408163,
+                "wrong": 7
+              },
+              "fixed_five": {
+                "accepted": 169,
+                "calls_per_task": 5.0,
+                "coverage": 0.8622448979591837,
+                "error_rate": 0.04142011834319527,
+                "mean_utility": 0.5640085409123325,
+                "mean_utility_ci95": [
+                  0.3768911939735572,
+                  0.7289745273068903
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 7
+              },
+              "fixed_triple": {
+                "accepted": 170,
+                "calls_per_task": 3.0,
+                "coverage": 0.8673469387755102,
+                "error_rate": 0.041176470588235294,
+                "mean_utility": 0.6106041422125301,
+                "mean_utility_ci95": [
+                  0.42182863200844856,
+                  0.775570128607088
+                ],
+                "measured_usd_per_task": 0.0020879727040816324,
+                "wrong": 7
+              },
+              "prior_only": {
+                "accepted": 170,
+                "calls_per_task": 0.0,
+                "coverage": 0.8673469387755102,
+                "error_rate": 0.041176470588235294,
+                "mean_utility": 0.629251700680272,
+                "mean_utility_ci95": [
+                  0.44047619047619047,
+                  0.7942176870748299
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 7
+              }
+            },
+            "loss": 5.666666666666667,
+            "t": 0.85
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 149,
+                "calls_per_task": 1.9540816326530612,
+                "coverage": 0.7602040816326531,
+                "error_rate": 0.040268456375838924,
+                "mean_utility": 0.43367141324473346,
+                "mean_utility_ci95": [
+                  0.17264700835536337,
+                  0.6535387890789582
+                ],
+                "measured_usd_per_task": 0.002234925,
+                "wrong": 6
+              },
+              "fixed_five": {
+                "accepted": 140,
+                "calls_per_task": 5.0,
+                "coverage": 0.7142857142857143,
+                "error_rate": 0.03571428571428571,
+                "mean_utility": 0.3990425545177748,
+                "mean_utility_ci95": [
+                  0.15924663615042797,
+                  0.5980221463545096
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 5
+              },
+              "fixed_triple": {
+                "accepted": 148,
+                "calls_per_task": 3.0,
+                "coverage": 0.7551020408163265,
+                "error_rate": 0.04054054054054054,
+                "mean_utility": 0.4066154204657668,
+                "mean_utility_ci95": [
+                  0.14641133883311375,
+                  0.6260031755678076
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 6
+              },
+              "prior_only": {
+                "accepted": 127,
+                "calls_per_task": 0.0,
+                "coverage": 0.6479591836734694,
+                "error_rate": 0.015748031496062992,
+                "mean_utility": 0.5459183673469388,
+                "mean_utility_ci95": [
+                  0.3826530612244898,
+                  0.6785714285714286
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 2
+              }
+            },
+            "loss": 9.0,
+            "t": 0.9
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 108,
+                "calls_per_task": 1.433673469387755,
+                "coverage": 0.5510204081632653,
+                "error_rate": 0.0,
+                "mean_utility": 0.5365585293881666,
+                "mean_utility_ci95": [
+                  0.4674664062559147,
+                  0.6038334191208238
+                ],
+                "measured_usd_per_task": 0.0015030125,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 122,
+                "calls_per_task": 5.0,
+                "coverage": 0.6224489795918368,
+                "error_rate": 0.02459016393442623,
+                "mean_utility": 0.33271602390552996,
+                "mean_utility_ci95": [
+                  0.041899697374917756,
+                  0.5623078606402236
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 3
+              },
+              "fixed_triple": {
+                "accepted": 108,
+                "calls_per_task": 3.0,
+                "coverage": 0.5510204081632653,
+                "error_rate": 0.0,
+                "mean_utility": 0.5086562367922974,
+                "mean_utility_ci95": [
+                  0.44220215515964445,
+                  0.5749827674045423
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 68,
+                "calls_per_task": 0.0,
+                "coverage": 0.3469387755102041,
+                "error_rate": 0.0,
+                "mean_utility": 0.3469387755102041,
+                "mean_utility_ci95": [
+                  0.28061224489795916,
+                  0.413265306122449
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 14.0,
+            "t": 0.9333333333333333
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 103,
+                "calls_per_task": 1.1275510204081634,
+                "coverage": 0.5255102040816326,
+                "error_rate": 0.0,
+                "mean_utility": 0.5041298886500164,
+                "mean_utility_ci95": [
+                  0.43537512873935347,
+                  0.572463726754855
+                ],
+                "measured_usd_per_task": 0.0021981395408163266,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 101,
+                "calls_per_task": 5.0,
+                "coverage": 0.5153061224489796,
+                "error_rate": 0.0,
+                "mean_utility": 0.45516500349736666,
+                "mean_utility_ci95": [
+                  0.38373643206879526,
+                  0.5265935749259381
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 102,
+                "calls_per_task": 3.0,
+                "coverage": 0.5204081632653061,
+                "error_rate": 0.0,
+                "mean_utility": 0.4621172943136931,
+                "mean_utility_ci95": [
+                  0.39068872288512163,
+                  0.5335458657422645
+                ],
+                "measured_usd_per_task": 0.0067851359693877535,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 68,
+                "calls_per_task": 0.0,
+                "coverage": 0.3469387755102041,
+                "error_rate": 0.0,
+                "mean_utility": 0.3469387755102041,
+                "mean_utility_ci95": [
+                  0.28061224489795916,
+                  0.413265306122449
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 19.0,
+            "t": 0.95
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 55,
+                "calls_per_task": 0.9642857142857143,
+                "coverage": 0.28061224489795916,
+                "error_rate": 0.0,
+                "mean_utility": 0.2672858100827024,
+                "mean_utility_ci95": [
+                  0.2085264291988973,
+                  0.32683115679723496
+                ],
+                "measured_usd_per_task": 0.001511794387755102,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 56,
+                "calls_per_task": 5.0,
+                "coverage": 0.2857142857142857,
+                "error_rate": 0.0,
+                "mean_utility": 0.22557316676267283,
+                "mean_utility_ci95": [
+                  0.16434867696675443,
+                  0.2918996973749177
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 56,
+                "calls_per_task": 3.0,
+                "coverage": 0.2857142857142857,
+                "error_rate": 0.0,
+                "mean_utility": 0.24335011434331805,
+                "mean_utility_ci95": [
+                  0.18212562454739964,
+                  0.30967664495556285
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 32.333333333333336,
+            "t": 0.97
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 29,
+                "calls_per_task": 0.6632653061224489,
+                "coverage": 0.14795918367346939,
+                "error_rate": 0.0,
+                "mean_utility": 0.14097849826160302,
+                "mean_utility_ci95": [
+                  0.09250532932747696,
+                  0.18995151215952108
+                ],
+                "measured_usd_per_task": 0.0008210313775510203,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 33,
+                "calls_per_task": 5.0,
+                "coverage": 0.1683673469387755,
+                "error_rate": 0.0,
+                "mean_utility": 0.10822622798716258,
+                "mean_utility_ci95": [
+                  0.057205819823897296,
+                  0.15924663615042794
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 29,
+                "calls_per_task": 3.0,
+                "coverage": 0.14795918367346939,
+                "error_rate": 0.0,
+                "mean_utility": 0.10559501230250165,
+                "mean_utility_ci95": [
+                  0.05457460413923636,
+                  0.15661542046576699
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 49.0,
+            "t": 0.98
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 0,
+                "calls_per_task": 5.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": -0.0601411189516129,
+                "mean_utility_ci95": [
+                  -0.0601411189516129,
+                  -0.0601411189516129
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 0,
+                "calls_per_task": 3.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": -0.05829086895161292,
+                "mean_utility_ci95": [
+                  -0.05829086895161292,
+                  -0.05829086895161292
+                ],
+                "measured_usd_per_task": 0.0067851359693877535,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 99.0,
+            "t": 0.99
+          }
+        ],
+        "raw": [
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 188,
+                "calls_per_task": 0.8979591836734694,
+                "coverage": 0.9591836734693877,
+                "error_rate": 0.06382978723404255,
+                "mean_utility": 0.8308774529912772,
+                "mean_utility_ci95": [
+                  0.7582398915703177,
+                  0.8979863895068715
+                ],
+                "measured_usd_per_task": 0.0007784594387755101,
+                "wrong": 12
+              },
+              "fixed_five": {
+                "accepted": 186,
+                "calls_per_task": 5.0,
+                "coverage": 0.9489795918367347,
+                "error_rate": 0.06451612903225806,
+                "mean_utility": 0.7663894932932849,
+                "mean_utility_ci95": [
+                  0.6898588810483869,
+                  0.8327160239055298
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 12
+              },
+              "fixed_triple": {
+                "accepted": 188,
+                "calls_per_task": 3.0,
+                "coverage": 0.9591836734693877,
+                "error_rate": 0.06382978723404255,
+                "mean_utility": 0.7943705225065832,
+                "mean_utility_ci95": [
+                  0.7229419510780118,
+                  0.8606970531188282
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 12
+              },
+              "prior_only": {
+                "accepted": 193,
+                "calls_per_task": 0.0,
+                "coverage": 0.9846938775510204,
+                "error_rate": 0.07772020725388601,
+                "mean_utility": 0.8316326530612245,
+                "mean_utility_ci95": [
+                  0.7551020408163265,
+                  0.9030612244897959
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 15
+              }
+            },
+            "loss": 1.0,
+            "t": 0.5
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 186,
+                "calls_per_task": 1.2755102040816326,
+                "coverage": 0.9489795918367347,
+                "error_rate": 0.05913978494623656,
+                "mean_utility": 0.7995308673880843,
+                "mean_utility_ci95": [
+                  0.7117284485501358,
+                  0.8794177697552359
+                ],
+                "measured_usd_per_task": 0.0011755660714285715,
+                "wrong": 11
+              },
+              "fixed_five": {
+                "accepted": 183,
+                "calls_per_task": 5.0,
+                "coverage": 0.9336734693877551,
+                "error_rate": 0.060109289617486336,
+                "mean_utility": 0.7332262279871624,
+                "mean_utility_ci95": [
+                  0.6439405137014482,
+                  0.8123078606402236
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 11
+              },
+              "fixed_triple": {
+                "accepted": 182,
+                "calls_per_task": 3.0,
+                "coverage": 0.9285714285714286,
+                "error_rate": 0.06043956043956044,
+                "mean_utility": 0.7459011347514812,
+                "mean_utility_ci95": [
+                  0.6566154204657669,
+                  0.8275337878127057
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 11
+              },
+              "prior_only": {
+                "accepted": 186,
+                "calls_per_task": 0.0,
+                "coverage": 0.9489795918367347,
+                "error_rate": 0.05913978494623656,
+                "mean_utility": 0.8086734693877551,
+                "mean_utility_ci95": [
+                  0.7193877551020408,
+                  0.8878188775510195
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 11
+              }
+            },
+            "loss": 1.5,
+            "t": 0.6
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 178,
+                "calls_per_task": 1.4591836734693877,
+                "coverage": 0.9081632653061225,
+                "error_rate": 0.05056179775280899,
+                "mean_utility": 0.7432447976361916,
+                "mean_utility_ci95": [
+                  0.6345415738684134,
+                  0.8399442730782484
+                ],
+                "measured_usd_per_task": 0.0013702145408163264,
+                "wrong": 9
+              },
+              "fixed_five": {
+                "accepted": 176,
+                "calls_per_task": 5.0,
+                "coverage": 0.8979591836734694,
+                "error_rate": 0.056818181818181816,
+                "mean_utility": 0.667750037510972,
+                "mean_utility_ci95": [
+                  0.5538044592796796,
+                  0.7697908538375026
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 10
+              },
+              "fixed_triple": {
+                "accepted": 177,
+                "calls_per_task": 3.0,
+                "coverage": 0.9030612244897959,
+                "error_rate": 0.05649717514124294,
+                "mean_utility": 0.690629025907944,
+                "mean_utility_ci95": [
+                  0.57838412794876,
+                  0.7909691619623654
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 10
+              },
+              "prior_only": {
+                "accepted": 168,
+                "calls_per_task": 0.0,
+                "coverage": 0.8571428571428571,
+                "error_rate": 0.03571428571428571,
+                "mean_utility": 0.7551020408163265,
+                "mean_utility_ci95": [
+                  0.6598639455782312,
+                  0.8418367346938775
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 6
+              }
+            },
+            "loss": 2.3333333333333335,
+            "t": 0.7000000000000001
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 153,
+                "calls_per_task": 1.6275510204081634,
+                "coverage": 0.7806122448979592,
+                "error_rate": 0.0392156862745098,
+                "mean_utility": 0.6129377879052831,
+                "mean_utility_ci95": [
+                  0.47459730740387385,
+                  0.7346465396827683
+                ],
+                "measured_usd_per_task": 0.001607002551020408,
+                "wrong": 6
+              },
+              "fixed_five": {
+                "accepted": 152,
+                "calls_per_task": 5.0,
+                "coverage": 0.7755102040816326,
+                "error_rate": 0.03289473684210526,
+                "mean_utility": 0.5878180647218563,
+                "mean_utility_ci95": [
+                  0.4602670443136932,
+                  0.7000629626810402
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 5
+              },
+              "fixed_triple": {
+                "accepted": 154,
+                "calls_per_task": 3.0,
+                "coverage": 0.7857142857142857,
+                "error_rate": 0.03896103896103896,
+                "mean_utility": 0.590288889853522,
+                "mean_utility_ci95": [
+                  0.4525337878127056,
+                  0.7127378694453588
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 6
+              },
+              "prior_only": {
+                "accepted": 154,
+                "calls_per_task": 0.0,
+                "coverage": 0.7857142857142857,
+                "error_rate": 0.025974025974025976,
+                "mean_utility": 0.6836734693877551,
+                "mean_utility_ci95": [
+                  0.5663265306122449,
+                  0.7857142857142857
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 4
+              }
+            },
+            "loss": 4.0,
+            "t": 0.8
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 133,
+                "calls_per_task": 1.6377551020408163,
+                "coverage": 0.6785714285714286,
+                "error_rate": 0.03007518796992481,
+                "mean_utility": 0.5264625302762235,
+                "mean_utility_ci95": [
+                  0.3745932253169059,
+                  0.6575597473713174
+                ],
+                "measured_usd_per_task": 0.0017091028061224486,
+                "wrong": 4
+              },
+              "fixed_five": {
+                "accepted": 132,
+                "calls_per_task": 5.0,
+                "coverage": 0.673469387755102,
+                "error_rate": 0.030303030303030304,
+                "mean_utility": 0.4772738470347817,
+                "mean_utility_ci95": [
+                  0.32591330281709463,
+                  0.6082262279871625
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 4
+              },
+              "fixed_triple": {
+                "accepted": 134,
+                "calls_per_task": 3.0,
+                "coverage": 0.6836734693877551,
+                "error_rate": 0.03731343283582089,
+                "mean_utility": 0.47124127080590295,
+                "mean_utility_ci95": [
+                  0.30457460413923626,
+                  0.6157990939351545
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 5
+              },
+              "prior_only": {
+                "accepted": 127,
+                "calls_per_task": 0.0,
+                "coverage": 0.6479591836734694,
+                "error_rate": 0.015748031496062992,
+                "mean_utility": 0.5799319727891156,
+                "mean_utility_ci95": [
+                  0.46088435374149656,
+                  0.6802721088435373
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 2
+              }
+            },
+            "loss": 5.666666666666667,
+            "t": 0.85
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 101,
+                "calls_per_task": 1.469387755102041,
+                "coverage": 0.5153061224489796,
+                "error_rate": 0.0,
+                "mean_utility": 0.49938799093770575,
+                "mean_utility_ci95": [
+                  0.4302892765990166,
+                  0.5689988948277546
+                ],
+                "measured_usd_per_task": 0.001660447193877551,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 109,
+                "calls_per_task": 5.0,
+                "coverage": 0.5561224489795918,
+                "error_rate": 0.009174311926605505,
+                "mean_utility": 0.4449609218647136,
+                "mean_utility_ci95": [
+                  0.31230786064022387,
+                  0.5470017381912442
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 1
+              },
+              "fixed_triple": {
+                "accepted": 100,
+                "calls_per_task": 3.0,
+                "coverage": 0.5102040816326531,
+                "error_rate": 0.0,
+                "mean_utility": 0.46783991026168514,
+                "mean_utility_ci95": [
+                  0.39641133883311386,
+                  0.5392684816902565
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 84,
+                "calls_per_task": 0.0,
+                "coverage": 0.42857142857142855,
+                "error_rate": 0.0,
+                "mean_utility": 0.42857142857142855,
+                "mean_utility_ci95": [
+                  0.35714285714285715,
+                  0.5
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 9.0,
+            "t": 0.9
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 70,
+                "calls_per_task": 0.9081632653061225,
+                "coverage": 0.35714285714285715,
+                "error_rate": 0.0,
+                "mean_utility": 0.348118119949391,
+                "mean_utility_ci95": [
+                  0.2828865717338196,
+                  0.41355890031141995
+                ],
+                "measured_usd_per_task": 0.0009153010204081633,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 80,
+                "calls_per_task": 5.0,
+                "coverage": 0.40816326530612246,
+                "error_rate": 0.0,
+                "mean_utility": 0.3480221463545096,
+                "mean_utility_ci95": [
+                  0.28169561574226465,
+                  0.41945071778308096
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 81,
+                "calls_per_task": 3.0,
+                "coverage": 0.413265306122449,
+                "error_rate": 0.0,
+                "mean_utility": 0.3709011347514813,
+                "mean_utility_ci95": [
+                  0.3045746041392363,
+                  0.4423297061800526
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 44,
+                "calls_per_task": 0.0,
+                "coverage": 0.22448979591836735,
+                "error_rate": 0.0,
+                "mean_utility": 0.22448979591836735,
+                "mean_utility_ci95": [
+                  0.1683673469387755,
+                  0.28061224489795916
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 14.0,
+            "t": 0.9333333333333333
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 59,
+                "calls_per_task": 0.6887755102040817,
+                "coverage": 0.3010204081632653,
+                "error_rate": 0.0,
+                "mean_utility": 0.2885332928941738,
+                "mean_utility_ci95": [
+                  0.22735380813832087,
+                  0.35217281226958513
+                ],
+                "measured_usd_per_task": 0.0013038288265306121,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 60,
+                "calls_per_task": 5.0,
+                "coverage": 0.30612244897959184,
+                "error_rate": 0.0,
+                "mean_utility": 0.24598133002797895,
+                "mean_utility_ci95": [
+                  0.1846292892116525,
+                  0.31230786064022387
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 59,
+                "calls_per_task": 3.0,
+                "coverage": 0.3010204081632653,
+                "error_rate": 0.0,
+                "mean_utility": 0.2427295392116524,
+                "mean_utility_ci95": [
+                  0.18150504941573403,
+                  0.3090560698238972
+                ],
+                "measured_usd_per_task": 0.0067851359693877535,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 44,
+                "calls_per_task": 0.0,
+                "coverage": 0.22448979591836735,
+                "error_rate": 0.0,
+                "mean_utility": 0.22448979591836735,
+                "mean_utility_ci95": [
+                  0.1683673469387755,
+                  0.28061224489795916
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 19.0,
+            "t": 0.95
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 35,
+                "calls_per_task": 0.49489795918367346,
+                "coverage": 0.17857142857142858,
+                "error_rate": 0.0,
+                "mean_utility": 0.17317642187500001,
+                "mean_utility_ci95": [
+                  0.12354027389524358,
+                  0.22716952202620969
+                ],
+                "measured_usd_per_task": 0.0005308071428571429,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 34,
+                "calls_per_task": 5.0,
+                "coverage": 0.17346938775510204,
+                "error_rate": 0.0,
+                "mean_utility": 0.11332826880348915,
+                "mean_utility_ci95": [
+                  0.06230786064022383,
+                  0.16945071778308096
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 35,
+                "calls_per_task": 3.0,
+                "coverage": 0.17857142857142858,
+                "error_rate": 0.0,
+                "mean_utility": 0.13620725720046084,
+                "mean_utility_ci95": [
+                  0.08518684903719553,
+                  0.19232970618005268
+                ],
+                "measured_usd_per_task": 0.005054035969387755,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 25,
+                "calls_per_task": 0.0,
+                "coverage": 0.12755102040816327,
+                "error_rate": 0.0,
+                "mean_utility": 0.12755102040816327,
+                "mean_utility_ci95": [
+                  0.08163265306122448,
+                  0.17346938775510204
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 32.333333333333336,
+            "t": 0.97
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 25,
+                "calls_per_task": 0.3826530612244898,
+                "coverage": 0.12755102040816327,
+                "error_rate": 0.0,
+                "mean_utility": 0.12011596059290651,
+                "mean_utility_ci95": [
+                  0.07687421477946017,
+                  0.16335770640635283
+                ],
+                "measured_usd_per_task": 0.000821822448979592,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 25,
+                "calls_per_task": 5.0,
+                "coverage": 0.12755102040816327,
+                "error_rate": 0.0,
+                "mean_utility": 0.06740990145655038,
+                "mean_utility_ci95": [
+                  0.02149153410961159,
+                  0.11332826880348915
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 25,
+                "calls_per_task": 3.0,
+                "coverage": 0.12755102040816327,
+                "error_rate": 0.0,
+                "mean_utility": 0.06926015145655035,
+                "mean_utility_ci95": [
+                  0.023341784109611578,
+                  0.11517851880348914
+                ],
+                "measured_usd_per_task": 0.0067851359693877535,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 6,
+                "calls_per_task": 0.0,
+                "coverage": 0.030612244897959183,
+                "error_rate": 0.0,
+                "mean_utility": 0.030612244897959183,
+                "mean_utility_ci95": [
+                  0.01020408163265306,
+                  0.05612244897959184
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 49.0,
+            "t": 0.98
+          },
+          {
+            "arms": {
+              "adaptive_triple": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              },
+              "fixed_five": {
+                "accepted": 2,
+                "calls_per_task": 5.0,
+                "coverage": 0.01020408163265306,
+                "error_rate": 0.0,
+                "mean_utility": -0.04993703731895984,
+                "mean_utility_ci95": [
+                  -0.0601411189516129,
+                  -0.034630914869980246
+                ],
+                "measured_usd_per_task": 0.0069794237244897965,
+                "wrong": 0
+              },
+              "fixed_triple": {
+                "accepted": 0,
+                "calls_per_task": 3.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": -0.05829086895161292,
+                "mean_utility_ci95": [
+                  -0.05829086895161292,
+                  -0.05829086895161292
+                ],
+                "measured_usd_per_task": 0.0067851359693877535,
+                "wrong": 0
+              },
+              "prior_only": {
+                "accepted": 0,
+                "calls_per_task": 0.0,
+                "coverage": 0.0,
+                "error_rate": null,
+                "mean_utility": 0.0,
+                "mean_utility_ci95": [
+                  0.0,
+                  0.0
+                ],
+                "measured_usd_per_task": 0.0,
+                "wrong": 0
+              }
+            },
+            "loss": 99.0,
+            "t": 0.99
+          }
+        ]
+      },
+      "fitted_L19": {
+        "claude_haiku": {
+          "lr": [
+            0.7083333333333333,
+            0.5795454545454545,
+            1.2878787878787878
+          ],
+          "usd": 0.0025208709677419353
+        },
+        "gemini_flash": {
+          "lr": [
+            0.1358447488584475,
+            0.1552511415525114,
+            1.3584474885844746
+          ],
+          "usd": 0.0016797308467741937
+        },
+        "gemini_lite": {
+          "lr": [
+            0.6238532110091743,
+            0.1559633027522936,
+            1.0973132372214942
+          ],
+          "usd": 0.0016284850806451612
+        },
+        "mistral_medium": {
+          "lr": [
+            0.95625,
+            0.4636363636363636,
+            1.0727272727272728
+          ],
+          "usd": 0.00014920967741935482
+        },
+        "mistral_small": {
+          "lr": [
+            0.9051948051948052,
+            0.3090909090909091,
+            1.1062200956937798
+          ],
+          "usd": 3.581532258064516e-05
+        }
+      },
+      "n": {
+        "development": 249,
+        "development_valid": 248,
+        "diamond": 196,
+        "diamond_valid": 196
+      },
+      "paired": {
+        "calibrated": {
+          "adaptive_triple_minus_fixed_five": {
+            "ci95": [
+              0.03744257808385448,
+              0.06539079953377014
+            ],
+            "mean": 0.04896488515264974
+          },
+          "adaptive_triple_minus_fixed_triple": {
+            "ci95": [
+              0.03465982276759998,
+              0.05410296230198732
+            ],
+            "mean": 0.042012594336323254
+          },
+          "adaptive_triple_minus_prior_only": {
+            "ci95": [
+              0.10824360510229797,
+              0.21047196508933713
+            ],
+            "mean": 0.15719111313981235
+          }
+        },
+        "raw": {
+          "adaptive_triple_minus_fixed_five": {
+            "ci95": [
+              0.01615706918177048,
+              0.06828238346722759
+            ],
+            "mean": 0.04255196286619485
+          },
+          "adaptive_triple_minus_fixed_triple": {
+            "ci95": [
+              0.042923400868941336,
+              0.048568876029665906
+            ],
+            "mean": 0.0458037536825214
+          },
+          "adaptive_triple_minus_prior_only": {
+            "ci95": [
+              0.02981012052722802,
+              0.10035090986128825
+            ],
+            "mean": 0.06404349697580644
+          }
+        }
+      },
+      "pass_rate": {
+        "development": 0.8714859437751004,
+        "diamond": 0.9183673469387755
+      },
+      "prior_distribution": {
+        "pass_rate_valid": 0.8941441441441441,
+        "share_ge_0.95": 0.16891891891891891
+      },
+      "protocol_id": "ba94fcbec635d7a40767daaa3572f0b6a7556b4e54c49dea8df136ab89472bd4",
+      "selected_triple_L19": [
+        "gemini_flash",
+        "gemini_lite",
+        "claude_haiku"
+      ],
+      "study": "results/gpqa_sonnet55_verification_20261016",
+      "verifier_auroc_diamond": {
+        "claude_haiku": 0.6574652777777779,
+        "gemini_flash": 0.8461805555555556,
+        "gemini_lite": 0.5293296089385474,
+        "mistral_medium": 0.4847222222222223,
+        "mistral_small": 0.4317708333333333
+      }
+    }
+  }
+}

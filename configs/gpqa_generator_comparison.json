@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "project": "llm-applications-490420",
+  "dataset_root": "results/gpqa_vertex_20261004",
+  "baseline_bundle": "results/gpqa_vertex_20261004/frozen",
+  "sample_size": 50,
+  "seed": 20261005,
+  "stage_budget_usd": 10.0,
+  "workers": 4,
+  "generators": [
+    {
+      "id": "qwen",
+      "model": "qwen/qwen3-235b-a22b-instruct-2507-maas",
+      "location": "us-south1",
+      "transport": "chat_completions",
+      "generation": {
+        "max_tokens": 4096,
+        "temperature": 0.0,
+        "top_p": 1.0
+      },
+      "interval_seconds": 2.0
+    },
+    {
+      "id": "llama",
+      "model": "meta/llama-3.3-70b-instruct-maas",
+      "location": "us-central1",
+      "transport": "chat_completions",
+      "generation": {
+        "max_tokens": 4096,
+        "temperature": 0.0,
+        "top_p": 1.0
+      },
+      "interval_seconds": 1.0
+    }
+  ],
+  "verifiers": [
+    {
+      "id": "gemini_flash",
+      "model": "google/gemini-3.7-flash",
+      "transport": "chat_completions",
+      "location": "global",
+      "generation": {
+        "max_tokens": 4096,
+        "reasoning_effort": "low"
+      },
+      "interval_seconds": 1.0
+    },
+    {
+      "id": "mistral_medium",
+      "model": "mistralai/mistral-medium-3",
+      "transport": "partner_raw_predict",
+      "location": "us-central1",
+      "generation": {
+        "max_tokens": 4096,
+        "temperature": 0.0
+      },
+      "interval_seconds": 1.0
+    }
+  ],
+  "pricing": {
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "checked_on": "2026-10-05",
+    "tier": "standard_pay_as_you_go",
+    "usd_per_million_tokens": {
+      "google/gemini-3.7-flash": {
+        "input": 0.75,
+        "output": 3.75,
+        "cached_input": 0.075
+      },
+      "google/gemini-3.5-flash-lite": {
+        "input": 0.3,
+        "output": 2.5,
+        "cached_input": 0.03
+      },
+      "mistralai/mistral-small-2503": {
+        "input": 0.1,
+        "output": 0.3
+      },
+      "mistralai/mistral-medium-3": {
+        "input": 0.4,
+        "output": 2.0
+      },
+      "anthropic/claude-haiku-4-5": {
+        "input": 1.0,
+        "output": 5.0
+      },
+      "qwen/qwen3-235b-a22b-instruct-2507-maas": {
+        "input": 0.22,
+        "output": 0.88
+      },
+      "meta/llama-3.3-70b-instruct-maas": {
+        "input": 0.72,
+        "output": 0.72
+      }
+    }
+  },
+  "reuse_caches": [
+    "results/gpqa_signal_study_4096_20261005/cache",
+    "results/gpqa_vertex_20261004/cache"
+  ],
+  "limitations": [
+    "Calibration-only 50-item exploratory comparison; no evaluation outcome access or policy change.",
+    "Selection is the original pre-answer pilot, not the later screen filtered by Gemini parsing success.",
+    "Gemini answers were generated earlier at max_tokens=1024 and low reasoning; new non-thinking models use max_tokens=4096 and temperature=0. These are different model-plus-generation-setting conditions.",
+    "Reported confidence is self-reported, not logprobs or latent beliefs.",
+    "New verifier prompts/settings match the 4096-token screen; repeated identical requests across generators reuse one execution, not independent repeated samples.",
+    "OOF fits use few errors; paired intervals condition on fitted predictions and omit model-selection uncertainty.",
+    "Vertex lists both new generator endpoints for retirement on 2026-10-21; record provider labels but immutable weights cannot be guaranteed.",
+    "This USD 10 stage cap is within the existing USD 200 total authorization. Prior recorded Vertex estimates: USD 1.91270913 original + USD 3.1701313 signal screens, not confirmed project billing."
+  ]
+}

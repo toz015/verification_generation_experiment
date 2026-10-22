@@ -1,0 +1,108 @@
+{
+  "attempt_events_including_original_404": {
+    "completed": 5,
+    "rejected": 1,
+    "started": 6
+  },
+  "collection_completed": 5,
+  "confidence_calibrated": false,
+  "correctness_scored": false,
+  "gate_relaxed": false,
+  "minimum_successful_request_start_interval_seconds": 9.991620063781738,
+  "note": "Trailing JSON extraction is diagnostic only. It does not change the frozen parser, candidate acceptance, or authorize collection past the failed gate.",
+  "preservation": {
+    "historical_budget_files_unchanged": 14,
+    "plan_config_and_implementation_unchanged": true,
+    "prior_error_cache_is_unchanged_prefix": true
+  },
+  "remaining_45_started": false,
+  "rows": [
+    {
+      "diagnostic_explanation_before_json": true,
+      "diagnostic_numeric_confidence": 0.85,
+      "diagnostic_unique_trailing_json": true,
+      "final_text_characters": 700,
+      "pilot_position": 1,
+      "provider_model": "claude-sonnet-5-5",
+      "reported_thinking_tokens": 0,
+      "response_sha256": "fff0e3c327b11e71e3bd31eb10c86199fc8806174706829d6cb9a3c835f1f4bb",
+      "stop_reason": "end_turn",
+      "strict_failure": "invalid_final_json",
+      "strict_gate_ok": false,
+      "text_blocks": 1,
+      "thinking_blocks": 0
+    },
+    {
+      "diagnostic_explanation_before_json": true,
+      "diagnostic_numeric_confidence": 0.93,
+      "diagnostic_unique_trailing_json": true,
+      "final_text_characters": 471,
+      "pilot_position": 2,
+      "provider_model": "claude-sonnet-5-5",
+      "reported_thinking_tokens": 0,
+      "response_sha256": "4c3dd7a3b56307082ed441284632d4e10d3fae4758b7a4048a42b95d182cddc9",
+      "stop_reason": "end_turn",
+      "strict_failure": "invalid_final_json",
+      "strict_gate_ok": false,
+      "text_blocks": 1,
+      "thinking_blocks": 0
+    },
+    {
+      "diagnostic_explanation_before_json": true,
+      "diagnostic_numeric_confidence": 0.55,
+      "diagnostic_unique_trailing_json": true,
+      "final_text_characters": 1836,
+      "pilot_position": 3,
+      "provider_model": "claude-sonnet-5-5",
+      "reported_thinking_tokens": 0,
+      "response_sha256": "66094603eb6dcf5465f40c7e2897beb54c23963d2d9ac1e79e84c46e11f38a9c",
+      "stop_reason": "end_turn",
+      "strict_failure": "invalid_final_json",
+      "strict_gate_ok": false,
+      "text_blocks": 1,
+      "thinking_blocks": 0
+    },
+    {
+      "diagnostic_explanation_before_json": true,
+      "diagnostic_numeric_confidence": 0.85,
+      "diagnostic_unique_trailing_json": true,
+      "final_text_characters": 420,
+      "pilot_position": 4,
+      "provider_model": "claude-sonnet-5-5",
+      "reported_thinking_tokens": 0,
+      "response_sha256": "7a0a1c949a00d3840807165b2c29ac29bb8dd4afecba07b234dc5dd5336438a3",
+      "stop_reason": "end_turn",
+      "strict_failure": "invalid_final_json",
+      "strict_gate_ok": false,
+      "text_blocks": 1,
+      "thinking_blocks": 0
+    },
+    {
+      "diagnostic_explanation_before_json": true,
+      "diagnostic_numeric_confidence": 0.6,
+      "diagnostic_unique_trailing_json": true,
+      "final_text_characters": 1339,
+      "pilot_position": 5,
+      "provider_model": "claude-sonnet-5-5",
+      "reported_thinking_tokens": 0,
+      "response_sha256": "67a0f782f0f00b1485a6a55e07d7dcc8a48bfdc550ff8b9cf9914f199d4c3a29",
+      "stop_reason": "end_turn",
+      "strict_failure": "invalid_final_json",
+      "strict_gate_ok": false,
+      "text_blocks": 1,
+      "thinking_blocks": 0
+    }
+  ],
+  "stage": "format_failed",
+  "strict_valid": 0,
+  "study_id": "928cd2be92e2191b29527ba713661de3944d8bf1f17414f0296d6968b2d47c35",
+  "truncated_n": 0,
+  "unique_trailing_json_diagnostic_n": 5,
+  "usage": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.021174,
+    "input_tokens": 1742,
+    "output_tokens_including_thinking": 1769,
+    "project": "llm-applications-490420"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "additional_paid_requests_planned": 45,
+  "amendment_id": "33598e79b6b99cd0831a5aa2117ec81338798ec0c881cbcac1b07b1418d9de38",
+  "authorization": "User approved accepting explanation followed by a unique final answer JSON, reusing the five replies and continuing the other 45 development items.",
+  "cached_gate": [
+    {
+      "pilot_position": 1,
+      "strict_ok": false,
+      "v2_failure": null,
+      "v2_ok": true
+    },
+    {
+      "pilot_position": 2,
+      "strict_ok": false,
+      "v2_failure": null,
+      "v2_ok": true
+    },
+    {
+      "pilot_position": 3,
+      "strict_ok": false,
+      "v2_failure": null,
+      "v2_ok": true
+    },
+    {
+      "pilot_position": 4,
+      "strict_ok": false,
+      "v2_failure": null,
+      "v2_ok": true
+    },
+    {
+      "pilot_position": 5,
+      "strict_ok": false,
+      "v2_failure": null,
+      "v2_ok": true
+    }
+  ],
+  "confidence_calibrated": false,
+  "evaluation_requests": 0,
+  "first_five_cache_sha256": {
+    "results/gpqa_sonnet55_20261015/cache/calls/06c36ff35f14fbf97d4f62128904376639df7b092f0343474aaf6c092736a6f2.jsonl": "fff0e3c327b11e71e3bd31eb10c86199fc8806174706829d6cb9a3c835f1f4bb",
+    "results/gpqa_sonnet55_20261015/cache/calls/0b49860326fb4ea2104583b719d9097ca4052a8cd538cbb0ab2d52a014a92f4e.jsonl": "7a0a1c949a00d3840807165b2c29ac29bb8dd4afecba07b234dc5dd5336438a3",
+    "results/gpqa_sonnet55_20261015/cache/calls/49ba668a5b206ac7f8542ac3192bb484757a24f87a04de2d749d487292b966e8.jsonl": "4c3dd7a3b56307082ed441284632d4e10d3fae4758b7a4048a42b95d182cddc9",
+    "results/gpqa_sonnet55_20261015/cache/calls/4fc403fb7fee820aeaec195af5ffe4098aca6f29b89f443de23fd22901f25691.jsonl": "67a0f782f0f00b1485a6a55e07d7dcc8a48bfdc550ff8b9cf9914f199d4c3a29",
+    "results/gpqa_sonnet55_20261015/cache/calls/712c62825754bc6741d8dabaa324a42604b60ead7098d8bb19ac4d1d2a68f562.jsonl": "66094603eb6dcf5465f40c7e2897beb54c23963d2d9ac1e79e84c46e11f38a9c"
+  },
+  "first_five_estimated_usd": 0.021174,
+  "implementation_sha256": "092820f4bc5bd9ad3a452169d18cbc5a902b298c4f19c10a160377e99deb4ee4",
+  "parent_plan_sha256": "1f4175856dc6930e366a4c80aa9d2c6e8e8f079c5f0dd65827f55cd02c95b384",
+  "parent_study_id": "928cd2be92e2191b29527ba713661de3944d8bf1f17414f0296d6968b2d47c35",
+  "parser_version": "sonnet_unique_final_json_v2",
+  "request_changes": false,
+  "request_keys": [
+    "sha256:b6b55ce6648d7c47ea30eca1c0a8b29d145cbad8976cc4ba12765cf9127757d4",
+    "sha256:1ed6f95c4a68622588f5e6e874444ba4471ba698f4714e1a11e7b31b2890c290",
+    "sha256:c5ac7e6ad7fea540ab3c0e224be22a4486e8aa2e7268aab77e2688d9022f0773",
+    "sha256:fdffab12a0ad85d6ba5f6e8d764a39555e28405986263ee9639280629f7a6fdd",
+    "sha256:5cb151b9bb7de55ed2ec3c2c43e44996ac9578a1bd7b20c659910dca7a0c67f0",
+    "sha256:609627fcc94474e4a532aa1a8107c34e73a4057f209e89426a6989da2634930d",
+    "sha256:7b16a14c634faad408834ec20c97c213621892c44437a53c7279458b22395193",
+    "sha256:d1f797a60f081b3439f51ea7230106cc0566ca2d4c2c3c7b4c1244a72c65236d",
+    "sha256:6a0ff7ec73edfe8834947769c4f24e7745883a5a4cb2534233144d8ddf57cfbc",
+    "sha256:da1704caba3fc874ff29bd121647d83771a8e8a88b78e295cd65b2fc286af4a2",
+    "sha256:1216a126448d9ccbec11b11b16e30c0d2291d5713eea8c1677190a9b2498a1e7",
+    "sha256:10f2f7e3886af1765a6da3ec238dfc93ab1659585ab4b9881d822733b489bf58",
+    "sha256:16270280d9c3b67853faced00142501e7e5fb513278257fe5f471823bc38615f",
+    "sha256:d062f344cf13ce49474128f3daf33e541d22ec799afbb937ac6ff2d00f96deae",
+    "sha256:e062f56e7bf4f3834e24f8929368a08c5c69fc307084497e9b8fd4d0da768297",
+    "sha256:a1e24e843c2e7cc5c5510a6f8b1c2f3f57df97c4541d15a79e167ef4eb11f687",
+    "sha256:03a8e0cd52ec41ecf6c09674b34ed6c1e22b8afe2602703c48bfb7f07d4a1bd9",
+    "sha256:1b2b5803ca59d6ca79089416c55265fa706375aeed7b02042cdc87bd653915fd",
+    "sha256:d65a0740f1a79e6ce453673378ce5dfa286c64e3eec42fc15ee5ad3f9241135a",
+    "sha256:8caafaee89a4f1e819716ad30165fed2b69f13ddcd77b612c5b2426175b3651a",
+    "sha256:9c127758185e4d509d4b0e5167ff08c63068b66a9020d15646e0e9eeb86efef6",
+    "sha256:3b0825c78528fe390ab4c4e176127bc811de5867a25a01aef7a1249edbe8a626",
+    "sha256:218a15156bffb148b790f58113004b2942cc03a329ce0b6c07406b5a4c509069",
+    "sha256:7890f5f6c74800caf1f2f73a899b8a3a93cc8f6c081b36319932d6bdf5249628",
+    "sha256:634739250cdb262c8dc37a2a440cf5dd51d1c86f54c98f8faa3d4b8a5bd0e300",
+    "sha256:8fd25ea896a2c35a3712acae85db791be8008dd5a2643eba462b15842c286319",
+    "sha256:cd240a26848e777f3aad84b1ad7b874ffce0c5e0af207f815d824663e944a4dd",
+    "sha256:91998b3198cbb219ad6f966d77589abe5f8f3bdf18cfd2c75edf275bf7fff22e",
+    "sha256:f8a1a0a00d3e8df8f9123e9aea059ef12545bdd7eecd33f1bc90c8a2084c6001",
+    "sha256:a8646f9618bb9bec78d76037585fd9cfbce533d8f836b44bf2aa3d0ef5494c19",
+    "sha256:6a72f9116e62897a91479e395144dc35fc4d18bb4256f4f04876674d7c4753a7",
+    "sha256:81f3a15967d481ca7fcfa54e4d328ab65b02ae9dab26807a8491680572ac2ef7",
+    "sha256:81bf313853efc0d51aa5cbf3da4ebd71a1a8e8e34fd53f67d7d9bc9465e42344",
+    "sha256:da2f9b3ddc980ecb36050ed03993ac533b9c8e7fb4a7dc1241edd0b0f78c3ebb",
+    "sha256:e467a3c01df4715ea8a6d19976db1c342146b94bddb919fe9476b2e817257730",
+    "sha256:74d114a1d8e134600f388c3caadf1fdd3f2258e4376cbf79dd0a107c6622e7ba",
+    "sha256:e32684af2bbf3da40f3bc40104d77557f307ece3dad4f485c8e4af58818ecc30",
+    "sha256:01fd7f05c44261d3022c8b27c063b150e71a126682da1ea63c4978bade5ee56f",
+    "sha256:b269887048efba4b91c928e4d4fff7638b7a3b08ebb0232d2a0f3249d3dc32e0",
+    "sha256:6fe1642c0c189022146d8276caba0260134702c8aeda91cd4aeb7f5a934f25f2",
+    "sha256:dcc663affc48c0391db24fda001b622484caf87034543b1b333a368ec711ffa8",
+    "sha256:5320a835cde295eaafa371223ab87db09a99e76a70ac60758e319508f8781356",
+    "sha256:beedeca258fad9f5c6713142fb5344374c9d4b5252cc3a5d07d940aa1786d21c",
+    "sha256:da9c380ff64c457d767f7bd71885af442fe53621110f3afc555c29cea36559d7",
+    "sha256:4d49a27a68ba957fb38653ccfba9a0e12af3560650c5e4614c95c4ddb9b1415d",
+    "sha256:50b22a32f10366b468e565afdc5861f8eebe5f6487b2d321bd358b166bcb5ce1",
+    "sha256:414b36e6555dc4b76d550c853a7e2caae635335889fb13f8d52b1ad88a293ea9",
+    "sha256:07e2434d3e4984699c21130d8d69e90f9b966dace1b5d3193648cf065e9210f0",
+    "sha256:7a465b52841a6d2ed1c3c773db3bd4aa3e884e88519e39e64c58ac847e477c86",
+    "sha256:7e2e0e2527deab718fe35c15e9ccbf9fe0d006f01bc80204d0b75ddaa3a8ed49"
+  ],
+  "rule": "Exactly one decodable JSON object in final text, terminal apart from a matched optional code fence; exact answer/p_correct keys, no duplicate keys, finite numeric probability in [0,1], valid answer, end_turn, expected provider model, priced usage.",
+  "runner_identity": {
+    "anthropic_version": "vertex-2023-10-16",
+    "extended_thinking": true,
+    "location": "global",
+    "max_tokens": 32768,
+    "model": "anthropic/claude-sonnet-5-5",
+    "output_config": {
+      "effort": "high"
+    },
+    "project_sha256": "b274fe959fdb7077a2eaf04d6080f1ce2210da3dde7789fc8d6a79e198ddf6ce",
+    "prompt_caching": false,
+    "provider": "vertex_ai_partner_raw_predict",
+    "sampling_parameters": "omitted_provider_defaults",
+    "schema": 1,
+    "sonnet_screen_adapter": 1,
+    "thinking": {
+      "type": "adaptive"
+    }
+  },
+  "shared_cache": "results/gpqa_sonnet55_20261015/cache",
+  "stage_budget_usd": 20.0,
+  "verifier_requests": 0
+}

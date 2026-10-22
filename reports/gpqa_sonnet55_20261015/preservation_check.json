@@ -1,0 +1,12 @@
+{
+  "confidence_calibrated": false,
+  "development_items": 50,
+  "evaluation_labels_read": false,
+  "historical_budget_files_unchanged": 14,
+  "historical_replacement_plan_valid": true,
+  "new_requests_rejected": 1,
+  "new_requests_successful": 0,
+  "note": "Read-only seal/input checks and one rejected live gate attempt; no successful inference to validate response format.",
+  "sonnet_plan_and_sources_valid": true,
+  "unit_tests_run": false
+}
