@@ -15,9 +15,9 @@
       "items": 445
     },
     "sonnet55": {
-      "rows": 1780,
-      "labelled": 1757,
-      "correct": 1525,
+      "rows": 2670,
+      "labelled": 2641,
+      "correct": 2291,
       "recovered": 0,
       "items": 445
     }
@@ -38,9 +38,9 @@
       "items": 500
     },
     "sonnet55": {
-      "rows": 1954,
-      "labelled": 1954,
-      "correct": 1731,
+      "rows": 2802,
+      "labelled": 2802,
+      "correct": 2498,
       "recovered": 0,
       "items": 500
     }
@@ -48,22 +48,22 @@
   "qkatas": {
     "qwen3": {
       "rows": 3220,
-      "labelled": 2342,
-      "correct": 1138,
+      "labelled": 3219,
+      "correct": 1727,
       "recovered": 1,
       "items": 322
     },
     "gptoss": {
       "rows": 3220,
-      "labelled": 2312,
-      "correct": 1404,
+      "labelled": 3168,
+      "correct": 2037,
       "recovered": 53,
       "items": 322
     },
     "sonnet55": {
-      "rows": 966,
-      "labelled": 110,
-      "correct": 106,
+      "rows": 1610,
+      "labelled": 329,
+      "correct": 318,
       "recovered": 0,
       "items": 322
     }

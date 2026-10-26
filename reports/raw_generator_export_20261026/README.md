@@ -2,8 +2,8 @@
 
 Built by `python -m vgx.raw_generator_export` (no API calls) from the raw collections in
 `results/qwen_raw_20261021`, `results/raw_gptoss_20261022`, `results/raw_sonnet55_20261026`
-and the offline labels in `results/raw_labels_20261026`. Snapshot of 2026-10-26; Sonnet sampling
-and the QuantumKatas checker were still running, so later snapshots will have more rows and labels.
+and the offline labels in `results/raw_labels_20261026`. Snapshot of 2026-10-26 (evening); Sonnet sampling was still running, so later snapshots will have
+more Sonnet rows and labels.
 
 ## Generators
 
@@ -41,14 +41,14 @@ reasoning + answer + `p_correct`, answer-only for Sonnet; QuantumKatas: v2 promp
 | dataset | generator | items | samples | graded | correct |
 |---|---|---|---|---|---|
 | GPQA (445-item main-experiment set) | qwen3 | 445 | 4450 | 4450 | 2120 |
-| | gptoss | 445 | 4450 | 4251 | 2919 |
-| | sonnet55 | 445 | 1780 | 1757 | 1525 |
+|  | gptoss | 445 | 4450 | 4251 | 2919 |
+|  | sonnet55 | 445 | 2670 | 2641 | 2291 |
 | MATH-500 | qwen3 | 500 | 4998 | 4998 | 4826 |
-| | gptoss | 500 | 5000 | 5000 | 4455 |
-| | sonnet55 | 500 | 1954 | 1954 | 1731 |
-| QuantumKatas (322 tasks) | qwen3 | 322 | 3220 | 2342 | 1138 |
-| | gptoss | 322 | 3220 | 2312 | 1404 |
-| | sonnet55 | 322 | 966 | 110 | 106 |
+|  | gptoss | 500 | 5000 | 5000 | 4455 |
+|  | sonnet55 | 500 | 2802 | 2802 | 2498 |
+| QuantumKatas (322 tasks) | qwen3 | 322 | 3220 | 3219 | 1727 |
+|  | gptoss | 322 | 3220 | 3168 | 2037 |
+|  | sonnet55 | 322 | 1610 | 329 | 318 |
 
 Item ids: GPQA ids are the sha256 ids of our GPQA copy (no question text is included here,
 following the GPQA authors' request not to post examples in plain text); MATH-500 ids are
