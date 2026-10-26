@@ -33,7 +33,7 @@ from vgx.gpqa.prompt import SYSTEM as GPQA_SYSTEM
 from vgx.math_trial import prompt as mprompt
 from vgx.quantum_katas import prompt as qprompt
 from vgx.quantum_katas.run_pilot import AbandonedRequests, Run
-from vgx.quantum_katas.runners import JsonModeVertexRunner
+from vgx.quantum_katas.runners import AnthropicVertexRunner, JsonModeVertexRunner
 
 MODEL = 'qwen/qwen3-235b-a22b-instruct-2507-maas'
 # Other generators (2026-10-22, owner: "start working on the other model's response generation").
@@ -46,13 +46,73 @@ PROFILES = {
     'gptoss': {'model': 'openai/gpt-oss-120b-maas', 'location': 'us-central1', 'effort': 'medium', 'short_max': 4096,
                'json_max': 8192, 'gpqa_max': 32768, 'math_max': 32768, 'qk_max': 32768,
                'top_k': 5, 'price': {'input': 0.09, 'output': 0.36, 'cached_input': 0.09}},
+    # Sonnet 5.5: main-experiment settings (adaptive thinking, effort high, 32768, structured output).
+    # No token logprobs on this API and no reasoning in the reply (reasoning_extraction refusal), so only
+    # stated probabilities are stored; PEG's token prompts are replaced by verbal option distributions.
+    'sonnet55': {'model': 'anthropic/claude-sonnet-5-5', 'location': 'global', 'anthropic': True,
+                 'price': {'input': 2.0, 'output': 10.0, 'cached_input': 2.0}},
 }
 P = PROFILES['qwen3']
+
+
+def _schema(props):
+    return {'type': 'object', 'properties': {k: {'type': t} for k, t in props.items()},
+            'required': list(props), 'additionalProperties': False}
+
+
+def sonnet_cfg(props, sample=0):
+    return {'anthropic': {'max_tokens': 32768, 'thinking': {'type': 'adaptive'},
+                          'output_config': {'effort': 'high', 'format': {'type': 'json_schema', 'schema': _schema(props)}}},
+            'sample': sample}
+
+
+class SonnetRawRunner(AnthropicVertexRunner):
+    """Sonnet with the main-experiment body; `sample` and `attempt` only enter request identity."""
+
+    def __init__(self, project, generation, sample=0, attempt=1):
+        super().__init__(P['model'], P['location'], project, generation)
+        self.sample, self.attempt = sample, attempt
+
+    @property
+    def identity(self):
+        value = {**super().identity, 'raw_collection': 'raw_v1', 'sample': self.sample}
+        return value if self.attempt == 1 else {**value, 'attempt': self.attempt}
+
+
+def stage1_sonnet(n):
+    jobs = []
+    for it in _gpqa_items():
+        body = _gpqa_body(it)
+        jobs.append(('gpqa_option_probs', it['item_id'], 0, body +
+                     'For each option, report your probability that it is the correct answer. The four probabilities '
+                     'must sum to 1.\nReply with JSON only: {"A": 0.0, "B": 0.0, "C": 0.0, "D": 0.0}', GPQA_SYSTEM,
+                     sonnet_cfg({l: 'number' for l in LETTERS})))
+        jobs.append(('gpqa_option_probs_incorrect', it['item_id'], 0, body +
+                     'For each option, report your probability of choosing it if you were asked to name an incorrect '
+                     'answer. The four probabilities must sum to 1.\nReply with JSON only: {"A": 0.0, "B": 0.0, "C": 0.0, "D": 0.0}',
+                     GPQA_SYSTEM, sonnet_cfg({l: 'number' for l in LETTERS})))
+        gen = body + ('Choose the best answer. Report your probability that your selected answer is correct.\n'
+                      'Reply with JSON only: {"answer": "A"|"B"|"C"|"D", "p_correct": 0.0}')
+        for s in range(n):
+            jobs.append(('gpqa_samples', it['item_id'], s, gen, GPQA_SYSTEM, sonnet_cfg({'answer': 'string', 'p_correct': 'number'}, s)))
+    for it in _math_items():
+        text = mprompt.build_generator_prompt(it['problem'], mprompt.PROMPT_VERSION_ANSWER_ONLY)
+        for s in range(n):
+            jobs.append(('math500_samples', it['item_id'], s, text, mprompt.GENERATOR_SYSTEM,
+                         sonnet_cfg({'answer': 'string', 'p_correct': 'number'}, s)))
+    for t in _qk_tasks():
+        text = qprompt.build_generator_prompt(t, qprompt.PROMPT_VERSION_V2)
+        for s in range(n):
+            jobs.append(('qkatas_samples', t.task_id, s, text, qprompt.generator_system(qprompt.PROMPT_VERSION_V2),
+                         sonnet_cfg({'code': 'string', 'p_correct': 'number'}, s)))
+    return jobs
 
 
 def configure(name):
     global P, PEG_TOKEN, JUDGE_JSON
     P = PROFILES[name]
+    if P.get('anthropic'):
+        return
     PEG_TOKEN = dict(max_tokens=P['short_max'], temperature=0.0, json_mode=False, extra={'logprobs': True, 'top_logprobs': P['top_k']})
     JUDGE_JSON = dict(max_tokens=P['json_max'], temperature=0.0, json_mode=True, extra={'logprobs': True, 'top_logprobs': 5})
 LETTERS = 'ABCD'
@@ -244,6 +304,10 @@ def qk_candidates(samples_path):
     return {t: [{'code': code, 'sources': src} for code, src in v.items()] for t, v in by.items()}
 
 
+def _judge_cfg():
+    return sonnet_cfg({'p_correct': 'number'}) if P.get('anthropic') else JUDGE_JSON
+
+
 def stage2(samples_path, candidates_dir, interpreter):
     from vgx.gpqa.prompt import build_verifier_prompt as gpqa_verifier_text
     from vgx.math_trial import data
@@ -257,7 +321,7 @@ def stage2(samples_path, candidates_dir, interpreter):
                     'Assess whether this fixed answer is correct. Do not suggest a replacement answer.\n'
                     'Reply with JSON only: {"p_correct": 0.0}')
             jobs.append(('gpqa_judge_p', it['item_id'], i, text, 'You evaluate whether a proposed answer to a '
-                         'graduate-level multiple-choice science question is correct.', JUDGE_JSON))
+                         'graduate-level multiple-choice science question is correct.', _judge_cfg()))
     # MATH: clustered candidates -> PEG discriminator, verbal judge, and (>=2 candidates) option distributions.
     path = cdir/'math500_candidates.json'
     if path.exists():
@@ -270,7 +334,7 @@ def stage2(samples_path, candidates_dir, interpreter):
         for i, c in enumerate(cands):
             jobs.append(('math500_peg_disc', item_id, i, peg_discriminator_prompt(subject, prob, c['answer']), None, PEG_TOKEN))
             jobs.append(('math500_judge_p', item_id, i, mprompt.build_verifier_prompt(prob, c['answer']),
-                         mprompt.VERIFIER_SYSTEM, JUDGE_JSON))
+                         mprompt.VERIFIER_SYSTEM, _judge_cfg()))
         if 2 <= len(cands) <= 20:
             answers = [c['answer'] for c in cands]
             for flag, kind in ((True, 'math500_peg_gen_correct'), (False, 'math500_peg_gen_incorrect')):
@@ -287,7 +351,7 @@ def stage2(samples_path, candidates_dir, interpreter):
             jobs.append(('qkatas_peg_disc', tid, i, peg_discriminator_prompt('quantum computing', t.prompt, c['code']),
                          None, PEG_TOKEN))
             jobs.append(('qkatas_judge_p', tid, i, qprompt.build_verifier_prompt(view, qprompt.PROMPT_VERSION_V2),
-                         qprompt.verifier_system(qprompt.PROMPT_VERSION_V2), JUDGE_JSON))
+                         qprompt.verifier_system(qprompt.PROMPT_VERSION_V2), _judge_cfg()))
     return jobs
 
 
@@ -313,7 +377,7 @@ def parse(kind, text):
             # gpt-oss sometimes wraps its JSON in {"final": "<json>"}; unwrap for raw-data parsing only
             # (the main experiments' strict parser is unchanged; the response itself is stored as is).
             value = dict(json.loads(value['final']), _unwrapped_final=True)
-        if kind == 'gpqa_option_probs':
+        if kind.startswith('gpqa_option_probs'):
             return {'probs': {l: value.get(l) for l in LETTERS}}
         if kind.startswith('qkatas_samples'):
             p = qprompt.parse_generator_response(text)
@@ -328,6 +392,8 @@ def parse(kind, text):
 def run(out, jobs, *, project, limit_usd, allow_api=False, workers=8, kinds=None):
     out = Path(out); out.mkdir(parents=True, exist_ok=True)
     pricing = {'usd_per_million_tokens': {P['model']: P['price']}}
+    if P.get('anthropic'):
+        pricing['usage_semantics'] = {P['model']: 'completion_includes_reasoning'}
     cache = BudgetedRequestCache(out/'cache', project=project, pricing=pricing, limit_usd=limit_usd)
     jobs = [j for j in jobs if kinds is None or j[0] in kinds]
     # Priority under a retirement deadline: short GPQA jobs first, then sample seeds in rounds
@@ -336,7 +402,10 @@ def run(out, jobs, *, project, limit_usd, allow_api=False, workers=8, kinds=None
     jobs.sort(key=lambda j: (rank.get(j[0], 2), j[2], j[0]))
     built = []
     for kind, item, s, text, system, cfg in jobs:
-        r = RawRunner(project, **cfg)
+        if 'anthropic' in cfg:
+            r = SonnetRawRunner(project, cfg['anthropic'], cfg.get('sample', 0), cfg.get('attempt', 1))
+        else:
+            r = RawRunner(project, **cfg)
         req = Request(f'{kind}|{item}|{s}', text, system, {'kind': kind, 'item_id': item, 'sample': s})
         built.append((kind, item, s, r, req, r.cache_key(req)))
     abandoned = AbandonedRequests(SimpleNamespace(root=out))
@@ -367,7 +436,7 @@ def run(out, jobs, *, project, limit_usd, allow_api=False, workers=8, kinds=None
                 return
             else:
                 pr = (call.meta or {}).get('provider_response') or {}
-                fr = (pr.get('choices') or [{}])[0].get('finish_reason')
+                fr = (pr.get('choices') or [{}])[0].get('finish_reason') if 'choices' in pr else pr.get('stop_reason')
                 row.update(status='ok', finish_reason=fr, **parse(kind, call.response))
         with lock:
             append_jsonl(out/'collected.jsonl', row)
@@ -408,7 +477,12 @@ def main():
                                        'results/qwen_raw_20261021/samples_nolp/collected.jsonl')
     p.add_argument('--interpreter', default='tmp/math_grader_venv_20261020/bin/python')
     a = p.parse_args()
-    jobs = stage1(a.project, a.n) if a.stage == 1 else stage2(a.samples, a.out/'candidates', a.interpreter)
+    if a.stage == 1:
+        jobs = stage1_sonnet(a.n) if P.get('anthropic') else stage1(a.project, a.n)
+    else:
+        jobs = stage2(a.samples, a.out/'candidates', a.interpreter)
+        if P.get('anthropic'):
+            jobs = [j for j in jobs if 'judge_p' in j[0]]
     if a.retry_from:
         jobs = retry_jobs(jobs, a.retry_from.split(','))
     print(json.dumps(run(a.out, jobs, project=a.project, limit_usd=a.limit_usd, allow_api=a.allow_api,
