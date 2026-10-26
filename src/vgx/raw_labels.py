@@ -33,13 +33,9 @@ def rows(kind_prefix):
     return out
 
 
-def math_labels(interpreter):
+def grade_math(pairs, interpreter):
+    """{item_id: {answer: {correct, status}}} for (item_id, answer) pairs, via the pinned grader."""
     refs = {it['item_id']: it['answer'] for it in data.load('math500')[0]}
-    pairs = {(r['item_id'], r['answer']) for r in rows('math500_samples') if isinstance(r.get('answer'), str) and r['answer'].strip()}
-    for d in ('qwen3', 'gptoss', 'sonnet55'):
-        for r in json.loads(Path(f'results/math500_full_{d}_20261021/frozen_candidates.json').read_text())['rows']:
-            if r.get('answer') is not None:
-                pairs.add((r['item_id'], r['answer']))
     payload = ''.join(json.dumps({'item_id': f'{i}\t{a}', 'answer': a, 'reference': refs[i]}) + '\n' for i, a in sorted(pairs))
     grader_dir = str(Path(data.SOURCES['omnimath_rule']['path']).parent/'evaluation')
     proc = subprocess.run([interpreter, '-I', 'src/vgx/math_trial/grade_worker.py', grader_dir], input=payload,
@@ -50,6 +46,16 @@ def math_labels(interpreter):
     for g in map(json.loads, proc.stdout.splitlines()):
         item, answer = g['item_id'].split('\t', 1)
         out.setdefault(item, {})[answer] = {'correct': g['correct'], 'status': g['status']}
+    return out
+
+
+def math_labels(interpreter):
+    pairs = {(r['item_id'], r['answer']) for r in rows('math500_samples') if isinstance(r.get('answer'), str) and r['answer'].strip()}
+    for d in ('qwen3', 'gptoss', 'sonnet55'):
+        for r in json.loads(Path(f'results/math500_full_{d}_20261021/frozen_candidates.json').read_text())['rows']:
+            if r.get('answer') is not None:
+                pairs.add((r['item_id'], r['answer']))
+    out = grade_math(pairs, interpreter)
     atomic_json(OUT/'math500_labels.json', out)
     return {'pairs': len(pairs), 'correct': sum(v['correct'] for d in out.values() for v in d.values())}
 

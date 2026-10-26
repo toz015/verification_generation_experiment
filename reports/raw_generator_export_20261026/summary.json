@@ -1,0 +1,71 @@
+{
+  "gpqa": {
+    "qwen3": {
+      "rows": 4450,
+      "labelled": 4450,
+      "correct": 2120,
+      "recovered": 0,
+      "items": 445
+    },
+    "gptoss": {
+      "rows": 4450,
+      "labelled": 4251,
+      "correct": 2919,
+      "recovered": 1326,
+      "items": 445
+    },
+    "sonnet55": {
+      "rows": 1780,
+      "labelled": 1757,
+      "correct": 1525,
+      "recovered": 0,
+      "items": 445
+    }
+  },
+  "math500": {
+    "qwen3": {
+      "rows": 4998,
+      "labelled": 4998,
+      "correct": 4826,
+      "recovered": 0,
+      "items": 500
+    },
+    "gptoss": {
+      "rows": 5000,
+      "labelled": 5000,
+      "correct": 4455,
+      "recovered": 527,
+      "items": 500
+    },
+    "sonnet55": {
+      "rows": 1954,
+      "labelled": 1954,
+      "correct": 1731,
+      "recovered": 0,
+      "items": 500
+    }
+  },
+  "qkatas": {
+    "qwen3": {
+      "rows": 3220,
+      "labelled": 2342,
+      "correct": 1138,
+      "recovered": 1,
+      "items": 322
+    },
+    "gptoss": {
+      "rows": 3220,
+      "labelled": 2312,
+      "correct": 1404,
+      "recovered": 53,
+      "items": 322
+    },
+    "sonnet55": {
+      "rows": 966,
+      "labelled": 110,
+      "correct": 106,
+      "recovered": 0,
+      "items": 322
+    }
+  }
+}
