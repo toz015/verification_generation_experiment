@@ -1,9 +1,9 @@
 # Raw generator samples: answers, stated confidence, correctness
 
 Built by `python -m vgx.raw_generator_export` (no API calls) from the raw collections in
-`results/qwen_raw_20261021`, `results/raw_gptoss_20261022`, `results/raw_sonnet55_20261026`,
-`results/raw_gemini38_20261027` and the offline labels in `results/raw_labels_20261026`.
-Complete as of 2026-10-27: 10 samples per item for every generator (Gemini on GPQA only).
+`results/qwen_raw_20261021`, `results/raw_gptoss_20261022`, `results/raw_sonnet55_20261026` and the offline labels in `results/raw_labels_20261026`.
+Complete as of 2026-10-27: 10 samples per item for every generator. Gemini 3.8 Flash is not included
+(it is too similar to the Gemini verifiers to be used as a generator).
 
 ## Generators
 
@@ -12,7 +12,6 @@ Complete as of 2026-10-27: 10 samples per item for every generator (Gemini on GP
 | `qwen3` | qwen3-235b-a22b-instruct-2507 (Vertex) | T=0.7, top_p=1, seeds 0–9 |
 | `gptoss` | gpt-oss-120b (Vertex), reasoning effort medium | T=0.7, top_p=1, seeds 0–9 |
 | `sonnet55` | claude-sonnet-5-5 (Vertex), adaptive thinking, effort high, 32768 max tokens | provider default temperature; samples 0–9 |
-| `gemini38` | gemini-3.8-flash (Vertex), reasoning effort low, 1024 max tokens; GPQA only | provider default sampling; samples 0–9 |
 
 Prompts are the main-experiment generator prompts (GPQA: answer letter + `p_correct`; MATH-500:
 reasoning + answer + `p_correct`, answer-only for Sonnet; QuantumKatas: v2 prompt, code + `p_correct`).
@@ -33,7 +32,7 @@ reasoning + answer + `p_correct`, answer-only for Sonnet; QuantumKatas: v2 promp
 | `answer_parse` | `direct`, or `recovered`: gpt-oss wrapped its JSON (`{"final": ...}`) and the answer was taken from inside the wrapper |
 
 `gpqa_option_probs.jsonl.gz`: per item and generator, the model's probability for each option A–D
-(`question: correct`, T=0; with `partition`); Sonnet and Gemini also have "probability each option is incorrect" (`question: incorrect`).
+(`question: correct`, T=0; with `partition`); Sonnet also has "probability each option is incorrect" (`question: incorrect`).
 `correct_letter` is the key. 286 of the 445 gpt-oss replies are broken JSON (e.g. `{"final{":":0}`) and have no usable probabilities.
 
 `summary.json`: rows, labelled, correct and recovered counts per dataset and generator.
@@ -45,7 +44,6 @@ reasoning + answer + `p_correct`, answer-only for Sonnet; QuantumKatas: v2 promp
 | GPQA (445-item main-experiment set) | qwen3 | 445 | 4450 | 4450 | 2120 |
 |  | gptoss | 445 | 4450 | 4251 | 2919 |
 |  | sonnet55 | 445 | 4450 | 4403 | 3806 |
-|  | gemini38 | 445 | 4450 | 4422 | 3831 |
 | MATH-500 | qwen3 | 500 | 4998 | 4998 | 4826 |
 |  | gptoss | 500 | 5000 | 5000 | 4455 |
 |  | sonnet55 | 500 | 5000 | 5000 | 4459 |

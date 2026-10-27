@@ -20,13 +20,6 @@
       "correct": 3806,
       "recovered": 0,
       "items": 445
-    },
-    "gemini38": {
-      "rows": 4450,
-      "labelled": 4422,
-      "correct": 3831,
-      "recovered": 1,
-      "items": 445
     }
   },
   "math500": {
