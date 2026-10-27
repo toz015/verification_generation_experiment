@@ -15,10 +15,17 @@
       "items": 445
     },
     "sonnet55": {
-      "rows": 2670,
-      "labelled": 2641,
-      "correct": 2291,
+      "rows": 4450,
+      "labelled": 4403,
+      "correct": 3806,
       "recovered": 0,
+      "items": 445
+    },
+    "gemini38": {
+      "rows": 4450,
+      "labelled": 4422,
+      "correct": 3831,
+      "recovered": 1,
       "items": 445
     }
   },
@@ -38,9 +45,9 @@
       "items": 500
     },
     "sonnet55": {
-      "rows": 2802,
-      "labelled": 2802,
-      "correct": 2498,
+      "rows": 5000,
+      "labelled": 5000,
+      "correct": 4459,
       "recovered": 0,
       "items": 500
     }
@@ -61,9 +68,9 @@
       "items": 322
     },
     "sonnet55": {
-      "rows": 1610,
-      "labelled": 329,
-      "correct": 318,
+      "rows": 3220,
+      "labelled": 3220,
+      "correct": 2842,
       "recovered": 0,
       "items": 322
     }

@@ -28,7 +28,7 @@ from vgx.quantum_katas.load import sha256_text
 from vgx.raw_labels import grade_math
 
 GENERATORS = {'qwen3': 'results/qwen_raw_20261021', 'gptoss': 'results/raw_gptoss_20261022',
-              'sonnet55': 'results/raw_sonnet55_20261026'}
+              'sonnet55': 'results/raw_sonnet55_20261026', 'gemini38': 'results/raw_gemini38_20261027'}
 LABELS = Path('results/raw_labels_20261026')
 OUT = Path('reports/raw_generator_export_20261026')
 
