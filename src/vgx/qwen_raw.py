@@ -27,9 +27,10 @@ from types import SimpleNamespace
 
 from vgx.common.api import OfflineCacheMiss, ProviderRejectedError, UncertainRequestError
 from vgx.common.budget import BudgetLimitError, BudgetedRequestCache
+from vgx.common.vertex import VertexBatchRunner
 from vgx.common.llm import Request
 from vgx.common.storage import append_jsonl, read_jsonl
-from vgx.gpqa.prompt import SYSTEM as GPQA_SYSTEM
+from vgx.gpqa.prompt import SYSTEM as GPQA_SYSTEM, _payload as _gpqa_payload
 from vgx.math_trial import prompt as mprompt
 from vgx.quantum_katas import prompt as qprompt
 from vgx.quantum_katas.run_pilot import AbandonedRequests, Run
@@ -51,6 +52,11 @@ PROFILES = {
     # stated probabilities are stored; PEG's token prompts are replaced by verbal option distributions.
     'sonnet55': {'model': 'anthropic/claude-sonnet-5-5', 'location': 'global', 'anthropic': True,
                  'price': {'input': 2.0, 'output': 10.0, 'cached_input': 2.0}},
+    # Gemini 3.8 Flash, GPQA only (2026-10-27, owner approved the plan within a $300 total): the main GPQA
+    # generator settings (configs/gpqa_vertex_fresh.json: max_tokens 1024, reasoning low; Gemini 3 ignores
+    # temperature/top_p, so samples are the provider's default sampling). Same jobs as Sonnet's GPQA stage 1.
+    'gemini38': {'model': 'google/gemini-3.8-flash', 'location': 'global', 'gemini': True, 'max_tokens': 1024,
+                 'effort': 'low', 'price': {'input': 0.75, 'output': 3.75, 'cached_input': 0.075}},
 }
 P = PROFILES['qwen3']
 
@@ -79,7 +85,25 @@ class SonnetRawRunner(AnthropicVertexRunner):
         return value if self.attempt == 1 else {**value, 'attempt': self.attempt}
 
 
-def stage1_sonnet(n):
+class GeminiRawRunner(VertexBatchRunner):
+    """Gemini with the main GPQA generator body; `sample` and `attempt` only enter request identity."""
+
+    def __init__(self, project, sample=0, attempt=1):
+        super().__init__(P['model'], P['location'], project, max_tokens=P['max_tokens'], reasoning_effort=P['effort'])
+        self.sample, self.attempt = sample, attempt
+
+    @property
+    def identity(self):
+        value = {**super().identity, 'raw_collection': 'raw_v1', 'sample': self.sample}
+        return value if self.attempt == 1 else {**value, 'attempt': self.attempt}
+
+
+def stage1_gemini(n):
+    # Same prompts as stage1_sonnet's GPQA jobs; cfg carries only the sample index.
+    return [(k, i, s, t, sys_, {'gemini': True, 'sample': s}) for k, i, s, t, sys_, _ in stage1_sonnet(n, gpqa_only=True)]
+
+
+def stage1_sonnet(n, gpqa_only=False):
     jobs = []
     for it in _gpqa_items():
         body = _gpqa_body(it)
@@ -95,6 +119,8 @@ def stage1_sonnet(n):
                       'Reply with JSON only: {"answer": "A"|"B"|"C"|"D", "p_correct": 0.0}')
         for s in range(n):
             jobs.append(('gpqa_samples', it['item_id'], s, gen, GPQA_SYSTEM, sonnet_cfg({'answer': 'string', 'p_correct': 'number'}, s)))
+    if gpqa_only:
+        return jobs
     for it in _math_items():
         text = mprompt.build_generator_prompt(it['problem'], mprompt.PROMPT_VERSION_ANSWER_ONLY)
         for s in range(n):
@@ -111,7 +137,7 @@ def stage1_sonnet(n):
 def configure(name):
     global P, PEG_TOKEN, JUDGE_JSON
     P = PROFILES[name]
-    if P.get('anthropic'):
+    if P.get('anthropic') or P.get('gemini'):
         return
     PEG_TOKEN = dict(max_tokens=P['short_max'], temperature=0.0, json_mode=False, extra={'logprobs': True, 'top_logprobs': P['top_k']})
     JUDGE_JSON = dict(max_tokens=P['json_max'], temperature=0.0, json_mode=True, extra={'logprobs': True, 'top_logprobs': 5})
@@ -372,7 +398,13 @@ def parse(kind, text):
             return {'letter': text.strip()[:1] or None}
         if kind.endswith('_yesno'):
             return {'token': text.strip()}
-        value = json.loads(text)
+        try:
+            value = json.loads(text)
+        except ValueError:
+            # Gemini may fence its JSON (```json ... ```); fall back to the GPQA parser's payload search.
+            value = _gpqa_payload(text)
+            if value is None:
+                raise
         if isinstance(value, dict) and set(value) == {'final'} and isinstance(value['final'], str):
             # gpt-oss sometimes wraps its JSON in {"final": "<json>"}; unwrap for raw-data parsing only
             # (the main experiments' strict parser is unchanged; the response itself is stored as is).
@@ -404,6 +436,8 @@ def run(out, jobs, *, project, limit_usd, allow_api=False, workers=8, kinds=None
     for kind, item, s, text, system, cfg in jobs:
         if 'anthropic' in cfg:
             r = SonnetRawRunner(project, cfg['anthropic'], cfg.get('sample', 0), cfg.get('attempt', 1))
+        elif 'gemini' in cfg:
+            r = GeminiRawRunner(project, cfg.get('sample', 0), cfg.get('attempt', 1))
         else:
             r = RawRunner(project, **cfg)
         req = Request(f'{kind}|{item}|{s}', text, system, {'kind': kind, 'item_id': item, 'sample': s})
@@ -478,7 +512,7 @@ def main():
     p.add_argument('--interpreter', default='tmp/math_grader_venv_20261020/bin/python')
     a = p.parse_args()
     if a.stage == 1:
-        jobs = stage1_sonnet(a.n) if P.get('anthropic') else stage1(a.project, a.n)
+        jobs = stage1_sonnet(a.n) if P.get('anthropic') else stage1_gemini(a.n) if P.get('gemini') else stage1(a.project, a.n)
     else:
         jobs = stage2(a.samples, a.out/'candidates', a.interpreter)
         if P.get('anthropic'):
