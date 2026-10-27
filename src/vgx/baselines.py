@@ -325,16 +325,175 @@ def auroc(rows, idx, v):
     return binary_forecast_metrics([a for a, _ in pairs], [b for _, b in pairs]).auroc
 
 
+
+# ----------------------------------------------------------------------------- PEG
+
+PEG_DISCRIMINATORS = ('qwen3', 'gptoss', 'sonnet55')
+PEG_CANDIDATES = {'qwen3': 'results/qwen_raw_20261021/stage2/candidates', 'gptoss': 'results/raw_gptoss_20261022/stage2/candidates',
+                  'sonnet55': 'results/raw_sonnet55_20261026/stage2/candidates'}
+
+
+def _ab_probs(record):
+    """P(A), P(B) at the answer token: Qwen's single token, or gpt-oss's last A/B token in its final reply."""
+    content = ((((record.get('meta') or {}).get('provider_response') or {}).get('choices') or [{}])[0].get('logprobs') or {}).get('content') or []
+    for tok in reversed(content):
+        if tok['token'].strip().strip('*:. ') in ('A', 'B'):
+            mass = {'A': 0.0, 'B': 0.0}
+            for alt in tok.get('top_logprobs') or [tok]:
+                t = alt['token'].strip().strip('*:. ')
+                if t in mass:
+                    mass[t] += math.exp(alt['logprob'])
+            if mass['A'] + mass['B'] > 0:
+                return mass['A'], mass['B']
+    return None
+
+
+def peg_policies(dataset):
+    """{discriminator: {item_id: [(option_key, p_correct, p_incorrect, usd)]}}; option_key is the GPQA letter,
+    the MATH cluster's member answers, or the QuantumKatas code sha256."""
+    from vgx.common.api import RequestCache
+    from vgx.quantum_katas.load import sha256_text
+    from vgx.raw_generator_export import collected
+    kind = {'qwen3': 'peg_disc', 'gptoss': 'peg_disc', 'sonnet55': 'judge_p'}
+    out = {}
+    for d in PEG_DISCRIMINATORS:
+        want = f'{dataset}_{kind[d]}'
+        cands = None
+        if dataset != 'gpqa':
+            cands = json.loads((Path(PEG_CANDIDATES[d])/f'{dataset}_candidates.json').read_text())
+        pol, caches, ledgers = defaultdict(dict), {}, {}
+        for r in collected(RAW[d]):
+            if r['kind'] != want or r.get('status') != 'ok':
+                continue
+            if dataset != 'gpqa' and r['_dir'].name not in ('stage2', 'stage2b'):
+                continue
+            if r['_dir'] not in caches:
+                caches[r['_dir']] = RequestCache(r['_dir']/'cache')
+                bp = r['_dir']/'cache'/'budget.json'
+                ledgers[r['_dir']] = json.loads(bp.read_text())['requests'] if bp.exists() else {}
+            usd = (ledgers[r['_dir']].get(r['request_key']) or {}).get('estimated_usd') or 0.0
+            if kind[d] == 'judge_p':
+                p = r.get('p_correct'); pc = (float(p), 1-float(p)) if isinstance(p, (int, float)) and 0 <= p <= 1 else None
+            else:
+                recs = [x for x in caches[r['_dir']].log(r['request_key']).records() if x.get('response') is not None]
+                ab = _ab_probs(recs[0]) if recs else None
+                pc = (ab[0]/(ab[0]+ab[1]), ab[1]/(ab[0]+ab[1])) if ab else None
+            pc = pc or (0.5, 0.5)
+            i = int(r['sample'])
+            if dataset == 'gpqa':
+                key = 'ABCD'[i]
+            elif kind[d] == 'peg_disc':
+                # Candidate files can be rewritten by a later stage; the PEG prompt itself names the candidate.
+                recs = [x for x in caches[r['_dir']].log(r['request_key']).records() if x.get('response') is not None]
+                prompt = recs[0]['prompt']
+                text = prompt.split('Proposed Answer: ', 1)[1].rsplit('\n\nIs this answer correct?', 1)[0]
+                if dataset == 'math500':
+                    c = next((c for c in cands.get(r['item_id'], []) if text == c['answer'] or text in (c.get('members') or [])), None)
+                    key = frozenset([text, *((c or {}).get('members') or [])])
+                else:
+                    key = sha256_text(text)
+            elif dataset == 'math500':
+                c = cands[r['item_id']][i]; key = frozenset([c['answer'], *(c.get('members') or [])])
+            else:
+                key = sha256_text(cands[r['item_id']][i]['code'])
+            pol[r['item_id']][key] = (key, *pc, usd)
+        out[d] = {item: list(opts.values()) for item, opts in pol.items()}
+    return out
+
+
+def _softmax(x):
+    e = np.exp(np.asarray(x, float) - np.max(x)); return e/e.sum()
+
+
+def _match(key, answer, dataset):
+    return answer in key if dataset == 'math500' else key == answer
+
+
+def _dmi(responses):
+    """DMI payments (PEG_mechanism.ipynb compute_dmi_payments), normalized across discriminators."""
+    n, m = len(responses), len(responses[0])
+    halves = (responses[:(n+1)//2], responses[(n+1)//2:])
+    pay = np.zeros(m)
+    for i in range(m):
+        for j in range(i+1, m):
+            dets = []
+            for part in halves:
+                mat = np.zeros((2, 2))
+                for row in part:
+                    mat[0 if row[i] else 1][0 if row[j] else 1] += 1
+                dets.append(np.linalg.det(mat))
+            pay[i] += dets[0]*dets[1]; pay[j] += dets[0]*dets[1]
+    return (pay - pay.mean())/(pay.std() + 1e-8)
+
+
+def peg_game(items, batch_size=8, T=10, lr=0.1):
+    """batch_update_discriminators_flexible with the frozen answer as every discriminator's choice.
+
+    items: list of per-item lists of discriminator policies {option: [p_correct, p_incorrect]} (softmaxed
+    across options as in apply_softmax) plus the chosen option per discriminator. The notebook leaves the
+    last partial batch untouched; here it joins the previous batch so every item is updated."""
+    starts = list(range(0, max(len(items) - batch_size, 0) + 1, batch_size)) or [0]
+    bounds = [(s, starts[k+1] if k+1 < len(starts) else len(items)) for k, s in enumerate(starts)]
+    for lo, hi in bounds:
+        batch = items[lo:hi]
+        for _ in range(T):
+            resp = [[max(pol, key=lambda o: pol[o][0]) == ch for pol, ch in it] for it in batch]
+            reward = _dmi(resp) if len(batch) >= 2 else np.zeros(len(batch[0]))
+            for it, rs in zip(batch, resp):
+                for d, ((pol, ch), correct) in enumerate(zip(it, rs)):
+                    pc, pi = pol[ch]
+                    g = (1/pc, -1/pc) if correct else (-1/pi, 1/pi)
+                    lc, li = math.log(pc) + lr*reward[d]*g[0], math.log(pi) + lr*reward[d]*g[1]
+                    mx = max(lc, li); ec, ei = math.exp(lc-mx), math.exp(li-mx)
+                    pc = min(max(ec/(ec+ei), 1e-6), 1-1e-6)
+                    pol[ch] = [pc, 1-pc]
+    return items
+
+
+def peg_scores(dataset, rows, policies):
+    """Score = discriminators whose final argmax-correct option is the frozen answer, plus a small
+    tie-break by their mean final P(correct | frozen answer)."""
+    items, where, usage = [], [], [0.0]*len(rows)
+    for i, r in enumerate(rows):
+        if r['answer'] is None:
+            continue
+        it, ok = [], True
+        for d in PEG_DISCRIMINATORS:
+            opts = policies[d].get(r['item_id'], [])
+            usage[i] += sum(o[3] for o in opts)
+            sc, si = _softmax([o[1] for o in opts]) if opts else [], _softmax([o[2] for o in opts]) if opts else []
+            pol = {k: [float(a), float(b)] for k, (_, a, b, _) in enumerate(opts)}
+            # apply_softmax normalizes each class across options; the game uses the pair for the chosen option.
+            pol = {k: [sc[k]/(sc[k]+si[k]), si[k]/(sc[k]+si[k])] for k in pol}
+            ch = next((k for k, o in enumerate(opts) if _match(o[0], r['answer'], dataset)), None)
+            if ch is None:
+                ok = False; break
+            it.append((pol, ch))
+        if ok:
+            items.append(it); where.append(i)
+    peg_game(items)
+    scores = [None]*len(rows)
+    for i, it in zip(where, items):
+        votes = sum(max(pol, key=lambda o: pol[o][0]) == ch for pol, ch in it)
+        scores[i] = votes + 0.1*float(np.mean([pol[ch][0] for pol, ch in it]))
+    return scores, usage, len(where)
+
+
+def peg(rows, train_idx, test_idx, scores, usage):
+    tau = fit_threshold([scores[i] for i in train_idx if rows[i]['valid']], [rows[i]['outcome'] for i in train_idx if rows[i]['valid']])
+    expected = float(np.mean([usage[i] for i in train_idx]))
+    return release_by_score(rows, test_idx, scores, tau, expected, usage), {'threshold': None if math.isinf(tau) else tau}
+
 # ----------------------------------------------------------------------------- driver
 
 def summarize(rows, ds, settings):
-    s, _ = crossfit_extended._summary(rows, ds, settings, LOSS)
+    s, u = crossfit_extended._summary(rows, ds, settings, LOSS)
     keep = ('released', 'correct_released', 'wrong_released', 'coverage', 'output_error_rate', 'output_error_wilson95',
             'calls_per_task', 'expected_usd_per_task', 'measured_usd_per_task', 'mean_utility', 'mean_utility_ci95')
     out = {k: s[k] for k in keep}
     if any('oracle_queries' in d for d in ds):
         out['oracle_queries_per_task'] = float(np.mean([d.get('oracle_queries', 0) for d in ds]))
-    return out
+    return out, u
 
 
 def risk_coverage(rows, test, scores):
@@ -352,11 +511,13 @@ def run(dataset):
     data, cfg = load(dataset)
     settings = cfg['settings']
     samples = _raw_samples(dataset) if dataset in ('gpqa', 'math500') else {}
+    policies = peg_policies(dataset)
     result = {'dataset': dataset, 'loss': LOSS, 'generators': {}}
     for gen, rows in data.items():
         order = []; arms = defaultdict(dict); folds = []
         sc_scores, sc_usage = self_consistency_scores(dataset, gen, rows, samples) if samples else (None, None)
         curves = defaultdict(dict)
+        pg_scores, pg_usage, pg_n = peg_scores(dataset, rows, policies)
         for train_idx, test_idx in splits(dataset, rows):
             order += test_idx
             base, fit = ours_and_fixed(rows, train_idx, test_idx, settings)
@@ -380,13 +541,24 @@ def run(dataset):
             for name, s in (('ssv_oracle', 'oracle'), ('ssv_model', strong)):
                 ds, info[name] = ssv(rows, train_idx, test_idx, weak, s, fitted)
                 arms[name].update(zip(test_idx, ds))
+            ds, info['peg'] = peg(rows, train_idx, test_idx, pg_scores, pg_usage)
+            arms['peg'].update(zip(test_idx, ds))
+            curves['peg'].update({i: pg_scores[i] for i in test_idx})
             folds.append(info)
         test_rows = [rows[i] for i in order]
-        res = {'n_test': len(order), 'valid_test': sum(r['valid'] for r in test_rows),
+        res = {'n_test': len(order), 'peg_items_with_all_discriminators': pg_n, 'valid_test': sum(r['valid'] for r in test_rows),
                'correct_test': sum(r['outcome'] for r in test_rows if r['valid']), 'folds': folds,
-               'arms': {name: summarize(test_rows, [d[i] for i in order], settings) for name, d in arms.items()},
+               'arms': {}, 'ours_minus': {},
                'risk_coverage': {name: risk_coverage(rows, order, sc) for name, sc in
                                  ((n, [c.get(i) for i in range(len(rows))]) for n, c in curves.items())}}
+        util = {}
+        for name, d in arms.items():
+            res['arms'][name], util[name] = summarize(test_rows, [d[i] for i in order], settings)
+        from vgx.gpqa.diamond_score import boot
+        for name in util:
+            if name != 'ours':
+                b = boot(util['ours']-util[name], settings['bootstrap_repeats'], 20261027)
+                res['ours_minus'][name] = {'mean': b['mean'], 'ci95': b['ci95']}
         res['risk_coverage']['generator_only'] = risk_coverage(rows, order, [r['prior'] if r['valid'] else None for r in rows])
         result['generators'][gen] = res
     OUT.mkdir(parents=True, exist_ok=True)
