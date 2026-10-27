@@ -24,6 +24,7 @@ reasoning + answer + `p_correct`, answer-only for Sonnet; QuantumKatas: v2 promp
 | field | meaning |
 |---|---|
 | `generator`, `item_id`, `sample` | sample = seed index 0–9 |
+| `partition` | GPQA only: `calibration` (249 Main-minus-Diamond items) or `evaluation` (196 Diamond items), the split of the main experiments |
 | `answer` | GPQA letter A–D, or MATH final answer string (`null` = no answer) |
 | `code` | QuantumKatas only: the submitted Python/Qiskit code; `code_sha256` identifies it |
 | `p_correct` | the model's own stated probability that its answer is correct |
@@ -32,7 +33,7 @@ reasoning + answer + `p_correct`, answer-only for Sonnet; QuantumKatas: v2 promp
 | `answer_parse` | `direct`, or `recovered`: gpt-oss wrapped its JSON (`{"final": ...}`) and the answer was taken from inside the wrapper |
 
 `gpqa_option_probs.jsonl.gz`: per item and generator, the model's probability for each option A–D
-(`question: correct`, T=0); Sonnet and Gemini also have "probability each option is incorrect" (`question: incorrect`).
+(`question: correct`, T=0; with `partition`); Sonnet and Gemini also have "probability each option is incorrect" (`question: incorrect`).
 `correct_letter` is the key. 286 of the 445 gpt-oss replies are broken JSON (e.g. `{"final{":":0}`) and have no usable probabilities.
 
 `summary.json`: rows, labelled, correct and recovered counts per dataset and generator.

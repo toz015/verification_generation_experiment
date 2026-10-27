@@ -31,6 +31,7 @@ GENERATORS = {'qwen3': 'results/qwen_raw_20261021', 'gptoss': 'results/raw_gptos
               'sonnet55': 'results/raw_sonnet55_20261026', 'gemini38': 'results/raw_gemini38_20261027'}
 LABELS = Path('results/raw_labels_20261026')
 OUT = Path('reports/raw_generator_export_20261026')
+GPQA_BUNDLE = 'results/gpqa_staged_generator_expansion_20261005/frozen_candidates.json'
 
 
 def collected(root):
@@ -105,6 +106,8 @@ def main():
     args = a.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     gpqa_key = json.loads((LABELS/'gpqa_key.json').read_text())
+    # GPQA split of the main experiments: 249 calibration (Main minus Diamond) + 196 evaluation (Diamond).
+    gpqa_part = {r['item_id']: r['partition'] for r in json.loads(Path(GPQA_BUNDLE).read_text())['groups']['qwen']}
     math = json.loads((LABELS/'math500_labels.json').read_text())
     qk = qk_labels()
     rows = {'gpqa': {}, 'math500': {}, 'qkatas': {}}; options = []; summary = Counter()
@@ -121,7 +124,7 @@ def main():
                         probs, how = {l: v.get(l) for l in 'ABCD'}, 'recovered'
                     except ValueError:
                         probs = None
-                options.append({'generator': gen, 'item_id': r['item_id'],
+                options.append({'generator': gen, 'item_id': r['item_id'], 'partition': gpqa_part[r['item_id']],
                                 'question': 'incorrect' if kind.endswith('incorrect') else 'correct',
                                 'probs': probs, 'answer_parse': how, 'correct_letter': gpqa_key.get(r['item_id'])})
                 continue
@@ -141,6 +144,7 @@ def main():
                     r = dict(r, **({'code': got, 'failure': None} if ds == 'qkatas' else {'answer': got}))
                     row.update(p_correct=p, answer_parse='recovered')
             if ds == 'gpqa':
+                row['partition'] = gpqa_part[r['item_id']]
                 row['answer'] = r.get('answer')
                 row['correct'] = None if row['answer'] is None else row['answer'] == gpqa_key[r['item_id']]
             elif ds == 'math500':
