@@ -10,7 +10,7 @@ OUT = Path('reports/baselines_20261027/results.html')
 DATASETS = [('gpqa', 'GPQA', '在 249 道校准题上拟合，在 196 道 Diamond 题上评测'),
             ('math500', 'MATH-500', '500 题，5 折交叉拟合（按学科×难度分层）'),
             ('qkatas', 'QuantumKatas', '322 题，5 折交叉拟合（按 kata 分组）')]
-GEN = {'qwen3': 'Qwen3-235B', 'gemini38': 'Gemini 3.8 Flash', 'gptoss': 'gpt-oss-120b', 'sonnet55': 'Sonnet 5.5'}
+GEN = {'qwen3': 'Qwen3-235B', 'gptoss': 'gpt-oss-120b', 'sonnet55': 'Sonnet 5.5'}
 MAIN = [('generator_only', '只用 generator'), ('fixed_1', '固定问 1 个 verifier'), ('fixed_2', '固定问 2 个'),
         ('fixed_3', '固定问 3 个'), ('ours', '我们的方法'), ('self_consistency', 'Self-consistency'),
         ('weaver_3', 'Weaver（3 个 verifier）'), ('ssv_model', 'SSV（强 verifier 用模型）'), ('peg', 'PEG')]
@@ -161,11 +161,10 @@ code { font-family: var(--mono); font-size: 13px; }
 <div class="findings">
   <strong>主要结论</strong>
   <ul>
-    <li>和「固定问同样 3 个 verifier」比，我们的方法接受数和错误数基本不变，效用在 9 组里显著更高（QuantumKatas 的 Qwen 不显著）。差别来自提前停止省下的钱。</li>
-    <li>和「固定只问 1 个或 2 个」比，结果有输有赢。固定问更少显著更好的有：GPQA 的 Gemini（1 个和 2 个），MATH 的 Sonnet（1 个），MATH 的 gpt-oss（2 个）。我们显著更好的有：GPQA 的 Sonnet、MATH 的 gpt-oss、QuantumKatas 的 Qwen（都是对比 1 个）。</li>
+    <li>和「固定问同样 3 个 verifier」比，我们的方法接受数和错误数基本不变，效用在 9 组里有 8 组显著更高（QuantumKatas 的 Qwen 不显著）。差别来自提前停止省下的钱。</li>
+    <li>和「固定只问 1 个或 2 个」比，结果有输有赢。固定问更少显著更好的有：MATH 的 Sonnet（1 个），MATH 的 gpt-oss（2 个）。我们显著更好的有：GPQA 的 Sonnet、MATH 的 gpt-oss、QuantumKatas 的 Qwen（都是对比 1 个）。</li>
     <li>Self-consistency、Weaver、PEG 的分数只有几档。在 GPQA 和 QuantumKatas 上，最高那一档在训练数据里都达不到 95% 正确，所以几乎不放行。QuantumKatas 的 Qwen 和 gpt-oss 上，我们的方法放行的答案错误率在 12% 到 16%，效用为负，于是「几乎不放行」的 Weaver 反而显著更好。在 MATH 上这三个方法都能放行，但没有一个显著好过我们。</li>
-    <li>SSV 用模型当强 verifier 时，10 组里有 7 组点估计不如我们（4 组显著），只有 MATH 的 Sonnet 显著更好（差 0.017）。用真实标签当强 verifier 的原版 SSV 会直接查看一部分题的答案，放在附录 A。</li>
-  </ul>
+    <li>SSV 用模型当强 verifier 时，9 组里有 6 组点估计不如我们（4 组显著），只有 MATH 的 Sonnet 显著更好（差 0.017）。用真实标签当强 verifier 的原版 SSV 会直接查看一部分题的答案，放在附录 A。</li>
   </ul>
 </div>
 

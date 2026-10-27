@@ -51,13 +51,14 @@ EXPORT = Path('reports/raw_generator_export_20261026')
 VERIFIERS = ['gemini_flash', 'gemini_lite', 'mistral_small', 'mistral_medium', 'claude_haiku']
 EDGES = (0.0, 1/3, 2/3, 1.0)
 LOSS = 19.0
-GPQA_STUDIES = {'qwen3': 'results/gpqa_qwen_verification_20261020', 'gemini38': 'results/gpqa_gemini_verification_20261020',
+# Gemini 3.8 Flash is not used as a generator: too close to the Gemini verifiers.
+GPQA_STUDIES = {'qwen3': 'results/gpqa_qwen_verification_20261020',
                 'gptoss': 'results/gpqa_gptoss_verification_regen_20261020',
                 'sonnet55': 'results/gpqa_sonnet55_verification_20261016'}
 CONFIGS = {'gpqa': 'configs/gpqa_gptoss_verification_20261020.json', 'math500': 'configs/math500_crossfit_complete_20261021.json',
            'qkatas': 'configs/quantum_katas_crossfit_3gen_20261019.json'}
 RAW = {'qwen3': 'results/qwen_raw_20261021', 'gptoss': 'results/raw_gptoss_20261022',
-       'sonnet55': 'results/raw_sonnet55_20261026', 'gemini38': 'results/raw_gemini38_20261027'}
+       'sonnet55': 'results/raw_sonnet55_20261026'}
 GRADER_PY = 'tmp/math_grader_venv_20261020/bin/python'
 
 
