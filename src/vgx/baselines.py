@@ -40,7 +40,7 @@ import subprocess
 import numpy as np
 
 from vgx.common.storage import atomic_json, read_jsonl
-from vgx.gpqa.dependence_triples import execute
+from vgx.gpqa.dependence_triples import bin_of, execute
 from vgx.gpqa.raw_prior_analysis import baseline_decision
 from vgx.gpqa.score import binary_forecast_metrics
 from vgx.gpqa.sequential import unseal
@@ -214,6 +214,53 @@ def self_consistency(rows, train_idx, test_idx, scores, usage):
     return release_by_score(rows, test_idx, scores, tau, expected, usage), {'threshold': None if math.isinf(tau) else tau}
 
 
+def vote_rows(dataset, gen, rows, samples):
+    """Self-consistency as answer selection: the majority answer of the 10 raw samples, with the
+    generator's own confidence (mean stated p_correct of the samples in the majority) as its prior.
+    Returns rows with answer / prior / outcome / valid replaced, and the per-item cost of the 10 samples.
+    MATH answers are clustered by the pinned math_equal (exact string first); ties go to the cluster
+    with the higher total p_correct."""
+    export = defaultdict(list)
+    with gzip.open(EXPORT/f'{dataset}.jsonl.gz', 'rt') as f:
+        for line in f:
+            r = json.loads(line)
+            if r['generator'] == gen and isinstance(r.get('answer'), str) and r['answer'].strip():
+                export[r['item_id']].append(r)
+    if dataset == 'math500':
+        pairs = set()
+        for item, ss in export.items():
+            distinct = sorted({s['answer'] for s in ss})
+            pairs |= {(item, a, b) for k, a in enumerate(distinct) for b in distinct[k+1:]}
+        equiv = _math_equivalence(pairs)
+    out, usage = [], []
+    for r in rows:
+        ss = export.get(r['item_id'], [])
+        usage.append(sum(u for _, u in samples.get((gen, r['item_id']), {}).values()))
+        clusters = []
+        for s in ss:
+            for c in clusters:
+                a, b = sorted((c[0]['answer'], s['answer']))
+                if a == b or (dataset == 'math500' and equiv.get((r['item_id'], a, b), False)):
+                    c.append(s); break
+            else:
+                clusters.append([s])
+        if not clusters:
+            out.append(dict(r, answer=None, prior=0.0, outcome=0, valid=False)); continue
+        best = max(clusters, key=lambda c: (len(c), sum(s['p_correct'] or 0.0 for s in c)))
+        ps = [s['p_correct'] for s in best if s['p_correct'] is not None]
+        labels = [s['correct'] for s in best if s['correct'] is not None]
+        out.append(dict(r, answer=best[0]['answer'], prior=float(np.mean(ps)) if ps else 0.0,
+                        outcome=int(labels[0]) if labels else 0, valid=bool(ps), vote_share=len(best)/len(ss)))
+    return out, usage
+
+
+def self_consistency_vote(vrows, test_idx, usage, train_idx, settings):
+    """Release the majority answer iff its confidence >= L/(1+L), the generator-only rule."""
+    expected = float(np.mean([usage[i] for i in train_idx]))
+    return [dict(baseline_decision(vrows[i]['prior'], vrows[i]['valid'], LOSS, settings['correct_reward']),
+                 expected_cost_usd=expected, usage_estimated_cost_usd=usage[i]) for i in test_idx]
+
+
 # ----------------------------------------------------------------------------- Weaver
 
 def weaver_posterior(votes, class_balance, iters=500):
@@ -233,12 +280,48 @@ def weaver_posterior(votes, class_balance, iters=500):
     return q, tpr, tnr
 
 
-def weaver(rows, train_idx, test_idx, pool, fitted):
+def weaver_binned_posterior(bins, class_balance, k, iters=500):
+    """Weaver's label model with each verifier's score in k bins (missing = -1, skipped): class-conditional
+    bin distributions per verifier, conditionally independent, class balance fixed, fit by EM without labels."""
+    x = np.asarray(bins, int); n, m = x.shape
+    onehot = np.stack([(x == b) for b in range(k)], -1).astype(float)          # n, m, k
+    ramp = np.linspace(1, 2, k)
+    p1 = np.tile(ramp/ramp.sum(), (m, 1)); p0 = np.tile(ramp[::-1]/ramp.sum(), (m, 1))
+    pi = min(max(class_balance, 1e-3), 1-1e-3)
+    for _ in range(iters):
+        l1 = math.log(pi) + (onehot*np.log(p1)).sum((1, 2))
+        l0 = math.log(1-pi) + (onehot*np.log(p0)).sum((1, 2))
+        q = 1/(1+np.exp(l0-l1))
+        new1 = (q[:, None, None]*onehot).sum(0) + 1e-2; new1 /= new1.sum(1, keepdims=True)
+        new0 = ((1-q)[:, None, None]*onehot).sum(0) + 1e-2; new0 /= new0.sum(1, keepdims=True)
+        if np.allclose(new1, p1, atol=1e-8) and np.allclose(new0, p0, atol=1e-8):
+            break
+        p1, p0 = new1, new0
+    return q, p1, p0
+
+
+PRIOR_EDGES = (0.0, 0.5, 0.8, 0.9, 0.95, 0.99, 1.0)
+
+
+def weaver(rows, train_idx, test_idx, pool, fitted, binned=True, with_prior=False):
+    """binned: scores in the main experiments' three probability bins (main table); else binary votes at 0.5.
+    with_prior: the generator's stated p_correct enters the label model as one more weak signal (PRIOR_EDGES bins)."""
     idx = sorted(set(train_idx) | set(test_idx))
     use = [i for i in idx if rows[i]['valid']]
-    votes = [[1.0 if (rows[i]['signals'][v]['score'] or 0.0) >= 0.5 else 0.0 for v in pool] for i in use]
     cb = float(np.mean([rows[i]['outcome'] for i in train_idx if rows[i]['valid']]))
-    q, tpr, tnr = weaver_posterior(votes, cb)
+    if binned:
+        bins = [[-1 if rows[i]['signals'][v]['score'] is None else bin_of(rows[i]['signals'][v]['score'], EDGES)
+                 for v in pool] for i in use]
+        k = len(EDGES)-1
+        if with_prior:
+            bins = [b+[bin_of(rows[i]['prior'], PRIOR_EDGES)] for b, i in zip(bins, use)]
+            k = len(PRIOR_EDGES)-1
+        q, tpr, tnr = weaver_binned_posterior(bins, cb, k)
+        tpr, tnr = tpr.tolist(), tnr.tolist()
+    else:
+        votes = [[1.0 if (rows[i]['signals'][v]['score'] or 0.0) >= 0.5 else 0.0 for v in pool] for i in use]
+        q, tpr, tnr = weaver_posterior(votes, cb)
+        tpr, tnr = tpr.tolist(), tnr.tolist()
     scores = [None]*len(rows)
     for i, s in zip(use, q):
         scores[i] = float(s)
@@ -247,7 +330,7 @@ def weaver(rows, train_idx, test_idx, pool, fitted):
     usage = [sum(r['signals'][v]['estimated_usd'] for v in pool) for r in rows]
     ds = [dict(d, verifiers_used=len(pool) if rows[i]['valid'] else 0) for d, i in
           zip(release_by_score(rows, test_idx, scores, tau, expected, usage), test_idx)]
-    return ds, {'threshold': None if math.isinf(tau) else tau, 'class_balance': cb, 'tpr': dict(zip(pool, tpr.tolist())), 'tnr': dict(zip(pool, tnr.tolist())),
+    return ds, {'threshold': None if math.isinf(tau) else tau, 'class_balance': cb, 'tpr': dict(zip(pool, tpr)), 'tnr': dict(zip(pool, tnr)),
                 'scores': scores}
 
 
@@ -517,6 +600,7 @@ def run(dataset):
     for gen, rows in data.items():
         order = []; arms = defaultdict(dict); folds = []
         sc_scores, sc_usage = self_consistency_scores(dataset, gen, rows, samples) if samples else (None, None)
+        vrows, v_usage = vote_rows(dataset, gen, rows, samples) if samples else (None, None)
         curves = defaultdict(dict)
         pg_scores, pg_usage, pg_n = peg_scores(dataset, rows, policies)
         for train_idx, test_idx in splits(dataset, rows):
@@ -530,8 +614,12 @@ def run(dataset):
                 ds, info['self_consistency'] = self_consistency(rows, train_idx, test_idx, sc_scores, sc_usage)
                 arms['self_consistency'].update(zip(test_idx, ds))
                 curves['self_consistency'].update({i: sc_scores[i] for i in test_idx})
-            for name, pool in (('weaver_3', triple), ('weaver_5', VERIFIERS)):
-                ds, w = weaver(rows, train_idx, test_idx, pool, fitted)
+            if vrows is not None:
+                arms['sc_vote'].update(zip(test_idx, self_consistency_vote(vrows, test_idx, v_usage, train_idx, settings)))
+            for name, pool, binned, wp in (('weaver_3', triple, True, False), ('weaver_5', VERIFIERS, True, False),
+                                           ('weaver_5_conf', VERIFIERS, True, True),
+                                           ('weaver_3_binary', triple, False, False), ('weaver_5_binary', VERIFIERS, False, False)):
+                ds, w = weaver(rows, train_idx, test_idx, pool, fitted, binned, wp)
                 ws = w.pop('scores')
                 curves[name].update({i: ws[i] for i in test_idx})
                 arms[name].update(zip(test_idx, ds)); info[name] = w
@@ -554,13 +642,18 @@ def run(dataset):
                                  ((n, [c.get(i) for i in range(len(rows))]) for n, c in curves.items())}}
         util = {}
         for name, d in arms.items():
-            res['arms'][name], util[name] = summarize(test_rows, [d[i] for i in order], settings)
+            base_rows = [vrows[i] for i in order] if name == 'sc_vote' else test_rows
+            res['arms'][name], util[name] = summarize(base_rows, [d[i] for i in order], settings)
         from vgx.gpqa.diamond_score import boot
         for name in util:
             if name != 'ours':
                 b = boot(util['ours']-util[name], settings['bootstrap_repeats'], 20261027)
                 res['ours_minus'][name] = {'mean': b['mean'], 'ci95': b['ci95']}
         res['risk_coverage']['generator_only'] = risk_coverage(rows, order, [r['prior'] if r['valid'] else None for r in rows])
+        if vrows is not None:
+            res['risk_coverage']['sc_vote'] = risk_coverage(vrows, order, [r['prior'] if r['valid'] else None for r in vrows])
+            res['sc_vote_answer_changed'] = sum(vrows[i]['valid'] and rows[i]['valid'] and vrows[i]['answer'] != rows[i]['answer']
+                                                 for i in order)
         result['generators'][gen] = res
     OUT.mkdir(parents=True, exist_ok=True)
     atomic_json(OUT/f'{dataset}.json', result)
