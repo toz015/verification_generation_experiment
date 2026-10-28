@@ -26,17 +26,22 @@ def num(x, d=2):
     return '—' if x is None else f'{x:.{d}f}'.replace('-', '−')
 
 
+def signed(x, d=2):
+    return ('+' if x > 0 else '') + num(x, d)
+
+
 def cell(arms, diff, key):
     a = arms.get(key)
     if a is None:
         return '<td class="na">不适用</td>'
-    cls = ''
+    cls, vs = '', '<span class="d">参照</span>'
     if key != 'ours' and key in diff:
-        lo, hi = diff[key]['ci95']
+        m, (lo, hi) = -diff[key]['mean'], diff[key]['ci95']
         cls = ' better' if lo > 0 else ' worse' if hi < 0 else ''
+        vs = f'<span class="d">比我们 {signed(m)}<small>（{signed(-hi)} 到 {signed(-lo)}）</small></span>'
     extra = f'<span class="q">oracle {a["oracle_queries_per_task"]:.2f}/题</span>' if 'oracle_queries_per_task' in a else ''
-    return (f'<td class="c{cls}{" ours" if key == "ours" else ""}"><span class="rw">{a["released"]} / {a["wrong_released"]}</span>'
-            f'<span class="u">{num(a["mean_utility"], 3)}</span><span class="usd">${a["expected_usd_per_task"]:.4f}</span>{extra}</td>')
+    return (f'<td class="c{cls}{" ours" if key == "ours" else ""}"><span class="rw">放行 {a["released"]} · 错 {a["wrong_released"]}</span>'
+            f'<span class="u">效用 {num(a["mean_utility"], 3)}</span>{vs}<span class="usd">${a["expected_usd_per_task"]:.4f}/题</span>{extra}</td>')
 
 
 def table(r, rows):
@@ -134,10 +139,11 @@ tbody tr:last-child > * { border-bottom: 0; }
 td.c { font-family: var(--mono); font-size: 13px; line-height: 1.45; white-space: nowrap; }
 td.c span { display: block; }
 td .rw { font-weight: 500; }
-td .usd, td .q { color: var(--muted); font-size: 12px; }
+td .usd, td .q, td .d small { color: var(--muted); font-size: 12px; }
+td .d { font-size: 12px; }
 td.ours { box-shadow: inset 3px 0 0 var(--accent); }
-td.better { background: var(--good-bg); } td.better .u { color: var(--good-fg); font-weight: 500; }
-td.worse { background: var(--bad-bg); } td.worse .u { color: var(--bad-fg); font-weight: 500; }
+td.better { background: var(--good-bg); } td.better .d { color: var(--good-fg); font-weight: 500; }
+td.worse { background: var(--bad-bg); } td.worse .d { color: var(--bad-fg); font-weight: 500; }
 td.na { color: var(--muted); font-size: 13px; }
 .key { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); }
 .key b { font-family: var(--mono); font-weight: 500; color: var(--fg); }
@@ -174,9 +180,10 @@ code { font-family: var(--mono); font-size: 13px; }
 </div>
 
 <div class="key">
-  <span>每格三行：<b>接受数 / 其中答错</b>，<b>平均效用</b>，<b>每题预期花费</b></span>
-  <span><i class="sw" style="background:var(--good-bg)"></i>我们显著更好（配对 bootstrap 95% 区间不含 0）</span>
-  <span><i class="sw" style="background:var(--bad-bg)"></i>这个 baseline 显著更好</span>
+  <span>每格四行：<b>放行数 · 其中答错数</b>；<b>平均效用</b>；<b>这个方法的效用减去我们方法的效用</b>（括号里是配对 bootstrap 95% 区间，正数表示这个方法更好）；<b>每题预期花费</b></span>
+  <span>效用按题平均：答对放行 +1，答错放行 −19，弃权 0，再减去 10 × 每题花费（美元）。错一个抵掉 19 个对的，所以放得少但不错，常常比放得多但错几个更好。例如 GPQA 的 gpt-oss：只用 generator 放行 49 个、0 个错，效用 0.250；我们放行 102 个、错 7 个，效用 −0.222。</span>
+  <span><i class="sw" style="background:var(--good-bg)"></i>我们显著更好（区间全在 0 以下）</span>
+  <span><i class="sw" style="background:var(--bad-bg)"></i>这个 baseline 显著更好（区间全在 0 以上）</span>
 </div>
 
 {{SECTIONS}}
