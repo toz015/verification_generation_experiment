@@ -1,0 +1,86 @@
+Sonnet 5.5 review package — publication index
+Date: 2026-10-17 (America/Los_Angeles)
+Target branch: diamond-verifier-signals
+============================================================
+
+Start here
+----------
+reports/gpqa_sonnet55_verification_20261016/README.txt
+reports/gpqa_sonnet55_verification_20261016/result.json
+reports/gpqa_sonnet55_verification_20261016/policy.json
+reports/gpqa_sonnet55_verification_20261016/audit.json
+
+The verification report contains the primary L=19 and sensitivity L=99
+accept/abstain results. policy.json contains development likelihoods, expected
+query costs, all 60 ordered-triple rankings and the selected order per loss.
+The primary frozen order is Flash -> Flash-Lite -> Haiku. Raw generator
+confidence is unchanged. The implementation uses the existing exact nested
+planner, not a new approximation to the stopping rule.
+
+Earlier Sonnet stages included for provenance
+--------------------------------------------
+reports/gpqa_sonnet55_20261015/
+  Original access/format checks, the explicitly approved parser-v2 amendment,
+  the 50-question development pilot, accounting and preservation audits.
+reports/gpqa_sonnet55_expansion_20261015/
+  Expansion to 445 questions, reuse of the first 50, completion and independent
+  read-only audit. The repeat-report command's tuple/list comparison failure
+  remains documented; no collection source or frozen candidate was repaired.
+reports/gpqa_sonnet55_offline_score_20261016/
+  Generator-only comparisons with Gemini and Qwen, split into development and
+  Diamond, using raw confidence and explicit denominators.
+
+Code and settings
+-----------------
+src/vgx/gpqa/sonnet_screen.py
+src/vgx/gpqa/sonnet_screen_v2.py
+src/vgx/gpqa/sonnet_expansion.py
+src/vgx/gpqa/sonnet_offline_score.py
+src/vgx/gpqa/sonnet_verification.py
+src/vgx/gpqa/replacement_generators.py
+
+The last module is an existing shared dependency for the Sonnet cache and
+accounting helpers; its inclusion does not authorize another model experiment.
+The two gpqa_sonnet55*.json configs and the four earlier gpqa-sonnet55*.txt
+protocol documents are included unchanged. The five-verifier settings remain
+in the already tracked configs/gpqa_signal_study_4096.json.
+
+Suggested cross-checks
+----------------------
+1. Confirm raw confidence is neither calibrated nor replaced by a label-derived
+   prior. Likelihood fitting uses development labels only.
+2. Check policy freezing precedes Diamond verifier access/collection, and
+   label-free decisions are saved before Diamond scoring reads the key.
+3. Check all 60 rankings use development-prior expected J0, with the recorded
+   monetary-to-utility conversion, rather than selecting on Diamond utility.
+4. Check prefix-only signal access and stopping logic, including missing signals,
+   invalid generators, ties, and query charges. The result records 784 matched
+   full-cache versus queried-prefix-only executions.
+5. Distinguish new collection spend, counterfactual queried-prefix costs,
+   expected costs used by the planner, and confirmed billing (unavailable).
+6. Distinguish adaptive acceptance metrics from the separate always-query Brier
+   diagnostic. Zero observed wrong releases is not a statistical risk guarantee.
+7. Preserve the limitations: conditional independence is assumed; Sonnet and
+   Haiku share a family; model aliases and serving dates can vary; generator-only
+   Diamond results had already been inspected before this exploratory extension.
+
+Publication boundary and reproducibility
+---------------------------------------
+This package includes code, settings, aggregate results, likelihood tables,
+format diagnostics, hashes and audit summaries. It excludes question/option
+text, candidate answers, answer keys, per-item correctness/decision traces,
+raw provider responses, cache files and credentials. Opaque item/request IDs,
+hashes, per-item format flags and non-secret billing project metadata remain
+where needed for provenance.
+
+Consequently a fresh clone supports method/source review and aggregate checks,
+but cannot independently reconstruct every score or replay every item without
+the restricted local artifacts. Paths and hashes identify those artifacts;
+they are not included in Git. Do not regenerate them as a workaround, and do
+not run an --allow-api command merely to review this package.
+
+Existing report files and source seals are preserved byte for byte. Their
+statements that they had not yet been committed/pushed describe the original
+reporting dates; this index records the later publication step. Each report
+directory retains its original sha256.txt. No API collection, refitting,
+rescoring, unit-test run, or experiment design change is part of publication.

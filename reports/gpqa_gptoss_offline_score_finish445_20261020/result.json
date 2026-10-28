@@ -1,0 +1,420 @@
+{
+  "all_assigned_questions": {
+    "calibration": {
+      "gemini": {
+        "accuracy_all": 0.8473895582329317,
+        "accuracy_valid_answers": 0.854251012145749,
+        "brier_n": 247,
+        "confidence_n": 247,
+        "correct": 211,
+        "failures": {
+          "invalid_answer": 1,
+          "invalid_json": 1
+        },
+        "invalid_answer_n": 2,
+        "mean_confidence": 0.934412955465587,
+        "mean_confidence_if_correct": 0.9427488151658767,
+        "mean_confidence_if_wrong": 0.8855555555555555,
+        "n": 249,
+        "numeric_confidence_n": 248,
+        "raw_brier": 0.1254906882591093,
+        "valid_answer_n": 247,
+        "wrong_with_confidence_n": 36
+      },
+      "gpt_oss_120b": {
+        "accuracy_all": 0.6506024096385542,
+        "accuracy_valid_answers": 0.6639344262295082,
+        "brier_n": 244,
+        "confidence_n": 244,
+        "correct": 162,
+        "failures": {
+          "finish_reason:abort": 2,
+          "invalid_final_json": 3
+        },
+        "invalid_answer_n": 5,
+        "mean_confidence": 0.8089344262295082,
+        "mean_confidence_if_correct": 0.8709876543209876,
+        "mean_confidence_if_wrong": 0.6863414634146342,
+        "n": 249,
+        "numeric_confidence_n": 244,
+        "raw_brier": 0.18817704918032788,
+        "valid_answer_n": 244,
+        "wrong_with_confidence_n": 82
+      },
+      "qwen": {
+        "accuracy_all": 0.6305220883534136,
+        "accuracy_valid_answers": 0.6305220883534136,
+        "brier_n": 249,
+        "confidence_n": 249,
+        "correct": 157,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.9199196787148595,
+        "mean_confidence_if_correct": 0.9364331210191084,
+        "mean_confidence_if_wrong": 0.8917391304347825,
+        "n": 249,
+        "numeric_confidence_n": 249,
+        "raw_brier": 0.30145060240963856,
+        "valid_answer_n": 249,
+        "wrong_with_confidence_n": 92
+      },
+      "sonnet_5_5": {
+        "accuracy_all": 0.8714859437751004,
+        "accuracy_valid_answers": 0.875,
+        "brier_n": 248,
+        "confidence_n": 248,
+        "correct": 217,
+        "failures": {
+          "nonterminal_json_or_unbalanced_fence": 1
+        },
+        "invalid_answer_n": 1,
+        "mean_confidence": 0.797741935483871,
+        "mean_confidence_if_correct": 0.8168663594470046,
+        "mean_confidence_if_wrong": 0.6638709677419354,
+        "n": 249,
+        "numeric_confidence_n": 248,
+        "raw_brier": 0.10259596774193548,
+        "valid_answer_n": 248,
+        "wrong_with_confidence_n": 31
+      }
+    },
+    "evaluation": {
+      "gemini": {
+        "accuracy_all": 0.9183673469387755,
+        "accuracy_valid_answers": 0.9230769230769231,
+        "brier_n": 195,
+        "confidence_n": 195,
+        "correct": 180,
+        "failures": {
+          "invalid_json": 1
+        },
+        "invalid_answer_n": 1,
+        "mean_confidence": 0.9478974358974359,
+        "mean_confidence_if_correct": 0.9566111111111111,
+        "mean_confidence_if_wrong": 0.8433333333333334,
+        "n": 196,
+        "numeric_confidence_n": 195,
+        "raw_brier": 0.061072820512820515,
+        "valid_answer_n": 195,
+        "wrong_with_confidence_n": 15
+      },
+      "gpt_oss_120b": {
+        "accuracy_all": 0.6632653061224489,
+        "accuracy_valid_answers": 0.6701030927835051,
+        "brier_n": 194,
+        "confidence_n": 194,
+        "correct": 130,
+        "failures": {
+          "invalid_final_json": 2
+        },
+        "invalid_answer_n": 2,
+        "mean_confidence": 0.797319587628866,
+        "mean_confidence_if_correct": 0.8620769230769231,
+        "mean_confidence_if_wrong": 0.66578125,
+        "n": 196,
+        "numeric_confidence_n": 194,
+        "raw_brier": 0.18013298969072164,
+        "valid_answer_n": 194,
+        "wrong_with_confidence_n": 64
+      },
+      "qwen": {
+        "accuracy_all": 0.6377551020408163,
+        "accuracy_valid_answers": 0.6377551020408163,
+        "brier_n": 196,
+        "confidence_n": 196,
+        "correct": 125,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.9231122448979592,
+        "mean_confidence_if_correct": 0.93504,
+        "mean_confidence_if_wrong": 0.9021126760563379,
+        "n": 196,
+        "numeric_confidence_n": 196,
+        "raw_brier": 0.29991071428571425,
+        "valid_answer_n": 196,
+        "wrong_with_confidence_n": 71
+      },
+      "sonnet_5_5": {
+        "accuracy_all": 0.9183673469387755,
+        "accuracy_valid_answers": 0.9183673469387755,
+        "brier_n": 196,
+        "confidence_n": 196,
+        "correct": 180,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.837295918367347,
+        "mean_confidence_if_correct": 0.8529444444444445,
+        "mean_confidence_if_wrong": 0.66125,
+        "n": 196,
+        "numeric_confidence_n": 196,
+        "raw_brier": 0.07045765306122449,
+        "valid_answer_n": 196,
+        "wrong_with_confidence_n": 16
+      }
+    }
+  },
+  "analysis_id": "b1ab971dc42201f32bb255a6054096472f65e75457cd983a0c6fcb414ad0d340",
+  "answer_keys_read": true,
+  "bundle_ids": {
+    "gemini": "f0fa3ba0d9551df0aac24ad584da64af55062b4ef608134917cb855b79927add",
+    "gpt_oss_120b": "afba49dc04476536d76c866d84cb3a243f3db8900710934c9f2eb87c06f27338",
+    "qwen": "3c7e0dc0005a9fe4905e84ce635af17dcc155c84db01590489b02df0aa4066c0",
+    "sonnet_5_5": "928331fec1a4e2086ebc007699b813b79031747263add74f93030eb8c0c5bd9c"
+  },
+  "candidate_or_parser_changes": false,
+  "cohort_id": "59a4723fe56b71493c049814d983e2023ec5787910f9ad64d5b3b00f757f1112",
+  "collection_audit": {
+    "accuracy_computed": false,
+    "all_received_gptoss_estimated_usd": 0.21601296,
+    "answer_keys_read": false,
+    "budget": {
+      "confirmed_billing_usd": null,
+      "estimated_usd": 0.21515336999999998,
+      "limit_usd": 1.0,
+      "outstanding_reserved_usd": 0.08399538,
+      "project": "llm-applications-490420",
+      "rejected_requests": 3,
+      "successful_priced_calls": 440
+    },
+    "confidence_calibrated": false,
+    "confirmed_billing_usd": null,
+    "expansion_id": "43c6e8bd631106d21638ebf88fdaa994259b39050659cfcb541fb5854b73c8f4",
+    "input_tokens": 147780,
+    "invalid": {
+      "finish_reason:abort": 2,
+      "invalid_final_json": 5
+    },
+    "new_provider_attempts": 157,
+    "output_tokens_including_reasoning": 563091,
+    "partitions": {
+      "calibration": {
+        "invalid": {
+          "finish_reason:abort": 2,
+          "invalid_final_json": 3
+        },
+        "mean_raw_confidence": 0.8089344262295082,
+        "responses": 249,
+        "valid": 244
+      },
+      "evaluation": {
+        "invalid": {
+          "invalid_final_json": 2
+        },
+        "mean_raw_confidence": 0.797319587628866,
+        "responses": 196,
+        "valid": 194
+      }
+    },
+    "remaining_requests": 0,
+    "responses": 445,
+    "reused_responses": 291,
+    "service_failure_positions": [],
+    "stage": "complete",
+    "target": 445,
+    "valid": 438,
+    "verifier_requests": 0
+  },
+  "common_valid_n": {
+    "calibration": 241,
+    "evaluation": 193
+  },
+  "common_valid_questions": {
+    "calibration": {
+      "gemini": {
+        "accuracy_all": 0.8506224066390041,
+        "accuracy_valid_answers": 0.8506224066390041,
+        "brier_n": 241,
+        "confidence_n": 241,
+        "correct": 205,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.9354356846473029,
+        "mean_confidence_if_correct": 0.9441951219512196,
+        "mean_confidence_if_wrong": 0.8855555555555555,
+        "n": 241,
+        "numeric_confidence_n": 241,
+        "raw_brier": 0.12784481327800828,
+        "valid_answer_n": 241,
+        "wrong_with_confidence_n": 36
+      },
+      "gpt_oss_120b": {
+        "accuracy_all": 0.6721991701244814,
+        "accuracy_valid_answers": 0.6721991701244814,
+        "brier_n": 241,
+        "confidence_n": 241,
+        "correct": 162,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.8131950207468879,
+        "mean_confidence_if_correct": 0.8709876543209876,
+        "mean_confidence_if_wrong": 0.6946835443037975,
+        "n": 241,
+        "numeric_confidence_n": 241,
+        "raw_brier": 0.1876356846473029,
+        "valid_answer_n": 241,
+        "wrong_with_confidence_n": 79
+      },
+      "qwen": {
+        "accuracy_all": 0.6348547717842323,
+        "accuracy_valid_answers": 0.6348547717842323,
+        "brier_n": 241,
+        "confidence_n": 241,
+        "correct": 153,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.9192116182572614,
+        "mean_confidence_if_correct": 0.9358823529411765,
+        "mean_confidence_if_wrong": 0.8902272727272728,
+        "n": 241,
+        "numeric_confidence_n": 241,
+        "raw_brier": 0.29719211618257263,
+        "valid_answer_n": 241,
+        "wrong_with_confidence_n": 88
+      },
+      "sonnet_5_5": {
+        "accuracy_all": 0.8713692946058091,
+        "accuracy_valid_answers": 0.8713692946058091,
+        "brier_n": 241,
+        "confidence_n": 241,
+        "correct": 210,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.7981327800829875,
+        "mean_confidence_if_correct": 0.817952380952381,
+        "mean_confidence_if_wrong": 0.6638709677419354,
+        "n": 241,
+        "numeric_confidence_n": 241,
+        "raw_brier": 0.10374398340248964,
+        "valid_answer_n": 241,
+        "wrong_with_confidence_n": 31
+      }
+    },
+    "evaluation": {
+      "gemini": {
+        "accuracy_all": 0.9222797927461139,
+        "accuracy_valid_answers": 0.9222797927461139,
+        "brier_n": 193,
+        "confidence_n": 193,
+        "correct": 178,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.9476683937823834,
+        "mean_confidence_if_correct": 0.9564606741573034,
+        "mean_confidence_if_wrong": 0.8433333333333334,
+        "n": 193,
+        "numeric_confidence_n": 193,
+        "raw_brier": 0.06169222797927461,
+        "valid_answer_n": 193,
+        "wrong_with_confidence_n": 15
+      },
+      "gpt_oss_120b": {
+        "accuracy_all": 0.6683937823834197,
+        "accuracy_valid_answers": 0.6683937823834197,
+        "brier_n": 193,
+        "confidence_n": 193,
+        "correct": 129,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.798341968911917,
+        "mean_confidence_if_correct": 0.864108527131783,
+        "mean_confidence_if_wrong": 0.66578125,
+        "n": 193,
+        "numeric_confidence_n": 193,
+        "raw_brier": 0.18023730569948188,
+        "valid_answer_n": 193,
+        "wrong_with_confidence_n": 64
+      },
+      "qwen": {
+        "accuracy_all": 0.6321243523316062,
+        "accuracy_valid_answers": 0.6321243523316062,
+        "brier_n": 193,
+        "confidence_n": 193,
+        "correct": 122,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.9234715025906736,
+        "mean_confidence_if_correct": 0.9359016393442622,
+        "mean_confidence_if_wrong": 0.9021126760563379,
+        "n": 193,
+        "numeric_confidence_n": 193,
+        "raw_brier": 0.3043911917098446,
+        "valid_answer_n": 193,
+        "wrong_with_confidence_n": 71
+      },
+      "sonnet_5_5": {
+        "accuracy_all": 0.9222797927461139,
+        "accuracy_valid_answers": 0.9222797927461139,
+        "brier_n": 193,
+        "confidence_n": 193,
+        "correct": 178,
+        "failures": {},
+        "invalid_answer_n": 0,
+        "mean_confidence": 0.8369430051813471,
+        "mean_confidence_if_correct": 0.8523595505617978,
+        "mean_confidence_if_wrong": 0.654,
+        "n": 193,
+        "numeric_confidence_n": 193,
+        "raw_brier": 0.06838082901554404,
+        "valid_answer_n": 193,
+        "wrong_with_confidence_n": 15
+      }
+    }
+  },
+  "confidence_calibrated": false,
+  "dataset_id": "7ab77351058ba061f04ad0b3c73ffb7406b1f6b9b5132aeb7d8a9ee280206ca7",
+  "expansion_id": "43c6e8bd631106d21638ebf88fdaa994259b39050659cfcb541fb5854b73c8f4",
+  "label_sha256": "6886f4f6e39897be5f0bec4cc02ff8ab307695e7bf8cb02fc8b0fec3ebd01437",
+  "methods": {
+    "accuracy_all": "Correct valid answers / every assigned question; unparsed answers are non-correct. A valid answer is scored even if its confidence is missing.",
+    "accuracy_valid_answers": "Correct valid answers / valid answers only.",
+    "brier": "Mean (raw p_correct - 1[answer correct])^2, one binary correctness forecast per item, with no factor of 2.",
+    "common_valid": "For each partition, the intersection of valid answer/confidence item IDs across all four models; membership fixed before opening labels.",
+    "confidence_and_brier": "Use only frozen candidates with both a valid answer and a finite numeric raw p_correct in [0,1]. No imputation, clipping or calibration.",
+    "interpretation": "Historical model-plus-generation protocols differ: Qwen two-step, Sonnet adaptive high effort, GPT-OSS medium reasoning. No causal attribution to the base model alone.",
+    "mean_confidence_if_wrong": "Mean raw confidence among valid answer/confidence pairs whose answer is wrong; excludes unparsed answers."
+  },
+  "models": {
+    "gemini": [
+      "google/gemini-3.8-flash"
+    ],
+    "gpt_oss_120b": [
+      "openai/gpt-oss-120b-maas"
+    ],
+    "qwen": [
+      "qwen/qwen3-235b-a22b-instruct-2507-maas"
+    ],
+    "sonnet_5_5": [
+      "anthropic/claude-sonnet-5-5"
+    ]
+  },
+  "new_api_requests_in_scoring": 0,
+  "per_item_outcomes_exported": false,
+  "refit_performed": false,
+  "result_id": "a78ca03141207f31c0742d248dcc4b1c4c5249e1d156dcd2979bdc485c171f10",
+  "source_sha256": {
+    "/Users/wanghd/Documents/workplace/verification-generation-experiment/src/vgx/gpqa/gptoss_finish445_score.py": "645887475d3ed937f5da0986dc7d43555c60f3507721ed438305bed1d8044254",
+    "/Users/wanghd/Documents/workplace/verification-generation-experiment/src/vgx/gpqa/sonnet_offline_score.py": "6c6885b89537eb482cc334dd1e901ce29646d4b8f73f61d86651056314337a42",
+    "results/gpqa_gptoss_continuation_20261017/cache/budget.json": "b2e43ec01ecc5f39cf39fdda1b123b3a59f21020c4619e6b7a7e5b804d057aed",
+    "results/gpqa_gptoss_continuation_20261017/finish445_20261020/completion_report.json": "531cbba482de5d36a3fedf53d891a37bb90b7c64ed51190c72b3e11f62c06bb7",
+    "results/gpqa_gptoss_continuation_20261017/finish445_20261020/frozen_candidates.json": "c1151275b6676576d5e994bcd3fb397527d44201cf50543ac27b6e3d680477ad",
+    "results/gpqa_gptoss_continuation_20261017/finish445_20261020/plan.json": "5442527ce58af092d06a031cd9d267a45a829d1d416a373bf34697ebe8f05518",
+    "results/gpqa_gptoss_continuation_20261017/finish445_20261020/status.json": "7c4913cfa3fb9d101f3ba548f039c3f94c5933d90a6e2516658161b076ff58f3",
+    "results/gpqa_gptoss_continuation_20261017/finish50_20261017/result.json": "ad2bf3b5eeb639dca3738f8ee7a67b2f9f55d28757b37bce8b80e96982d29691",
+    "results/gpqa_gptoss_continuation_20261017/offline_score_445_finish445_20261020/plan.json": "538d798944be2d957f9ae42c9a6383fac9c185c7d80318a85bd696637c5790bb",
+    "results/gpqa_sonnet55_20261015/expansion_445/frozen_candidates.json": "5ba9af22dd7b90c65ad9998108740a835030649fc4fcbba6492c1de152aaf847",
+    "results/gpqa_staged_generator_expansion_20261005/frozen_candidates.json": "6bebc79fc9859e1bf82bae8a1a26e5fb378435421254e9611b07b1cc9151cd2a",
+    "results/gpqa_vertex_20261004/dataset_manifest.json": "e3408f185f2769255cac8a418b23fe656fa8d54f4d7e5f9b3ebc983c4de01128",
+    "results/gpqa_vertex_20261004/frozen/bundle_manifest.json": "bde59a768b0ff7f52b66f1483bba5f579018332bef2f94528fda6cbaca2abc33",
+    "results/gpqa_vertex_20261004/frozen/candidates.jsonl": "ca8fb3e2bc9c84ed93ae031a47baa1c008fc827838a2fdbdf67716a5e63d13fa",
+    "results/gpqa_vertex_20261004/inputs.jsonl": "24791f3606132e38db8068b7d8c1a0d297fea3535464246dedaf817fae47581f"
+  },
+  "unit_tests_run": false,
+  "validation": {
+    "development_evaluation_overlap_n": 0,
+    "identical_questions_and_choice_order": true,
+    "independent_arithmetic_matches": true,
+    "original50_metrics_reproduced": true,
+    "predictions_and_cohorts_frozen_before_labels": true,
+    "source_hashes_unchanged": true
+  }
+}

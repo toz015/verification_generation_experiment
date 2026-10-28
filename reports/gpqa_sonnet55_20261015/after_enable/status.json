@@ -1,0 +1,25 @@
+{
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.021174,
+    "limit_usd": 20.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 5
+  },
+  "confidence_calibrated": false,
+  "errors": [],
+  "invalid": {
+    "invalid_final_json": 5
+  },
+  "limit": 5,
+  "model": "anthropic/claude-sonnet-5-5",
+  "new_calls_this_invocation": 5,
+  "responses": 5,
+  "reused": 0,
+  "stage": "format_failed",
+  "study_id": "928cd2be92e2191b29527ba713661de3944d8bf1f17414f0296d6968b2d47c35",
+  "updated_at_unix": 1792081763.432666,
+  "valid": 0
+}

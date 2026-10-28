@@ -1,0 +1,15 @@
+{
+  "before_sha256": {
+    "configs/gpqa_sonnet55_20261015.json": "fbd904075058385c98917ff29bcf09c37f2992cdd9514f0740d8a5f8cb9adb46",
+    "results/gpqa_sonnet55_20261015/cache/calls/06c36ff35f14fbf97d4f62128904376639df7b092f0343474aaf6c092736a6f2.jsonl": "a668651049da3d396d874c4841a74635d14952194fb2eb4bb0d87a74503cf80f",
+    "results/gpqa_sonnet55_20261015/cache/calls/06c36ff35f14fbf97d4f62128904376639df7b092f0343474aaf6c092736a6f2.jsonl.attempts.jsonl": "51236cb2ddc1a555f5ce0319f80d04981eff883d5ba0ce0600351975a217fb5d",
+    "results/gpqa_sonnet55_20261015/plan.json": "1f4175856dc6930e366a4c80aa9d2c6e8e8f079c5f0dd65827f55cd02c95b384"
+  },
+  "confidence_calibrated": false,
+  "config_and_implementation_unchanged": true,
+  "prior_http_status": 404,
+  "prior_status": "blocked",
+  "questions": 50,
+  "reason": "User reports Sonnet 5.5 enabled and explicitly authorizes retry, then 50 development questions only after the 5-item gate passes.",
+  "study_id": "928cd2be92e2191b29527ba713661de3944d8bf1f17414f0296d6968b2d47c35"
+}

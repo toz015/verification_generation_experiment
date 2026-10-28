@@ -1,0 +1,380 @@
+{
+  "budget_before": {
+    "committed_estimate_and_reservations_usd": 13.31840819,
+    "confirmed_billing_usd": null,
+    "ledgers": [
+      {
+        "estimated_usd": 1.9604986,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_diamond_signals_20261012/cache/budget.json",
+        "sha256": "e2a367a8bb9e2fee867e2cb8133f616972b1447e4d0398aa58bd23504adf4559",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 0,
+        "outstanding_reserved_usd": 0.0040326,
+        "path": "results/gpqa_generator_comparison_20261005/cache/budget.json",
+        "sha256": "7bb280dc468dffdb0976d9385d6cfe3183711eb19996f6c9789f611d029a495f",
+        "unsettled_states": {
+          "unpriced": 1
+        }
+      },
+      {
+        "estimated_usd": 0.11409813,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_generator_comparison_20261005_v2/cache/budget.json",
+        "sha256": "026cc4baacfcb861af3a25776a76ce64df98f261859bafb8f55e3aa2c2040d76",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 0.21054352,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_qwen_completion_20261005/cache/budget.json",
+        "sha256": "ad0d18de5c0f4b0fb79844935f9896af9274552da5efefce57adc2f2dd991ba9",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 1.0451689,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_qwen_verifier_completion_20261006/cache/budget.json",
+        "sha256": "9dd04531971627c743db7dc5a7913f8ebb6447e2f1e327c0b0badc4ab4c9c0a8",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 0.09020504,
+        "outstanding_reserved_usd": 0.00408694,
+        "path": "results/gpqa_reasoning_comparison_20261005_v2/cache/budget.json",
+        "sha256": "03826d2be2d03357edf3c4891136f2bd741936ac69500101a2d96b4154a74afc",
+        "unsettled_states": {
+          "unpriced": 1
+        }
+      },
+      {
+        "estimated_usd": 0.10983417,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_reasoning_comparison_20261005_v3/cache/budget.json",
+        "sha256": "a837711ddbfd84b88fae184ccaf4816316e9518472dda7537a056c56005beb05",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 0.08860824,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_replacement_generators_20261014/cache/budget.json",
+        "sha256": "191207fc0bb8131c973fb089300f31cbec02ac6924a022a3c8d71a9aff83860a",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 0.1239745,
+        "outstanding_reserved_usd": 0.3283319,
+        "path": "results/gpqa_signal_study_20261005/cache/budget.json",
+        "sha256": "3ffd2dd3b272e05ff3504bad49dec85186875c47c0b3f7c68f87965fc256817c",
+        "unsettled_states": {
+          "unpriced": 1
+        }
+      },
+      {
+        "estimated_usd": 0.5440552,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_signal_study_20261005_v2/cache/budget.json",
+        "sha256": "a8ec181e1b0f945b52259677af4cac30f7d5723b487f33b49dd6c48bbbee0eae",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 2.6260761,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_signal_study_4096_20261005/cache/budget.json",
+        "sha256": "51662f3a590c3bf7366954111ac7a3049d4e0ccea58526659c5d3e432b13e35a",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 3.315822,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_sonnet55_20261015/cache/budget.json",
+        "sha256": "5d185b7a903b9212f261364d69ee295b8b53863c4438106d43633425708181c2",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 0,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_sonnet55_20261015/resume_after_enable_20261015/budget.json",
+        "sha256": "6400a78d4d98720ff2d67da915e5f009df1da580a54d6cb2cfdcb1ffec82801b",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 0.82612284,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_staged_generator_expansion_20261005/cache/budget.json",
+        "sha256": "e07147dd18eac7266dfb24c6a075e38e075e0f63ff969fe756a6afb6e52ef4fa",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 0.01424038,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_staged_qwen_pilot_20261005/cache/budget.json",
+        "sha256": "e6919c8c0d48853d8757f0f2450a2aa6845017bcc182c916254da459c9a6bf01",
+        "unsettled_states": {}
+      },
+      {
+        "estimated_usd": 1.91270913,
+        "outstanding_reserved_usd": 0,
+        "path": "results/gpqa_vertex_20261004/cache/budget.json",
+        "sha256": "f13ad80c14babb794e4e151adac227077c93e531e6e92268cd2e66b631cecd97",
+        "unsettled_states": {}
+      }
+    ],
+    "note": "Local experiment only; outstanding historical usage is reserved, not treated as free."
+  },
+  "candidate_counts": {
+    "calibration": 249,
+    "evaluation": 196
+  },
+  "candidate_hash": "971b16e3490cbc6a5a81de2f2e271421ef1424cde6c63ad342eaee994c83ae32",
+  "confidence_calibrated": false,
+  "config": {
+    "development_cache_roots": [
+      "results/gpqa_signal_study_4096_20261005/cache",
+      "results/gpqa_generator_comparison_20261005_v2/cache",
+      "results/gpqa_reasoning_comparison_20261005_v3/cache",
+      "results/gpqa_qwen_verifier_completion_20261006/cache"
+    ],
+    "evaluation_cache_roots": [
+      "results/gpqa_diamond_signals_20261012/cache"
+    ],
+    "expected_screen_sha256_from_existing_plan": "configs/gpqa_diamond_signals.json",
+    "format_gate_max_invalid_per_verifier": 1,
+    "format_gate_questions": 10,
+    "generator_root": "results/gpqa_sonnet55_20261015",
+    "notes": [
+      "Reuse exact historical requests including malformed returns; only missing requests may be collected.",
+      "Keep the five existing probability prompts, runners, model settings and parser unchanged.",
+      "Development labels only for fitting; freeze likelihoods, costs and orders before evaluation cache access/collection and decisions.",
+      "Diamond generator-only results were previously inspected; this is an exploratory extension, not a newly untouched confirmatory holdout.",
+      "No confidence calibration, generator calls, candidate repair, model substitution or budget expansion.",
+      "Primary arms are raw confidence, adaptive single Flash, and adaptive selected triple. Always-query Brier diagnostics are separate from stopping-policy results.",
+      "Conditional independence is an assumption, not established by family diversity. Sonnet and Haiku share a family.",
+      "The cache-first experiment collects complete signals for offline comparisons; replay accesses only the selected query prefix, without labels or future scores.",
+      "Costs of the policy are counterfactual token-usage estimates for queried prefixes, distinct from new collection spending and confirmed billing.",
+      "This is accept/abstain on frozen candidates, not generator fine-tuning or answer correction."
+    ],
+    "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "pricing_verified_on": "2026-10-16",
+    "project": "llm-applications-490420",
+    "schema": 1,
+    "screen_config": "configs/gpqa_signal_study_4096.json",
+    "seed": 20261016,
+    "settings": {
+      "bootstrap_repeats": 10000,
+      "correct_reward": 1.0,
+      "cost_fit": "mean development provider-token cost for each verifier, including returned malformed replies",
+      "laplace": 1.0,
+      "likelihood_model": "conditional_independence",
+      "losses": [
+        19.0,
+        99.0
+      ],
+      "order_selection": "maximize mean development-prior exact J0 across all 60 ordered triples; lexicographic ties",
+      "prior": "raw_unmodified_p_correct",
+      "probability_bins": 3,
+      "utility_per_usd": 10.0
+    },
+    "stage_budget_usd": 5.0,
+    "total_authorized_usd": 200.0,
+    "verifiers": [
+      "gemini_flash",
+      "gemini_lite",
+      "mistral_small",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "workers": 5
+  },
+  "config_sha256": "df4d12034351f5efdafdc32586aa3b68f01cfdb40ce7e918dd2ba5803918b34c",
+  "eligible_counts": {
+    "calibration": 248,
+    "evaluation": 196
+  },
+  "evaluation_generator_only_results_previously_seen": true,
+  "evaluation_signals_read": false,
+  "generator_calls": 0,
+  "implementation": {
+    "common/api.py": "6701f2d7542828ca28dfd1b4da46bd0c1c2ef4717003f7fb60b621a3fce7d238",
+    "common/billing.py": "e1633b993b867497a487ec989981fad87a76040e09c70ce6c902f7a57b9caf47",
+    "common/budget.py": "0b2e7797e142f124333ad1addb896f54a7ef76e18829feb8b5757ad8356a69ad",
+    "common/concurrency.py": "4087933a3c634f92a7cd42ade57a91f197bdb822fed22cb18de452b068d81a0e",
+    "common/storage.py": "479eaee0587ada9f6576066a3f40e1ead9bb7159e39061bb8f7cc2b1b4ecb1bf",
+    "common/vertex.py": "0aca7bc7efd42f97e28ca8478c11fc3645937935a196768430e1cfaf731e4d8c",
+    "common/vertex_partner.py": "1f332ecc2f6649f7abc2bee735d5c84843ffdec52d740df52e48af10adc4463b",
+    "gpqa/artifacts.py": "42d21bed514960653e07360d143ee3184ed34028057177ad6ef02c3aa2e89d10",
+    "gpqa/dependence_triples.py": "c7a0f1d85d0093d8b4e22c2e424e14d697a59c656d0cf8dc8e640bac984c5983",
+    "gpqa/diamond_score.py": "3830aea69a3f84ae8d5a9ce2d1acbb3ac65ca120d9e3808d84eddefed508424c",
+    "gpqa/diamond_signals.py": "aa68e8b7a99787f66f5b9f258ea867ca9f216a0069536b864abf308e56ef3b45",
+    "gpqa/generator_calibration.py": "e8e860e21248d08dd3ffda64cf39a6a128bc5e017785a77e6ce9fb1f9a638a90",
+    "gpqa/prompt.py": "3edbba668fe44f10dba0188c25196c16163320ebdde4693fb7deba6d027e2355",
+    "gpqa/qwen_signal_completion.py": "bda93aec809cfd06fb612cc2bea68cc93c0f2a3c908f2795aae48340bdb009d2",
+    "gpqa/raw_prior_analysis.py": "16b20fcbeef40963d2a60af00a3f94aa2c0f6e8bef12e3c4e389e3e0693028a3",
+    "gpqa/replacement_generators.py": "f9e8dad2583aa99a60255d0ec957b55b616d499eef00ed728fd0e1ffc277a4e0",
+    "gpqa/report.py": "05eb07fba502b0ba6f50f3bd935fa9d36f742d240c9e9058afbf61b6990da546",
+    "gpqa/score.py": "7f0f8e7ab33704df85e8943236831080f77a73c7518d4accc76e37f3e7c98beb",
+    "gpqa/sequential.py": "ee1d0ea50d83b6b5c6a1ebe90570c917b35727d8d5ceea2b59ea8d9c77662fd4",
+    "gpqa/signal_collect.py": "cf3bd43c3222a9f1ab538e841c24f009c91d5c785309a1196a3484f1d641275b",
+    "gpqa/signal_study.py": "3c3394aa4943102778a4142e34cc152b665f34eaffab10172ad35b9a78142719",
+    "gpqa/sonnet_verification.py": "4d4451aeec866de7881b892da82310f705f27aed994000a09e6c1d6685d46f52"
+  },
+  "protocol_id": "ba94fcbec635d7a40767daaa3572f0b6a7556b4e54c49dea8df136ab89472bd4",
+  "screen": {
+    "bundle": "results/gpqa_vertex_20261004/frozen",
+    "collection": {
+      "minimum_request_interval_seconds": {
+        "claude_haiku": 2.6,
+        "gemini_flash": 0.5,
+        "gemini_lite": 0.5,
+        "mistral_medium": 0.75,
+        "mistral_small": 1.1
+      },
+      "workers": 10
+    },
+    "models": [
+      {
+        "generation": {
+          "max_tokens": 4096,
+          "reasoning_effort": "low"
+        },
+        "id": "gemini_flash",
+        "location": "global",
+        "model": "google/gemini-3.7-flash",
+        "transport": "chat_completions"
+      },
+      {
+        "generation": {
+          "max_tokens": 4096,
+          "reasoning_effort": "low"
+        },
+        "id": "gemini_lite",
+        "location": "global",
+        "model": "google/gemini-3.5-flash-lite",
+        "transport": "chat_completions"
+      },
+      {
+        "generation": {
+          "max_tokens": 4096,
+          "temperature": 0.0
+        },
+        "id": "mistral_small",
+        "location": "us-central1",
+        "model": "mistralai/mistral-small-2503",
+        "transport": "partner_raw_predict"
+      },
+      {
+        "generation": {
+          "max_tokens": 4096,
+          "temperature": 0.0
+        },
+        "id": "mistral_medium",
+        "location": "us-central1",
+        "model": "mistralai/mistral-medium-3",
+        "transport": "partner_raw_predict"
+      },
+      {
+        "generation": {
+          "max_tokens": 4096,
+          "temperature": 0.0
+        },
+        "id": "claude_haiku",
+        "location": "global",
+        "model": "anthropic/claude-haiku-4-5",
+        "transport": "partner_raw_predict"
+      }
+    ],
+    "pricing": {
+      "checked_on": "2026-10-05",
+      "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+      "tier": "standard_pay_as_you_go",
+      "usd_per_million_tokens": {
+        "anthropic/claude-haiku-4-5": {
+          "input": 1.0,
+          "output": 5.0
+        },
+        "google/gemini-3.5-flash-lite": {
+          "cached_input": 0.03,
+          "input": 0.3,
+          "output": 2.5
+        },
+        "google/gemini-3.7-flash": {
+          "cached_input": 0.075,
+          "input": 0.75,
+          "output": 3.75
+        },
+        "mistralai/mistral-medium-3": {
+          "input": 0.4,
+          "output": 2.0
+        },
+        "mistralai/mistral-small-2503": {
+          "input": 0.1,
+          "output": 0.3
+        }
+      }
+    },
+    "project": "llm-applications-490420",
+    "protocol": {
+      "binary_likelihood_bins": 2,
+      "collection_partition": "calibration_only",
+      "first_screening_candidates": 50,
+      "folds": 3,
+      "format_check_candidates": 10,
+      "format_gate_max_invalid_fraction": 0.02,
+      "generation_revision": "max_output_4096_v1",
+      "laplace": 1.0,
+      "model_selection": "Together after calibration comparisons; no automatic winner",
+      "notes": [
+        "Five candidate verifiers are a screening pool, not a five-stage policy.",
+        "Keep existing generator, answers, confidence, prompts and sealed policies frozen.",
+        "New verifier prompts have explicit signal semantics; old cached signals remain legacy baselines.",
+        "Five models span three families; neither family difference nor model count establishes independence.",
+        "Existing Llama is retained only as a historical baseline; its MaaS endpoint retires 2026-10-21.",
+        "Google lists both Mistral endpoints; availability must be checked in this project, independent of Mistral direct-API lifecycle.",
+        "Partner models may require Model Garden enablement; do not silently replace an inaccessible model.",
+        "Model aliases and reported revisions are recorded; immutable weights cannot be guaranteed by these APIs.",
+        "Stage cap is USD 20 in usage estimates within the previously authorized USD 200 total, not a new USD 200 budget.",
+        "Observed historical Vertex estimate was USD 1.91270913; this does not establish complete project billing.",
+        "Do not use partial format checks to select winners or Diamond labels to tune designs.",
+        "Generation budgets differ internally by provider; compare within-model signal format, and disclose this for cross-model comparisons.",
+        "All five models use a 4096 max_tokens setting in this separate condition; prompts and frozen candidates are unchanged.",
+        "Do not repair or replace failures from the 1024-token study.",
+        "Proceed after the first ten paired candidates only if each model has at most 2 percent invalid signals; retain later failures.",
+        "Prior Vertex usage estimates: original experiment USD 1.91270913 plus initial screen USD 0.5440552; keep new collection within the authorized USD 200 total.",
+        "The remaining phase-one local allowance is USD 19.4559448 after the USD 0.5440552 initial screen; total phase-one allowance stays USD 20."
+      ],
+      "primary_metric": "paired out-of-fold Brier improvement over generator-only calibration",
+      "prior_logistic_C": 1.0,
+      "prior_logit_clip": 0.0001,
+      "probability_likelihood_bins": 3,
+      "proposed_next_policy_loss": 99.0,
+      "proposed_next_policy_reward": 1.0,
+      "secondary_metrics": [
+        "log_loss",
+        "error_detection",
+        "false_rejection",
+        "parse_failures",
+        "cost",
+        "signal_dependence"
+      ],
+      "utility_per_usd": 10.0
+    },
+    "schema": 1,
+    "seed": 20261005,
+    "signals": [
+      "binary",
+      "probability"
+    ],
+    "stage_budget_usd": 19.4559448
+  },
+  "screen_sha256": "ebe5272e210d51c2f7d3ed7f9b383691e943eaa455eb5745ad35ecede185af03",
+  "sources": {
+    "baseline_bundle": "results/gpqa_vertex_20261004/frozen",
+    "bundle_id": "928331fec1a4e2086ebc007699b813b79031747263add74f93030eb8c0c5bd9c",
+    "candidate_file_sha256": "5ba9af22dd7b90c65ad9998108740a835030649fc4fcbba6492c1de152aaf847",
+    "dataset_id": "7ab77351058ba061f04ad0b3c73ffb7406b1f6b9b5132aeb7d8a9ee280206ca7",
+    "dataset_root": "results/gpqa_vertex_20261004",
+    "generator_expansion_id": "f9ecf7c1e26c1e1f6c9ea918a1e152719ad131ee360757775cfe4aa16d6799a9"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "project": "llm-applications-490420",
+  "pricing": {
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "checked_on": "2026-10-05",
+    "tier": "standard_pay_as_you_go",
+    "usd_per_million_tokens": {
+      "google/gemini-3.7-flash": {
+        "input": 0.75,
+        "output": 3.75,
+        "cached_input": 0.075
+      },
+      "google/gemini-3.5-flash-lite": {
+        "input": 0.3,
+        "output": 2.5,
+        "cached_input": 0.03
+      },
+      "mistralai/mistral-small-2503": {
+        "input": 0.1,
+        "output": 0.3
+      },
+      "mistralai/mistral-medium-3": {
+        "input": 0.4,
+        "output": 2.0
+      },
+      "anthropic/claude-haiku-4-5": {
+        "input": 1.0,
+        "output": 5.0
+      },
+      "qwen/qwen3-235b-a22b-instruct-2507-maas": {
+        "input": 0.22,
+        "output": 0.88,
+        "cached_input": 0.22
+      },
+      "meta/llama-3.3-70b-instruct-maas": {
+        "input": 0.72,
+        "output": 0.72,
+        "cached_input": 0.72
+      }
+    },
+    "implicit_cache_assumption": "Qwen/Llama implicit cached tokens are conservatively priced at the published ordinary input rate; no separate discount is claimed. Not confirmed billing."
+  },
+  "previous_results": "results/gpqa_reasoning_comparison_20261005_v3",
+  "scope": "all_questions",
+  "stage_budget_usd": 5.0,
+  "pilot_root": "results/gpqa_staged_qwen_pilot_20261005",
+  "reuse_caches": [
+    "results/gpqa_staged_qwen_pilot_20261005/cache",
+    "results/gpqa_qwen_completion_20261005/cache",
+    "results/gpqa_reasoning_comparison_20261005_v3/cache",
+    "results/gpqa_reasoning_comparison_20261005_v2/cache"
+  ]
+}

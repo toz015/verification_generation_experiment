@@ -1,0 +1,35 @@
+{
+  "audit": "read_only_content_and_usage_audit",
+  "source_and_original_fifty_hashes": "passed",
+  "successful_responses": 445,
+  "new_responses": 395,
+  "unique_success_per_request": true,
+  "original_and_json_normalized_reconstruction_equal": true,
+  "canonical_content_digest_equal": true,
+  "bundle_ids_equal": true,
+  "direct_python_object_equality": false,
+  "tuple_list_mismatches": 445,
+  "diagnosis": "shared.immutable compares the deserialized JSON dictionary against dataclasses.asdict output; choices are lists after JSON loading but tuples in memory. Canonical JSON and the sealed bundle ID match exactly. No data edits or API calls performed.",
+  "invalid": [
+    {
+      "partition": "calibration",
+      "failure": "nonterminal_json_or_unbalanced_fence"
+    }
+  ],
+  "total_input_tokens": 175861,
+  "total_output_tokens_including_thinking": 296410,
+  "additional_input_tokens": 157530,
+  "additional_output_tokens_including_thinking": 266838,
+  "total_estimated_usd": 3.315822,
+  "additional_estimated_usd": 2.98344,
+  "project_pairs": [
+    [
+      "llm-applications-490420",
+      "llm-applications-490420"
+    ]
+  ],
+  "frozen_candidates_file_sha256": "5ba9af22dd7b90c65ad9998108740a835030649fc4fcbba6492c1de152aaf847",
+  "unit_tests_run": false,
+  "answer_keys_read": false,
+  "confidence_calibrated": false
+}

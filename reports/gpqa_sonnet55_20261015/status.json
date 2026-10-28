@@ -1,0 +1,33 @@
+{
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0,
+    "limit_usd": 20.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 1,
+    "successful_priced_calls": 0
+  },
+  "confidence_calibrated": false,
+  "errors": [
+    {
+      "http_status": 404,
+      "provider_error": {
+        "code": 404,
+        "message": "Publisher model `projects/llm-applications-490420/locations/global/publishers/anthropic/models/claude-sonnet-5-5` was not found or your project does not have access to it. Ensure you are using a valid model name and that the model is available in the specified region. For more information, see: https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/locations.",
+        "status": "NOT_FOUND"
+      },
+      "type": "ProviderRejectedError"
+    }
+  ],
+  "invalid": {},
+  "limit": 5,
+  "model": "anthropic/claude-sonnet-5-5",
+  "new_calls_this_invocation": 0,
+  "responses": 0,
+  "reused": 0,
+  "stage": "blocked",
+  "study_id": "928cd2be92e2191b29527ba713661de3944d8bf1f17414f0296d6968b2d47c35",
+  "updated_at_unix": 1792077781.2587671,
+  "valid": 0
+}

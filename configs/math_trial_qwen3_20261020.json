@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "kind": "math_trial_generator_accuracy",
+  "status": "trial on 100 MATH-500 + 100 Omni-MATH-Rule problems, Qwen3-235B only; owner agreed 2026-10-20 to a few-dollar trial; cap $5",
+  "generation_id": "g0",
+  "seed": 20261020,
+  "sample": {
+    "math500": 100,
+    "omnimath_rule": 100
+  },
+  "generator": {
+    "id": "generator",
+    "provider": "vertex_openai",
+    "model": "qwen/qwen3-235b-a22b-instruct-2507-maas",
+    "location": "us-south1",
+    "project": "llm-applications-490420",
+    "generation": {
+      "max_tokens": 8192,
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "response_format": {
+        "type": "json_object"
+      }
+    }
+  },
+  "budget": {
+    "project": "llm-applications-490420",
+    "limit_usd": 5.0,
+    "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)",
+    "pricing": {
+      "usd_per_million_tokens": {
+        "qwen/qwen3-235b-a22b-instruct-2507-maas": {
+          "input": 0.22,
+          "output": 0.88,
+          "cached_input": 0.22
+        }
+      }
+    }
+  },
+  "paid_collection_authorized": true,
+  "notes": [
+    "Generator settings identical to the QuantumKatas Qwen3 run (temperature 0, top_p 1, max_tokens 8192, provider JSON mode).",
+    "Grading uses the pinned official Omni-MATH-Rule grader (math_equal) for both datasets; see vgx.math_trial.grade."
+  ]
+}

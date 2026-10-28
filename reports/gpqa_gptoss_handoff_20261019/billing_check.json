@@ -1,0 +1,6 @@
+{
+  "billing_enabled": true,
+  "checked_at": 1792384450.0186582,
+  "note": "Resource and quota project bound on every call; not confirmation of billed dollar amounts.",
+  "project": "llm-applications-490420"
+}

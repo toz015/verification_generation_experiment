@@ -1,0 +1,8 @@
+{
+  "development_evaluation_overlap_n": 0,
+  "identical_questions_and_choice_order": true,
+  "independent_arithmetic_matches": true,
+  "original50_metrics_reproduced": true,
+  "predictions_and_cohorts_frozen_before_labels": true,
+  "source_hashes_unchanged": true
+}

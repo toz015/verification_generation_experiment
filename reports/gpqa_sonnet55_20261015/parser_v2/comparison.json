@@ -1,0 +1,947 @@
+{
+  "amendment_id": "33598e79b6b99cd0831a5aa2117ec81338798ec0c881cbcac1b07b1418d9de38",
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.332382,
+    "limit_usd": 20.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 50
+  },
+  "confidence_calibrated": false,
+  "formats": [
+    {
+      "failure": null,
+      "pilot_position": 1,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 2,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 3,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 4,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 5,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 6,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 7,
+      "reported_thinking_tokens": 1082,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 8,
+      "reported_thinking_tokens": 408,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 9,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 10,
+      "reported_thinking_tokens": 439,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 11,
+      "reported_thinking_tokens": 779,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 12,
+      "reported_thinking_tokens": 388,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 13,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 14,
+      "reported_thinking_tokens": 319,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 15,
+      "reported_thinking_tokens": 240,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 16,
+      "reported_thinking_tokens": 533,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 17,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 18,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 19,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 20,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 21,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 22,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 23,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 24,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 25,
+      "reported_thinking_tokens": 741,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 26,
+      "reported_thinking_tokens": 1490,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 27,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 28,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 29,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 30,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 31,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 32,
+      "reported_thinking_tokens": 1826,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 33,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 34,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 35,
+      "reported_thinking_tokens": 510,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 36,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 37,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 38,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 39,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 40,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 41,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 42,
+      "reported_thinking_tokens": 597,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 43,
+      "reported_thinking_tokens": 282,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 44,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 45,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 46,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 47,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 48,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 49,
+      "reported_thinking_tokens": 872,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 1,
+      "v2_ok": true
+    },
+    {
+      "failure": null,
+      "pilot_position": 50,
+      "reported_thinking_tokens": 0,
+      "stop_reason": "end_turn",
+      "strict_ok": false,
+      "thinking_block_n": 0,
+      "v2_ok": true
+    }
+  ],
+  "generators": {
+    "gemini_baseline": {
+      "accuracy_all": 0.78,
+      "accuracy_wilson95": {
+        "high": 0.8724608402978559,
+        "low": 0.6475845041874634,
+        "method": "Wilson",
+        "n": 50
+      },
+      "confidence_n": 50,
+      "confidence_values": {
+        "0.55": 1,
+        "0.8": 2,
+        "0.85": 7,
+        "0.9": 1,
+        "0.95": 18,
+        "0.98": 10,
+        "0.99": 11
+      },
+      "correct": 39,
+      "failures": {},
+      "mean_confidence": 0.9358000000000001,
+      "mean_confidence_if_correct": 0.9376923076923075,
+      "mean_confidence_if_incorrect": 0.929090909090909,
+      "n": 50,
+      "raw_metrics": {
+        "auroc": 0.6328671328671328,
+        "brier": 0.19880200000000003,
+        "ci95": {
+          "auroc": {
+            "high": 0.7905892857142854,
+            "low": 0.46930873180873184,
+            "valid_resamples": 500
+          },
+          "brier": {
+            "high": 0.29996395,
+            "low": 0.10789699999999999,
+            "valid_resamples": 500
+          },
+          "log_loss": {
+            "high": 1.0713785147973154,
+            "low": 0.3910402597111446,
+            "valid_resamples": 500
+          }
+        },
+        "ece": 0.1738,
+        "log_loss": 0.6976070876294816,
+        "n": 50,
+        "reliability": [
+          {
+            "count": 1,
+            "empirical_accuracy": 1.0,
+            "empirical_accuracy_ci95": {
+              "high": 1.0,
+              "low": 0.20654931437723745,
+              "method": "Wilson",
+              "n": 1
+            },
+            "lower": 0.4,
+            "mean_confidence": 0.55,
+            "upper": 0.6000000000000001
+          },
+          {
+            "count": 49,
+            "empirical_accuracy": 0.7755102040816326,
+            "empirical_accuracy_ci95": {
+              "high": 0.869750298503408,
+              "low": 0.6412121276403999,
+              "method": "Wilson",
+              "n": 49
+            },
+            "lower": 0.8,
+            "mean_confidence": 0.9436734693877551,
+            "upper": 1.0
+          }
+        ]
+      },
+      "risk_coverage": {
+        "aurc_observed_coverage": 0.16303932217731612,
+        "convention": "right-step integral; ties released together; no extrapolation to missing scores",
+        "max_coverage": 1.0,
+        "n_total": 50,
+        "points": [
+          {
+            "coverage": 0.22,
+            "released_n": 11,
+            "risk": 0.09090909090909094,
+            "threshold": 0.99
+          },
+          {
+            "coverage": 0.42,
+            "released_n": 21,
+            "risk": 0.09523809523809523,
+            "threshold": 0.98
+          },
+          {
+            "coverage": 0.78,
+            "released_n": 39,
+            "risk": 0.20512820512820518,
+            "threshold": 0.95
+          },
+          {
+            "coverage": 0.8,
+            "released_n": 40,
+            "risk": 0.19999999999999996,
+            "threshold": 0.9
+          },
+          {
+            "coverage": 0.94,
+            "released_n": 47,
+            "risk": 0.23404255319148937,
+            "threshold": 0.85
+          },
+          {
+            "coverage": 0.98,
+            "released_n": 49,
+            "risk": 0.22448979591836737,
+            "threshold": 0.8
+          },
+          {
+            "coverage": 1.0,
+            "released_n": 50,
+            "risk": 0.21999999999999997,
+            "threshold": 0.55
+          }
+        ]
+      },
+      "valid_answer_n": 50
+    },
+    "qwen_baseline": {
+      "accuracy_all": 0.56,
+      "accuracy_wilson95": {
+        "high": 0.6883780078874284,
+        "low": 0.4230602802165686,
+        "method": "Wilson",
+        "n": 50
+      },
+      "confidence_n": 50,
+      "confidence_values": {
+        "0.75": 2,
+        "0.8": 2,
+        "0.85": 10,
+        "0.9": 4,
+        "0.92": 2,
+        "0.95": 22,
+        "0.98": 8
+      },
+      "correct": 28,
+      "failures": {},
+      "mean_confidence": 0.9156,
+      "mean_confidence_if_correct": 0.9292857142857142,
+      "mean_confidence_if_incorrect": 0.8981818181818181,
+      "n": 50,
+      "raw_metrics": {
+        "auroc": 0.6623376623376624,
+        "brier": 0.3612200000000001,
+        "ci95": {
+          "auroc": {
+            "high": 0.7948428030303031,
+            "low": 0.5055811036789297,
+            "valid_resamples": 500
+          },
+          "brier": {
+            "high": 0.46153004999999997,
+            "low": 0.24677965000000002,
+            "valid_resamples": 500
+          },
+          "log_loss": {
+            "high": 1.4692873421011248,
+            "low": 0.7836284987285961,
+            "valid_resamples": 500
+          }
+        },
+        "ece": 0.37560000000000004,
+        "log_loss": 1.1381623741531048,
+        "n": 50,
+        "reliability": [
+          {
+            "count": 2,
+            "empirical_accuracy": 1.0,
+            "empirical_accuracy_ci95": {
+              "high": 1.0,
+              "low": 0.34238022750665303,
+              "method": "Wilson",
+              "n": 2
+            },
+            "lower": 0.6000000000000001,
+            "mean_confidence": 0.75,
+            "upper": 0.8
+          },
+          {
+            "count": 48,
+            "empirical_accuracy": 0.5416666666666666,
+            "empirical_accuracy_ci95": {
+              "high": 0.6742475770713254,
+              "low": 0.40291074545649797,
+              "method": "Wilson",
+              "n": 48
+            },
+            "lower": 0.8,
+            "mean_confidence": 0.9225,
+            "upper": 1.0
+          }
+        ]
+      },
+      "risk_coverage": {
+        "aurc_observed_coverage": 0.34872318840579714,
+        "convention": "right-step integral; ties released together; no extrapolation to missing scores",
+        "max_coverage": 1.0,
+        "n_total": 50,
+        "points": [
+          {
+            "coverage": 0.16,
+            "released_n": 8,
+            "risk": 0.25,
+            "threshold": 0.98
+          },
+          {
+            "coverage": 0.6,
+            "released_n": 30,
+            "risk": 0.33333333333333337,
+            "threshold": 0.95
+          },
+          {
+            "coverage": 0.64,
+            "released_n": 32,
+            "risk": 0.3125,
+            "threshold": 0.92
+          },
+          {
+            "coverage": 0.72,
+            "released_n": 36,
+            "risk": 0.33333333333333337,
+            "threshold": 0.9
+          },
+          {
+            "coverage": 0.92,
+            "released_n": 46,
+            "risk": 0.4347826086956522,
+            "threshold": 0.85
+          },
+          {
+            "coverage": 0.96,
+            "released_n": 48,
+            "risk": 0.45833333333333337,
+            "threshold": 0.8
+          },
+          {
+            "coverage": 1.0,
+            "released_n": 50,
+            "risk": 0.43999999999999995,
+            "threshold": 0.75
+          }
+        ]
+      },
+      "valid_answer_n": 50
+    },
+    "sonnet_5_5": {
+      "accuracy_all": 0.78,
+      "accuracy_wilson95": {
+        "high": 0.8724608402978559,
+        "low": 0.6475845041874634,
+        "method": "Wilson",
+        "n": 50
+      },
+      "confidence_n": 50,
+      "confidence_values": {
+        "0.4": 2,
+        "0.5": 1,
+        "0.55": 1,
+        "0.6": 5,
+        "0.68": 3,
+        "0.7": 1,
+        "0.72": 2,
+        "0.75": 1,
+        "0.8": 8,
+        "0.85": 10,
+        "0.88": 6,
+        "0.9": 2,
+        "0.93": 3,
+        "0.95": 1,
+        "0.96": 2,
+        "0.97": 2
+      },
+      "correct": 39,
+      "failures": {},
+      "mean_confidence": 0.7872000000000001,
+      "mean_confidence_if_correct": 0.8143589743589743,
+      "mean_confidence_if_incorrect": 0.6909090909090908,
+      "n": 50,
+      "raw_metrics": {
+        "auroc": 0.7773892773892774,
+        "brier": 0.14925200000000002,
+        "ci95": {
+          "auroc": {
+            "high": 0.915839745451026,
+            "low": 0.6165728580362728,
+            "valid_resamples": 500
+          },
+          "brier": {
+            "high": 0.21186765000000002,
+            "low": 0.0947394,
+            "valid_resamples": 500
+          },
+          "log_loss": {
+            "high": 0.6114916981726406,
+            "low": 0.31971828576893657,
+            "valid_resamples": 500
+          }
+        },
+        "ece": 0.06679999999999998,
+        "log_loss": 0.45215501773189315,
+        "n": 50,
+        "reliability": [
+          {
+            "count": 9,
+            "empirical_accuracy": 0.3333333333333333,
+            "empirical_accuracy_ci95": {
+              "high": 0.6457978644196036,
+              "low": 0.1205838183869109,
+              "method": "Wilson",
+              "n": 9
+            },
+            "lower": 0.4,
+            "mean_confidence": 0.5388888888888889,
+            "upper": 0.6000000000000001
+          },
+          {
+            "count": 7,
+            "empirical_accuracy": 0.8571428571428571,
+            "empirical_accuracy_ci95": {
+              "high": 0.9743203756552565,
+              "low": 0.4868721707256811,
+              "method": "Wilson",
+              "n": 7
+            },
+            "lower": 0.6000000000000001,
+            "mean_confidence": 0.7042857142857143,
+            "upper": 0.8
+          },
+          {
+            "count": 34,
+            "empirical_accuracy": 0.8823529411764706,
+            "empirical_accuracy_ci95": {
+              "high": 0.9532855333511766,
+              "low": 0.7337915722962817,
+              "method": "Wilson",
+              "n": 34
+            },
+            "lower": 0.8,
+            "mean_confidence": 0.87,
+            "upper": 1.0
+          }
+        ]
+      },
+      "risk_coverage": {
+        "aurc_observed_coverage": 0.09915123143754562,
+        "convention": "right-step integral; ties released together; no extrapolation to missing scores",
+        "max_coverage": 1.0,
+        "n_total": 50,
+        "points": [
+          {
+            "coverage": 0.04,
+            "released_n": 2,
+            "risk": 0.0,
+            "threshold": 0.97
+          },
+          {
+            "coverage": 0.08,
+            "released_n": 4,
+            "risk": 0.0,
+            "threshold": 0.96
+          },
+          {
+            "coverage": 0.1,
+            "released_n": 5,
+            "risk": 0.0,
+            "threshold": 0.95
+          },
+          {
+            "coverage": 0.16,
+            "released_n": 8,
+            "risk": 0.0,
+            "threshold": 0.93
+          },
+          {
+            "coverage": 0.2,
+            "released_n": 10,
+            "risk": 0.0,
+            "threshold": 0.9
+          },
+          {
+            "coverage": 0.32,
+            "released_n": 16,
+            "risk": 0.0625,
+            "threshold": 0.88
+          },
+          {
+            "coverage": 0.52,
+            "released_n": 26,
+            "risk": 0.07692307692307687,
+            "threshold": 0.85
+          },
+          {
+            "coverage": 0.68,
+            "released_n": 34,
+            "risk": 0.11764705882352944,
+            "threshold": 0.8
+          },
+          {
+            "coverage": 0.7,
+            "released_n": 35,
+            "risk": 0.11428571428571432,
+            "threshold": 0.75
+          },
+          {
+            "coverage": 0.74,
+            "released_n": 37,
+            "risk": 0.1351351351351351,
+            "threshold": 0.72
+          },
+          {
+            "coverage": 0.76,
+            "released_n": 38,
+            "risk": 0.13157894736842102,
+            "threshold": 0.7
+          },
+          {
+            "coverage": 0.82,
+            "released_n": 41,
+            "risk": 0.12195121951219512,
+            "threshold": 0.68
+          },
+          {
+            "coverage": 0.92,
+            "released_n": 46,
+            "risk": 0.21739130434782605,
+            "threshold": 0.6
+          },
+          {
+            "coverage": 0.94,
+            "released_n": 47,
+            "risk": 0.23404255319148937,
+            "threshold": 0.55
+          },
+          {
+            "coverage": 0.96,
+            "released_n": 48,
+            "risk": 0.22916666666666663,
+            "threshold": 0.5
+          },
+          {
+            "coverage": 1.0,
+            "released_n": 50,
+            "risk": 0.21999999999999997,
+            "threshold": 0.4
+          }
+        ]
+      },
+      "valid_answer_n": 50
+    }
+  },
+  "limitations": [
+    "Exploratory original 50 development items; no Diamond collection or scoring.",
+    "Parser was amended after observing the first five formats, with user approval and no access to correctness labels. Strict-format results are retained.",
+    "The five original replies were reused exactly; only the next 45 requests were new.",
+    "No confidence calibration, likelihood fitting or verifier queries.",
+    "Historical Gemini and two-step Qwen have different generation settings and serving dates; model effects cannot be isolated.",
+    "Recorded provider output usage, including thinking, determines estimated cost; not a confirmed invoice."
+  ],
+  "parent_study_id": "928cd2be92e2191b29527ba713661de3944d8bf1f17414f0296d6968b2d47c35",
+  "parser_version": "sonnet_unique_final_json_v2",
+  "sonnet_usage": {
+    "confirmed_billing_usd": null,
+    "continuation_estimated_usd": 0.31120800000000004,
+    "estimated_usd": 0.332382,
+    "first_five_estimated_usd": 0.021174,
+    "input_tokens": 18331,
+    "output_tokens_including_thinking": 29572
+  },
+  "strict_valid_n": 0,
+  "v2_valid_n": 50
+}
