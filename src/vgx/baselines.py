@@ -282,15 +282,16 @@ def weaver_posterior(votes, class_balance, iters=500):
 
 def weaver_binned_posterior(bins, class_balance, k, iters=500):
     """Weaver's label model with each verifier's score in k bins (missing = -1, skipped): class-conditional
-    bin distributions per verifier, conditionally independent, class balance fixed, fit by EM without labels."""
+    bin distributions per verifier, conditionally independent, fit by EM without labels. class_balance is
+    the prior P(correct): one fixed number, or one per item (the generator's stated p_correct)."""
     x = np.asarray(bins, int); n, m = x.shape
     onehot = np.stack([(x == b) for b in range(k)], -1).astype(float)          # n, m, k
     ramp = np.linspace(1, 2, k)
     p1 = np.tile(ramp/ramp.sum(), (m, 1)); p0 = np.tile(ramp[::-1]/ramp.sum(), (m, 1))
-    pi = min(max(class_balance, 1e-3), 1-1e-3)
+    pi = np.clip(np.broadcast_to(np.asarray(class_balance, float), (n,)), 1e-3, 1-1e-3)
     for _ in range(iters):
-        l1 = math.log(pi) + (onehot*np.log(p1)).sum((1, 2))
-        l0 = math.log(1-pi) + (onehot*np.log(p0)).sum((1, 2))
+        l1 = np.log(pi) + (onehot*np.log(p1)).sum((1, 2))
+        l0 = np.log(1-pi) + (onehot*np.log(p0)).sum((1, 2))
         q = 1/(1+np.exp(l0-l1))
         new1 = (q[:, None, None]*onehot).sum(0) + 1e-2; new1 /= new1.sum(1, keepdims=True)
         new0 = ((1-q)[:, None, None]*onehot).sum(0) + 1e-2; new0 /= new0.sum(1, keepdims=True)
@@ -300,12 +301,9 @@ def weaver_binned_posterior(bins, class_balance, k, iters=500):
     return q, p1, p0
 
 
-PRIOR_EDGES = (0.0, 0.5, 0.8, 0.9, 0.95, 0.99, 1.0)
-
-
 def weaver(rows, train_idx, test_idx, pool, fitted, binned=True, with_prior=False, fit_tau=False):
     """binned: scores in the main experiments' three probability bins (main table); else binary votes at 0.5.
-    with_prior: the generator's stated p_correct enters the label model as one more weak signal (PRIOR_EDGES bins).
+    with_prior: the generator's stated p_correct is each item's prior in place of the training class balance.
     Release iff the posterior >= L/(1+L), the rule of ours; fit_tau: a training-fit threshold instead (appendix)."""
     idx = sorted(set(train_idx) | set(test_idx))
     use = [i for i in idx if rows[i]['valid']]
@@ -313,11 +311,8 @@ def weaver(rows, train_idx, test_idx, pool, fitted, binned=True, with_prior=Fals
     if binned:
         bins = [[-1 if rows[i]['signals'][v]['score'] is None else bin_of(rows[i]['signals'][v]['score'], EDGES)
                  for v in pool] for i in use]
-        k = len(EDGES)-1
-        if with_prior:
-            bins = [b+[bin_of(rows[i]['prior'], PRIOR_EDGES)] for b, i in zip(bins, use)]
-            k = len(PRIOR_EDGES)-1
-        q, tpr, tnr = weaver_binned_posterior(bins, cb, k)
+        prior = [rows[i]['prior'] for i in use] if with_prior else cb
+        q, tpr, tnr = weaver_binned_posterior(bins, prior, len(EDGES)-1)
         tpr, tnr = tpr.tolist(), tnr.tolist()
     else:
         votes = [[1.0 if (rows[i]['signals'][v]['score'] or 0.0) >= 0.5 else 0.0 for v in pool] for i in use]
@@ -618,7 +613,8 @@ def run(dataset):
                 curves['self_consistency'].update({i: sc_scores[i] for i in test_idx})
             if vrows is not None:
                 arms['sc_vote'].update(zip(test_idx, self_consistency_vote(vrows, test_idx, v_usage, train_idx, settings)))
-            for name, pool, binned, wp, ft in (('weaver_3', triple, True, False, False), ('weaver_5', VERIFIERS, True, False, False),
+            for name, pool, binned, wp, ft in (('weaver_3', triple, True, True, False), ('weaver_5', VERIFIERS, True, True, False),
+                                               ('weaver_5_noprior', VERIFIERS, True, False, False),
                                                ('weaver_5_fit', VERIFIERS, True, False, True),
                                                ('weaver_5_binary', VERIFIERS, False, False, False)):
                 ds, w = weaver(rows, train_idx, test_idx, pool, fitted, binned, wp, ft)
