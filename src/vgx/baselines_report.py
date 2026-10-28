@@ -26,22 +26,14 @@ def num(x, d=2):
     return '—' if x is None else f'{x:.{d}f}'.replace('-', '−')
 
 
-def signed(x, d=2):
-    return ('+' if x > 0 else '') + num(x, d)
-
-
 def cell(arms, diff, key):
     a = arms.get(key)
     if a is None:
         return '<td class="na">不适用</td>'
-    cls, vs = '', '<span class="d">参照</span>'
-    if key != 'ours' and key in diff:
-        m, (lo, hi) = -diff[key]['mean'], diff[key]['ci95']
-        cls = ' better' if lo > 0 else ' worse' if hi < 0 else ''
-        vs = f'<span class="d">比我们 {signed(m)}<small>（{signed(-hi)} 到 {signed(-lo)}）</small></span>'
+    cls = ''
     extra = f'<span class="q">oracle {a["oracle_queries_per_task"]:.2f}/题</span>' if 'oracle_queries_per_task' in a else ''
-    return (f'<td class="c{cls}{" ours" if key == "ours" else ""}"><span class="rw">放行 {a["released"]} · 错 {a["wrong_released"]}</span>'
-            f'<span class="u">效用 {num(a["mean_utility"], 3)}</span>{vs}<span class="usd">${a["expected_usd_per_task"]:.4f}/题</span>{extra}</td>')
+    return (f'<td class="c{cls}{" ours" if key == "ours" else ""}"><span class="rw">{a["released"]} / {a["wrong_released"]}</span>'
+            f'<span class="u">{num(a["mean_utility"], 3)}</span><span class="usd">${a["expected_usd_per_task"]:.4f}</span>{extra}</td>')
 
 
 def table(r, rows):
@@ -139,11 +131,10 @@ tbody tr:last-child > * { border-bottom: 0; }
 td.c { font-family: var(--mono); font-size: 13px; line-height: 1.45; white-space: nowrap; }
 td.c span { display: block; }
 td .rw { font-weight: 500; }
-td .usd, td .q, td .d small { color: var(--muted); font-size: 12px; }
-td .d { font-size: 12px; }
+td .usd, td .q { color: var(--muted); font-size: 12px; }
 td.ours { box-shadow: inset 3px 0 0 var(--accent); }
-td.better { background: var(--good-bg); } td.better .d { color: var(--good-fg); font-weight: 500; }
-td.worse { background: var(--bad-bg); } td.worse .d { color: var(--bad-fg); font-weight: 500; }
+td.better { background: var(--good-bg); } td.better .u { color: var(--good-fg); font-weight: 500; }
+td.worse { background: var(--bad-bg); } td.worse .u { color: var(--bad-fg); font-weight: 500; }
 td.na { color: var(--muted); font-size: 13px; }
 .key { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--muted); }
 .key b { font-family: var(--mono); font-weight: 500; color: var(--fg); }
@@ -159,6 +150,10 @@ svg .tk { fill: var(--muted); font-size: 10px; font-family: var(--mono); }
 .legend i { display: inline-block; width: 14px; height: 3px; vertical-align: middle; margin-right: 6px; }
 .legend .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
 .notes { font-size: 14px; }
+.notes dl { margin: 8px 0 0; display: grid; gap: 4px; max-width: 76ch; }
+.notes dt { font-weight: 700; margin-top: 10px; }
+.notes dd { margin: 0; }
+.notes .ex { margin: 4px 0 0; padding: 6px 10px; border-left: 3px solid var(--line); background: var(--surface); color: var(--muted); font-size: 13px; }
 code { font-family: var(--mono); font-size: 13px; }
 </style>
 <main>
@@ -166,6 +161,34 @@ code { font-family: var(--mono); font-size: 13px; }
   <h1>Baseline 对比结果</h1>
   <p class="lede">除多数投票的 self-consistency 会自己选答案外，所有方法面对的都是同一件事：主实验里每个 generator 给出的那个固定答案，放行还是弃权。数据划分、目标正确率 95%（L = 19）、效用的算法都和我们的方法相同，凡是要拟合的东西都只用训练部分。</p>
 </header>
+
+<section class="notes">
+  <h2>各个方法怎么做的</h2>
+  <p class="meta">例子里的数字是示意，用来说明决策过程，不是某道真实题目。</p>
+  <dl>
+    <dt>只用 generator</dt>
+    <dd>generator 自己报的 p_correct 不低于 95% 就放行，否则弃权，不问任何 verifier。
+      <p class="ex">例：generator 答 B，报 p_correct = 0.97，放行。另一题报 0.90，弃权。</p></dd>
+    <dt>固定问 k 个 verifier</dt>
+    <dd>用和我们相同的后验更新和放行规则，但每题都固定问所选 3 个 verifier 里的前 k 个，不提前停止（附录 A 还有固定问全部 5 个）。
+      <p class="ex">例：先验 0.90。k = 2 时，第 1 个 verifier 给高分，后验升到 0.97；规则上已经可以放行，但仍要问第 2 个并为它付钱，第 2 个也给高分，后验 0.99，放行。</p></dd>
+    <dt>我们的方法</dt>
+    <dd>同样的后验更新，但每问一个 verifier 之后都判断：现在放行、弃权，还是再问一个更划算。
+      <p class="ex">例：同一题，第 1 个 verifier 给高分后后验 0.97，再问的期望收益抵不上花费，停下放行，省下后面两个 verifier 的钱。</p></dd>
+    <dt>Self-consistency（多数投票）</dt>
+    <dd>用 generator 的 10 个样本投票选出最终答案（GPQA 比字母，MATH 用同一个 grader 判等价；平票时选 p_correct 总和更高的那组）。置信度不改，取投给多数答案的那几个样本自报 p_correct 的平均值，再按「只用 generator」的规则放行。所以这一行的答案可能和固定答案不同，对错按投票出来的答案算。花费是这 10 次采样。代码没法投票，QuantumKatas 上不做。附录 A 的旧版本把「10 个样本里和固定答案一致的比例」当分数。
+      <p class="ex">例：10 个样本里 7 个选 B、3 个选 C，答案取 B。这 7 个样本报的 p_correct 平均 0.96，放行；如果平均只有 0.92，弃权。</p></dd>
+    <dt>Weaver</dt>
+    <dd>Weaver 的弱监督标签模型：每个 verifier 的分数按我们方法的三档（0–1/3、1/3–2/3、2/3–1）离散化，假设各 verifier 在答案对或错时相互独立。各 verifier 在对、错两种情况下落在每档的概率不用标签，用 EM 在全部题上估计；类别比例取训练部分的正确率。得到每题答对的后验后，用训练部分拟合的阈值放行。「+ generator 置信度」把 generator 的 p_correct（按 0.5 / 0.8 / 0.9 / 0.95 / 0.99 分档）也当作一个信号放进去。附录 A 是按 0.5 二值化的版本。
+      <p class="ex">例：5 个 verifier 给 0.9、0.8、0.95、0.4、0.85，落在「高、高、高、中、高」。模型根据每个 verifier 在这些档上的表现，算出答对的后验 0.97。训练部分拟合的阈值是 0.98，于是弃权。</p></dd>
+    <dt>SSV</dt>
+    <dd>照搬论文代码：一个弱 verifier 加一个强 verifier，弱 verifier 的分数高于接受阈值就放行，低于拒绝阈值就弃权，中间的交给强 verifier 判。另外按一定概率抽查本来直接放行或弃权的题，用强 verifier 的结论在线调整两个阈值（α 设成 5%，其余参数用默认值）。先在训练部分热身，再在评测部分继续在线更新。弱 verifier 用训练部分上单独效果最好的那个；强 verifier 在主表里用其余 4 个中 AUROC 最高的那个，附录 A 用真实标签。
+      <p class="ex">例：当前接受阈值 0.9、拒绝阈值 0.3。弱 verifier 给 0.85，在两者之间，于是问强 verifier；强 verifier 判对，放行，并按这次结果微调阈值。</p></dd>
+    <dt>PEG</dt>
+    <dd>三个判别器（Qwen3、gpt-oss 用 A/B 的 token 概率，Sonnet 用它报的 p_correct）对该题所有候选答案都给出「是否正确」的概率，按 PEG 代码的 DMI 奖励更新 10 轮（每批 8 题）。分数是最后认为固定答案最可能正确的判别器个数，加上 0.1 × 它们给固定答案的平均概率，用训练部分拟合的阈值放行。花费是三个判别器对全部候选的调用。
+      <p class="ex">例：固定答案是 B。更新后，Qwen3 和 Sonnet 认为 B 最可能对，gpt-oss 更偏向 C，分数是 2 点几。训练部分的阈值要求 3 个都同意，于是弃权。</p></dd>
+  </dl>
+</section>
 
 <div class="findings">
   <strong>主要结论</strong>
@@ -180,24 +203,12 @@ code { font-family: var(--mono); font-size: 13px; }
 </div>
 
 <div class="key">
-  <span>每格四行：<b>放行数 · 其中答错数</b>；<b>平均效用</b>；<b>这个方法的效用减去我们方法的效用</b>（括号里是配对 bootstrap 95% 区间，正数表示这个方法更好）；<b>每题预期花费</b></span>
-  <span>效用按题平均：答对放行 +1，答错放行 −19，弃权 0，再减去 10 × 每题花费（美元）。错一个抵掉 19 个对的，所以放得少但不错，常常比放得多但错几个更好。例如 GPQA 的 gpt-oss：只用 generator 放行 49 个、0 个错，效用 0.250；我们放行 102 个、错 7 个，效用 −0.222。</span>
-  <span><i class="sw" style="background:var(--good-bg)"></i>我们显著更好（区间全在 0 以下）</span>
-  <span><i class="sw" style="background:var(--bad-bg)"></i>这个 baseline 显著更好（区间全在 0 以上）</span>
+  <span>每格三行：<b>接受数 / 其中答错</b>，<b>平均效用</b>，<b>每题预期花费</b>。效用按题平均：答对放行 +1，答错放行 −19，弃权 0，再减去 10 × 每题花费（美元）。</span>
 </div>
 
 {{SECTIONS}}
 
-<section class="notes">
-  <h2>各个 baseline 怎么做的</h2>
-  <ul>
-    <li><b>只用 generator / 固定问 k 个：</b>用和我们相同的后验更新和放行规则，只是每题固定问所选 3 个 verifier 里的前 k 个，不提前停止。</li>
-    <li><b>Self-consistency（多数投票）：</b>用 generator 的 10 个样本投票选出最终答案（GPQA 比字母，MATH 用同一个 grader 判等价；平票时选 p_correct 总和更高的那组），置信度不改，仍用 generator 自己报的 p_correct，取投给多数答案的那几个样本的平均值，然后按「只用 generator」的规则放行（≥ 95%）。所以这一行的答案可能和固定答案不同，正确与否按投票出来的答案算。花费是这 10 次采样。代码没法投票，所以 QuantumKatas 上不做。附录 A 里的旧版本把「10 个样本里和固定答案一致的比例」当分数。</li>
-    <li><b>Weaver：</b>按 Weaver 的弱监督做法：每个 verifier 的分数按和我们相同的三档（0–1/3、1/3–2/3、2/3–1）离散化，假设条件独立，类别比例用训练部分的标签，各 verifier 在每档的分布不用标签、用 EM 在全部候选上估计，得到后验后用训练部分拟合的阈值放行。「+ generator 置信度」把 generator 报的 p_correct（分成 0.5 / 0.8 / 0.9 / 0.95 / 0.99 几档）也当成一个弱信号放进去。附录 A 是按 0.5 二值化的版本。</li>
-    <li><b>SSV：</b>照搬论文代码的在线阈值更新（α 设成 5%，其余参数用默认值），先在训练部分上过一遍热身，再在评测部分继续在线更新。弱 verifier 用训练部分上单独效果最好的那个；强 verifier 在主表里用其余 4 个中 AUROC 最高的那个。</li>
-    <li><b>PEG：</b>三个判别器是 Qwen3、gpt-oss（用 A/B 的 token 概率）和 Sonnet（用它报的 p_correct）。每个判别器对该题所有候选都给出判断，按 PEG 代码的 DMI 奖励更新 10 轮（每批 8 题），最后看有几个判别器认为固定答案最可能正确，用训练部分拟合的阈值放行。花费是三个判别器对全部候选的调用。</li>
-  </ul>
-</section>
+
 
 <section>
   <h2>附录 A：其余变体</h2>
