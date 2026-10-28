@@ -619,9 +619,7 @@ def run(dataset):
             if vrows is not None:
                 arms['sc_vote'].update(zip(test_idx, self_consistency_vote(vrows, test_idx, v_usage, train_idx, settings)))
             for name, pool, binned, wp, ft in (('weaver_3', triple, True, False, False), ('weaver_5', VERIFIERS, True, False, False),
-                                               ('weaver_5_conf', VERIFIERS, True, True, False),
                                                ('weaver_5_fit', VERIFIERS, True, False, True),
-                                               ('weaver_5_conf_fit', VERIFIERS, True, True, True),
                                                ('weaver_5_binary', VERIFIERS, False, False, False)):
                 ds, w = weaver(rows, train_idx, test_idx, pool, fitted, binned, wp, ft)
                 ws = w.pop('scores')
