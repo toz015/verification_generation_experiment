@@ -303,9 +303,10 @@ def weaver_binned_posterior(bins, class_balance, k, iters=500):
 PRIOR_EDGES = (0.0, 0.5, 0.8, 0.9, 0.95, 0.99, 1.0)
 
 
-def weaver(rows, train_idx, test_idx, pool, fitted, binned=True, with_prior=False):
+def weaver(rows, train_idx, test_idx, pool, fitted, binned=True, with_prior=False, fit_tau=False):
     """binned: scores in the main experiments' three probability bins (main table); else binary votes at 0.5.
-    with_prior: the generator's stated p_correct enters the label model as one more weak signal (PRIOR_EDGES bins)."""
+    with_prior: the generator's stated p_correct enters the label model as one more weak signal (PRIOR_EDGES bins).
+    Release iff the posterior >= L/(1+L), the rule of ours; fit_tau: a training-fit threshold instead (appendix)."""
     idx = sorted(set(train_idx) | set(test_idx))
     use = [i for i in idx if rows[i]['valid']]
     cb = float(np.mean([rows[i]['outcome'] for i in train_idx if rows[i]['valid']]))
@@ -325,7 +326,8 @@ def weaver(rows, train_idx, test_idx, pool, fitted, binned=True, with_prior=Fals
     scores = [None]*len(rows)
     for i, s in zip(use, q):
         scores[i] = float(s)
-    tau = fit_threshold([scores[i] for i in train_idx if rows[i]['valid']], [rows[i]['outcome'] for i in train_idx if rows[i]['valid']])
+    tau = fit_threshold([scores[i] for i in train_idx if rows[i]['valid']], [rows[i]['outcome'] for i in train_idx if rows[i]['valid']]) \
+        if fit_tau else LOSS/(1+LOSS)
     expected = sum(fitted['expected_cost_usd'][v] for v in pool)
     usage = [sum(r['signals'][v]['estimated_usd'] for v in pool) for r in rows]
     ds = [dict(d, verifiers_used=len(pool) if rows[i]['valid'] else 0) for d, i in
@@ -616,10 +618,12 @@ def run(dataset):
                 curves['self_consistency'].update({i: sc_scores[i] for i in test_idx})
             if vrows is not None:
                 arms['sc_vote'].update(zip(test_idx, self_consistency_vote(vrows, test_idx, v_usage, train_idx, settings)))
-            for name, pool, binned, wp in (('weaver_3', triple, True, False), ('weaver_5', VERIFIERS, True, False),
-                                           ('weaver_5_conf', VERIFIERS, True, True),
-                                           ('weaver_3_binary', triple, False, False), ('weaver_5_binary', VERIFIERS, False, False)):
-                ds, w = weaver(rows, train_idx, test_idx, pool, fitted, binned, wp)
+            for name, pool, binned, wp, ft in (('weaver_3', triple, True, False, False), ('weaver_5', VERIFIERS, True, False, False),
+                                               ('weaver_5_conf', VERIFIERS, True, True, False),
+                                               ('weaver_5_fit', VERIFIERS, True, False, True),
+                                               ('weaver_5_conf_fit', VERIFIERS, True, True, True),
+                                               ('weaver_5_binary', VERIFIERS, False, False, False)):
+                ds, w = weaver(rows, train_idx, test_idx, pool, fitted, binned, wp, ft)
                 ws = w.pop('scores')
                 curves[name].update({i: ws[i] for i in test_idx})
                 arms[name].update(zip(test_idx, ds)); info[name] = w

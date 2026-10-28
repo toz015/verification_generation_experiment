@@ -16,7 +16,8 @@ MAIN = [('generator_only', '只用 generator'), ('fixed_1', '固定问 1 个 ver
         ('weaver_3', 'Weaver（3 个 verifier）'), ('weaver_5', 'Weaver（5 个 verifier）'),
         ('weaver_5_conf', 'Weaver（5 个 + generator 置信度）'), ('ssv_model', 'SSV（强 verifier 用模型）'), ('peg', 'PEG')]
 APPENDIX = [('fixed_5', '固定问 5 个'), ('self_consistency', 'Self-consistency（一致比例当分数）'),
-            ('weaver_3_binary', 'Weaver（3 个，0.5 二值化）'), ('weaver_5_binary', 'Weaver（5 个，0.5 二值化）'),
+            ('weaver_5_fit', 'Weaver（5 个，训练部分选阈值）'), ('weaver_5_conf_fit', 'Weaver（5 个 + 置信度，训练部分选阈值）'),
+            ('weaver_5_binary', 'Weaver（5 个，0.5 二值化）'),
             ('ssv_oracle', 'SSV（强 verifier 用真实标签）')]
 CURVES = [('generator_only', '只用 generator', 'var(--c1)'), ('sc_vote', 'Self-consistency（多数投票）', 'var(--c2)'),
           ('weaver_5', 'Weaver（5 个）', 'var(--c3)'), ('peg', 'PEG', 'var(--c4)')]
@@ -179,8 +180,8 @@ code { font-family: var(--mono); font-size: 13px; }
     <dd>用 generator 的 10 个样本投票选出最终答案（GPQA 比字母，MATH 用同一个 grader 判等价；平票时选 p_correct 总和更高的那组）。置信度不改，取投给多数答案的那几个样本自报 p_correct 的平均值，再按「只用 generator」的规则放行。所以这一行的答案可能和固定答案不同，对错按投票出来的答案算。花费是这 10 次采样。代码没法投票，QuantumKatas 上不做。附录 A 的旧版本把「10 个样本里和固定答案一致的比例」当分数。
       <p class="ex">例：10 个样本里 7 个选 B、3 个选 C，答案取 B。这 7 个样本报的 p_correct 平均 0.96，放行；如果平均只有 0.92，弃权。</p></dd>
     <dt>Weaver</dt>
-    <dd>Weaver 的弱监督标签模型：每个 verifier 的分数按我们方法的三档（0–1/3、1/3–2/3、2/3–1）离散化，假设各 verifier 在答案对或错时相互独立。各 verifier 在对、错两种情况下落在每档的概率不用标签，用 EM 在全部题上估计；类别比例取训练部分的正确率。得到每题答对的后验后，用训练部分拟合的阈值放行。「+ generator 置信度」把 generator 的 p_correct（按 0.5 / 0.8 / 0.9 / 0.95 / 0.99 分档）也当作一个信号放进去。附录 A 是按 0.5 二值化的版本。
-      <p class="ex">例：5 个 verifier 给 0.9、0.8、0.95、0.4、0.85，落在「高、高、高、中、高」。模型根据每个 verifier 在这些档上的表现，算出答对的后验 0.97。但这个后验偏高：在训练部分，后验 0.97 左右的题实际只有约 90% 答对（GPQA 上的真实情况），低于 95%，所以拟合出来的阈值比 0.97 高，这题弃权。阈值看的是训练部分的实际正确率，不是后验本身。</p></dd>
+    <dd>Weaver 的弱监督标签模型：每个 verifier 的分数按我们方法的三档（0–1/3、1/3–2/3、2/3–1）离散化，假设各 verifier 在答案对或错时相互独立。各 verifier 在对、错两种情况下落在每档的概率不用标签，用 EM 在全部题上估计；类别比例取训练部分的正确率。得到每题答对的后验后，和我们的方法一样，后验 ≥ 95% 就放行。「+ generator 置信度」把 generator 的 p_correct（按 0.5 / 0.8 / 0.9 / 0.95 / 0.99 分档）也当作一个信号放进去。附录 A 有改用训练部分选阈值的版本，以及按 0.5 二值化的版本。
+      <p class="ex">例：5 个 verifier 给 0.9、0.8、0.95、0.4、0.85，落在「高、高、高、中、高」。模型根据每个 verifier 在这些档上的表现，算出答对的后验 0.97，≥ 95%，放行。要注意这个后验偏高：EM 假设各 verifier 互相独立，但它们常常一起错。例如在 GPQA 的训练部分，后验 0.97 左右的题实际只有约 90% 答对。</p></dd>
     <dt>SSV</dt>
     <dd>照搬论文代码：一个弱 verifier 加一个强 verifier，弱 verifier 的分数高于接受阈值就放行，低于拒绝阈值就弃权，中间的交给强 verifier 判。另外按一定概率抽查本来直接放行或弃权的题，用强 verifier 的结论在线调整两个阈值（α 设成 5%，其余参数用默认值）。先在训练部分热身，再在评测部分继续在线更新。弱 verifier 用训练部分上单独效果最好的那个；强 verifier 在主表里用其余 4 个中 AUROC 最高的那个，附录 A 用真实标签。
       <p class="ex">例：当前接受阈值 0.9、拒绝阈值 0.3。弱 verifier 给 0.85，在两者之间，于是问强 verifier；强 verifier 判对，放行，并按这次结果微调阈值。</p></dd>
@@ -196,7 +197,7 @@ code { font-family: var(--mono); font-size: 13px; }
     <li>和「固定问同样 3 个 verifier」比，我们的方法接受数和错误数基本不变，效用在 9 组里有 8 组显著更高（QuantumKatas 的 Qwen 不显著）。差别来自提前停止省下的钱。</li>
     <li>和「固定只问 1 个或 2 个」比，结果有输有赢。固定问更少显著更好的有：MATH 的 Sonnet（1 个），MATH 的 gpt-oss（2 个）。我们显著更好的有：GPQA 的 Sonnet、MATH 的 gpt-oss、QuantumKatas 的 Qwen（都是对比 1 个）。</li>
     <li>Self-consistency（多数投票，置信度用 generator 自己报的）在 GPQA 和 MATH 的 6 组里没有一组显著好过我们，Qwen 和 Sonnet 上显著更差。Qwen 是因为它自报的置信度偏高（GPQA 上放行 34 个，错 17 个）；Sonnet 主要差在多采样 10 次的花费。</li>
-    <li>Weaver 只用 verifier 时，改成三档以后在 GPQA 和 QuantumKatas 上仍然几乎不放行：在训练部分，所有 verifier 都给最高档的答案也只有约 90% 正确，达不到 95%。在 MATH 上能放行，但 gpt-oss 和 Sonnet 上显著不如我们。把 generator 置信度也放进 Weaver 以后，GPQA 的 gpt-oss、Sonnet 和三组 QuantumKatas 都开始放行。QuantumKatas 的 Qwen 和 gpt-oss 上它显著好过我们（这两组我们放行的错误率在 12% 到 16%，效用为负），其余各组不显著或我们更好。</li>
+    <li>Weaver 和我们一样按后验 ≥ 95% 放行时，放得很多但错得也多，因为它的后验偏高。在 MATH 的 3 组、GPQA 的 gpt-oss 和 Sonnet、QuantumKatas 的 Sonnet 上显著不如我们。唯一显著好过我们的是 QuantumKatas 的 Qwen：那一组我们放行的答案有 16% 是错的，效用为负。加上 generator 置信度后，GPQA 的 gpt-oss 上显著好过我们（放行 91 个，错 3 个），MATH 上仍然显著不如我们。附录 A 里改用训练部分选阈值的版本会把阈值推得很高，在 GPQA 和 QuantumKatas 上几乎不放行。</li>
     <li>PEG 的分数只有几档，在 GPQA 和 QuantumKatas 上几乎不放行。</li>
     <li>SSV 用模型当强 verifier 时，9 组里有 6 组点估计不如我们（4 组显著），只有 MATH 的 Sonnet 显著更好（差 0.017）。用真实标签当强 verifier 的原版 SSV 会直接查看一部分题的答案，放在附录 A。</li>
   </ul>
@@ -212,7 +213,7 @@ code { font-family: var(--mono); font-size: 13px; }
 
 <section>
   <h2>附录 A：其余变体</h2>
-  <p class="meta">固定问全部 5 个、旧版 self-consistency、按 0.5 二值化的 Weaver，以及用真实标签当强 verifier 的 SSV（括注里是每题平均查看真实标签的次数，这部分成本没有计入效用）。</p>
+  <p class="meta">固定问全部 5 个、旧版 self-consistency、训练部分选阈值或按 0.5 二值化的 Weaver，以及用真实标签当强 verifier 的 SSV（括注里是每题平均查看真实标签的次数，这部分成本没有计入效用）。</p>
   {{APPENDIX}}
 </section>
 
