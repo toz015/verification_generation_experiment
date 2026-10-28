@@ -14,13 +14,13 @@ GEN = {'qwen3': 'Qwen3-235B', 'gptoss': 'gpt-oss-120b', 'sonnet55': 'Sonnet 5.5'
 MAIN = [('generator_only', '只用 generator'), ('fixed_1', '固定问 1 个 verifier'), ('fixed_2', '固定问 2 个'),
         ('fixed_3', '固定问 3 个'), ('ours', '我们的方法'), ('sc_vote', 'Self-consistency（多数投票）'),
         ('weaver_3', 'Weaver（3 个 verifier）'), ('weaver_5', 'Weaver（5 个 verifier）'),
-        ('ssv_model', 'SSV（强 verifier 用模型）'), ('peg', 'PEG')]
+        ('ssv_model', 'SSV（强 verifier 用模型）')]
 APPENDIX = [('fixed_5', '固定问 5 个'), ('self_consistency', 'Self-consistency（一致比例当分数）'),
             ('weaver_5_noprior', 'Weaver（5 个，不用 generator 置信度）'), ('weaver_5_fit', 'Weaver（5 个，不用置信度，训练部分选阈值）'),
             ('weaver_5_binary', 'Weaver（5 个，不用置信度，0.5 二值化）'),
             ('ssv_oracle', 'SSV（强 verifier 用真实标签）')]
 CURVES = [('generator_only', '只用 generator', 'var(--c1)'), ('sc_vote', 'Self-consistency（多数投票）', 'var(--c2)'),
-          ('weaver_5', 'Weaver（5 个）', 'var(--c3)'), ('peg', 'PEG', 'var(--c4)')]
+          ('weaver_5', 'Weaver（5 个）', 'var(--c3)')]
 
 
 def num(x, d=2):
@@ -185,9 +185,7 @@ code { font-family: var(--mono); font-size: 13px; }
     <dt>SSV</dt>
     <dd>照搬论文代码：一个弱 verifier 加一个强 verifier，弱 verifier 的分数高于接受阈值就放行，低于拒绝阈值就弃权，中间的交给强 verifier 判。另外按一定概率抽查本来直接放行或弃权的题，用强 verifier 的结论在线调整两个阈值（α 设成 5%，其余参数用默认值）。先在训练部分热身，再在评测部分继续在线更新。弱 verifier 用训练部分上单独效果最好的那个；强 verifier 在主表里用其余 4 个中 AUROC 最高的那个，附录 A 用真实标签。
       <p class="ex">例：当前接受阈值 0.9、拒绝阈值 0.3。弱 verifier 给 0.85，在两者之间，于是问强 verifier；强 verifier 判对，放行，并按这次结果微调阈值。</p></dd>
-    <dt>PEG</dt>
-    <dd>三个判别器（Qwen3、gpt-oss 用 A/B 的 token 概率，Sonnet 用它报的 p_correct）对该题所有候选答案都给出「是否正确」的概率，按 PEG 代码的 DMI 奖励更新 10 轮（每批 8 题）。分数是最后认为固定答案最可能正确的判别器个数，加上 0.1 × 它们给固定答案的平均概率，用训练部分拟合的阈值放行。花费是三个判别器对全部候选的调用。
-      <p class="ex">例：固定答案是 B。更新后，Qwen3 和 Sonnet 认为 B 最可能对，gpt-oss 更偏向 C，分数是 2 点几。训练部分的阈值要求 3 个都同意，于是弃权。</p></dd>
+
   </dl>
 </section>
 
@@ -198,7 +196,6 @@ code { font-family: var(--mono); font-size: 13px; }
     <li>和「固定只问 1 个或 2 个」比，结果有输有赢。固定问更少显著更好的有：MATH 的 Sonnet（1 个），MATH 的 gpt-oss（2 个）。我们显著更好的有：GPQA 的 Sonnet、MATH 的 gpt-oss、QuantumKatas 的 Qwen（都是对比 1 个）。</li>
     <li>Self-consistency（多数投票，置信度用 generator 自己报的）在 GPQA 和 MATH 的 6 组里没有一组显著好过我们，Qwen 和 Sonnet 上显著更差。Qwen 是因为它自报的置信度偏高（GPQA 上放行 34 个，错 17 个）；Sonnet 主要差在多采样 10 次的花费。</li>
     <li>Weaver（5 个 verifier）用 generator 置信度当先验、按后验 ≥ 95% 放行时，9 组里没有一组好过我们，7 组显著更差（GPQA 和 QuantumKatas 的 Sonnet 不显著）。它放得更多、错得也更多，例如 GPQA 的 Qwen 放行 150 个，错 30 个；我们放行 122 个，错 10 个。它和我们的结构相同，差别在于 verifier 的似然不看标签：EM 假设各 verifier 互相独立，但它们常常一起错，于是后验被高估。这说明在训练部分用标签估计似然是必要的。附录 A 里不用置信度的版本，在 QuantumKatas 的 Qwen 上显著好过我们（那一组我们放行的答案有 16% 是错的），其余各组不显著或更差。</li>
-    <li>PEG 的分数只有几档，在 GPQA 和 QuantumKatas 上几乎不放行。</li>
     <li>SSV 用模型当强 verifier 时，9 组里有 6 组点估计不如我们（4 组显著），只有 MATH 的 Sonnet 显著更好（差 0.017）。用真实标签当强 verifier 的原版 SSV 会直接查看一部分题的答案，放在附录 A。</li>
   </ul>
 </div>
