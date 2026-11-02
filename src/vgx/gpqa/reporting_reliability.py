@@ -107,10 +107,10 @@ TEMPLATE = '''<title>GPQA 置信度校准</title>
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #141917; --surface: #1c2320; --fg: #e4ebe7; --muted: #9aa7a1; --line: #303a36;
-  --raw: #DE8F55; --cal: #62A6EE; color-scheme: dark } }
+  --raw: #C8743A; --cal: #4F97E3; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #141917; --surface: #1c2320; --fg: #e4ebe7; --muted: #9aa7a1; --line: #303a36;
-  --raw: #DE8F55; --cal: #62A6EE; color-scheme: dark }
+  --raw: #C8743A; --cal: #4F97E3; color-scheme: dark }
 body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.65; }
 main { max-width: 1120px; margin: 0 auto; padding-block: 36px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
