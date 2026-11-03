@@ -14,6 +14,7 @@ Output: results/gpqa_fpr_routing_20261102/result.json.
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -109,6 +110,40 @@ class Design:
         return p/self.n, e/self.n, c/self.n
 
 
+class ModelDesign(Design):
+    """Rule values under the fitted model as in the draft: the same out-of-fold reports, no labels."""
+
+    def __init__(self, rows, cal, settings, calibrate):
+        super().__init__(rows, cal, settings, calibrate)
+        self.wrong = sum(float((1-m.prior).sum()) for m in self.models)/self.n
+
+    def value(self, order, rule):
+        kind, omega, rho = rule
+        p = e = c = 0.
+        for m in self.models:
+            pr = m.prior[m.valid]
+            if kind == 'release':
+                p += len(pr); e += (1-pr).sum()
+            elif kind != 'abstain':
+                margins = m.margins(order, omega, rho) if kind == 'bellman' else None
+                rel = (GRID >= 1-1/omega).astype(float)
+                ids = order if kind != 'prior' else ()
+                wr, cost = rel*(1-GRID), np.zeros_like(GRID)
+                for k in range(len(ids)-1, -1, -1):
+                    lk = m.fitted['likelihoods'][ids[k]]
+                    p1, p0 = np.array(lk['p_bin_if_correct']), np.array(lk['p_bin_if_incorrect'])
+                    mass = np.outer(GRID, p1)+np.outer(1-GRID, p0)
+                    post = (np.outer(GRID, p1)/np.maximum(mass, 1e-300)).ravel()
+                    next_ = [(mass*np.interp(post, GRID, t).reshape(mass.shape)).sum(1) for t in (rel, wr, cost)]
+                    ask = np.ones_like(GRID, bool) if kind == 'fixed' else margins[k] > 0
+                    stop = (GRID >= 1-1/omega).astype(float)
+                    rel = np.where(ask, next_[0], stop)
+                    wr = np.where(ask, next_[1], stop*(1-GRID))
+                    cost = np.where(ask, next_[2]+m.fitted['expected_cost_usd'][ids[k]], 0.)
+                p += np.interp(pr, GRID, rel).sum(); e += np.interp(pr, GRID, wr).sum(); c += np.interp(pr, GRID, cost).sum()
+        return p/self.n, e/self.n, c/self.n
+
+
 def solve(values, alpha, budget, wrong):
     """Deployment LP; returns weights, publication and the multipliers of the two constraints."""
     v = np.array(values)
@@ -150,7 +185,7 @@ def score(rows, test, cal, order, rules, weights, settings, calibrate):
             'pub_ci': [lo[0], hi[0]], 'fpr_ci': [lo[1], hi[1]], 'wrong_total': float(wrong.sum())}
 
 
-def main():
+def main(design_cls=Design, name='result.json'):
     data, cfg = B.load('gpqa')
     settings = cfg['settings']
     base = [('abstain', 0., 0.), ('release', 0., 0.)]
@@ -159,7 +194,7 @@ def main():
         (cal, test), = B.splits('gpqa', rows)
         out = {}
         for version, calibrate in (('calibrated', True), ('raw', False)):
-            des = Design(rows, cal, settings, calibrate)
+            des = design_cls(rows, cal, settings, calibrate)
             grid = base+[('bellman', o, r) for o in OMEGAS for r in RHOS]
             fixed = base+[('fixed', o, 0.) for o in OMEGAS]
             prior = base+[('prior', o, 0.) for o in OMEGAS]
@@ -187,8 +222,11 @@ def main():
             out[version] = {'order': order, 'design_wrong_share': des.wrong, 'cells': table}
         result['generators'][gen] = out
     OUT.mkdir(parents=True, exist_ok=True)
-    atomic_json(OUT/'result.json', result)
+    atomic_json(OUT/name, result)
 
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == '--fitted-model':
+        main(ModelDesign, 'result_fitted_model.json')
+    else:
+        main()
