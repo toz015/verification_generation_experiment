@@ -93,9 +93,9 @@ def weaver_family(rows, des, cal, test, pool, settings):
     return threshold_family(s(ids), np.array([usd(i) for i in ids]), [y(i) for i in ids], s(test), np.array([usd(i) for i in test]), [y(i) for i in test])
 
 
-def vote_family(rows, des, cal, test, gen, samples):
+def vote_family(rows, des, cal, test, gen, samples, dataset='gpqa'):
     ids = [i for f in des.folds for i in f]
-    vrows, usage = B.vote_rows('gpqa', gen, rows, samples)
+    vrows, usage = B.vote_rows(dataset, gen, rows, samples)
     s = lambda idx: [vrows[i]['prior'] if vrows[i]['valid'] else -np.inf for i in idx]
     y = lambda idx: [vrows[i]['outcome'] if vrows[i]['valid'] else 0 for i in idx]
     c = lambda idx: np.array([usage[i] for i in idx])
