@@ -14,6 +14,7 @@ Output: results/gpqa_fpr_routing_20261102/result.json.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -144,10 +145,15 @@ class ModelDesign(Design):
         return p/self.n, e/self.n, c/self.n
 
 
+# 'fpr': erroneous releases <= alpha * share wrong; 'fdr': erroneous releases <= alpha * releases.
+CONSTRAINT = os.environ.get('VGX_CONSTRAINT', 'fpr')
+
+
 def solve(values, alpha, budget, wrong):
     """Deployment LP; returns weights, publication and the multipliers of the two constraints."""
     v = np.array(values)
-    res = linprog(-v[:, 0], A_ub=v[:, [1, 2]].T, b_ub=[alpha*wrong, budget], A_eq=np.ones((1, len(v))), b_eq=[1.], bounds=(0, None), method='highs')
+    err = v[:, 1]-alpha*v[:, 0] if CONSTRAINT == 'fdr' else v[:, 1]
+    res = linprog(-v[:, 0], A_ub=np.stack([err, v[:, 2]]), b_ub=[0. if CONSTRAINT == 'fdr' else alpha*wrong, budget], A_eq=np.ones((1, len(v))), b_eq=[1.], bounds=(0, None), method='highs')
     return res.x, float(v[:, 0]@res.x), max(0., -res.ineqlin.marginals[0]), max(0., -res.ineqlin.marginals[1])
 
 
@@ -155,12 +161,15 @@ def design(des, order, rules, values, alpha, budget):
     rules, values = list(rules), list(values)
     for _ in range(ROUNDS):
         w, _, omega, rho = solve(values, alpha, budget, des.wrong)
-        z = max(p-omega*e-rho*c for p, e, c in values)
-        if omega <= 1:
+        # Under the release-error constraint the Lagrangian is p(1 + omega alpha) - omega e - rho c,
+        # the same Bellman rule as (omega, rho) / (1 + omega alpha).
+        scale = 1+omega*alpha if CONSTRAINT == 'fdr' else 1.
+        z = max(p*scale-omega*e-rho*c for p, e, c in values)
+        if omega/scale <= 1:
             break
-        rule = ('bellman', omega, rho)
+        rule = ('bellman', omega/scale, rho/scale)
         val = des.value(order, rule)
-        if val[0]-omega*val[1]-rho*val[2] <= z+TOL:
+        if val[0]*scale-omega*val[1]-rho*val[2] <= z+TOL:
             break
         rules.append(rule); values.append(val)
     w, pub, *_ = solve(values, alpha, budget, des.wrong)

@@ -16,7 +16,7 @@ import vgx.baselines as B
 from vgx.common.storage import atomic_json
 from vgx.gpqa.dependence_triples import all_orders
 from vgx.gpqa.fpr_baselines import lp, model_family, ours_mix, ssv_family, stats, vote_family, weaver_family
-from vgx.gpqa.fpr_routing import ALPHAS, Design, OMEGAS, OUT, RHOS, SEED, solve
+from vgx.gpqa.fpr_routing import CONSTRAINT, ALPHAS, Design, OMEGAS, OUT, RHOS, SEED, solve
 
 BASE = [('abstain', 0., 0.), ('release', 0., 0.)]
 GRID = BASE+[('bellman', o, r) for o in OMEGAS for r in RHOS]
@@ -42,7 +42,7 @@ def main(dataset):
     data, cfg = B.load(dataset)
     settings = cfg['settings']
     budgets = budgets_for(data)
-    samples = B._raw_samples(dataset) if dataset == 'math500' else None
+    samples = B._raw_samples(dataset) if dataset in ('gpqa', 'math500') else None
     out = {'alphas': ALPHAS, 'budgets': budgets, 'generators': {}}
     for gen, rows in data.items():
         pools = {}
@@ -83,7 +83,7 @@ def main(dataset):
                     res[m]['ours_minus_pub'] = {'mean': float(ao.mean()-a_.mean()), 'ci95': np.percentile(d, [2.5, 97.5]).tolist()}
             cells[key] = res
         out['generators'][gen] = cells
-        atomic_json(OUT/f'baselines_{dataset}.json', out)
+        atomic_json(OUT/f'baselines_{dataset}{"_fdr" if CONSTRAINT == "fdr" else ""}.json', out)
         print(gen, 'done', flush=True)
 
 
