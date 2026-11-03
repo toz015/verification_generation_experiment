@@ -68,6 +68,11 @@ def row(d, kind):
             top = .4
             s = [(m, n, k, [get(a, budgets[3], m, 'fpr') for a in alphas]) for m, n, k in LINES]
             out += chart(GEN[gen], [f'{a:.0%}' for a in alphas], top, (0, .1, .2, .3, .4), s, diagonal=list(alphas))
+        elif kind == 'err':
+            err = lambda a, m: None if m not in c[f'{a}|{budgets[3]}'] or get(a, budgets[3], m, 'released') < 1 else \
+                get(a, budgets[3], m, 'wrong_released')/get(a, budgets[3], m, 'released')
+            s = [(m, n, k, [err(a, m) for a in alphas]) for m, n, k in LINES]
+            out += chart(GEN[gen], [f'{a:.0%}' for a in alphas], .4, (0, .1, .2, .3, .4), s)
         else:
             s = [(m, n, k, [get(.05, b, m, 'pub') for b in budgets]) for m, n, k in LINES]
             out += chart(GEN[gen], list(SHARE), 1., (0, .25, .5, .75, 1.), s)
@@ -114,7 +119,7 @@ def summary(res):
             cells += '<td class="n">—</td><td class="n">—</td>' if m not in tot else (
                 f'<td class="n">{"参照" if m not in more else f"{more[m]} / {less[m]}"}</td><td class="n">{over[m]} / {tot[m]}</td>')
         rows += f'<tr><th scope="row">{name}</th>{cells}</tr>'
-    head = ''.join(f'<th class="n">{n}：我们更多 / 它更多</th><th class="n">{n}：FPR 超 α</th>' for _, _, n, _ in DATASETS)
+    head = ''.join(f'<th class="n">{n}：我们放行显著更多 / 它放行显著更多</th><th class="n">{n}：FPR 超 α</th>' for _, _, n, _ in DATASETS)
     return f'<div class="scroll"><table><thead><tr><th></th>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
 
 
@@ -122,11 +127,12 @@ def main():
     res = {ds: json.loads((SRC/f'{f}.json').read_text()) for ds, f, _, _ in DATASETS}
     pub = ''.join(f'<h3>{n}</h3><p class="meta">{s}</p>{row(res[ds], "pub")}' for ds, _, n, s in DATASETS)
     fpr = ''.join(f'<h3>{n}</h3>{row(res[ds], "fpr")}' for ds, _, n, _ in DATASETS)
+    err = ''.join(f'<h3>{n}</h3>{row(res[ds], "err")}' for ds, _, n, _ in DATASETS)
     bud = ''.join(f'<h3>{n}</h3>{row(res[ds], "bud")}' for ds, _, n, _ in DATASETS)
     tab = ''.join(f'<h3>{n}</h3>{table(res[ds])}' for ds, _, n, _ in DATASETS)
     legend = ''.join(f'<span><i style="background:var(--s{k})"></i>{n}</span>' for _, n, k in LINES)
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(TEMPLATE.replace('{{PUB}}', pub).replace('{{FPR}}', fpr).replace('{{BUD}}', bud).replace('{{TAB}}', tab)
+    OUT.write_text(TEMPLATE.replace('{{PUB}}', pub).replace('{{FPR}}', fpr).replace('{{BUD}}', bud).replace('{{ERR}}', err).replace('{{TAB}}', tab)
                    .replace('{{SUM}}', summary(res)).replace('{{LEGEND}}', legend))
     print('wrote', OUT)
 
@@ -191,7 +197,7 @@ small { color: var(--muted); }
     <li>放行更多不等于完全赢：在这两个数据集上，我们超 α 的格数比固定问 3 个更多（54 对 35，65 对 40），所以放行的优势有一部分是用更高的 FPR 换来的。</li>
   </ul>
   {{SUM}}
-  <p class="meta">「我们更多 / 它更多」是 75 格里配对 bootstrap 放行比例差区间不含 0 的格数。</p>
+  <p class="meta">每个方法有 75 格（3 个 generator × 5 个 α × 5 个预算）。「我们放行显著更多」是其中我们的放行比例显著高于它的格数，「它放行显著更多」反过来，按配对 bootstrap 区间是否不含 0 判断，剩下的格数是差别不显著。「FPR 超 α」是它自己在测试上超过目标的格数。</p>
 </section>
 <div class="legend">{{LEGEND}}<span>虚线：FPR = α</span></div>
 <section>
@@ -203,6 +209,11 @@ small { color: var(--muted); }
   <h2>测试 FPR 对 α</h2>
   <p class="meta">同样的预算。点在虚线以上表示超过目标。纵轴上限 40%。</p>
   {{FPR}}
+</section>
+<section>
+  <h2>放行答案的错误率对 α</h2>
+  <p class="meta">放行的答案里有多少是错的，即 1 − 放行答案的正确率。同样的预算。放行不到 1 题的点不画。</p>
+  {{ERR}}
 </section>
 <section>
   <h2>放行比例对预算</h2>
