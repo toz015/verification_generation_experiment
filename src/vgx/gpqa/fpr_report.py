@@ -86,15 +86,15 @@ def row(d, kind):
     return f'<div class="row">{out}</div>'
 
 
-def table(d):
+def table(d, alphas=(.05, .1)):
     b = d['budgets'][3]
     gens = ('qwen3', 'gptoss', 'sonnet55')
-    head = ''.join(f'<th class="n">{GEN[g]} α=5%</th><th class="n">{GEN[g]} α=10%</th>' for g in gens)
+    head = ''.join(''.join(f'<th class="n">{GEN[g]} α={a:.0%}</th>' for a in alphas) for g in gens)
     body = ''
     for m, name in TABLE:
         cells = ''
         for g in gens:
-            for a in (.05, .1):
+            for a in alphas:
                 x = d['generators'][g][f'{a}|{b}'].get(m)
                 cells += '<td class="n">—</td>' if x is None else (
                     f'<td class="n">{x["released"]:.0f} / {x["wrong_released"]:.1f}{"*" if (target(x) or 0) > a else ""}<br><small>FPR {x["fpr"]:.1%}，放行错误率 {"—" if rel_err(x) is None else f"{rel_err(x):.1%}"}</small></td>')
@@ -136,7 +136,7 @@ def main():
     fpr = ''.join(f'<h3>{n}</h3>{row(res[ds], "target")}' for ds, _, n, _ in DATASETS)
     err = ''.join(f'<h3>{n}</h3>{row(res[ds], "other")}' for ds, _, n, _ in DATASETS)
     bud = ''.join(f'<h3>{n}</h3>{row(res[ds], "bud")}' for ds, _, n, _ in DATASETS)
-    tab = ''.join(f'<h3>{n}</h3>{table(res[ds])}' for ds, _, n, _ in DATASETS)
+    tab = ''.join(f'<h3>{n}</h3>{table(res[ds], (.01, .02, .05) if FDR and ds == "math500" else (.05, .1))}' for ds, _, n, _ in DATASETS)
     legend = ''.join(f'<span><i style="background:var(--s{k})"></i>{n}</span>' for _, n, k in LINES)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     page = TEMPLATE_FDR if FDR else TEMPLATE
@@ -347,6 +347,7 @@ small { color: var(--muted); }
   <ul>
     <li><b>放行更多：</b>三个数据集上，我们在绝大多数设定下放行显著更多。75 格里，没有一个 baseline 显著多于我们超过 5 格（见下表）。</li>
     <li><b>错误率：</b>α ≥ 5% 时，我们的放行错误率基本贴着目标，比如 α = 5% 时 QuantumKatas 平均 5.5% 到 6.9%，GPQA 1.6% 到 5.7%。α = 1% 到 2% 时放行很少，几道错题就能让错误率跳很高，这一段不稳定。</li>
+    <li><b>MATH-500 要看小 α：</b>Qwen3 和 gpt-oss 给出答案的题已经超过 95% 对，α ≥ 5% 时直接全部放行，方法之间没有差别，所以 MATH-500 的表改成 α = 1%、2%、5%。在 α = 1% 和 2% 时，我们在三个 generator 上都比所有 baseline 放行显著更多，只有 gpt-oss 在 α = 2% 时 SSV 更多（187 对 154）。但这一段错题容许得很少，放行错误率偏高：gpt-oss 在 α = 1% 时是 7.6%，Qwen3 是 3.5%，Sonnet 是 1.3%。</li>
     <li><b>全部放行也可能是最优：</b>generator 本身的正确率已经高于 1 − α 时就会这样。比如 MATH-500 的 Qwen3 整体 96.8% 对，α ≥ 5% 时我们和只看置信度一样放行 495 题，verifier 用不上。</li>
     <li><b>GPQA 的 Qwen3 在 α = 5% 时几乎不放行（4 题），这是数据决定的。</b>在 249 道 calibration 题上，即使用全部 5 个 verifier 更新后再按概率从高到低排，排在最前面的 20 题也有 15% 是错的，前 50 题有 8% 是错的，找不到一段能做到 95% 正确的前排。gpt-oss 的前 105 题就能做到。原因是 Qwen3 的置信度区分不开对错，校准后最高一档也只有 84% 对；verifier 之间又常常一起错。两者叠加，最有把握的那批答案里也混着错题。所以算法在训练数据上看不到能达标的放行方式，就选择弃权。α = 10% 时它能放行 111 题。</li>
   </ul>
@@ -376,7 +377,7 @@ small { color: var(--muted); }
 </section>
 <section>
   <h2>附录：各方法的数字</h2>
-  <p class="meta">预算同上。格子是放行 / 错，* 表示放行错误率超过 α。</p>
+  <p class="meta">预算同上。格子是放行 / 错，* 表示放行错误率超过 α。MATH-500 用 α = 1%、2%、5%，原因见第 6 节。</p>
   {{TAB}}
 </section>
 </main>
