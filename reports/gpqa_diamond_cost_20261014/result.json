@@ -1,0 +1,412 @@
+{
+  "brier": {
+    "gemini": {
+      "brier": {
+        "five": 0.05964574347070422,
+        "prior_only": 0.061379792746113986,
+        "triple": 0.06040909546167871
+      },
+      "five_minus_prior": {
+        "ci95": [
+          -0.009321032313096006,
+          0.0038752064309056705
+        ],
+        "mean": -0.0017340492754097626,
+        "n": 193
+      },
+      "five_minus_triple": {
+        "ci95": [
+          -0.003420586953082839,
+          0.001407741871282296
+        ],
+        "mean": -0.0007633519909744853,
+        "n": 193
+      },
+      "n": 193,
+      "triple": [
+        "claude_haiku",
+        "gemini_flash",
+        "mistral_small"
+      ],
+      "triple_minus_prior": {
+        "ci95": [
+          -0.008795578227487959,
+          0.004661329694685438
+        ],
+        "mean": -0.0009706972844352772,
+        "n": 193
+      }
+    },
+    "qwen": {
+      "brier": {
+        "five": 0.10736109150130094,
+        "prior_only": 0.3013333333333333,
+        "triple": 0.10431151047821834
+      },
+      "five_minus_prior": {
+        "ci95": [
+          -0.2426026521582194,
+          -0.14675856215287858
+        ],
+        "mean": -0.1939722418320324,
+        "n": 195
+      },
+      "five_minus_triple": {
+        "ci95": [
+          -0.0015878456780184654,
+          0.008179804013419075
+        ],
+        "mean": 0.003049581023082607,
+        "n": 195
+      },
+      "n": 195,
+      "triple": [
+        "claude_haiku",
+        "gemini_flash",
+        "gemini_lite"
+      ],
+      "triple_minus_prior": {
+        "ci95": [
+          -0.24517104400875045,
+          -0.1498298043191229
+        ],
+        "mean": -0.19702182285511494,
+        "n": 195
+      }
+    }
+  },
+  "outcomes_id": "3dc1759c9092962fdb444f3a1992dd3924b38d4613a0e9519a790e8fddd4d8e0",
+  "plan_id": "e8674593b22690bd7e312356c057739422076b6a3ed5934d51d613bff0ce5f2c",
+  "policies": {
+    "gemini": {
+      "19": {
+        "adaptive_minus_prior": {
+          "ci95": [
+            -0.09762811124101463,
+            0.24460550492130048
+          ],
+          "mean": 0.025651819321655795,
+          "n": 196
+        },
+        "arms": {
+          "adaptive": {
+            "calls": 213,
+            "calls_per_question": 1.086734693877551,
+            "expected_usd_per_question": 0.0015164507208956458,
+            "mean_utility": 0.4287130438114517,
+            "measured_usd_per_question": 0.0016123849489795919,
+            "measured_usd_total": 0.31602745,
+            "missing_score_abstentions": 0,
+            "n": 196,
+            "released": 147,
+            "wrong_released": 3
+          },
+          "fixed_five": {
+            "calls": 975,
+            "calls_per_question": 4.974489795918367,
+            "expected_usd_per_question": 0.006018759264232009,
+            "mean_utility": 0.27144506041890437,
+            "measured_usd_per_question": 0.006867200765306122,
+            "measured_usd_total": 1.34597135,
+            "missing_score_abstentions": 2,
+            "n": 196,
+            "released": 145,
+            "wrong_released": 4
+          },
+          "fixed_triple": {
+            "calls": 585,
+            "calls_per_question": 2.9846938775510203,
+            "expected_usd_per_question": 0.004236799946294307,
+            "mean_utility": 0.38110138829215884,
+            "measured_usd_per_question": 0.004964446683673469,
+            "measured_usd_total": 0.97303155,
+            "missing_score_abstentions": 0,
+            "n": 196,
+            "released": 143,
+            "wrong_released": 3
+          },
+          "prior_only": {
+            "calls": 0,
+            "calls_per_question": 0.0,
+            "expected_usd_per_question": 0.0,
+            "mean_utility": 0.4030612244897959,
+            "measured_usd_per_question": 0.0,
+            "measured_usd_total": 0.0,
+            "missing_score_abstentions": 0,
+            "n": 196,
+            "released": 159,
+            "wrong_released": 4
+          }
+        },
+        "fixed_five_minus_adaptive": {
+          "ci95": [
+            -0.37160519150210697,
+            -0.037943056533504105
+          ],
+          "mean": -0.15726798339254727,
+          "n": 196
+        },
+        "fixed_triple_minus_adaptive": {
+          "ci95": [
+            -0.06873239532605553,
+            -0.031316617542654725
+          ],
+          "mean": -0.04761165551929274,
+          "n": 196
+        },
+        "triple": [
+          "gemini_flash",
+          "mistral_small",
+          "claude_haiku"
+        ]
+      },
+      "99": {
+        "adaptive_minus_prior": {
+          "ci95": [
+            -0.05901637224241924,
+            -0.01231282887817071
+          ],
+          "mean": -0.03306801526481038,
+          "n": 196
+        },
+        "arms": {
+          "adaptive": {
+            "calls": 131,
+            "calls_per_question": 0.6683673469387755,
+            "expected_usd_per_question": 0.0007557811183177725,
+            "mean_utility": 0.278156474531108,
+            "measured_usd_per_question": 0.0008084219387755102,
+            "measured_usd_total": 0.1584507,
+            "missing_score_abstentions": 0,
+            "n": 196,
+            "released": 56,
+            "wrong_released": 0
+          },
+          "fixed_five": {
+            "calls": 975,
+            "calls_per_question": 4.974489795918367,
+            "expected_usd_per_question": 0.006018759264232009,
+            "mean_utility": 0.3173634277658432,
+            "measured_usd_per_question": 0.006867200765306122,
+            "measured_usd_total": 1.34597135,
+            "missing_score_abstentions": 2,
+            "n": 196,
+            "released": 74,
+            "wrong_released": 0
+          },
+          "fixed_triple": {
+            "calls": 585,
+            "calls_per_question": 2.9846938775510203,
+            "expected_usd_per_question": 0.004236799946294307,
+            "mean_utility": 0.23314220461868954,
+            "measured_usd_per_question": 0.004964446683673469,
+            "measured_usd_total": 0.97303155,
+            "missing_score_abstentions": 0,
+            "n": 196,
+            "released": 54,
+            "wrong_released": 0
+          },
+          "prior_only": {
+            "calls": 0,
+            "calls_per_question": 0.0,
+            "expected_usd_per_question": 0.0,
+            "mean_utility": 0.3112244897959184,
+            "measured_usd_per_question": 0.0,
+            "measured_usd_total": 0.0,
+            "missing_score_abstentions": 0,
+            "n": 196,
+            "released": 61,
+            "wrong_released": 0
+          }
+        },
+        "fixed_five_minus_adaptive": {
+          "ci95": [
+            -0.003057042963005014,
+            0.08535456961548793
+          ],
+          "mean": 0.03920695323473522,
+          "n": 196
+        },
+        "fixed_triple_minus_adaptive": {
+          "ci95": [
+            -0.06088550200725027,
+            -0.034029656614062626
+          ],
+          "mean": -0.0450142699124184,
+          "n": 196
+        },
+        "triple": [
+          "mistral_small",
+          "gemini_flash",
+          "claude_haiku"
+        ]
+      }
+    },
+    "qwen": {
+      "19": {
+        "adaptive_minus_prior": {
+          "ci95": [
+            0.7157166925364721,
+            2.768770589195557
+          ],
+          "mean": 1.7114457898123103,
+          "n": 196
+        },
+        "arms": {
+          "adaptive": {
+            "calls": 342,
+            "calls_per_question": 1.7448979591836735,
+            "expected_usd_per_question": 0.0033452169371363002,
+            "mean_utility": -0.4314113530448324,
+            "measured_usd_per_question": 0.003692638265306123,
+            "measured_usd_total": 0.7237571,
+            "missing_score_abstentions": 1,
+            "n": 196,
+            "released": 122,
+            "wrong_released": 10
+          },
+          "fixed_five": {
+            "calls": 980,
+            "calls_per_question": 5.0,
+            "expected_usd_per_question": 0.006381160441767068,
+            "mean_utility": -0.46177078809113997,
+            "measured_usd_per_question": 0.007404844387755102,
+            "measured_usd_total": 1.4513495,
+            "missing_score_abstentions": 1,
+            "n": 196,
+            "released": 122,
+            "wrong_released": 10
+          },
+          "fixed_triple": {
+            "calls": 588,
+            "calls_per_question": 3.0,
+            "expected_usd_per_question": 0.0061961909638554215,
+            "mean_utility": -0.4599210933120238,
+            "measured_usd_per_question": 0.0072103204081632654,
+            "measured_usd_total": 1.4132228,
+            "missing_score_abstentions": 1,
+            "n": 196,
+            "released": 122,
+            "wrong_released": 10
+          },
+          "prior_only": {
+            "calls": 0,
+            "calls_per_question": 0.0,
+            "expected_usd_per_question": 0.0,
+            "mean_utility": -2.142857142857143,
+            "measured_usd_per_question": 0.0,
+            "measured_usd_total": 0.0,
+            "missing_score_abstentions": 0,
+            "n": 196,
+            "released": 120,
+            "wrong_released": 27
+          }
+        },
+        "fixed_five_minus_adaptive": {
+          "ci95": [
+            -0.04583754767744435,
+            -0.015057300930251549
+          ],
+          "mean": -0.030359435046307576,
+          "n": 196
+        },
+        "fixed_triple_minus_adaptive": {
+          "ci95": [
+            -0.030524020899926254,
+            -0.02636544221785103
+          ],
+          "mean": -0.028509740267191237,
+          "n": 196
+        },
+        "triple": [
+          "gemini_flash",
+          "gemini_lite",
+          "claude_haiku"
+        ]
+      },
+      "99": {
+        "adaptive_minus_prior": {
+          "ci95": [
+            -3.1823638897549382,
+            0.345206110771658
+          ],
+          "mean": -1.1702642248995982,
+          "n": 196
+        },
+        "arms": {
+          "adaptive": {
+            "calls": 302,
+            "calls_per_question": 1.5408163265306123,
+            "expected_usd_per_question": 0.0032509122858782064,
+            "mean_utility": -1.1651621840832718,
+            "measured_usd_per_question": 0.003353653826530612,
+            "measured_usd_total": 0.65731615,
+            "missing_score_abstentions": 0,
+            "n": 196,
+            "released": 78,
+            "wrong_released": 3
+          },
+          "fixed_five": {
+            "calls": 980,
+            "calls_per_question": 5.0,
+            "expected_usd_per_question": 0.006381160441767068,
+            "mean_utility": -1.2117707880911397,
+            "measured_usd_per_question": 0.007404844387755102,
+            "measured_usd_total": 1.4513495,
+            "missing_score_abstentions": 1,
+            "n": 196,
+            "released": 75,
+            "wrong_released": 3
+          },
+          "fixed_triple": {
+            "calls": 588,
+            "calls_per_question": 3.0,
+            "expected_usd_per_question": 0.0061961909638554215,
+            "mean_utility": -1.1946149708630438,
+            "measured_usd_per_question": 0.0072103204081632654,
+            "measured_usd_total": 1.4132228,
+            "missing_score_abstentions": 1,
+            "n": 196,
+            "released": 78,
+            "wrong_released": 3
+          },
+          "prior_only": {
+            "calls": 0,
+            "calls_per_question": 0.0,
+            "expected_usd_per_question": 0.0,
+            "mean_utility": 0.00510204081632653,
+            "measured_usd_per_question": 0.0,
+            "measured_usd_total": 0.0,
+            "missing_score_abstentions": 0,
+            "n": 196,
+            "released": 1,
+            "wrong_released": 0
+          }
+        },
+        "fixed_five_minus_adaptive": {
+          "ci95": [
+            -0.07015524722256368,
+            -0.025916276946817755
+          ],
+          "mean": -0.046608604007868114,
+          "n": 196
+        },
+        "fixed_triple_minus_adaptive": {
+          "ci95": [
+            -0.03343262217005779,
+            -0.02551494767846898
+          ],
+          "mean": -0.02945278677977215,
+          "n": 196
+        },
+        "triple": [
+          "claude_haiku",
+          "gemini_lite",
+          "gemini_flash"
+        ]
+      }
+    }
+  },
+  "result_id": "4e033ed15a9687134d54c7a4b818f51dd65e5a48e1af9f1e49d333486c0e734b",
+  "signals_id": "e9c41742bbb31a47835507adb4938a18cb1a454fd61e4eef0fdb98b85901ac8a"
+}

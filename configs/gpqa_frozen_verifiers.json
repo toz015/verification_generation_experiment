@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "verifiers": [
+    {
+      "id": "verifier_1",
+      "provider": "vertex_ai",
+      "model": "meta/llama-3.3-70b-instruct-maas",
+      "location": "us-central1",
+      "project": "llm-applications-490420",
+      "generation": {"max_tokens": 1024, "temperature": 0.0, "top_p": 1.0, "reasoning_effort": "low"}
+    },
+    {
+      "id": "verifier_2",
+      "provider": "vertex_ai",
+      "model": "google/gemini-3.7-flash",
+      "location": "global",
+      "project": "llm-applications-490420",
+      "generation": {"max_tokens": 1024, "temperature": 0.0, "top_p": 1.0, "reasoning_effort": "low"}
+    },
+    {
+      "id": "jev_choice_v1",
+      "provider": "typesafe",
+      "model": "jev-1.13.0",
+      "mode": "choice",
+      "prompt_version": "gpqa_jev_v1"
+    },
+    {
+      "id": "jev_noul_v1",
+      "provider": "typesafe",
+      "model": "jev-1.13.0",
+      "mode": "noul",
+      "prompt_version": "gpqa_jev_v1"
+    }
+  ],
+  "primary_jev_arm": "jev_choice_only",
+  "arms": [
+    {"name": "llama_only", "order": ["verifier_1"]},
+    {"name": "gemini_verifier_only", "order": ["verifier_2"]},
+    {"name": "original_order", "order": ["verifier_1", "verifier_2"]},
+    {"name": "reverse_original_order", "order": ["verifier_2", "verifier_1"]},
+    {"name": "jev_choice_only", "order": ["jev_choice_v1"]},
+    {"name": "jev_noul_only_secondary", "order": ["jev_noul_v1"]},
+    {"name": "jev_choice_then_gemini_secondary", "order": ["jev_choice_v1", "verifier_2"]}
+  ],
+  "notes": [
+    "Prepare only: no API collection is authorized by this configuration.",
+    "Import original generator responses; never generate or select replacement candidates.",
+    "Original Vertex prompts are copied verbatim from the validated frozen bundle.",
+    "Choice and Noul are separate arms, never assumed conditionally independent.",
+    "Jev's advertised input rate is $0.042 per million tokens; output-billing terms must be confirmed before a monetary policy is prepared.",
+    "Existing evaluation is exploratory. Choose models, costs, bins and policies using calibration/development only."
+  ]
+}

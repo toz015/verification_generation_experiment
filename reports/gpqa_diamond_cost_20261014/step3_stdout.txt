@@ -1,0 +1,202 @@
+{
+ "gemini": {
+  "19": {
+   "triple": [
+    "gemini_flash",
+    "mistral_small",
+    "claude_haiku"
+   ],
+   "arms": {
+    "prior_only": {
+     "n": 196,
+     "released": 159,
+     "calls": 0,
+     "calls_per_question": 0.0,
+     "expected_usd_per_question": 0.0,
+     "measured_usd_per_question": 0.0,
+     "measured_usd_total": 0.0,
+     "missing_score_abstentions": 0
+    },
+    "adaptive": {
+     "n": 196,
+     "released": 147,
+     "calls": 213,
+     "calls_per_question": 1.086734693877551,
+     "expected_usd_per_question": 0.0015164507208956458,
+     "measured_usd_per_question": 0.0016123849489795919,
+     "measured_usd_total": 0.31602745,
+     "missing_score_abstentions": 0
+    },
+    "fixed_triple": {
+     "n": 196,
+     "released": 143,
+     "calls": 585,
+     "calls_per_question": 2.9846938775510203,
+     "expected_usd_per_question": 0.004236799946294307,
+     "measured_usd_per_question": 0.004964446683673469,
+     "measured_usd_total": 0.97303155,
+     "missing_score_abstentions": 0
+    },
+    "fixed_five": {
+     "n": 196,
+     "released": 145,
+     "calls": 975,
+     "calls_per_question": 4.974489795918367,
+     "expected_usd_per_question": 0.006018759264232009,
+     "measured_usd_per_question": 0.006867200765306122,
+     "measured_usd_total": 1.34597135,
+     "missing_score_abstentions": 2
+    }
+   }
+  },
+  "99": {
+   "triple": [
+    "mistral_small",
+    "gemini_flash",
+    "claude_haiku"
+   ],
+   "arms": {
+    "prior_only": {
+     "n": 196,
+     "released": 61,
+     "calls": 0,
+     "calls_per_question": 0.0,
+     "expected_usd_per_question": 0.0,
+     "measured_usd_per_question": 0.0,
+     "measured_usd_total": 0.0,
+     "missing_score_abstentions": 0
+    },
+    "adaptive": {
+     "n": 196,
+     "released": 56,
+     "calls": 131,
+     "calls_per_question": 0.6683673469387755,
+     "expected_usd_per_question": 0.0007557811183177725,
+     "measured_usd_per_question": 0.0008084219387755102,
+     "measured_usd_total": 0.1584507,
+     "missing_score_abstentions": 0
+    },
+    "fixed_triple": {
+     "n": 196,
+     "released": 54,
+     "calls": 585,
+     "calls_per_question": 2.9846938775510203,
+     "expected_usd_per_question": 0.004236799946294307,
+     "measured_usd_per_question": 0.004964446683673469,
+     "measured_usd_total": 0.97303155,
+     "missing_score_abstentions": 0
+    },
+    "fixed_five": {
+     "n": 196,
+     "released": 74,
+     "calls": 975,
+     "calls_per_question": 4.974489795918367,
+     "expected_usd_per_question": 0.006018759264232009,
+     "measured_usd_per_question": 0.006867200765306122,
+     "measured_usd_total": 1.34597135,
+     "missing_score_abstentions": 2
+    }
+   }
+  }
+ },
+ "qwen": {
+  "19": {
+   "triple": [
+    "gemini_flash",
+    "gemini_lite",
+    "claude_haiku"
+   ],
+   "arms": {
+    "prior_only": {
+     "n": 196,
+     "released": 120,
+     "calls": 0,
+     "calls_per_question": 0.0,
+     "expected_usd_per_question": 0.0,
+     "measured_usd_per_question": 0.0,
+     "measured_usd_total": 0.0,
+     "missing_score_abstentions": 0
+    },
+    "adaptive": {
+     "n": 196,
+     "released": 122,
+     "calls": 342,
+     "calls_per_question": 1.7448979591836735,
+     "expected_usd_per_question": 0.0033452169371363002,
+     "measured_usd_per_question": 0.003692638265306123,
+     "measured_usd_total": 0.7237571,
+     "missing_score_abstentions": 1
+    },
+    "fixed_triple": {
+     "n": 196,
+     "released": 122,
+     "calls": 588,
+     "calls_per_question": 3.0,
+     "expected_usd_per_question": 0.0061961909638554215,
+     "measured_usd_per_question": 0.0072103204081632654,
+     "measured_usd_total": 1.4132228,
+     "missing_score_abstentions": 1
+    },
+    "fixed_five": {
+     "n": 196,
+     "released": 122,
+     "calls": 980,
+     "calls_per_question": 5.0,
+     "expected_usd_per_question": 0.006381160441767068,
+     "measured_usd_per_question": 0.007404844387755102,
+     "measured_usd_total": 1.4513495,
+     "missing_score_abstentions": 1
+    }
+   }
+  },
+  "99": {
+   "triple": [
+    "claude_haiku",
+    "gemini_lite",
+    "gemini_flash"
+   ],
+   "arms": {
+    "prior_only": {
+     "n": 196,
+     "released": 1,
+     "calls": 0,
+     "calls_per_question": 0.0,
+     "expected_usd_per_question": 0.0,
+     "measured_usd_per_question": 0.0,
+     "measured_usd_total": 0.0,
+     "missing_score_abstentions": 0
+    },
+    "adaptive": {
+     "n": 196,
+     "released": 78,
+     "calls": 302,
+     "calls_per_question": 1.5408163265306123,
+     "expected_usd_per_question": 0.0032509122858782064,
+     "measured_usd_per_question": 0.003353653826530612,
+     "measured_usd_total": 0.65731615,
+     "missing_score_abstentions": 0
+    },
+    "fixed_triple": {
+     "n": 196,
+     "released": 78,
+     "calls": 588,
+     "calls_per_question": 3.0,
+     "expected_usd_per_question": 0.0061961909638554215,
+     "measured_usd_per_question": 0.0072103204081632654,
+     "measured_usd_total": 1.4132228,
+     "missing_score_abstentions": 1
+    },
+    "fixed_five": {
+     "n": 196,
+     "released": 75,
+     "calls": 980,
+     "calls_per_question": 5.0,
+     "expected_usd_per_question": 0.006381160441767068,
+     "measured_usd_per_question": 0.007404844387755102,
+     "measured_usd_total": 1.4513495,
+     "missing_score_abstentions": 1
+    }
+   }
+  }
+ }
+}

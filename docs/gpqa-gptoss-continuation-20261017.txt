@@ -1,0 +1,55 @@
+GPT-OSS-120B: approved independent continuation, 2026-10-17
+========================================================
+
+Scope: complete the original 50 preselected development questions. Reuse the
+five successful GPT-OSS responses from the 2026-10-14 replacement-generator
+screen, and send only the missing 45 GPT-OSS requests. The user approved this
+continuation after the recommendation to run GPT-OSS independently of DeepSeek.
+The original joint gate failed due to a DeepSeek format failure and HTTP 429;
+that study's plan, status, cache and report remain unchanged.
+
+The only experimental amendment is a model-specific continuation gate. Inherit
+the original GPT-OSS model ID, us-central1 location, system/user prompts, question
+and option order, temperature=0, top_p=1, reasoning_effort=medium, max_tokens=32768,
+strict final-content parser, and at least 10 seconds between request starts.
+Google's dedicated thinking documentation specifies separate content and
+reasoning_content fields and support for reasoning_effort. The original five
+responses contain reasoning_content; only final content is parsed for answers.
+Separate reported reasoning-token counts are unavailable; billable output is
+reconciled using provider completion and total tokens, without counting visible
+text or double-counting reasoning.
+
+Keep original raw confidence. No generator response repair, automatic HTTP retry,
+DeepSeek, Diamond, or verifier collection. Malformed successful responses stay
+cached. Transport errors, unknown outcome/usage, changed inputs or budget failure
+block the new continuation; do not work around them or resend a prior attempt.
+Use nonblocking collection locks and exact-request caches to avoid duplicate
+processes/requests. Only the new output directory is written.
+
+New budget cap: USD 1, within the remaining original USD 10 replacement-screen
+allowance and total USD 200 authorization. Price table is inherited unchanged:
+USD .09 input/.36 output per million tokens, including reasoning in output.
+Cached input is conservatively priced at the full input rate. Original five
+requests retain their earlier cost; importing them creates no new charge.
+Check billing is enabled on llm-applications-490420 before collection and bind
+both resource/quota project to it. Estimates are not confirmed invoices.
+
+After all 50 replies are saved, freeze candidates, then perform offline scoring
+using development labels only. Compare with frozen Gemini, Qwen and Sonnet on
+the same 50 questions. Report completeness, accuracy, raw-confidence distribution,
+mean confidence when correct/wrong, Brier and token costs with explicit counts.
+Unparsed answers are non-correct in all-question accuracy and excluded from
+confidence metrics. No calibration, likelihood fitting or policy selection.
+This exploratory subset has been used before; it is not a new confirmatory test.
+Models, generation protocols and serving dates differ. Future verifier tables
+must be estimated for the new generator's candidates rather than transferred.
+
+Commands:
+.venv/bin/python -m vgx.gpqa.gptoss_continuation prepare
+.venv/bin/python -m vgx.gpqa.gptoss_continuation collect
+.venv/bin/python -m vgx.gpqa.gptoss_continuation collect --allow-api
+.venv/bin/python -m vgx.gpqa.gptoss_continuation report
+
+The first collect is offline. Save aggregate reports and hashes only under
+reports/; raw replies, question text, candidates and answer keys remain local
+under results/. No new unit tests were requested or run for this continuation.

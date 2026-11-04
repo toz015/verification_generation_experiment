@@ -1,0 +1,10 @@
+Command: .venv/bin/python -m vgx.gpqa.sonnet_expansion report --root results/gpqa_sonnet55_20261015
+Exit code: 1
+ValueError: existing artifact differs: results/gpqa_sonnet55_20261015/expansion_445/frozen_candidates.json
+
+Failure site: sonnet_expansion.finalize -> replacement_generators.immutable.
+The separately recorded read-only audit found exact equality after JSON
+normalization, with identical canonical digests and sealed bundle IDs. The
+direct Python comparison differs because choices are tuples in memory and
+lists in the stored JSON. No artifacts or source files were modified to bypass
+this error, and the report command was not retried.

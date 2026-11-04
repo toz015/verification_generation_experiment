@@ -1,0 +1,95 @@
+{
+  "dataset": "gpqa_main_minus_diamond_to_diamond",
+  "sample_size": 445,
+  "seed": 20261004,
+  "calibration_size": 249,
+  "inference": {
+    "provider": "vertex_ai",
+    "project_id": "llm-applications-490420",
+    "model_locations": {
+      "google/gemini-3.8-flash": "global",
+      "meta/llama-3.3-70b-instruct-maas": "us-central1",
+      "google/gemini-3.7-flash": "global"
+    }
+  },
+  "api_pricing": {
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "checked_on": "2026-10-04",
+    "tier": "standard_pay_as_you_go",
+    "note": "Gemini 3.8/3.7 introductory standard rates are listed through 2026-12-31; verify rates before later runs.",
+    "usd_per_million_tokens": {
+      "google/gemini-3.8-flash": {
+        "input": 0.75,
+        "output": 3.75,
+        "cached_input": 0.075
+      },
+      "meta/llama-3.3-70b-instruct-maas": {
+        "input": 0.72,
+        "output": 0.72
+      },
+      "google/gemini-3.7-flash": {
+        "input": 0.75,
+        "output": 3.75,
+        "cached_input": 0.075
+      }
+    }
+  },
+  "models": {
+    "generator": "google/gemini-3.8-flash",
+    "verifiers": [
+      "meta/llama-3.3-70b-instruct-maas",
+      "google/gemini-3.7-flash"
+    ]
+  },
+  "generation": {
+    "max_tokens": 1024,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "reasoning_effort": "low"
+  },
+  "hardware_profile": "vertex_ai_managed_api",
+  "budget_usd": 200.0,
+  "dataset_source": {
+    "repo": "Idavidrein/gpqa",
+    "revision": "83022cefff930aea54f654c0b282e74b9eeda5c6"
+  },
+  "policy_scenarios": [
+    {
+      "name": "primary_95",
+      "correct_reward": 1.0,
+      "incorrect_loss": 19.0,
+      "utility_per_usd": 10.0
+    },
+    {
+      "name": "sensitivity_80",
+      "correct_reward": 1.0,
+      "incorrect_loss": 4.0,
+      "utility_per_usd": 10.0
+    },
+    {
+      "name": "sensitivity_50",
+      "correct_reward": 1.0,
+      "incorrect_loss": 1.0,
+      "utility_per_usd": 10.0
+    }
+  ],
+  "protocol": {
+    "primary_order": [
+      "verifier_1",
+      "verifier_2"
+    ],
+    "primary_scenario": "primary_95",
+    "first_calibration_batch": 50,
+    "candidate_workers": 4,
+    "utility_mapping": "1 correct-release reward unit corresponds to USD 0.10; alpha=10 utility/USD. Scenario choice is normative, not fitted from held-out outcomes.",
+    "sequence": "calibration pilot; all frozen candidates; complete calibration; freeze every policy; live primary evaluation; remaining baseline signals; offline scoring",
+    "assumptions": [
+      "self-reported generator prior",
+      "pooled likelihoods",
+      "conditional independence",
+      "Main-minus-Diamond to Diamond transfer"
+    ],
+    "jev_enabled": false,
+    "benchmark_text_publication": false
+  }
+}

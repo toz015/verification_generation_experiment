@@ -1,0 +1,31 @@
+{
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.1238476,
+    "limit_usd": 5.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 84
+  },
+  "collection_id": "12e82373008f9fe5d80d40bd428971b6682c8e8a286d4567cc55fa61216a776c",
+  "completed_jobs": 50,
+  "failures": {},
+  "generator_calls": 0,
+  "invalid_by_verifier": {},
+  "labels_read": false,
+  "new_calls_this_invocation": 0,
+  "partition": "evaluation",
+  "protocol_id": "ba94fcbec635d7a40767daaa3572f0b6a7556b4e54c49dea8df136ab89472bd4",
+  "reused_this_invocation": 50,
+  "stage": "batch_complete",
+  "target_jobs": 50,
+  "updated_at_unix": 1792178308.378064,
+  "valid_by_verifier": {
+    "claude_haiku": 10,
+    "gemini_flash": 10,
+    "gemini_lite": 10,
+    "mistral_medium": 10,
+    "mistral_small": 10
+  }
+}

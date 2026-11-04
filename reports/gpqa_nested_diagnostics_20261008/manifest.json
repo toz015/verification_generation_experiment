@@ -1,0 +1,9 @@
+{
+  "builder_sha256": "4a6aae615c48d67090eb3059c8e4dc236f7fcb24f9cf39da329ec4e30b864172",
+  "diagnostic_id": "5b0c9ef5e6b3390f47f170cd524563253d052210343e36fb3f0e69c557363452",
+  "files": {
+    "SUMMARY_ZH.md": "c48898ed00da10c1e366a1171dca8f28285f3a4889467c6807b8c5ac69684c3a",
+    "diagnostic_summary.csv": "4b2369067523b45b7c59a60eb31b29eb5e136c4febafe4b681cf41ed6a460428"
+  },
+  "source_report_sha256": "805e495202199e6a1a91df8619ca7cbf14adcc7d6ccfd94d5cc4a9203f7c34d4"
+}

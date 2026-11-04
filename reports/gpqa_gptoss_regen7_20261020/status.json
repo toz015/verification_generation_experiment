@@ -1,0 +1,50 @@
+{
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.007127639999999999,
+    "limit_usd": 1.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 7
+  },
+  "regen_id": "1c7b9c8babe3631bd4feb595f805e0e1208567fcb5c661021716689568a3bfa6",
+  "results": {
+    "101": {
+      "failure": null,
+      "reused_cache": false,
+      "status": "valid"
+    },
+    "122": {
+      "failure": null,
+      "reused_cache": false,
+      "status": "valid"
+    },
+    "13": {
+      "failure": null,
+      "reused_cache": false,
+      "status": "valid"
+    },
+    "184": {
+      "failure": "invalid_final_json",
+      "reused_cache": false,
+      "status": "still_invalid"
+    },
+    "319": {
+      "failure": null,
+      "reused_cache": false,
+      "status": "valid"
+    },
+    "370": {
+      "failure": null,
+      "reused_cache": false,
+      "status": "valid"
+    },
+    "75": {
+      "failure": null,
+      "reused_cache": false,
+      "status": "valid"
+    }
+  },
+  "stage": "complete"
+}

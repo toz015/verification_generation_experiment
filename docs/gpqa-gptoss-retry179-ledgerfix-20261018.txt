@@ -1,0 +1,50 @@
+GPT-OSS179 continuation: isolated budget inventory compatibility fix
+
+The previous collector stopped before any API call with ValueError:
+unexpected project ledger. Its global budget scanner required every
+results/**/budget.json to belong to llm-applications-490420. A separate
+Quantum Katas offline dry run had added an offline-mock ledger, causing the
+check to stop despite no new GPT-OSS request and no extra cost.
+
+This fix uses a new module and sealed continuation plan. It does not edit
+the old scanner, collector, plan, status, cache, candidates or any ledger.
+Only this exact offline ledger is excluded from the real project inventory:
+results/quantum_katas_official_dryrun_20261019/run/cache/budget.json
+SHA256: 6260c3d3e2cd1a393938e04e16b5cd101f654cf9f68ea0770cd28ec9e313daa2
+Its sealed dry-run plan is also pinned:
+results/quantum_katas_official_dryrun_20261019/run/plan.json
+SHA256: cb105a1b5a5305a2ac4fcec5dd132fa52ed97195a8ed17a1b7dff2e916097cf5
+
+The check requires offline-mock project, dry_run mode, exclusively offline_mock
+providers, and all106 entries settled with zero estimated cost and zero reserve.
+Any changed file, unknown other project or nonzero mock cost still stops.
+All real llm-applications-490420 ledgers and historical unknown reservations
+remain included in the global USD200 authorization check. The GPT-OSS shared
+USD1 cap is unchanged. No file is deleted or moved to bypass the check.
+
+Preserve178 replies (174 valid,2 invalid JSON and2 abort), all raw confidence,
+model, prompt, medium reasoning, max_tokens32768, temperature0, top_p1, parser,
+prices and30-second post-completion intervals. Retry179 retains its original
+unknown attempt and reserve. It has at most2 new attempts; only explicit429
+permits a further retry, waiting120 seconds after its first new attempt.
+Other new items180–445 allow at most3 attempts with60/120-second429 backoff.
+New unknown attempts block. All six historical reservations USD0.07201584 stay.
+
+Prepare and audit are local and label-free:
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_ledgerfix prepare
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_ledgerfix_score prepare
+Collection (one process only, explicit API opt-in):
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_ledgerfix collect --allow-api
+
+New status: results/gpqa_gptoss_continuation_20261017/retry179_ledgerfix_20261018/status.json
+Old blocked statuses remain historical. Only after445 replies and complete:
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_ledgerfix audit
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_ledgerfix report
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_ledgerfix_score score
+
+Scoring functions are unchanged from the previous frozen analysis. Freeze
+predictions and common valid cohorts before reading existing labels, then
+report four-model metrics separately on249 development and196 Diamond items.
+No confidence calibration, refitting or candidate repair. Aggregate exports
+only; no questions, answers, keys, raw responses, per-item correctness or
+credentials. No commit/push. Token estimates are not confirmed billing.

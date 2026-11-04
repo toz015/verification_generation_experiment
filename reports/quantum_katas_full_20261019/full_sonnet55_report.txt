@@ -1,0 +1,25 @@
+QuantumKatas 官方 checker pilot 报告（full_cross_fit_collection，plan 36aad5925ae6）
+
+计划 322 题；已生成 322；可提取代码 322；置信度有效 322；截断 0。
+生成服务失败（结果未知、未重发）：无；格式失败：无；有代码但 r 无效：无
+官方返回 322：通过 287，失败 35；未解决 无；未评分 0。
+错误类型：{'none': 287, 'AssertionError': 28, 'TypeError': 3, 'QiskitError': 2, 'IndexError': 1, 'CircuitError': 1}
+端到端通过比例 287/322；有官方返回的通过比例 {'passed': 287, 'n': 322, 'rate': 0.8913043478260869}
+样本数：有代码 322，有 r 322，有标签 322，有标签且有 r 322。
+
+预测指标（各自有效 n）：
+  generator_r: n=322 brier=0.10001801242236023 log_loss=0.334209328371846 auroc=0.8017919362867097
+  gemini_flash: n=322 brier=0.09725032298136646 log_loss=0.8623641886409557 auroc=0.7752613240418119
+  gemini_lite: n=322 brier=0.3527251552795031 log_loss=12.4502380114537 auroc=0.5039820806371329
+  mistral_small: n=322 brier=0.5011105590062112 log_loss=17.321518500280153 auroc=0.5795918367346939
+  mistral_medium: n=322 brier=0.11287577639751555 log_loss=1.1088588831434603 auroc=0.6077650572424091
+  claude_haiku: n=322 brier=0.18889316770186335 log_loss=0.553459391140601 auroc=0.6701841712294673
+
+调用：成功执行 1932，估算费用 $4.2058（https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)；非账单），已确认账单：未知。
+
+说明：
+  - Development pilot: 28 fixed tasks, one generation each; not a representative performance sample.
+  - Raw generator r is reported as-is; no prior or verifier likelihood is fitted or deployed here.
+  - No 95%/99% acceptance guarantee or advantage over published full-benchmark results is claimed.
+  - Same official checker is necessary but not sufficient for cross-paper comparability (task subset and added confidence output differ).
+  - Logical sequential queries over collected signals are not saved API spend.

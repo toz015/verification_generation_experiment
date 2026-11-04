@@ -1,0 +1,43 @@
+{
+  "analysis_id": "b1ab971dc42201f32bb255a6054096472f65e75457cd983a0c6fcb414ad0d340",
+  "answer_keys_read_during_prepare": false,
+  "authorization": "2026-10-20 owner asked to finish the GPT-OSS experiment; offline comparison of GPT-OSS, Gemini, Qwen and Sonnet on all445, development and Diamond separately; raw confidence unchanged.",
+  "baseline_bundle_ids": {
+    "gemini": "f0fa3ba0d9551df0aac24ad584da64af55062b4ef608134917cb855b79927add",
+    "qwen": "3c7e0dc0005a9fe4905e84ce635af17dcc155c84db01590489b02df0aa4066c0",
+    "sonnet_5_5": "928331fec1a4e2086ebc007699b813b79031747263add74f93030eb8c0c5bd9c"
+  },
+  "completion_gate": "All445 received and frozen, collection status complete, expansion audit passes; malformed replies retained.",
+  "confidence_calibrated": false,
+  "dataset_id": "7ab77351058ba061f04ad0b3c73ffb7406b1f6b9b5132aeb7d8a9ee280206ca7",
+  "expansion_id": "43c6e8bd631106d21638ebf88fdaa994259b39050659cfcb541fb5854b73c8f4",
+  "methods": {
+    "accuracy_all": "Correct valid answers / every assigned question; unparsed answers are non-correct. A valid answer is scored even if its confidence is missing.",
+    "accuracy_valid_answers": "Correct valid answers / valid answers only.",
+    "brier": "Mean (raw p_correct - 1[answer correct])^2, one binary correctness forecast per item, with no factor of 2.",
+    "common_valid": "For each partition, the intersection of valid answer/confidence item IDs across all four models; membership fixed before opening labels.",
+    "confidence_and_brier": "Use only frozen candidates with both a valid answer and a finite numeric raw p_correct in [0,1]. No imputation, clipping or calibration.",
+    "interpretation": "Historical model-plus-generation protocols differ: Qwen two-step, Sonnet adaptive high effort, GPT-OSS medium reasoning. No causal attribution to the base model alone.",
+    "mean_confidence_if_wrong": "Mean raw confidence among valid answer/confidence pairs whose answer is wrong; excludes unparsed answers."
+  },
+  "new_api_requests": 0,
+  "ordered_input_hash": "29859f9a468c4508359cb6b2c5b07a8e3f6ea62ea1096fa6ec5234155ca312ad",
+  "partition_counts": {
+    "calibration": 249,
+    "evaluation": 196
+  },
+  "previous_analysis_id": "768ff7d38eb65fe07c5170f88fc44a7c2ff41a6ad79991902ee5f607abced802",
+  "source_sha256": {
+    "/Users/wanghd/Documents/workplace/verification-generation-experiment/src/vgx/gpqa/gptoss_finish445_score.py": "645887475d3ed937f5da0986dc7d43555c60f3507721ed438305bed1d8044254",
+    "/Users/wanghd/Documents/workplace/verification-generation-experiment/src/vgx/gpqa/sonnet_offline_score.py": "6c6885b89537eb482cc334dd1e901ce29646d4b8f73f61d86651056314337a42",
+    "results/gpqa_gptoss_continuation_20261017/finish445_20261020/plan.json": "5442527ce58af092d06a031cd9d267a45a829d1d416a373bf34697ebe8f05518",
+    "results/gpqa_gptoss_continuation_20261017/finish50_20261017/result.json": "ad2bf3b5eeb639dca3738f8ee7a67b2f9f55d28757b37bce8b80e96982d29691",
+    "results/gpqa_gptoss_continuation_20261017/offline_score_445_retry179_20261018/plan.json": "c2037d2f7385361894d4550c4f05c48fd6de6341a5d19dfb6e25d77864c46966",
+    "results/gpqa_sonnet55_20261015/expansion_445/frozen_candidates.json": "5ba9af22dd7b90c65ad9998108740a835030649fc4fcbba6492c1de152aaf847",
+    "results/gpqa_staged_generator_expansion_20261005/frozen_candidates.json": "6bebc79fc9859e1bf82bae8a1a26e5fb378435421254e9611b07b1cc9151cd2a",
+    "results/gpqa_vertex_20261004/dataset_manifest.json": "e3408f185f2769255cac8a418b23fe656fa8d54f4d7e5f9b3ebc983c4de01128",
+    "results/gpqa_vertex_20261004/frozen/bundle_manifest.json": "bde59a768b0ff7f52b66f1483bba5f579018332bef2f94528fda6cbaca2abc33",
+    "results/gpqa_vertex_20261004/frozen/candidates.jsonl": "ca8fb3e2bc9c84ed93ae031a47baa1c008fc827838a2fdbdf67716a5e63d13fa",
+    "results/gpqa_vertex_20261004/inputs.jsonl": "24791f3606132e38db8068b7d8c1a0d297fea3535464246dedaf817fae47581f"
+  }
+}

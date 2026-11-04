@@ -1,0 +1,65 @@
+{
+  "dataset": "gpqa_main",
+  "source_file": "data/gpqa/gpqa_main.csv",
+  "manifest": "data/gpqa/sample_200.json",
+  "sample_size": 200,
+  "seed": 20260928,
+  "calibration_size": 120,
+  "inference": {
+    "provider": "vertex_ai",
+    "project_id": "llm-applications-490420",
+    "model_locations": {
+      "google/gemini-3.8-flash": "global",
+      "meta/llama-3.3-70b-instruct-maas": "us-central1",
+      "google/gemini-3.7-flash": "global"
+    }
+  },
+  "api_pricing": {
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "checked_on": "2026-10-04",
+    "tier": "standard_pay_as_you_go",
+    "note": "Gemini 3.8/3.7 introductory standard rates are listed through 2026-12-31; verify rates before later runs.",
+    "usd_per_million_tokens": {
+      "google/gemini-3.8-flash": {"input": 0.75, "output": 3.75, "cached_input": 0.075},
+      "meta/llama-3.3-70b-instruct-maas": {"input": 0.72, "output": 0.72},
+      "google/gemini-3.7-flash": {"input": 0.75, "output": 3.75, "cached_input": 0.075}
+    }
+  },
+  "models": {
+    "generator": "google/gemini-3.8-flash",
+    "verifiers": [
+      "meta/llama-3.3-70b-instruct-maas",
+      "google/gemini-3.7-flash"
+    ]
+  },
+  "generation": {
+    "max_tokens": 1024,
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "reasoning_effort": "low"
+  },
+  "routing_scenarios": [
+    {
+      "name": "balanced_low_query_cost",
+      "correct_reward": 1.0,
+      "incorrect_loss": 1.0,
+      "verifier_costs": [0.02, 0.02]
+    },
+    {
+      "name": "error_sensitive_low_query_cost",
+      "correct_reward": 1.0,
+      "incorrect_loss": 4.0,
+      "verifier_costs": [
+        0.02,
+        0.02
+      ]
+    },
+    {
+      "name": "error_sensitive_high_query_cost",
+      "correct_reward": 1.0,
+      "incorrect_loss": 4.0,
+      "verifier_costs": [0.10, 0.10]
+    }
+  ],
+  "hardware_profile": "vertex_ai_managed_api"
+}

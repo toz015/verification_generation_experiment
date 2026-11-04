@@ -1,0 +1,39 @@
+GPT-OSS expansion to the existing 445 inputs
+===========================================
+User authorization: 2026-10-18, reuse the fifty replies, retain current settings,
+raw confidence and all previous results. Only 395 new generator requests.
+
+Original 50 replies are read from their exact prior caches (including the
+authorized position22 and position49/50 overlays). The malformed position13
+reply remains unchanged and is counted as received, not regenerated.
+
+249 development and 196 Diamond inputs are matched to Gemini/Qwen/Sonnet input
+membership and choice order without reading labels. Pilot50 come first, then
+the other items in their original order. No scoring in this collection stage.
+
+Model: openai/gpt-oss-120b-maas through Vertex in us-central1.
+Original prompt, medium reasoning, max_tokens32768, temperature0, top_p1,
+strict original final-JSON parser and frozen pricing are retained.
+Latest transport: 30 seconds after the preceding attempt completes; only
+explicit HTTP429 may retry after60/120seconds, at most3 attempts per new item.
+Any new unknown outcome, unpriced usage, other HTTP error or exhausted retry
+allowance stops collection; malformed successful replies are never retried.
+
+Shared USD1 budget and llm-applications-490420 project remain unchanged.
+Two original unknown executions retain USD0.02392047 combined reservation.
+Their later authorized replies do not erase those unknown costs. Costs are
+provider-token estimates at frozen rates, not confirmed billing. Reserve one
+request at a time and stop if the unchanged allowance cannot cover it.
+
+Commands (from repo root):
+  .venv/bin/python -m vgx.gpqa.gptoss_expansion prepare
+  .venv/bin/python -m vgx.gpqa.gptoss_expansion collect
+  .venv/bin/python -m vgx.gpqa.gptoss_expansion collect --allow-api
+  .venv/bin/python -m vgx.gpqa.gptoss_expansion audit
+  .venv/bin/python -m vgx.gpqa.gptoss_expansion report
+
+Only collect --allow-api sends model requests. Run one collector. A saved
+blocked status is not automatically resumed. All previous code and artifacts
+are sealed; the new module itself is sealed at prepare. Do not edit after that.
+Full candidates stay local under results/. Report exports contain collection
+aggregates, plan, status, billing-project check and hashes only.

@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "project": "llm-applications-490420",
+  "dataset_root": "results/gpqa_vertex_20261004",
+  "baseline_bundle": "results/gpqa_vertex_20261004/frozen",
+  "qwen_baseline": "results/gpqa_staged_generator_expansion_20261005/frozen_candidates.json",
+  "sample_size": 50,
+  "seed": 20261014,
+  "stage_budget_usd": 10.0,
+  "generators": [
+    {
+      "id": "gpt_oss_120b",
+      "model": "openai/gpt-oss-120b-maas",
+      "location": "us-central1",
+      "generation": {"max_tokens": 32768, "temperature": 0.0, "top_p": 1.0, "reasoning_effort": "medium"},
+      "interval_seconds": 10
+    },
+    {
+      "id": "deepseek_r1_0528",
+      "model": "deepseek-ai/deepseek-r1-0528-maas",
+      "location": "us-central1",
+      "generation": {"max_tokens": 32768, "temperature": 0.0, "top_p": 1.0},
+      "interval_seconds": 10
+    }
+  ],
+  "pricing": {
+    "checked_date": "2026-10-14",
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "usd_per_million_tokens": {
+      "openai/gpt-oss-120b-maas": {"input": 0.09, "output": 0.36, "cached_input": 0.09},
+      "deepseek-ai/deepseek-r1-0528-maas": {"input": 1.35, "output": 5.4, "cached_input": 1.35}
+    },
+    "notes": [
+      "Published online input/output rates; provider usage estimates are not confirmed billing.",
+      "If cached input is reported, conservatively charge the full input rate; no unverified cache discount is assumed.",
+      "Total minus input reconciles billable output including reasoning. Missing/conflicting usage blocks collection."
+    ]
+  },
+  "documentation": {
+    "lifecycle": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/deprecations/open-models",
+    "deepseek": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/maas/deepseek/r1-0528",
+    "gpt_oss": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/maas/openai/gpt-oss-120b",
+    "native_reasoning": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/maas/capabilities/thinking",
+    "openai_model": "https://developers.openai.com/api/docs/models/gpt-oss-120b"
+  },
+  "limitations": [
+    "Exploratory, original 50 development items; no Diamond collection or label access in this stage.",
+    "No confidence calibration or likelihood fitting. Labels are used only by the separate offline development report.",
+    "DeepSeek-R1-0528 and the historical Qwen Vertex endpoints retire on 2026-10-21. R1 is a short-term comparison, not a long-term managed replacement.",
+    "gpt-oss-120b is absent from the checked retirement table; future endpoint availability is not guaranteed.",
+    "The two new generators receive the original Gemini JSON/confidence prompt and native reasoning. Historical Qwen used draft plus finalization; model effects cannot be isolated from generation protocol and serving date.",
+    "Model IDs and provider response metadata are retained; the managed provider does not supply an immutable weights digest.",
+    "The five-item gate depends only on formatting, termination and priced usage. Malformed replies stay cached and are not repaired or regenerated.",
+    "Per-model sequential requests, at least 10 seconds apart. No automatic HTTP or uncertain-response retries."
+  ]
+}

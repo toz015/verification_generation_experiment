@@ -1,0 +1,54 @@
+GPT-OSS: authorized retry of question65 and continuation to445
+===========================================================
+User authorization: 2026-10-18. Retry position65, then continue the remaining
+380 questions; preserve64 received replies, settings, budget and raw confidence.
+After445 received replies, compare four generators offline on development and
+Diamond separately with the previously frozen metric definitions.
+
+The prior expansion and scoring modules/plans/status files remain unchanged.
+The new collector is gptoss_retry65_expansion; its new cache and status live in
+results/gpqa_gptoss_continuation_20261017/retry65_resume_20261018/.
+All64 received replies are read from their original caches. New replies are
+written separately. Position65 retains its canonical model/prompt identity,
+but uses a separate authorized execution entry in the same shared budget.
+Its original unknown attempt and USD0.01196289 reservation remain untouched.
+Together with original22/49 unknown attempts, reserved unknown cost is
+USD0.03588336. Receiving a later answer does not resolve those historical costs.
+
+The model, prompt, medium reasoning, max_tokens32768, temperature0, top_p1,
+parser and frozen prices are identical. Wait30seconds after completion.
+Only explicit HTTP429 is eligible for automatic retry. Maximum3 total attempts
+per question remains unchanged: position65 already used1, so at most2 new
+attempts; if its first new attempt returns429, wait120seconds before the third
+total attempt. New positions66-445 use60/120second backoffs. Any additional
+unknown outcome, unpriced usage, other HTTP error, exhausted retry or budget
+failure stops the run. Malformed successful replies are retained, never repaired.
+
+Shared USD1 budget and llm-applications-490420 resource/quota project unchanged.
+Reserve each request before sending; keep all historical budget entries exactly.
+Dollar amounts are token estimates, not confirmed billing. No API calls in
+prepare/audit/report or offline_score. No unit tests added or run for this task.
+
+Preparation and collection:
+  .venv/bin/python -m vgx.gpqa.gptoss_retry65_expansion prepare
+  .venv/bin/python -m vgx.gpqa.gptoss_retry65_offline_score prepare
+  .venv/bin/python -m vgx.gpqa.gptoss_retry65_expansion collect --allow-api
+
+Only after stage=complete and responses=445:
+  .venv/bin/python -m vgx.gpqa.gptoss_retry65_expansion audit
+  .venv/bin/python -m vgx.gpqa.gptoss_retry65_expansion report
+  .venv/bin/python -m vgx.gpqa.gptoss_retry65_offline_score score
+
+The scoring source is a separate copy of the original scorer, with only input
+and output routing and prior-protocol linkage changed. prepare verifies the
+same METHODS, dataset, baseline bundles and ordered input hash. Predictions
+and common-valid cohorts are fixed before reading labels. Report all assigned
+questions and common-valid subsets, preserving the original50 metric checks.
+Confidence is never calibrated. No likelihood or policy fitting is performed.
+Prior code and results remain preserved; do not use the old completion commands.
+
+Shareable aggregate reports:
+  reports/gpqa_gptoss_retry65_expansion_20261018/
+  reports/gpqa_gptoss_offline_score_retry65_20261018/
+Do not export question text, answers, answer keys, raw responses, per-item
+outcomes or credentials. Do not commit or push without another request.

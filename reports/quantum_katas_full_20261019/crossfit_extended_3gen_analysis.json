@@ -1,0 +1,3564 @@
+{
+  "config_sha256": "e195d1e31fe33ebc4b4ec877e5fbed9039138d03ead5098e6bf797f4812bf808",
+  "generators": {
+    "gptoss": {
+      "loss_sweep": {
+        "19": {
+          "adaptive_single": {
+            "calls_per_task": 0.7329192546583851,
+            "coverage": 0.5807453416149069,
+            "mean_utility": -0.8025082760233793,
+            "mean_utility_ci95": [
+              -1.3797156747931767,
+              -0.29006220763680385
+            ],
+            "output_error_rate": 0.11764705882352941,
+            "released": 187,
+            "wrong_released": 22
+          },
+          "adaptive_triple": {
+            "calls_per_task": 0.9440993788819876,
+            "coverage": 0.5683229813664596,
+            "mean_utility": -0.8160590973781949,
+            "mean_utility_ci95": [
+              -1.3847084589769945,
+              -0.29971112674372136
+            ],
+            "output_error_rate": 0.12021857923497267,
+            "released": 183,
+            "wrong_released": 22
+          },
+          "fixed_five": {
+            "calls_per_task": 4.782608695652174,
+            "coverage": 0.577639751552795,
+            "mean_utility": -0.8937534730242865,
+            "mean_utility_ci95": [
+              -1.4748282349631197,
+              -0.36869832703125993
+            ],
+            "output_error_rate": 0.12365591397849462,
+            "released": 186,
+            "wrong_released": 23
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.869565217391304,
+            "coverage": 0.577639751552795,
+            "mean_utility": -0.8887292723953297,
+            "mean_utility_ci95": [
+              -1.469765403572372,
+              -0.3636959201527473
+            ],
+            "output_error_rate": 0.12365591397849462,
+            "released": 186,
+            "wrong_released": 23
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.5124223602484472,
+            "mean_utility": -1.1024844720496894,
+            "mean_utility_ci95": [
+              -1.704968944099379,
+              -0.5590062111801242
+            ],
+            "output_error_rate": 0.15757575757575756,
+            "released": 165,
+            "wrong_released": 26
+          }
+        },
+        "4": {
+          "adaptive_single": {
+            "calls_per_task": 0.5093167701863354,
+            "coverage": 0.6770186335403726,
+            "mean_utility": 0.059785318264454664,
+            "mean_utility_ci95": [
+              -0.11781398038908741,
+              0.22220530457616516
+            ],
+            "output_error_rate": 0.17889908256880735,
+            "released": 218,
+            "wrong_released": 39
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.1832298136645962,
+            "coverage": 0.6894409937888198,
+            "mean_utility": 0.039858273388605016,
+            "mean_utility_ci95": [
+              -0.14067818966114232,
+              0.2089642056723443
+            ],
+            "output_error_rate": 0.18468468468468469,
+            "released": 222,
+            "wrong_released": 41
+          },
+          "fixed_five": {
+            "calls_per_task": 4.782608695652174,
+            "coverage": 0.6739130434782609,
+            "mean_utility": 0.07208503629248356,
+            "mean_utility_ci95": [
+              -0.09916181961039922,
+              0.23039042120234665
+            ],
+            "output_error_rate": 0.16589861751152074,
+            "released": 217,
+            "wrong_released": 36
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.869565217391304,
+            "coverage": 0.6677018633540373,
+            "mean_utility": 0.08642600710777587,
+            "mean_utility_ci95": [
+              -0.0837676075375018,
+              0.24181930987495975
+            ],
+            "output_error_rate": 0.16279069767441862,
+            "released": 215,
+            "wrong_released": 35
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.7329192546583851,
+            "mean_utility": -0.21428571428571427,
+            "mean_utility_ci95": [
+              -0.4193322981366459,
+              -0.018633540372670808
+            ],
+            "output_error_rate": 0.2584745762711864,
+            "released": 236,
+            "wrong_released": 61
+          }
+        },
+        "49": {
+          "adaptive_single": {
+            "calls_per_task": 0.5714285714285714,
+            "coverage": 0.4937888198757764,
+            "mean_utility": -1.6932575501780758,
+            "mean_utility_ci95": [
+              -2.905017273740255,
+              -0.6278337548708347
+            ],
+            "output_error_rate": 0.0880503144654088,
+            "released": 159,
+            "wrong_released": 14
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.406832298136646,
+            "coverage": 0.5062111801242236,
+            "mean_utility": -1.996085110742577,
+            "mean_utility_ci95": [
+              -3.2382780008476817,
+              -0.8968767612283045
+            ],
+            "output_error_rate": 0.09815950920245399,
+            "released": 163,
+            "wrong_released": 16
+          },
+          "fixed_five": {
+            "calls_per_task": 4.782608695652174,
+            "coverage": 0.5062111801242236,
+            "mean_utility": -2.0210826655708707,
+            "mean_utility_ci95": [
+              -3.263632322430389,
+              -0.9216992556153987
+            ],
+            "output_error_rate": 0.09815950920245399,
+            "released": 163,
+            "wrong_released": 16
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.869565217391304,
+            "coverage": 0.5031055900621118,
+            "mean_utility": -2.0191640550040253,
+            "mean_utility_ci95": [
+              -3.261676902915312,
+              -0.9192376928993994
+            ],
+            "output_error_rate": 0.09876543209876543,
+            "released": 162,
+            "wrong_released": 16
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.2267080745341615,
+            "mean_utility": -0.3944099378881988,
+            "mean_utility_ci95": [
+              -1.0341614906832297,
+              0.09627329192546584
+            ],
+            "output_error_rate": 0.0547945205479452,
+            "released": 73,
+            "wrong_released": 4
+          }
+        },
+        "9": {
+          "adaptive_single": {
+            "calls_per_task": 0.6583850931677019,
+            "coverage": 0.6273291925465838,
+            "mean_utility": -0.2573014136114755,
+            "mean_utility_ci95": [
+              -0.5775336143356937,
+              0.02891439374605559
+            ],
+            "output_error_rate": 0.13861386138613863,
+            "released": 202,
+            "wrong_released": 28
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.1118012422360248,
+            "coverage": 0.6242236024844721,
+            "mean_utility": -0.2933795571640085,
+            "mean_utility_ci95": [
+              -0.6166272726393517,
+              0.00045438429466621385
+            ],
+            "output_error_rate": 0.14427860696517414,
+            "released": 201,
+            "wrong_released": 29
+          },
+          "fixed_five": {
+            "calls_per_task": 4.782608695652174,
+            "coverage": 0.6211180124223602,
+            "mean_utility": -0.2602131003534791,
+            "mean_utility_ci95": [
+              -0.5700549517154572,
+              0.021979779976843767
+            ],
+            "output_error_rate": 0.135,
+            "released": 200,
+            "wrong_released": 27
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.869565217391304,
+            "coverage": 0.6211180124223602,
+            "mean_utility": -0.2844998570509487,
+            "mean_utility_ci95": [
+              -0.6045489175553563,
+              0.0013477887119432573
+            ],
+            "output_error_rate": 0.14,
+            "released": 200,
+            "wrong_released": 28
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.6708074534161491,
+            "mean_utility": -0.9440993788819876,
+            "mean_utility_ci95": [
+              -1.3416149068322982,
+              -0.5713509316770198
+            ],
+            "output_error_rate": 0.24074074074074073,
+            "released": 216,
+            "wrong_released": 52
+          }
+        },
+        "99": {
+          "adaptive_single": {
+            "calls_per_task": 0.40993788819875776,
+            "coverage": 0.37888198757763975,
+            "mean_utility": -1.493909875790563,
+            "mean_utility_ci95": [
+              -3.0435928926045586,
+              -0.23313533710092463
+            ],
+            "output_error_rate": 0.04918032786885246,
+            "released": 122,
+            "wrong_released": 6
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.1987577639751552,
+            "coverage": 0.4192546583850932,
+            "mean_utility": -2.0805620819551165,
+            "mean_utility_ci95": [
+              -3.919682642696976,
+              -0.5251368771113429
+            ],
+            "output_error_rate": 0.05925925925925926,
+            "released": 135,
+            "wrong_released": 8
+          },
+          "fixed_five": {
+            "calls_per_task": 4.782608695652174,
+            "coverage": 0.4192546583850932,
+            "mean_utility": -2.10803918731,
+            "mean_utility_ci95": [
+              -3.9467456071154685,
+              -0.5524239570747416
+            ],
+            "output_error_rate": 0.05925925925925926,
+            "released": 135,
+            "wrong_released": 8
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.869565217391304,
+            "coverage": 0.4192546583850932,
+            "mean_utility": -2.1030149866810435,
+            "mean_utility_ci95": [
+              -3.9417002655338,
+              -0.547367787716422
+            ],
+            "output_error_rate": 0.05925925925925926,
+            "released": 135,
+            "wrong_released": 8
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.20186335403726707,
+            "mean_utility": -0.7298136645962733,
+            "mean_utility_ci95": [
+              -1.9565217391304348,
+              0.19254658385093168
+            ],
+            "output_error_rate": 0.046153846153846156,
+            "released": 65,
+            "wrong_released": 3
+          }
+        }
+      },
+      "prior_distribution": {
+        "n": 308,
+        "pass_rate": 0.6331168831168831,
+        "share_ge_0.80": 0.7662337662337663,
+        "share_ge_0.95": 0.5357142857142857,
+        "share_ge_0.99": 0.21103896103896103
+      },
+      "stopping": {
+        "19": {
+          "arms": {
+            "adaptive_single": {
+              "calls_per_task": 0.7329192546583851,
+              "confirmed_billing_usd": null,
+              "correct_released": 165,
+              "coverage": 0.5807453416149069,
+              "expected_cost_usd": 0.5407664879528087,
+              "expected_usd_per_task": 0.0016793990309093437,
+              "mean_utility": -0.8025082760233793,
+              "mean_utility_at_observed_usage": -0.8009307841614908,
+              "mean_utility_ci95": [
+                -1.3797156747931767,
+                -0.29006220763680385
+              ],
+              "measured_usd_per_task": 0.001521649844720497,
+              "n": 322,
+              "output_error_rate": 0.11764705882352941,
+              "output_error_wilson95": {
+                "high": 0.17169814224438462,
+                "low": 0.07898878457084035,
+                "method": "Wilson",
+                "n": 187
+              },
+              "queries": 236,
+              "query_histogram": {
+                "0": 86,
+                "1": 236
+              },
+              "released": 187,
+              "released_accuracy": 0.8823529411764706,
+              "released_accuracy_wilson95": {
+                "high": 0.9210112154291596,
+                "low": 0.8283018577556154,
+                "method": "Wilson",
+                "n": 187
+              },
+              "signal_failures_queried": 1,
+              "usage_estimated_cost_usd": 0.48997125,
+              "wrong_released": 22
+            },
+            "adaptive_triple": {
+              "calls_per_task": 0.9440993788819876,
+              "confirmed_billing_usd": null,
+              "correct_released": 161,
+              "coverage": 0.5683229813664596,
+              "expected_cost_usd": 0.5771029355778725,
+              "expected_usd_per_task": 0.001792245141546188,
+              "mean_utility": -0.8160590973781949,
+              "mean_utility_at_observed_usage": -0.814507302795031,
+              "mean_utility_ci95": [
+                -1.3847084589769945,
+                -0.29971112674372136
+              ],
+              "measured_usd_per_task": 0.0016370656832298137,
+              "n": 322,
+              "output_error_rate": 0.12021857923497267,
+              "output_error_wilson95": {
+                "high": 0.17530815902015567,
+                "low": 0.08074560507834705,
+                "method": "Wilson",
+                "n": 183
+              },
+              "queries": 304,
+              "query_histogram": {
+                "0": 86,
+                "1": 182,
+                "2": 40,
+                "3": 14
+              },
+              "released": 183,
+              "released_accuracy": 0.8797814207650273,
+              "released_accuracy_wilson95": {
+                "high": 0.919254394921653,
+                "low": 0.8246918409798443,
+                "method": "Wilson",
+                "n": 183
+              },
+              "signal_failures_queried": 1,
+              "usage_estimated_cost_usd": 0.52713515,
+              "wrong_released": 22
+            },
+            "fixed_five": {
+              "calls_per_task": 4.782608695652174,
+              "confirmed_billing_usd": null,
+              "correct_released": 163,
+              "coverage": 0.577639751552795,
+              "expected_cost_usd": 1.3788618313820287,
+              "expected_usd_per_task": 0.004282179600565306,
+              "mean_utility": -0.8937534730242865,
+              "mean_utility_at_observed_usage": -0.8937534875776398,
+              "mean_utility_ci95": [
+                -1.4748282349631197,
+                -0.36869832703125993
+              ],
+              "measured_usd_per_task": 0.004282181055900621,
+              "n": 322,
+              "output_error_rate": 0.12365591397849462,
+              "output_error_wilson95": {
+                "high": 0.17871356848745226,
+                "low": 0.08382897164214895,
+                "method": "Wilson",
+                "n": 186
+              },
+              "queries": 1540,
+              "query_histogram": {
+                "0": 14,
+                "5": 308
+              },
+              "released": 186,
+              "released_accuracy": 0.8763440860215054,
+              "released_accuracy_wilson95": {
+                "high": 0.916171028357851,
+                "low": 0.8212864315125477,
+                "method": "Wilson",
+                "n": 186
+              },
+              "signal_failures_queried": 1,
+              "usage_estimated_cost_usd": 1.3788623,
+              "wrong_released": 23
+            },
+            "fixed_triple": {
+              "calls_per_task": 2.869565217391304,
+              "confirmed_billing_usd": null,
+              "correct_released": 163,
+              "coverage": 0.577639751552795,
+              "expected_cost_usd": 1.2170825711296152,
+              "expected_usd_per_task": 0.003779759537669612,
+              "mean_utility": -0.8887292723953297,
+              "mean_utility_at_observed_usage": -0.8887289689440996,
+              "mean_utility_ci95": [
+                -1.469765403572372,
+                -0.3636959201527473
+              ],
+              "measured_usd_per_task": 0.0037797291925465836,
+              "n": 322,
+              "output_error_rate": 0.12365591397849462,
+              "output_error_wilson95": {
+                "high": 0.17871356848745226,
+                "low": 0.08382897164214895,
+                "method": "Wilson",
+                "n": 186
+              },
+              "queries": 924,
+              "query_histogram": {
+                "0": 14,
+                "3": 308
+              },
+              "released": 186,
+              "released_accuracy": 0.8763440860215054,
+              "released_accuracy_wilson95": {
+                "high": 0.916171028357851,
+                "low": 0.8212864315125477,
+                "method": "Wilson",
+                "n": 186
+              },
+              "signal_failures_queried": 1,
+              "usage_estimated_cost_usd": 1.2170728,
+              "wrong_released": 23
+            },
+            "prior_only": {
+              "calls_per_task": 0.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 139,
+              "coverage": 0.5124223602484472,
+              "expected_cost_usd": 0.0,
+              "expected_usd_per_task": 0.0,
+              "mean_utility": -1.1024844720496894,
+              "mean_utility_at_observed_usage": -1.1024844720496894,
+              "mean_utility_ci95": [
+                -1.704968944099379,
+                -0.5590062111801242
+              ],
+              "measured_usd_per_task": 0.0,
+              "n": 322,
+              "output_error_rate": 0.15757575757575756,
+              "output_error_wilson95": {
+                "high": 0.22087247555542738,
+                "low": 0.10986062288336608,
+                "method": "Wilson",
+                "n": 165
+              },
+              "queries": 0,
+              "query_histogram": {
+                "0": 322
+              },
+              "released": 165,
+              "released_accuracy": 0.8424242424242424,
+              "released_accuracy_wilson95": {
+                "high": 0.8901393771166339,
+                "low": 0.7791275244445726,
+                "method": "Wilson",
+                "n": 165
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.0,
+              "wrong_released": 26
+            }
+          },
+          "early_stopping": {
+            "calls_saved_vs_fixed_five": 1236,
+            "calls_saved_vs_fixed_triple": 620,
+            "no_query": 86,
+            "stopped_before_third": 222,
+            "tasks_with_any_query": 236
+          },
+          "paired_utility": {
+            "adaptive_single_minus_prior_only": {
+              "ci95": [
+                -0.35051161456891716,
+                0.9514739936188013
+              ],
+              "mean": 0.2999761960263101,
+              "n": 322
+            },
+            "adaptive_triple_minus_adaptive_single": {
+              "ci95": [
+                -0.1876995497862896,
+                0.1635098749990477
+              ],
+              "mean": -0.013550821354815648,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_five": {
+              "ci95": [
+                0.011978086942461426,
+                0.20194138823186797
+              ],
+              "mean": 0.07769437564609177,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_triple": {
+              "ci95": [
+                0.006966878294297121,
+                0.1968906536548161
+              ],
+              "mean": 0.0726701750171349,
+              "n": 322
+            },
+            "adaptive_triple_minus_prior_only": {
+              "ci95": [
+                -0.34198940380661824,
+                0.9267876724863415
+              ],
+              "mean": 0.28642537467149454,
+              "n": 322
+            },
+            "fixed_five_minus_fixed_triple": {
+              "ci95": [
+                -0.005138361923059166,
+                -0.004903342395826809
+              ],
+              "mean": -0.005024200628956899,
+              "n": 322
+            }
+          },
+          "selected_triples": {
+            "0": [
+              "gemini_flash",
+              "gemini_lite",
+              "claude_haiku"
+            ],
+            "1": [
+              "gemini_flash",
+              "gemini_lite",
+              "claude_haiku"
+            ],
+            "2": [
+              "gemini_flash",
+              "gemini_lite",
+              "claude_haiku"
+            ],
+            "3": [
+              "gemini_flash",
+              "gemini_lite",
+              "claude_haiku"
+            ],
+            "4": [
+              "gemini_flash",
+              "gemini_lite",
+              "claude_haiku"
+            ]
+          }
+        },
+        "99": {
+          "arms": {
+            "adaptive_single": {
+              "calls_per_task": 0.40993788819875776,
+              "confirmed_billing_usd": null,
+              "correct_released": 116,
+              "coverage": 0.37888198757763975,
+              "expected_cost_usd": 0.30389800045612775,
+              "expected_usd_per_task": 0.000943782610112198,
+              "mean_utility": -1.493909875790563,
+              "mean_utility_at_observed_usage": -1.4902702251552795,
+              "mean_utility_ci95": [
+                -3.0435928926045586,
+                -0.23313533710092463
+              ],
+              "measured_usd_per_task": 0.0005798175465838509,
+              "n": 322,
+              "output_error_rate": 0.04918032786885246,
+              "output_error_wilson95": {
+                "high": 0.10315208905311074,
+                "low": 0.02273217015009757,
+                "method": "Wilson",
+                "n": 122
+              },
+              "queries": 132,
+              "query_histogram": {
+                "0": 190,
+                "1": 132
+              },
+              "released": 122,
+              "released_accuracy": 0.9508196721311475,
+              "released_accuracy_wilson95": {
+                "high": 0.9772678298499025,
+                "low": 0.8968479109468892,
+                "method": "Wilson",
+                "n": 122
+              },
+              "signal_failures_queried": 1,
+              "usage_estimated_cost_usd": 0.18670124999999999,
+              "wrong_released": 6
+            },
+            "adaptive_triple": {
+              "calls_per_task": 1.1987577639751552,
+              "confirmed_billing_usd": null,
+              "correct_released": 127,
+              "coverage": 0.4192546583850932,
+              "expected_cost_usd": 0.4940990389547627,
+              "expected_usd_per_task": 0.0015344690650769027,
+              "mean_utility": -2.0805620819551165,
+              "mean_utility_at_observed_usage": -2.076997798136646,
+              "mean_utility_ci95": [
+                -3.919682642696976,
+                -0.5251368771113429
+              ],
+              "measured_usd_per_task": 0.0011780406832298136,
+              "n": 322,
+              "output_error_rate": 0.05925925925925926,
+              "output_error_wilson95": {
+                "high": 0.11257694491042357,
+                "low": 0.03033036094206136,
+                "method": "Wilson",
+                "n": 135
+              },
+              "queries": 386,
+              "query_histogram": {
+                "0": 157,
+                "1": 14,
+                "2": 81,
+                "3": 70
+              },
+              "released": 135,
+              "released_accuracy": 0.9407407407407408,
+              "released_accuracy_wilson95": {
+                "high": 0.9696696390579387,
+                "low": 0.8874230550895765,
+                "method": "Wilson",
+                "n": 135
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.3793291,
+              "wrong_released": 8
+            },
+            "fixed_five": {
+              "calls_per_task": 4.782608695652174,
+              "confirmed_billing_usd": null,
+              "correct_released": 127,
+              "coverage": 0.4192546583850932,
+              "expected_cost_usd": 1.3788618313820287,
+              "expected_usd_per_task": 0.004282179600565306,
+              "mean_utility": -2.10803918731,
+              "mean_utility_at_observed_usage": -2.108039201863354,
+              "mean_utility_ci95": [
+                -3.9467456071154685,
+                -0.5524239570747416
+              ],
+              "measured_usd_per_task": 0.004282181055900621,
+              "n": 322,
+              "output_error_rate": 0.05925925925925926,
+              "output_error_wilson95": {
+                "high": 0.11257694491042357,
+                "low": 0.03033036094206136,
+                "method": "Wilson",
+                "n": 135
+              },
+              "queries": 1540,
+              "query_histogram": {
+                "0": 14,
+                "5": 308
+              },
+              "released": 135,
+              "released_accuracy": 0.9407407407407408,
+              "released_accuracy_wilson95": {
+                "high": 0.9696696390579387,
+                "low": 0.8874230550895765,
+                "method": "Wilson",
+                "n": 135
+              },
+              "signal_failures_queried": 1,
+              "usage_estimated_cost_usd": 1.3788623,
+              "wrong_released": 8
+            },
+            "fixed_triple": {
+              "calls_per_task": 2.869565217391304,
+              "confirmed_billing_usd": null,
+              "correct_released": 127,
+              "coverage": 0.4192546583850932,
+              "expected_cost_usd": 1.2170825711296152,
+              "expected_usd_per_task": 0.003779759537669612,
+              "mean_utility": -2.1030149866810435,
+              "mean_utility_at_observed_usage": -2.103014683229814,
+              "mean_utility_ci95": [
+                -3.9417002655338,
+                -0.547367787716422
+              ],
+              "measured_usd_per_task": 0.0037797291925465836,
+              "n": 322,
+              "output_error_rate": 0.05925925925925926,
+              "output_error_wilson95": {
+                "high": 0.11257694491042357,
+                "low": 0.03033036094206136,
+                "method": "Wilson",
+                "n": 135
+              },
+              "queries": 924,
+              "query_histogram": {
+                "0": 14,
+                "3": 308
+              },
+              "released": 135,
+              "released_accuracy": 0.9407407407407408,
+              "released_accuracy_wilson95": {
+                "high": 0.9696696390579387,
+                "low": 0.8874230550895765,
+                "method": "Wilson",
+                "n": 135
+              },
+              "signal_failures_queried": 1,
+              "usage_estimated_cost_usd": 1.2170728,
+              "wrong_released": 8
+            },
+            "prior_only": {
+              "calls_per_task": 0.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 62,
+              "coverage": 0.20186335403726707,
+              "expected_cost_usd": 0.0,
+              "expected_usd_per_task": 0.0,
+              "mean_utility": -0.7298136645962733,
+              "mean_utility_at_observed_usage": -0.7298136645962733,
+              "mean_utility_ci95": [
+                -1.9565217391304348,
+                0.19254658385093168
+              ],
+              "measured_usd_per_task": 0.0,
+              "n": 322,
+              "output_error_rate": 0.046153846153846156,
+              "output_error_wilson95": {
+                "high": 0.12713847263338832,
+                "low": 0.015819840413512566,
+                "method": "Wilson",
+                "n": 65
+              },
+              "queries": 0,
+              "query_histogram": {
+                "0": 322
+              },
+              "released": 65,
+              "released_accuracy": 0.9538461538461539,
+              "released_accuracy_wilson95": {
+                "high": 0.9841801595864874,
+                "low": 0.8728615273666118,
+                "method": "Wilson",
+                "n": 65
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.0,
+              "wrong_released": 3
+            }
+          },
+          "early_stopping": {
+            "calls_saved_vs_fixed_five": 1154,
+            "calls_saved_vs_fixed_triple": 538,
+            "no_query": 157,
+            "stopped_before_third": 95,
+            "tasks_with_any_query": 165
+          },
+          "paired_utility": {
+            "adaptive_single_minus_prior_only": {
+              "ci95": [
+                -2.2738215089966953,
+                0.4780742786559895
+              ],
+              "mean": -0.7640962111942898,
+              "n": 322
+            },
+            "adaptive_triple_minus_adaptive_single": {
+              "ci95": [
+                -1.51567084778906,
+                0.04069403254956672
+              ],
+              "mean": -0.5866522061645538,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_five": {
+              "ci95": [
+                0.025650229361449492,
+                0.02936440627393067
+              ],
+              "mean": 0.027477105354884037,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_triple": {
+              "ci95": [
+                0.020655094414624525,
+                0.0242943398433314
+              ],
+              "mean": 0.02245290472592707,
+              "n": 322
+            },
+            "adaptive_triple_minus_prior_only": {
+              "ci95": [
+                -2.912442663294138,
+                0.18991352092256802
+              ],
+              "mean": -1.3507484173588435,
+              "n": 322
+            },
+            "fixed_five_minus_fixed_triple": {
+              "ci95": [
+                -0.005138361923059227,
+                -0.004903342395826814
+              ],
+              "mean": -0.005024200628956962,
+              "n": 322
+            }
+          },
+          "selected_triples": {
+            "0": [
+              "gemini_lite",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "1": [
+              "gemini_lite",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "2": [
+              "gemini_lite",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "3": [
+              "gemini_lite",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "4": [
+              "gemini_lite",
+              "gemini_flash",
+              "claude_haiku"
+            ]
+          }
+        }
+      },
+      "verifiers": {
+        "by_loss": {
+          "19": {
+            "fitted_likelihood_ratio_by_bin_mean_over_folds": {
+              "claude_haiku": [
+                0.3822821904561349,
+                0.18624740366494247,
+                1.1262945961280204
+              ],
+              "gemini_flash": [
+                0.11063255687029616,
+                0.5042619636357155,
+                3.576506137436104
+              ],
+              "gemini_lite": [
+                0.3553691511551923,
+                0.5905601668070091,
+                1.2358207946906066
+              ],
+              "mistral_medium": [
+                0.190509162356149,
+                0.5905601668070091,
+                1.0367871713302308
+              ],
+              "mistral_small": [
+                0.8536113228934571,
+                0.5905601668070091,
+                1.0540472390787865
+              ]
+            },
+            "selected_triple_frequency": {
+              "gemini_flash>gemini_lite>claude_haiku": 5
+            },
+            "single_verifier_training_J0_gain_over_prior_mean": {
+              "claude_haiku": 0.010961493167173509,
+              "gemini_flash": 0.20076197783803992,
+              "gemini_lite": 0.02244421543770232,
+              "mistral_medium": 0.004296178663800498,
+              "mistral_small": 0.00036861871900712996
+            },
+            "top3_orders_fold0": [
+              {
+                "order": [
+                  "gemini_flash",
+                  "gemini_lite",
+                  "claude_haiku"
+                ],
+                "training_mean_J0": 0.4916655059631084
+              },
+              {
+                "order": [
+                  "gemini_lite",
+                  "gemini_flash",
+                  "claude_haiku"
+                ],
+                "training_mean_J0": 0.4909939624571426
+              },
+              {
+                "order": [
+                  "gemini_flash",
+                  "claude_haiku",
+                  "gemini_lite"
+                ],
+                "training_mean_J0": 0.4908422938750857
+              }
+            ],
+            "verifier_in_selected_triple_count": {
+              "claude_haiku": 5,
+              "gemini_flash": 5,
+              "gemini_lite": 5
+            }
+          },
+          "99": {
+            "fitted_likelihood_ratio_by_bin_mean_over_folds": {
+              "claude_haiku": [
+                0.3822821904561349,
+                0.18624740366494247,
+                1.1262945961280204
+              ],
+              "gemini_flash": [
+                0.11063255687029616,
+                0.5042619636357155,
+                3.576506137436104
+              ],
+              "gemini_lite": [
+                0.3553691511551923,
+                0.5905601668070091,
+                1.2358207946906066
+              ],
+              "mistral_medium": [
+                0.190509162356149,
+                0.5905601668070091,
+                1.0367871713302308
+              ],
+              "mistral_small": [
+                0.8536113228934571,
+                0.5905601668070091,
+                1.0540472390787865
+              ]
+            },
+            "selected_triple_frequency": {
+              "gemini_lite>gemini_flash>claude_haiku": 5
+            },
+            "single_verifier_training_J0_gain_over_prior_mean": {
+              "claude_haiku": 0.01954021791687945,
+              "gemini_flash": 0.157930744888003,
+              "gemini_lite": 0.03520259464596805,
+              "mistral_medium": 0.0065543603273665015,
+              "mistral_small": 0.008246125216757327
+            },
+            "top3_orders_fold0": [
+              {
+                "order": [
+                  "gemini_lite",
+                  "gemini_flash",
+                  "claude_haiku"
+                ],
+                "training_mean_J0": 0.1704349760079618
+              },
+              {
+                "order": [
+                  "gemini_flash",
+                  "gemini_lite",
+                  "claude_haiku"
+                ],
+                "training_mean_J0": 0.1698082403960512
+              },
+              {
+                "order": [
+                  "gemini_flash",
+                  "claude_haiku",
+                  "gemini_lite"
+                ],
+                "training_mean_J0": 0.16910109482226976
+              }
+            ],
+            "verifier_in_selected_triple_count": {
+              "claude_haiku": 5,
+              "gemini_flash": 5,
+              "gemini_lite": 5
+            }
+          }
+        },
+        "per_verifier": {
+          "claude_haiku": {
+            "auroc": 0.7413660086226459,
+            "brier": 0.2556477272727272,
+            "log_loss": 0.7481461187500011,
+            "mean_score_if_fail": 0.7557522123893803,
+            "mean_score_if_pass": 0.8654871794871793,
+            "mean_usd_per_call": 0.0013284285714285713,
+            "n": 308,
+            "valid_signal_rate": 1.0
+          },
+          "gemini_flash": {
+            "auroc": 0.8921016483516484,
+            "brier": 0.13244373615635177,
+            "log_loss": 1.322292355749241,
+            "mean_score_if_fail": 0.2780357142857143,
+            "mean_score_if_pass": 0.8977076923076924,
+            "mean_usd_per_call": 0.0022940211038961038,
+            "n": 307,
+            "valid_signal_rate": 0.9967532467532467
+          },
+          "gemini_lite": {
+            "auroc": 0.5990469707283868,
+            "brier": 0.32437499999999997,
+            "log_loss": 11.377913636759933,
+            "mean_score_if_fail": 0.7380530973451327,
+            "mean_score_if_pass": 0.9125641025641025,
+            "mean_usd_per_call": 0.0003290853896103896,
+            "n": 308,
+            "valid_signal_rate": 1.0
+          },
+          "mistral_medium": {
+            "auroc": 0.655525300658044,
+            "brier": 0.32317954545454547,
+            "log_loss": 1.958006900107507,
+            "mean_score_if_fail": 0.9227433628318582,
+            "mean_score_if_pass": 0.9635897435897435,
+            "mean_usd_per_call": 0.0004222428571428572,
+            "n": 308,
+            "valid_signal_rate": 1.0
+          },
+          "mistral_small": {
+            "auroc": 0.6102110279101429,
+            "brier": 0.3937685064935065,
+            "log_loss": 10.146901023043391,
+            "mean_score_if_fail": 0.7527433628318583,
+            "mean_score_if_pass": 0.7983076923076924,
+            "mean_usd_per_call": 0.00010304772727272726,
+            "n": 308,
+            "valid_signal_rate": 1.0
+          }
+        },
+        "within_class_score_correlation": {
+          "fail": {
+            "n": 112,
+            "order": [
+              "gemini_flash",
+              "gemini_lite",
+              "mistral_small",
+              "mistral_medium",
+              "claude_haiku"
+            ],
+            "spearman": [
+              [
+                1.0,
+                0.47354266854243815,
+                0.057650098062204634,
+                0.07754122000837953,
+                0.17359904046461758
+              ],
+              [
+                0.4735426685424382,
+                1.0,
+                0.1436679352099634,
+                0.05349262091002596,
+                0.27830541435974204
+              ],
+              [
+                0.05765009806220464,
+                0.1436679352099634,
+                1.0,
+                0.4081018180583076,
+                0.208075692597712
+              ],
+              [
+                0.07754122000837953,
+                0.05349262091002596,
+                0.4081018180583076,
+                0.9999999999999999,
+                0.3175798920285828
+              ],
+              [
+                0.17359904046461758,
+                0.278305414359742,
+                0.208075692597712,
+                0.3175798920285828,
+                0.9999999999999999
+              ]
+            ]
+          },
+          "pass": {
+            "n": 195,
+            "order": [
+              "gemini_flash",
+              "gemini_lite",
+              "mistral_small",
+              "mistral_medium",
+              "claude_haiku"
+            ],
+            "spearman": [
+              [
+                1.0,
+                0.17144963900621288,
+                0.26197129754144444,
+                0.4507892092818792,
+                0.6729479307446008
+              ],
+              [
+                0.17144963900621288,
+                1.0,
+                0.1687334835219936,
+                0.19743153182208284,
+                0.16294692161260182
+              ],
+              [
+                0.26197129754144444,
+                0.16873348352199358,
+                0.9999999999999999,
+                0.3896547473205226,
+                0.339478755506182
+              ],
+              [
+                0.45078920928187916,
+                0.1974315318220828,
+                0.38965474732052263,
+                1.0,
+                0.5901765780582587
+              ],
+              [
+                0.6729479307446008,
+                0.16294692161260185,
+                0.339478755506182,
+                0.5901765780582587,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "qwen3": {
+      "loss_sweep": {
+        "19": {
+          "adaptive_single": {
+            "calls_per_task": 0.84472049689441,
+            "coverage": 0.5962732919254659,
+            "mean_utility": -1.0996056733660604,
+            "mean_utility_ci95": [
+              -1.7330347492074643,
+              -0.5406830982152768
+            ],
+            "output_error_rate": 0.140625,
+            "released": 192,
+            "wrong_released": 27
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.4968944099378882,
+            "coverage": 0.5962732919254659,
+            "mean_utility": -1.3514035642508988,
+            "mean_utility_ci95": [
+              -2.0253466460026397,
+              -0.7367921628221951
+            ],
+            "output_error_rate": 0.16145833333333334,
+            "released": 192,
+            "wrong_released": 31
+          },
+          "fixed_five": {
+            "calls_per_task": 4.813664596273292,
+            "coverage": 0.593167701863354,
+            "mean_utility": -1.380578735919392,
+            "mean_utility_ci95": [
+              -2.0492508898925994,
+              -0.7750029004991824
+            ],
+            "output_error_rate": 0.16230366492146597,
+            "released": 191,
+            "wrong_released": 31
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.888198757763975,
+            "coverage": 0.593167701863354,
+            "mean_utility": -1.309638510725379,
+            "mean_utility_ci95": [
+              -1.9711595827183215,
+              -0.7101899777450021
+            ],
+            "output_error_rate": 0.15706806282722513,
+            "released": 191,
+            "wrong_released": 30
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.7795031055900621,
+            "mean_utility": -4.251552795031056,
+            "mean_utility_ci95": [
+              -5.195652173913044,
+              -3.341614906832298
+            ],
+            "output_error_rate": 0.32270916334661354,
+            "released": 251,
+            "wrong_released": 81
+          }
+        },
+        "4": {
+          "adaptive_single": {
+            "calls_per_task": 0.3167701863354037,
+            "coverage": 0.7080745341614907,
+            "mean_utility": -0.21511085823927095,
+            "mean_utility_ci95": [
+              -0.42374074446179955,
+              -0.016759551966743457
+            ],
+            "output_error_rate": 0.25877192982456143,
+            "released": 228,
+            "wrong_released": 59
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.360248447204969,
+            "coverage": 0.6770186335403726,
+            "mean_utility": -0.09635768777762066,
+            "mean_utility_ci95": [
+              -0.29186487465646604,
+              0.08433357588187251
+            ],
+            "output_error_rate": 0.22477064220183487,
+            "released": 218,
+            "wrong_released": 49
+          },
+          "fixed_five": {
+            "calls_per_task": 4.813664596273292,
+            "coverage": 0.6770186335403726,
+            "mean_utility": -0.17871538188212488,
+            "mean_utility_ci95": [
+              -0.37473364246851965,
+              0.003947371640896335
+            ],
+            "output_error_rate": 0.23853211009174313,
+            "released": 218,
+            "wrong_released": 52
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.888198757763975,
+            "coverage": 0.6645962732919255,
+            "mean_utility": -0.07361366600488183,
+            "mean_utility_ci95": [
+              -0.26316368679358887,
+              0.10304103871601136
+            ],
+            "output_error_rate": 0.2102803738317757,
+            "released": 214,
+            "wrong_released": 45
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.8478260869565217,
+            "mean_utility": -0.7049689440993789,
+            "mean_utility_ci95": [
+              -0.953416149068323,
+              -0.46273291925465837
+            ],
+            "output_error_rate": 0.3663003663003663,
+            "released": 273,
+            "wrong_released": 100
+          }
+        },
+        "49": {
+          "adaptive_single": {
+            "calls_per_task": 0.7950310559006211,
+            "coverage": 0.5807453416149069,
+            "mean_utility": -3.3190015564995736,
+            "mean_utility_ci95": [
+              -4.854057203523925,
+              -1.9370745641794034
+            ],
+            "output_error_rate": 0.13368983957219252,
+            "released": 187,
+            "wrong_released": 25
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.8819875776397517,
+            "coverage": 0.5496894409937888,
+            "mean_utility": -2.578953254729096,
+            "mean_utility_ci95": [
+              -3.957884577876097,
+              -1.3459175948585251
+            ],
+            "output_error_rate": 0.11299435028248588,
+            "released": 177,
+            "wrong_released": 20
+          },
+          "fixed_five": {
+            "calls_per_task": 4.813664596273292,
+            "coverage": 0.5559006211180124,
+            "mean_utility": -3.219088052689578,
+            "mean_utility_ci95": [
+              -4.740378937305206,
+              -1.8673039425909042
+            ],
+            "output_error_rate": 0.1340782122905028,
+            "released": 179,
+            "wrong_released": 24
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.888198757763975,
+            "coverage": 0.546583850931677,
+            "mean_utility": -2.5984583865017763,
+            "mean_utility_ci95": [
+              -3.9768603335266923,
+              -1.3661253747990707
+            ],
+            "output_error_rate": 0.11363636363636363,
+            "released": 176,
+            "wrong_released": 20
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.6645962732919255,
+            "mean_utility": -8.652173913043478,
+            "mean_utility_ci95": [
+              -10.801319875776397,
+              -6.6365683229813675
+            ],
+            "output_error_rate": 0.2803738317757009,
+            "released": 214,
+            "wrong_released": 60
+          }
+        },
+        "9": {
+          "adaptive_single": {
+            "calls_per_task": 0.717391304347826,
+            "coverage": 0.6118012422360248,
+            "mean_utility": -0.30480957349461363,
+            "mean_utility_ci95": [
+              -0.6280059764116479,
+              -0.015441140182665626
+            ],
+            "output_error_rate": 0.14720812182741116,
+            "released": 197,
+            "wrong_released": 29
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.360248447204969,
+            "coverage": 0.6428571428571429,
+            "mean_utility": -0.6760560897675215,
+            "mean_utility_ci95": [
+              -1.057362071748914,
+              -0.3306370345486547
+            ],
+            "output_error_rate": 0.2028985507246377,
+            "released": 207,
+            "wrong_released": 42
+          },
+          "fixed_five": {
+            "calls_per_task": 4.813664596273292,
+            "coverage": 0.6118012422360248,
+            "mean_utility": -0.49237997815541684,
+            "mean_utility_ci95": [
+              -0.830684363294197,
+              -0.1816635380948504
+            ],
+            "output_error_rate": 0.17258883248730963,
+            "released": 197,
+            "wrong_released": 34
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.888198757763975,
+            "coverage": 0.6335403726708074,
+            "mean_utility": -0.648147827495565,
+            "mean_utility_ci95": [
+              -1.0232476163357291,
+              -0.3100054157274587
+            ],
+            "output_error_rate": 0.19607843137254902,
+            "released": 204,
+            "wrong_released": 40
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.8198757763975155,
+            "mean_utility": -2.0372670807453415,
+            "mean_utility_ci95": [
+              -2.527950310559006,
+              -1.5590062111801242
+            ],
+            "output_error_rate": 0.3484848484848485,
+            "released": 264,
+            "wrong_released": 92
+          }
+        },
+        "99": {
+          "adaptive_single": {
+            "calls_per_task": 0.7018633540372671,
+            "coverage": 0.546583850931677,
+            "mean_utility": -5.680280583494321,
+            "mean_utility_ci95": [
+              -8.451688341303797,
+              -3.2113327040800055
+            ],
+            "output_error_rate": 0.11363636363636363,
+            "released": 176,
+            "wrong_released": 20
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.8074534161490683,
+            "coverage": 0.531055900621118,
+            "mean_utility": -5.391421450862672,
+            "mean_utility_ci95": [
+              -8.136620739606077,
+              -2.9372676014187804
+            ],
+            "output_error_rate": 0.1111111111111111,
+            "released": 171,
+            "wrong_released": 19
+          },
+          "fixed_five": {
+            "calls_per_task": 4.813664596273292,
+            "coverage": 0.5124223602484472,
+            "mean_utility": -4.815361344615045,
+            "mean_utility_ci95": [
+              -7.309307949807115,
+              -2.618667005789103
+            ],
+            "output_error_rate": 0.10303030303030303,
+            "released": 165,
+            "wrong_released": 17
+          },
+          "fixed_triple": {
+            "calls_per_task": 2.888198757763975,
+            "coverage": 0.531055900621118,
+            "mean_utility": -5.409017392712955,
+            "mean_utility_ci95": [
+              -8.154697607494816,
+              -2.956347552122
+            ],
+            "output_error_rate": 0.1111111111111111,
+            "released": 171,
+            "wrong_released": 19
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.22981366459627328,
+            "mean_utility": -1.0124223602484472,
+            "mean_utility_ci95": [
+              -2.270186335403727,
+              -0.059006211180124224
+            ],
+            "output_error_rate": 0.05405405405405406,
+            "released": 74,
+            "wrong_released": 4
+          }
+        }
+      },
+      "prior_distribution": {
+        "n": 310,
+        "pass_rate": 0.567741935483871,
+        "share_ge_0.80": 0.8806451612903226,
+        "share_ge_0.95": 0.8096774193548387,
+        "share_ge_0.99": 0.23870967741935484
+      },
+      "stopping": {
+        "19": {
+          "arms": {
+            "adaptive_single": {
+              "calls_per_task": 0.84472049689441,
+              "confirmed_billing_usd": null,
+              "correct_released": 165,
+              "coverage": 0.5962732919254659,
+              "expected_cost_usd": 0.607302682387147,
+              "expected_usd_per_task": 0.0018860331751153635,
+              "mean_utility": -1.0996056733660604,
+              "mean_utility_at_observed_usage": -1.0981893866459627,
+              "mean_utility_ci95": [
+                -1.7330347492074643,
+                -0.5406830982152768
+              ],
+              "measured_usd_per_task": 0.0017444045031055904,
+              "n": 322,
+              "output_error_rate": 0.140625,
+              "output_error_wilson95": {
+                "high": 0.1968694557312475,
+                "low": 0.09847893050423204,
+                "method": "Wilson",
+                "n": 192
+              },
+              "queries": 272,
+              "query_histogram": {
+                "0": 50,
+                "1": 272
+              },
+              "released": 192,
+              "released_accuracy": 0.859375,
+              "released_accuracy_wilson95": {
+                "high": 0.9015210694957679,
+                "low": 0.8031305442687525,
+                "method": "Wilson",
+                "n": 192
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.5616982500000001,
+              "wrong_released": 27
+            },
+            "adaptive_triple": {
+              "calls_per_task": 1.4968944099378882,
+              "confirmed_billing_usd": null,
+              "correct_released": 161,
+              "coverage": 0.5962732919254659,
+              "expected_cost_usd": 0.7151947688789474,
+              "expected_usd_per_task": 0.0022211017667048056,
+              "mean_utility": -1.3514035642508988,
+              "mean_utility_at_observed_usage": -1.3514806956521739,
+              "mean_utility_ci95": [
+                -2.0253466460026397,
+                -0.7367921628221951
+              ],
+              "measured_usd_per_task": 0.0022288149068322985,
+              "n": 322,
+              "output_error_rate": 0.16145833333333334,
+              "output_error_wilson95": {
+                "high": 0.22005830818616812,
+                "low": 0.11613944696319667,
+                "method": "Wilson",
+                "n": 192
+              },
+              "queries": 482,
+              "query_histogram": {
+                "0": 34,
+                "1": 147,
+                "2": 88,
+                "3": 53
+              },
+              "released": 192,
+              "released_accuracy": 0.8385416666666666,
+              "released_accuracy_wilson95": {
+                "high": 0.8838605530368033,
+                "low": 0.7799416918138318,
+                "method": "Wilson",
+                "n": 192
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.7176784,
+              "wrong_released": 31
+            },
+            "fixed_five": {
+              "calls_per_task": 4.813664596273292,
+              "confirmed_billing_usd": null,
+              "correct_released": 160,
+              "coverage": 0.593167701863354,
+              "expected_cost_usd": 1.5546352966044223,
+              "expected_usd_per_task": 0.004828059927342926,
+              "mean_utility": -1.380578735919392,
+              "mean_utility_at_observed_usage": -1.380569538819876,
+              "mean_utility_ci95": [
+                -2.0492508898925994,
+                -0.7750029004991824
+              ],
+              "measured_usd_per_task": 0.004827140217391304,
+              "n": 322,
+              "output_error_rate": 0.16230366492146597,
+              "output_error_wilson95": {
+                "high": 0.22116233781110295,
+                "low": 0.11676091127155641,
+                "method": "Wilson",
+                "n": 191
+              },
+              "queries": 1550,
+              "query_histogram": {
+                "0": 12,
+                "5": 310
+              },
+              "released": 191,
+              "released_accuracy": 0.837696335078534,
+              "released_accuracy_wilson95": {
+                "high": 0.8832390887284436,
+                "low": 0.778837662188897,
+                "method": "Wilson",
+                "n": 191
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 1.5543391500000001,
+              "wrong_released": 31
+            },
+            "fixed_triple": {
+              "calls_per_task": 2.888198757763975,
+              "confirmed_billing_usd": null,
+              "correct_released": 161,
+              "coverage": 0.593167701863354,
+              "expected_cost_usd": 1.2703600453571928,
+              "expected_usd_per_task": 0.003945217532165195,
+              "mean_utility": -1.309638510725379,
+              "mean_utility_at_observed_usage": -1.309584349378882,
+              "mean_utility_ci95": [
+                -1.9711595827183215,
+                -0.7101899777450021
+              ],
+              "measured_usd_per_task": 0.003939801397515527,
+              "n": 322,
+              "output_error_rate": 0.15706806282722513,
+              "output_error_wilson95": {
+                "high": 0.2153660524126114,
+                "low": 0.1122924408418721,
+                "method": "Wilson",
+                "n": 191
+              },
+              "queries": 930,
+              "query_histogram": {
+                "0": 12,
+                "3": 310
+              },
+              "released": 191,
+              "released_accuracy": 0.8429319371727748,
+              "released_accuracy_wilson95": {
+                "high": 0.8877075591581279,
+                "low": 0.7846339475873886,
+                "method": "Wilson",
+                "n": 191
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 1.2686160499999999,
+              "wrong_released": 30
+            },
+            "prior_only": {
+              "calls_per_task": 0.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 170,
+              "coverage": 0.7795031055900621,
+              "expected_cost_usd": 0.0,
+              "expected_usd_per_task": 0.0,
+              "mean_utility": -4.251552795031056,
+              "mean_utility_at_observed_usage": -4.251552795031056,
+              "mean_utility_ci95": [
+                -5.195652173913044,
+                -3.341614906832298
+              ],
+              "measured_usd_per_task": 0.0,
+              "n": 322,
+              "output_error_rate": 0.32270916334661354,
+              "output_error_wilson95": {
+                "high": 0.38284307160832987,
+                "low": 0.26792018955075725,
+                "method": "Wilson",
+                "n": 251
+              },
+              "queries": 0,
+              "query_histogram": {
+                "0": 322
+              },
+              "released": 251,
+              "released_accuracy": 0.6772908366533864,
+              "released_accuracy_wilson95": {
+                "high": 0.7320798104492426,
+                "low": 0.6171569283916701,
+                "method": "Wilson",
+                "n": 251
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.0,
+              "wrong_released": 81
+            }
+          },
+          "early_stopping": {
+            "calls_saved_vs_fixed_five": 1068,
+            "calls_saved_vs_fixed_triple": 448,
+            "no_query": 34,
+            "stopped_before_third": 235,
+            "tasks_with_any_query": 288
+          },
+          "paired_utility": {
+            "adaptive_single_minus_prior_only": {
+              "ci95": [
+                2.325777606668232,
+                3.9878417803455157
+              ],
+              "mean": 3.1519471216649952,
+              "n": 322
+            },
+            "adaptive_triple_minus_adaptive_single": {
+              "ci95": [
+                -0.6640523297135743,
+                0.15772517950175455
+              ],
+              "mean": -0.2517978908848385,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_five": {
+              "ci95": [
+                -0.2635927361421251,
+                0.3243383677877896
+              ],
+              "mean": 0.029175171668493028,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_triple": {
+              "ci95": [
+                -0.16056308359650504,
+                0.01819217747176889
+              ],
+              "mean": -0.04176505352552037,
+              "n": 322
+            },
+            "adaptive_triple_minus_prior_only": {
+              "ci95": [
+                2.169910484867062,
+                3.681910267254916
+              ],
+              "mean": 2.9001492307801566,
+              "n": 322
+            },
+            "fixed_five_minus_fixed_triple": {
+              "ci95": [
+                -0.3721700813380238,
+                0.22707056568820047
+              ],
+              "mean": -0.07094022519401331,
+              "n": 322
+            }
+          },
+          "selected_triples": {
+            "0": [
+              "gemini_flash",
+              "mistral_small",
+              "claude_haiku"
+            ],
+            "1": [
+              "mistral_small",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "2": [
+              "gemini_flash",
+              "mistral_small",
+              "claude_haiku"
+            ],
+            "3": [
+              "gemini_flash",
+              "gemini_lite",
+              "claude_haiku"
+            ],
+            "4": [
+              "mistral_small",
+              "gemini_flash",
+              "claude_haiku"
+            ]
+          }
+        },
+        "99": {
+          "arms": {
+            "adaptive_single": {
+              "calls_per_task": 0.7018633540372671,
+              "confirmed_billing_usd": null,
+              "correct_released": 156,
+              "coverage": 0.546583850931677,
+              "expected_cost_usd": 0.5050347885171573,
+              "expected_usd_per_task": 0.0015684310202396191,
+              "mean_utility": -5.680280583494321,
+              "mean_utility_at_observed_usage": -5.677822732919255,
+              "mean_utility_ci95": [
+                -8.451688341303797,
+                -3.2113327040800055
+              ],
+              "measured_usd_per_task": 0.001322645962732919,
+              "n": 322,
+              "output_error_rate": 0.11363636363636363,
+              "output_error_wilson95": {
+                "high": 0.16900161476524742,
+                "low": 0.07477676152342039,
+                "method": "Wilson",
+                "n": 176
+              },
+              "queries": 226,
+              "query_histogram": {
+                "0": 96,
+                "1": 226
+              },
+              "released": 176,
+              "released_accuracy": 0.8863636363636364,
+              "released_accuracy_wilson95": {
+                "high": 0.9252232384765796,
+                "low": 0.8309983852347526,
+                "method": "Wilson",
+                "n": 176
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.42589199999999994,
+              "wrong_released": 20
+            },
+            "adaptive_triple": {
+              "calls_per_task": 1.8074534161490683,
+              "confirmed_billing_usd": null,
+              "correct_released": 152,
+              "coverage": 0.531055900621118,
+              "expected_cost_usd": 0.7037707177780456,
+              "expected_usd_per_task": 0.0021856233471367875,
+              "mean_utility": -5.391421450862672,
+              "mean_utility_at_observed_usage": -5.388364110248447,
+              "mean_utility_ci95": [
+                -8.136620739606077,
+                -2.9372676014187804
+              ],
+              "measured_usd_per_task": 0.0018798892857142858,
+              "n": 322,
+              "output_error_rate": 0.1111111111111111,
+              "output_error_wilson95": {
+                "high": 0.16701564571965838,
+                "low": 0.07229520825579358,
+                "method": "Wilson",
+                "n": 171
+              },
+              "queries": 582,
+              "query_histogram": {
+                "0": 50,
+                "1": 38,
+                "2": 158,
+                "3": 76
+              },
+              "released": 171,
+              "released_accuracy": 0.8888888888888888,
+              "released_accuracy_wilson95": {
+                "high": 0.9277047917442064,
+                "low": 0.8329843542803416,
+                "method": "Wilson",
+                "n": 171
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.6053243500000001,
+              "wrong_released": 19
+            },
+            "fixed_five": {
+              "calls_per_task": 4.813664596273292,
+              "confirmed_billing_usd": null,
+              "correct_released": 148,
+              "coverage": 0.5124223602484472,
+              "expected_cost_usd": 1.5546352966044223,
+              "expected_usd_per_task": 0.004828059927342926,
+              "mean_utility": -4.815361344615045,
+              "mean_utility_at_observed_usage": -4.815352147515528,
+              "mean_utility_ci95": [
+                -7.309307949807115,
+                -2.618667005789103
+              ],
+              "measured_usd_per_task": 0.004827140217391304,
+              "n": 322,
+              "output_error_rate": 0.10303030303030303,
+              "output_error_wilson95": {
+                "high": 0.1587974117526209,
+                "low": 0.06532679971182108,
+                "method": "Wilson",
+                "n": 165
+              },
+              "queries": 1550,
+              "query_histogram": {
+                "0": 12,
+                "5": 310
+              },
+              "released": 165,
+              "released_accuracy": 0.896969696969697,
+              "released_accuracy_wilson95": {
+                "high": 0.9346732002881789,
+                "low": 0.8412025882473791,
+                "method": "Wilson",
+                "n": 165
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 1.5543391500000001,
+              "wrong_released": 17
+            },
+            "fixed_triple": {
+              "calls_per_task": 2.888198757763975,
+              "confirmed_billing_usd": null,
+              "correct_released": 152,
+              "coverage": 0.531055900621118,
+              "expected_cost_usd": 1.2703600453571928,
+              "expected_usd_per_task": 0.003945217532165195,
+              "mean_utility": -5.409017392712955,
+              "mean_utility_at_observed_usage": -5.408963231366459,
+              "mean_utility_ci95": [
+                -8.154697607494816,
+                -2.956347552122
+              ],
+              "measured_usd_per_task": 0.003939801397515527,
+              "n": 322,
+              "output_error_rate": 0.1111111111111111,
+              "output_error_wilson95": {
+                "high": 0.16701564571965838,
+                "low": 0.07229520825579358,
+                "method": "Wilson",
+                "n": 171
+              },
+              "queries": 930,
+              "query_histogram": {
+                "0": 12,
+                "3": 310
+              },
+              "released": 171,
+              "released_accuracy": 0.8888888888888888,
+              "released_accuracy_wilson95": {
+                "high": 0.9277047917442064,
+                "low": 0.8329843542803416,
+                "method": "Wilson",
+                "n": 171
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 1.2686160499999999,
+              "wrong_released": 19
+            },
+            "prior_only": {
+              "calls_per_task": 0.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 70,
+              "coverage": 0.22981366459627328,
+              "expected_cost_usd": 0.0,
+              "expected_usd_per_task": 0.0,
+              "mean_utility": -1.0124223602484472,
+              "mean_utility_at_observed_usage": -1.0124223602484472,
+              "mean_utility_ci95": [
+                -2.270186335403727,
+                -0.059006211180124224
+              ],
+              "measured_usd_per_task": 0.0,
+              "n": 322,
+              "output_error_rate": 0.05405405405405406,
+              "output_error_wilson95": {
+                "high": 0.13090376404552365,
+                "low": 0.02121901217287475,
+                "method": "Wilson",
+                "n": 74
+              },
+              "queries": 0,
+              "query_histogram": {
+                "0": 322
+              },
+              "released": 74,
+              "released_accuracy": 0.9459459459459459,
+              "released_accuracy_wilson95": {
+                "high": 0.9787809878271253,
+                "low": 0.8690962359544764,
+                "method": "Wilson",
+                "n": 74
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.0,
+              "wrong_released": 4
+            }
+          },
+          "early_stopping": {
+            "calls_saved_vs_fixed_five": 968,
+            "calls_saved_vs_fixed_triple": 348,
+            "no_query": 50,
+            "stopped_before_third": 196,
+            "tasks_with_any_query": 272
+          },
+          "paired_utility": {
+            "adaptive_single_minus_prior_only": {
+              "ci95": [
+                -7.377255704924086,
+                -2.1922205287987775
+              ],
+              "mean": -4.667858223245873,
+              "n": 322
+            },
+            "adaptive_triple_minus_adaptive_single": {
+              "ci95": [
+                -0.6403784716319684,
+                1.502511957525413
+              ],
+              "mean": 0.28885913263164936,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_five": {
+              "ci95": [
+                -1.504704230494534,
+                0.04545304794367721
+              ],
+              "mean": -0.5760601062476276,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_triple": {
+              "ci95": [
+                0.016054334716930622,
+                0.019157132026409996
+              ],
+              "mean": 0.017595941850284118,
+              "n": 322
+            },
+            "adaptive_triple_minus_prior_only": {
+              "ci95": [
+                -7.129593386211456,
+                -1.9127728165813984
+              ],
+              "mean": -4.378999090614224,
+              "n": 322
+            },
+            "fixed_five_minus_fixed_triple": {
+              "ci95": [
+                -0.02754131475664664,
+                1.5222461012497999
+              ],
+              "mean": 0.5936560480979118,
+              "n": 322
+            }
+          },
+          "selected_triples": {
+            "0": [
+              "mistral_small",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "1": [
+              "mistral_small",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "2": [
+              "mistral_small",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "3": [
+              "gemini_lite",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "4": [
+              "mistral_small",
+              "gemini_flash",
+              "claude_haiku"
+            ]
+          }
+        }
+      },
+      "verifiers": {
+        "by_loss": {
+          "19": {
+            "fitted_likelihood_ratio_by_bin_mean_over_folds": {
+              "claude_haiku": [
+                0.14491958865509355,
+                0.2159946778189032,
+                2.1349055982158247
+              ],
+              "gemini_flash": [
+                0.06646722262653704,
+                0.8103057560073866,
+                4.756884417999627
+              ],
+              "gemini_lite": [
+                0.29482369167502687,
+                0.7680851775862564,
+                1.7837642226187345
+              ],
+              "mistral_medium": [
+                0.1886074254855795,
+                0.7680851775862564,
+                1.0897171597808373
+              ],
+              "mistral_small": [
+                0.49203117397098417,
+                0.7680851775862564,
+                3.0103837688366144
+              ]
+            },
+            "selected_triple_frequency": {
+              "gemini_flash>gemini_lite>claude_haiku": 1,
+              "gemini_flash>mistral_small>claude_haiku": 2,
+              "mistral_small>gemini_flash>claude_haiku": 2
+            },
+            "single_verifier_training_J0_gain_over_prior_mean": {
+              "claude_haiku": 0.11239598568676042,
+              "gemini_flash": 0.22375362067212703,
+              "gemini_lite": 0.06075017643434696,
+              "mistral_medium": 0.014016437729448017,
+              "mistral_small": 0.05337427332736698
+            },
+            "top3_orders_fold0": [
+              {
+                "order": [
+                  "gemini_flash",
+                  "mistral_small",
+                  "claude_haiku"
+                ],
+                "training_mean_J0": 0.7213384668498113
+              },
+              {
+                "order": [
+                  "mistral_small",
+                  "gemini_flash",
+                  "claude_haiku"
+                ],
+                "training_mean_J0": 0.7209759182686473
+              },
+              {
+                "order": [
+                  "gemini_flash",
+                  "claude_haiku",
+                  "mistral_small"
+                ],
+                "training_mean_J0": 0.7193405248782329
+              }
+            ],
+            "verifier_in_selected_triple_count": {
+              "claude_haiku": 5,
+              "gemini_flash": 5,
+              "gemini_lite": 1,
+              "mistral_small": 4
+            }
+          },
+          "99": {
+            "fitted_likelihood_ratio_by_bin_mean_over_folds": {
+              "claude_haiku": [
+                0.14491958865509355,
+                0.2159946778189032,
+                2.1349055982158247
+              ],
+              "gemini_flash": [
+                0.06646722262653704,
+                0.8103057560073866,
+                4.756884417999627
+              ],
+              "gemini_lite": [
+                0.29482369167502687,
+                0.7680851775862564,
+                1.7837642226187345
+              ],
+              "mistral_medium": [
+                0.1886074254855795,
+                0.7680851775862564,
+                1.0897171597808373
+              ],
+              "mistral_small": [
+                0.49203117397098417,
+                0.7680851775862564,
+                3.0103837688366144
+              ]
+            },
+            "selected_triple_frequency": {
+              "gemini_lite>gemini_flash>claude_haiku": 1,
+              "mistral_small>gemini_flash>claude_haiku": 4
+            },
+            "single_verifier_training_J0_gain_over_prior_mean": {
+              "claude_haiku": 0.12770379082357758,
+              "gemini_flash": 0.39263033129043723,
+              "gemini_lite": 0.08511046452668061,
+              "mistral_medium": 0.01733575119276464,
+              "mistral_small": 0.17762068927667138
+            },
+            "top3_orders_fold0": [
+              {
+                "order": [
+                  "mistral_small",
+                  "gemini_flash",
+                  "claude_haiku"
+                ],
+                "training_mean_J0": 0.5106105926558951
+              },
+              {
+                "order": [
+                  "gemini_flash",
+                  "mistral_small",
+                  "claude_haiku"
+                ],
+                "training_mean_J0": 0.5087325355950879
+              },
+              {
+                "order": [
+                  "mistral_small",
+                  "claude_haiku",
+                  "gemini_flash"
+                ],
+                "training_mean_J0": 0.5048693747775483
+              }
+            ],
+            "verifier_in_selected_triple_count": {
+              "claude_haiku": 5,
+              "gemini_flash": 5,
+              "gemini_lite": 1,
+              "mistral_small": 4
+            }
+          }
+        },
+        "per_verifier": {
+          "claude_haiku": {
+            "auroc": 0.8526543419267301,
+            "brier": 0.17199225806451612,
+            "log_loss": 0.5264062140063849,
+            "mean_score_if_fail": 0.45201492537313426,
+            "mean_score_if_pass": 0.8435795454545453,
+            "mean_usd_per_call": 0.0016675612903225808,
+            "n": 310,
+            "valid_signal_rate": 1.0
+          },
+          "gemini_flash": {
+            "auroc": 0.935803934871099,
+            "brier": 0.1033542129032258,
+            "log_loss": 1.2028536078187844,
+            "mean_score_if_fail": 0.19828358208955224,
+            "mean_score_if_pass": 0.931159090909091,
+            "mean_usd_per_call": 0.0022323604838709677,
+            "n": 310,
+            "valid_signal_rate": 1.0
+          },
+          "gemini_lite": {
+            "auroc": 0.7082131953867029,
+            "brier": 0.28453225806451615,
+            "log_loss": 9.593240757921178,
+            "mean_score_if_fail": 0.4705223880597015,
+            "mean_score_if_pass": 0.8502840909090907,
+            "mean_usd_per_call": 0.0004330683870967742,
+            "n": 310,
+            "valid_signal_rate": 1.0
+          },
+          "mistral_medium": {
+            "auroc": 0.7841333107191316,
+            "brier": 0.31601064516129035,
+            "log_loss": 2.3477747193028744,
+            "mean_score_if_fail": 0.8117910447761194,
+            "mean_score_if_pass": 0.9499431818181818,
+            "mean_usd_per_call": 0.0005467458064516129,
+            "n": 310,
+            "valid_signal_rate": 1.0
+          },
+          "mistral_small": {
+            "auroc": 0.7253222523744911,
+            "brier": 0.30332290322580646,
+            "log_loss": 9.879813905004013,
+            "mean_score_if_fail": 0.19768656716417912,
+            "mean_score_if_pass": 0.6107954545454546,
+            "mean_usd_per_call": 0.00013426129032258067,
+            "n": 310,
+            "valid_signal_rate": 1.0
+          }
+        },
+        "within_class_score_correlation": {
+          "fail": {
+            "n": 134,
+            "order": [
+              "gemini_flash",
+              "gemini_lite",
+              "mistral_small",
+              "mistral_medium",
+              "claude_haiku"
+            ],
+            "spearman": [
+              [
+                1.0,
+                0.4128668775156053,
+                0.14019711631070803,
+                0.40208376417543734,
+                0.4200873423678195
+              ],
+              [
+                0.41286687751560525,
+                1.0,
+                0.2654726014510027,
+                0.40984157794603093,
+                0.5579000738876034
+              ],
+              [
+                0.14019711631070803,
+                0.2654726014510027,
+                1.0,
+                0.369836138260335,
+                0.28841443689128393
+              ],
+              [
+                0.4020837641754374,
+                0.409841577946031,
+                0.36983613826033496,
+                0.9999999999999998,
+                0.5802061896963244
+              ],
+              [
+                0.4200873423678195,
+                0.5579000738876034,
+                0.28841443689128393,
+                0.5802061896963244,
+                1.0
+              ]
+            ]
+          },
+          "pass": {
+            "n": 176,
+            "order": [
+              "gemini_flash",
+              "gemini_lite",
+              "mistral_small",
+              "mistral_medium",
+              "claude_haiku"
+            ],
+            "spearman": [
+              [
+                1.0,
+                0.3724634676114484,
+                0.5003056701515074,
+                0.6596076957380388,
+                0.7171075692884072
+              ],
+              [
+                0.3724634676114484,
+                1.0,
+                0.31539203110542174,
+                0.4128968491130787,
+                0.39816629558268024
+              ],
+              [
+                0.5003056701515074,
+                0.31539203110542174,
+                1.0,
+                0.5741618036224817,
+                0.6277552856358776
+              ],
+              [
+                0.6596076957380388,
+                0.4128968491130787,
+                0.5741618036224816,
+                1.0,
+                0.632473611477604
+              ],
+              [
+                0.7171075692884072,
+                0.39816629558268024,
+                0.6277552856358776,
+                0.632473611477604,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "sonnet55": {
+      "loss_sweep": {
+        "19": {
+          "adaptive_single": {
+            "calls_per_task": 0.10869565217391304,
+            "coverage": 0.10869565217391304,
+            "mean_utility": 0.044255285586560555,
+            "mean_utility_ci95": [
+              -0.09514869407765225,
+              0.13066035745560112
+            ],
+            "output_error_rate": 0.02857142857142857,
+            "released": 35,
+            "wrong_released": 1
+          },
+          "adaptive_triple": {
+            "calls_per_task": 0.8260869565217391,
+            "coverage": 0.2422360248447205,
+            "mean_utility": 0.11068605457135684,
+            "mean_utility_ci95": [
+              -0.08191012698477253,
+              0.2499041118827408
+            ],
+            "output_error_rate": 0.02564102564102564,
+            "released": 78,
+            "wrong_released": 2
+          },
+          "fixed_five": {
+            "calls_per_task": 5.0,
+            "coverage": 0.2950310559006211,
+            "mean_utility": 0.13191305407926138,
+            "mean_utility_ci95": [
+              -0.06367349275166068,
+              0.2718360792235424
+            ],
+            "output_error_rate": 0.021052631578947368,
+            "released": 95,
+            "wrong_released": 2
+          },
+          "fixed_triple": {
+            "calls_per_task": 3.0,
+            "coverage": 0.2422360248447205,
+            "mean_utility": 0.09042090338287592,
+            "mean_utility_ci95": [
+              -0.10234558371427872,
+              0.2299585128050615
+            ],
+            "output_error_rate": 0.02564102564102564,
+            "released": 78,
+            "wrong_released": 2
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.10869565217391304,
+            "mean_utility": 0.046583850931677016,
+            "mean_utility_ci95": [
+              -0.09316770186335403,
+              0.13354037267080746
+            ],
+            "output_error_rate": 0.02857142857142857,
+            "released": 35,
+            "wrong_released": 1
+          }
+        },
+        "4": {
+          "adaptive_single": {
+            "calls_per_task": 0.5714285714285714,
+            "coverage": 0.65527950310559,
+            "mean_utility": 0.5189011215663151,
+            "mean_utility_ci95": [
+              0.4222553626325096,
+              0.608316191888427
+            ],
+            "output_error_rate": 0.037914691943127965,
+            "released": 211,
+            "wrong_released": 8
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.6149068322981366,
+            "coverage": 0.6304347826086957,
+            "mean_utility": 0.49301854038946197,
+            "mean_utility_ci95": [
+              0.3967817335297026,
+              0.5819162801342361
+            ],
+            "output_error_rate": 0.03940886699507389,
+            "released": 203,
+            "wrong_released": 8
+          },
+          "fixed_five": {
+            "calls_per_task": 5.0,
+            "coverage": 0.6583850931677019,
+            "mean_utility": 0.4952670913463421,
+            "mean_utility_ci95": [
+              0.39896743082563946,
+              0.5824057178644325
+            ],
+            "output_error_rate": 0.03773584905660377,
+            "released": 212,
+            "wrong_released": 8
+          },
+          "fixed_triple": {
+            "calls_per_task": 3.0,
+            "coverage": 0.6304347826086957,
+            "mean_utility": 0.480263066933742,
+            "mean_utility_ci95": [
+              0.38398558774606645,
+              0.5701073044463694
+            ],
+            "output_error_rate": 0.03940886699507389,
+            "released": 203,
+            "wrong_released": 8
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.6645962732919255,
+            "mean_utility": 0.5248447204968945,
+            "mean_utility_ci95": [
+              0.4254658385093168,
+              0.6180124223602484
+            ],
+            "output_error_rate": 0.04205607476635514,
+            "released": 214,
+            "wrong_released": 9
+          }
+        },
+        "49": {
+          "adaptive_single": {
+            "calls_per_task": 0.0,
+            "coverage": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "output_error_rate": null,
+            "released": 0,
+            "wrong_released": 0
+          },
+          "adaptive_triple": {
+            "calls_per_task": 0.07142857142857142,
+            "coverage": 0.012422360248447204,
+            "mean_utility": 0.012023966257187407,
+            "mean_utility_ci95": [
+              0.002904131797953559,
+              0.02416701954681621
+            ],
+            "output_error_rate": 0.0,
+            "released": 4,
+            "wrong_released": 0
+          },
+          "fixed_five": {
+            "calls_per_task": 5.0,
+            "coverage": 0.059006211180124224,
+            "mean_utility": 0.0201118118432365,
+            "mean_utility_ci95": [
+              -0.00469932136951318,
+              0.04802788693598653
+            ],
+            "output_error_rate": 0.0,
+            "released": 19,
+            "wrong_released": 0
+          },
+          "fixed_triple": {
+            "calls_per_task": 3.0,
+            "coverage": 0.012422360248447204,
+            "mean_utility": -0.016916210983735677,
+            "mean_utility_ci95": [
+              -0.026601291477478174,
+              -0.00411103313027575
+            ],
+            "output_error_rate": 0.0,
+            "released": 4,
+            "wrong_released": 0
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "output_error_rate": null,
+            "released": 0,
+            "wrong_released": 0
+          }
+        },
+        "9": {
+          "adaptive_single": {
+            "calls_per_task": 0.4409937888198758,
+            "coverage": 0.4409937888198758,
+            "mean_utility": 0.3694749928156357,
+            "mean_utility_ci95": [
+              0.26416173961533196,
+              0.4558588849580657
+            ],
+            "output_error_rate": 0.014084507042253521,
+            "released": 142,
+            "wrong_released": 2
+          },
+          "adaptive_triple": {
+            "calls_per_task": 1.3633540372670807,
+            "coverage": 0.43167701863354035,
+            "mean_utility": 0.29611117079719607,
+            "mean_utility_ci95": [
+              0.16178368273126342,
+              0.40801083583468023
+            ],
+            "output_error_rate": 0.02877697841726619,
+            "released": 139,
+            "wrong_released": 4
+          },
+          "fixed_five": {
+            "calls_per_task": 5.0,
+            "coverage": 0.4720496894409938,
+            "mean_utility": 0.308931687619634,
+            "mean_utility_ci95": [
+              0.1723154811440038,
+              0.4207608261697577
+            ],
+            "output_error_rate": 0.02631578947368421,
+            "released": 152,
+            "wrong_released": 4
+          },
+          "fixed_triple": {
+            "calls_per_task": 3.0,
+            "coverage": 0.43478260869565216,
+            "mean_utility": 0.28325228939086855,
+            "mean_utility_ci95": [
+              0.14702689356192625,
+              0.3951298818776735
+            ],
+            "output_error_rate": 0.02857142857142857,
+            "released": 140,
+            "wrong_released": 4
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.35714285714285715,
+            "mean_utility": 0.2950310559006211,
+            "mean_utility_ci95": [
+              0.19254658385093168,
+              0.37888198757763975
+            ],
+            "output_error_rate": 0.017391304347826087,
+            "released": 115,
+            "wrong_released": 2
+          }
+        },
+        "99": {
+          "adaptive_single": {
+            "calls_per_task": 0.0,
+            "coverage": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "output_error_rate": null,
+            "released": 0,
+            "wrong_released": 0
+          },
+          "adaptive_triple": {
+            "calls_per_task": 0.0,
+            "coverage": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "output_error_rate": null,
+            "released": 0,
+            "wrong_released": 0
+          },
+          "fixed_five": {
+            "calls_per_task": 5.0,
+            "coverage": 0.0,
+            "mean_utility": -0.03889439933688771,
+            "mean_utility_ci95": [
+              -0.03899523491588464,
+              -0.038792920812027655
+            ],
+            "output_error_rate": null,
+            "released": 0,
+            "wrong_released": 0
+          },
+          "fixed_triple": {
+            "calls_per_task": 3.0,
+            "coverage": 0.0,
+            "mean_utility": -0.03471220950114966,
+            "mean_utility_ci95": [
+              -0.0348119365065189,
+              -0.034612089163604316
+            ],
+            "output_error_rate": null,
+            "released": 0,
+            "wrong_released": 0
+          },
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "coverage": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "output_error_rate": null,
+            "released": 0,
+            "wrong_released": 0
+          }
+        }
+      },
+      "prior_distribution": {
+        "n": 322,
+        "pass_rate": 0.8913043478260869,
+        "share_ge_0.80": 0.6645962732919255,
+        "share_ge_0.95": 0.10869565217391304,
+        "share_ge_0.99": 0.0
+      },
+      "stopping": {
+        "19": {
+          "arms": {
+            "adaptive_single": {
+              "calls_per_task": 0.10869565217391304,
+              "confirmed_billing_usd": null,
+              "correct_released": 34,
+              "coverage": 0.10869565217391304,
+              "expected_cost_usd": 0.07497980411274997,
+              "expected_usd_per_task": 0.0002328565345116459,
+              "mean_utility": 0.044255285586560555,
+              "mean_utility_at_observed_usage": 0.04548465838509318,
+              "mean_utility_ci95": [
+                -0.09514869407765225,
+                0.13066035745560112
+              ],
+              "measured_usd_per_task": 0.0001099192546583851,
+              "n": 322,
+              "output_error_rate": 0.02857142857142857,
+              "output_error_wilson95": {
+                "high": 0.14533087233613673,
+                "low": 0.005061491855444203,
+                "method": "Wilson",
+                "n": 35
+              },
+              "queries": 35,
+              "query_histogram": {
+                "0": 287,
+                "1": 35
+              },
+              "released": 35,
+              "released_accuracy": 0.9714285714285714,
+              "released_accuracy_wilson95": {
+                "high": 0.9949385081445556,
+                "low": 0.8546691276638632,
+                "method": "Wilson",
+                "n": 35
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.035394,
+              "wrong_released": 1
+            },
+            "adaptive_triple": {
+              "calls_per_task": 0.8260869565217391,
+              "confirmed_billing_usd": null,
+              "correct_released": 76,
+              "coverage": 0.2422360248447205,
+              "expected_cost_usd": 0.23590904280231048,
+              "expected_usd_per_task": 0.000732636778889163,
+              "mean_utility": 0.11068605457135684,
+              "mean_utility_at_observed_usage": 0.11319626086956522,
+              "mean_utility_ci95": [
+                -0.08191012698477253,
+                0.2499041118827408
+              ],
+              "measured_usd_per_task": 0.000481616149068323,
+              "n": 322,
+              "output_error_rate": 0.02564102564102564,
+              "output_error_wilson95": {
+                "high": 0.08875270035675845,
+                "low": 0.007060093472759203,
+                "method": "Wilson",
+                "n": 78
+              },
+              "queries": 266,
+              "query_histogram": {
+                "0": 212,
+                "1": 32,
+                "3": 78
+              },
+              "released": 78,
+              "released_accuracy": 0.9743589743589743,
+              "released_accuracy_wilson95": {
+                "high": 0.9929399065272408,
+                "low": 0.9112472996432415,
+                "method": "Wilson",
+                "n": 78
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.1550804,
+              "wrong_released": 2
+            },
+            "fixed_five": {
+              "calls_per_task": 5.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 93,
+              "coverage": 0.2950310559006211,
+              "expected_cost_usd": 1.2523996586477846,
+              "expected_usd_per_task": 0.003889439933688772,
+              "mean_utility": 0.13191305407926138,
+              "mean_utility_at_observed_usage": 0.13191823291925467,
+              "mean_utility_ci95": [
+                -0.06367349275166068,
+                0.2718360792235424
+              ],
+              "measured_usd_per_task": 0.0038889220496894404,
+              "n": 322,
+              "output_error_rate": 0.021052631578947368,
+              "output_error_wilson95": {
+                "high": 0.07354119494708962,
+                "low": 0.005792506864405536,
+                "method": "Wilson",
+                "n": 95
+              },
+              "queries": 1610,
+              "query_histogram": {
+                "5": 322
+              },
+              "released": 95,
+              "released_accuracy": 0.9789473684210527,
+              "released_accuracy_wilson95": {
+                "high": 0.9942074931355945,
+                "low": 0.9264588050529105,
+                "method": "Wilson",
+                "n": 95
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 1.2522328999999999,
+              "wrong_released": 2
+            },
+            "fixed_triple": {
+              "calls_per_task": 3.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 76,
+              "coverage": 0.2422360248447205,
+              "expected_cost_usd": 0.8884469110713962,
+              "expected_usd_per_task": 0.0027591518977372552,
+              "mean_utility": 0.09042090338287592,
+              "mean_utility_at_observed_usage": 0.09050444099378885,
+              "mean_utility_ci95": [
+                -0.10234558371427872,
+                0.2299585128050615
+              ],
+              "measured_usd_per_task": 0.002750798136645963,
+              "n": 322,
+              "output_error_rate": 0.02564102564102564,
+              "output_error_wilson95": {
+                "high": 0.08875270035675845,
+                "low": 0.007060093472759203,
+                "method": "Wilson",
+                "n": 78
+              },
+              "queries": 966,
+              "query_histogram": {
+                "3": 322
+              },
+              "released": 78,
+              "released_accuracy": 0.9743589743589743,
+              "released_accuracy_wilson95": {
+                "high": 0.9929399065272408,
+                "low": 0.9112472996432415,
+                "method": "Wilson",
+                "n": 78
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.885757,
+              "wrong_released": 2
+            },
+            "prior_only": {
+              "calls_per_task": 0.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 34,
+              "coverage": 0.10869565217391304,
+              "expected_cost_usd": 0.0,
+              "expected_usd_per_task": 0.0,
+              "mean_utility": 0.046583850931677016,
+              "mean_utility_at_observed_usage": 0.046583850931677016,
+              "mean_utility_ci95": [
+                -0.09316770186335403,
+                0.13354037267080746
+              ],
+              "measured_usd_per_task": 0.0,
+              "n": 322,
+              "output_error_rate": 0.02857142857142857,
+              "output_error_wilson95": {
+                "high": 0.14533087233613673,
+                "low": 0.005061491855444203,
+                "method": "Wilson",
+                "n": 35
+              },
+              "queries": 0,
+              "query_histogram": {
+                "0": 322
+              },
+              "released": 35,
+              "released_accuracy": 0.9714285714285714,
+              "released_accuracy_wilson95": {
+                "high": 0.9949385081445556,
+                "low": 0.8546691276638632,
+                "method": "Wilson",
+                "n": 35
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.0,
+              "wrong_released": 1
+            }
+          },
+          "early_stopping": {
+            "calls_saved_vs_fixed_five": 1344,
+            "calls_saved_vs_fixed_triple": 700,
+            "no_query": 212,
+            "stopped_before_third": 32,
+            "tasks_with_any_query": 110
+          },
+          "paired_utility": {
+            "adaptive_single_minus_prior_only": {
+              "ci95": [
+                -0.003074650630602553,
+                -0.0016074150034060093
+              ],
+              "mean": -0.0023285653451164596,
+              "n": 322
+            },
+            "adaptive_triple_minus_adaptive_single": {
+              "ci95": [
+                -0.07584786090363461,
+                0.15269969710470682
+              ],
+              "mean": 0.06643076898479629,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_five": {
+              "ci95": [
+                -0.04895886440856953,
+                0.003737521257819251
+              ],
+              "mean": -0.02122699950790452,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_triple": {
+              "ci95": [
+                0.01896106727458009,
+                0.02154216846851111
+              ],
+              "mean": 0.020265151188480924,
+              "n": 322
+            },
+            "adaptive_triple_minus_prior_only": {
+              "ci95": [
+                -0.0779168529301553,
+                0.1504229904801336
+              ],
+              "mean": 0.0641022036396798,
+              "n": 322
+            },
+            "fixed_five_minus_fixed_triple": {
+              "ci95": [
+                0.01656245647072869,
+                0.06946963465253231
+              ],
+              "mean": 0.041492150696385455,
+              "n": 322
+            }
+          },
+          "selected_triples": {
+            "0": [
+              "mistral_small",
+              "gemini_lite",
+              "gemini_flash"
+            ],
+            "1": [
+              "mistral_small",
+              "mistral_medium",
+              "gemini_flash"
+            ],
+            "2": [
+              "gemini_lite",
+              "mistral_medium",
+              "gemini_flash"
+            ],
+            "3": [
+              "claude_haiku",
+              "mistral_medium",
+              "gemini_flash"
+            ],
+            "4": [
+              "mistral_small",
+              "mistral_medium",
+              "gemini_flash"
+            ]
+          }
+        },
+        "99": {
+          "arms": {
+            "adaptive_single": {
+              "calls_per_task": 0.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 0,
+              "coverage": 0.0,
+              "expected_cost_usd": 0.0,
+              "expected_usd_per_task": 0.0,
+              "mean_utility": 0.0,
+              "mean_utility_at_observed_usage": 0.0,
+              "mean_utility_ci95": [
+                0.0,
+                0.0
+              ],
+              "measured_usd_per_task": 0.0,
+              "n": 322,
+              "output_error_rate": null,
+              "output_error_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "queries": 0,
+              "query_histogram": {
+                "0": 322
+              },
+              "released": 0,
+              "released_accuracy": null,
+              "released_accuracy_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.0,
+              "wrong_released": 0
+            },
+            "adaptive_triple": {
+              "calls_per_task": 0.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 0,
+              "coverage": 0.0,
+              "expected_cost_usd": 0.0,
+              "expected_usd_per_task": 0.0,
+              "mean_utility": 0.0,
+              "mean_utility_at_observed_usage": 0.0,
+              "mean_utility_ci95": [
+                0.0,
+                0.0
+              ],
+              "measured_usd_per_task": 0.0,
+              "n": 322,
+              "output_error_rate": null,
+              "output_error_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "queries": 0,
+              "query_histogram": {
+                "0": 322
+              },
+              "released": 0,
+              "released_accuracy": null,
+              "released_accuracy_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.0,
+              "wrong_released": 0
+            },
+            "fixed_five": {
+              "calls_per_task": 5.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 0,
+              "coverage": 0.0,
+              "expected_cost_usd": 1.2523996586477846,
+              "expected_usd_per_task": 0.003889439933688772,
+              "mean_utility": -0.03889439933688771,
+              "mean_utility_at_observed_usage": -0.03888922049689441,
+              "mean_utility_ci95": [
+                -0.03899523491588464,
+                -0.038792920812027655
+              ],
+              "measured_usd_per_task": 0.0038889220496894404,
+              "n": 322,
+              "output_error_rate": null,
+              "output_error_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "queries": 1610,
+              "query_histogram": {
+                "5": 322
+              },
+              "released": 0,
+              "released_accuracy": null,
+              "released_accuracy_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 1.2522328999999999,
+              "wrong_released": 0
+            },
+            "fixed_triple": {
+              "calls_per_task": 3.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 0,
+              "coverage": 0.0,
+              "expected_cost_usd": 1.1177331459370192,
+              "expected_usd_per_task": 0.0034712209501149664,
+              "mean_utility": -0.03471220950114966,
+              "mean_utility_at_observed_usage": -0.0347067950310559,
+              "mean_utility_ci95": [
+                -0.0348119365065189,
+                -0.034612089163604316
+              ],
+              "measured_usd_per_task": 0.00347067950310559,
+              "n": 322,
+              "output_error_rate": null,
+              "output_error_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "queries": 966,
+              "query_histogram": {
+                "3": 322
+              },
+              "released": 0,
+              "released_accuracy": null,
+              "released_accuracy_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 1.1175588,
+              "wrong_released": 0
+            },
+            "prior_only": {
+              "calls_per_task": 0.0,
+              "confirmed_billing_usd": null,
+              "correct_released": 0,
+              "coverage": 0.0,
+              "expected_cost_usd": 0.0,
+              "expected_usd_per_task": 0.0,
+              "mean_utility": 0.0,
+              "mean_utility_at_observed_usage": 0.0,
+              "mean_utility_ci95": [
+                0.0,
+                0.0
+              ],
+              "measured_usd_per_task": 0.0,
+              "n": 322,
+              "output_error_rate": null,
+              "output_error_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "queries": 0,
+              "query_histogram": {
+                "0": 322
+              },
+              "released": 0,
+              "released_accuracy": null,
+              "released_accuracy_wilson95": {
+                "high": null,
+                "low": null,
+                "method": "Wilson",
+                "n": 0
+              },
+              "signal_failures_queried": 0,
+              "usage_estimated_cost_usd": 0.0,
+              "wrong_released": 0
+            }
+          },
+          "early_stopping": {
+            "calls_saved_vs_fixed_five": 1610,
+            "calls_saved_vs_fixed_triple": 966,
+            "no_query": 322,
+            "stopped_before_third": 0,
+            "tasks_with_any_query": 0
+          },
+          "paired_utility": {
+            "adaptive_single_minus_prior_only": {
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "mean": 0.0,
+              "n": 322
+            },
+            "adaptive_triple_minus_adaptive_single": {
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "mean": 0.0,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_five": {
+              "ci95": [
+                0.038792920812027655,
+                0.03899523491588464
+              ],
+              "mean": 0.03889439933688771,
+              "n": 322
+            },
+            "adaptive_triple_minus_fixed_triple": {
+              "ci95": [
+                0.034612089163604316,
+                0.0348119365065189
+              ],
+              "mean": 0.03471220950114966,
+              "n": 322
+            },
+            "adaptive_triple_minus_prior_only": {
+              "ci95": [
+                0.0,
+                0.0
+              ],
+              "mean": 0.0,
+              "n": 322
+            },
+            "fixed_five_minus_fixed_triple": {
+              "ci95": [
+                -0.004186892070987975,
+                -0.004177753731282904
+              ],
+              "mean": -0.004182189835738053,
+              "n": 322
+            }
+          },
+          "selected_triples": {
+            "0": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "1": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "2": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "3": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "4": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ]
+          }
+        }
+      },
+      "verifiers": {
+        "by_loss": {
+          "19": {
+            "fitted_likelihood_ratio_by_bin_mean_over_folds": {
+              "claude_haiku": [
+                0.898600374016322,
+                0.40201317648016854,
+                1.094755717340626
+              ],
+              "gemini_flash": [
+                0.1006359168701835,
+                0.23835086054454152,
+                1.2879061654302788
+              ],
+              "gemini_lite": [
+                1.046599824526873,
+                0.13346114455798502,
+                1.0536353798873335
+              ],
+              "mistral_medium": [
+                0.3135766935921059,
+                0.23835086054454152,
+                1.0954199124334023
+              ],
+              "mistral_small": [
+                0.905108139209833,
+                0.13346114455798502,
+                1.241004427544371
+              ]
+            },
+            "selected_triple_frequency": {
+              "claude_haiku>mistral_medium>gemini_flash": 1,
+              "gemini_lite>mistral_medium>gemini_flash": 1,
+              "mistral_small>gemini_lite>gemini_flash": 1,
+              "mistral_small>mistral_medium>gemini_flash": 2
+            },
+            "single_verifier_training_J0_gain_over_prior_mean": {
+              "claude_haiku": 0.001872721521484555,
+              "gemini_flash": 0.012932244016142392,
+              "gemini_lite": 0.0027005578354843186,
+              "mistral_medium": 0.005001203274992992,
+              "mistral_small": 0.005682819319059643
+            },
+            "top3_orders_fold0": [
+              {
+                "order": [
+                  "mistral_small",
+                  "gemini_lite",
+                  "gemini_flash"
+                ],
+                "training_mean_J0": 0.03873932346804584
+              },
+              {
+                "order": [
+                  "gemini_lite",
+                  "mistral_small",
+                  "gemini_flash"
+                ],
+                "training_mean_J0": 0.038474924625222416
+              },
+              {
+                "order": [
+                  "mistral_small",
+                  "mistral_medium",
+                  "gemini_flash"
+                ],
+                "training_mean_J0": 0.037987573001618896
+              }
+            ],
+            "verifier_in_selected_triple_count": {
+              "claude_haiku": 1,
+              "gemini_flash": 5,
+              "gemini_lite": 2,
+              "mistral_medium": 4,
+              "mistral_small": 3
+            }
+          },
+          "99": {
+            "fitted_likelihood_ratio_by_bin_mean_over_folds": {
+              "claude_haiku": [
+                0.898600374016322,
+                0.40201317648016854,
+                1.094755717340626
+              ],
+              "gemini_flash": [
+                0.1006359168701835,
+                0.23835086054454152,
+                1.2879061654302788
+              ],
+              "gemini_lite": [
+                1.046599824526873,
+                0.13346114455798502,
+                1.0536353798873335
+              ],
+              "mistral_medium": [
+                0.3135766935921059,
+                0.23835086054454152,
+                1.0954199124334023
+              ],
+              "mistral_small": [
+                0.905108139209833,
+                0.13346114455798502,
+                1.241004427544371
+              ]
+            },
+            "selected_triple_frequency": {
+              "claude_haiku>gemini_flash>gemini_lite": 5
+            },
+            "single_verifier_training_J0_gain_over_prior_mean": {
+              "claude_haiku": 0.0,
+              "gemini_flash": 0.0,
+              "gemini_lite": 0.0,
+              "mistral_medium": 0.0,
+              "mistral_small": 0.0
+            },
+            "top3_orders_fold0": [
+              {
+                "order": [
+                  "claude_haiku",
+                  "gemini_flash",
+                  "gemini_lite"
+                ],
+                "training_mean_J0": 0.0
+              },
+              {
+                "order": [
+                  "claude_haiku",
+                  "gemini_flash",
+                  "mistral_medium"
+                ],
+                "training_mean_J0": 0.0
+              },
+              {
+                "order": [
+                  "claude_haiku",
+                  "gemini_flash",
+                  "mistral_small"
+                ],
+                "training_mean_J0": 0.0
+              }
+            ],
+            "verifier_in_selected_triple_count": {
+              "claude_haiku": 5,
+              "gemini_flash": 5,
+              "gemini_lite": 5
+            }
+          }
+        },
+        "per_verifier": {
+          "claude_haiku": {
+            "auroc": 0.6701841712294673,
+            "brier": 0.18889316770186335,
+            "log_loss": 0.553459391140601,
+            "mean_score_if_fail": 0.6668571428571429,
+            "mean_score_if_pass": 0.7426480836236933,
+            "mean_usd_per_call": 0.0010894347826086957,
+            "n": 322,
+            "valid_signal_rate": 1.0
+          },
+          "gemini_flash": {
+            "auroc": 0.7752613240418119,
+            "brier": 0.09725032298136646,
+            "log_loss": 0.8623641886409557,
+            "mean_score_if_fail": 0.7768571428571429,
+            "mean_score_if_pass": 0.9535400696864114,
+            "mean_usd_per_call": 0.0021166677018633544,
+            "n": 322,
+            "valid_signal_rate": 1.0
+          },
+          "gemini_lite": {
+            "auroc": 0.5039820806371329,
+            "brier": 0.3527251552795031,
+            "log_loss": 12.4502380114537,
+            "mean_score_if_fail": 0.6842857142857143,
+            "mean_score_if_pass": 0.6853658536585365,
+            "mean_usd_per_call": 0.00026457701863354035,
+            "n": 322,
+            "valid_signal_rate": 1.0
+          },
+          "mistral_medium": {
+            "auroc": 0.6077650572424091,
+            "brier": 0.11287577639751555,
+            "log_loss": 1.1088588831434603,
+            "mean_score_if_fail": 0.8762857142857141,
+            "mean_score_if_pass": 0.9203135888501742,
+            "mean_usd_per_call": 0.0003365155279503106,
+            "n": 322,
+            "valid_signal_rate": 1.0
+          },
+          "mistral_small": {
+            "auroc": 0.5795918367346939,
+            "brier": 0.5011105590062112,
+            "log_loss": 17.321518500280153,
+            "mean_score_if_fail": 0.3897142857142857,
+            "mean_score_if_pass": 0.4801393728222997,
+            "mean_usd_per_call": 8.172701863354037e-05,
+            "n": 322,
+            "valid_signal_rate": 1.0
+          }
+        },
+        "within_class_score_correlation": {
+          "fail": {
+            "n": 35,
+            "order": [
+              "gemini_flash",
+              "gemini_lite",
+              "mistral_small",
+              "mistral_medium",
+              "claude_haiku"
+            ],
+            "spearman": [
+              [
+                1.0,
+                -0.1880686576669155,
+                -0.04695646342888084,
+                0.10282829472528666,
+                0.15109694713887384
+              ],
+              [
+                -0.1880686576669155,
+                1.0,
+                0.17098415837714231,
+                0.2604129484861947,
+                0.09368441813744476
+              ],
+              [
+                -0.04695646342888084,
+                0.17098415837714234,
+                1.0,
+                0.38795877583433286,
+                0.3194516514485123
+              ],
+              [
+                0.10282829472528668,
+                0.26041294848619473,
+                0.38795877583433286,
+                1.0,
+                0.6925523752361609
+              ],
+              [
+                0.15109694713887384,
+                0.09368441813744474,
+                0.3194516514485123,
+                0.6925523752361608,
+                0.9999999999999998
+              ]
+            ]
+          },
+          "pass": {
+            "n": 287,
+            "order": [
+              "gemini_flash",
+              "gemini_lite",
+              "mistral_small",
+              "mistral_medium",
+              "claude_haiku"
+            ],
+            "spearman": [
+              [
+                1.0,
+                0.394030890779891,
+                0.4249167473203392,
+                0.57582456309594,
+                0.5228274049175774
+              ],
+              [
+                0.394030890779891,
+                1.0,
+                0.4352176134981531,
+                0.5445114350655161,
+                0.5913308145786463
+              ],
+              [
+                0.4249167473203391,
+                0.435217613498153,
+                1.0,
+                0.5952593264357767,
+                0.5375135509756565
+              ],
+              [
+                0.5758245630959401,
+                0.5445114350655161,
+                0.5952593264357767,
+                1.0,
+                0.6962626290998737
+              ],
+              [
+                0.5228274049175775,
+                0.5913308145786463,
+                0.5375135509756566,
+                0.6962626290998736,
+                1.0
+              ]
+            ]
+          }
+        }
+      }
+    }
+  },
+  "kind": "secondary_analysis_added_after_primary_result",
+  "loss_sweep": [
+    4.0,
+    9.0,
+    19.0,
+    49.0,
+    99.0
+  ],
+  "schema": 1
+}

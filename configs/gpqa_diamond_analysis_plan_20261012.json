@@ -1,0 +1,5707 @@
+{
+  "api_requests": 0,
+  "config_sha256": "85c7855dfd7ff1e5a0580b8013a76cb3c4b99bd46fd5ce9e0a5bfe86b33e52b1",
+  "development_labels_only": true,
+  "evaluation_labels_read": false,
+  "generators": {
+    "gemini": {
+      "adaptive_policies": {
+        "monotone_binned/19": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.13056784907823363
+              },
+              {
+                "order": "gemini_flash>gemini_lite>claude_haiku",
+                "training_value": 0.12892152377118565
+              },
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.12888692858925102
+              },
+              {
+                "order": "gemini_lite>gemini_flash>claude_haiku",
+                "training_value": 0.12877464339976177
+              }
+            ],
+            "selected_order": [
+              "gemini_lite",
+              "claude_haiku",
+              "gemini_flash"
+            ],
+            "training_value": 0.13058272288572637
+          },
+          "flash_training_value": 0.10927241755354532,
+          "independence": {
+            "next_four": [
+              {
+                "order": "gemini_flash>mistral_small>claude_haiku",
+                "training_value": 0.1257835712829322
+              },
+              {
+                "order": "mistral_small>claude_haiku>gemini_flash",
+                "training_value": 0.1216409447398739
+              },
+              {
+                "order": "claude_haiku>mistral_small>gemini_flash",
+                "training_value": 0.121523969802335
+              },
+              {
+                "order": "mistral_small>gemini_flash>gemini_lite",
+                "training_value": 0.12096307965300608
+              }
+            ],
+            "selected_order": [
+              "mistral_small",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "training_value": 0.12586024442108962
+          }
+        },
+        "monotone_binned/99": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_flash>mistral_medium",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_small",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>mistral_medium",
+                "training_value": 0.0
+              }
+            ],
+            "selected_order": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "training_value": 0.0
+          },
+          "flash_training_value": 0.0,
+          "independence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_flash>mistral_medium",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_small",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>mistral_medium",
+                "training_value": 0.0
+              }
+            ],
+            "selected_order": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "training_value": 0.0
+          }
+        },
+        "platt/19": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.05709001575162401
+              },
+              {
+                "order": "gemini_lite>gemini_flash>claude_haiku",
+                "training_value": 0.05681048135155588
+              },
+              {
+                "order": "gemini_flash>gemini_lite>claude_haiku",
+                "training_value": 0.056498846304491
+              },
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.05647900991918379
+              }
+            ],
+            "selected_order": [
+              "gemini_lite",
+              "claude_haiku",
+              "gemini_flash"
+            ],
+            "training_value": 0.0576392817846155
+          },
+          "flash_training_value": 0.03361549596539516,
+          "independence": {
+            "next_four": [
+              {
+                "order": "mistral_small>gemini_flash>claude_haiku",
+                "training_value": 0.05072299162124072
+              },
+              {
+                "order": "claude_haiku>mistral_small>gemini_flash",
+                "training_value": 0.050055889368820425
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_small",
+                "training_value": 0.0497494117462328
+              },
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.049619129428079896
+              }
+            ],
+            "selected_order": [
+              "mistral_small",
+              "claude_haiku",
+              "gemini_flash"
+            ],
+            "training_value": 0.052297335894595384
+          }
+        },
+        "platt/99": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.0010764508332452378
+              },
+              {
+                "order": "gemini_flash>gemini_lite>claude_haiku",
+                "training_value": 0.0010476111356375192
+              },
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.001047282300620654
+              },
+              {
+                "order": "gemini_lite>gemini_flash>claude_haiku",
+                "training_value": 0.0010460237246067642
+              }
+            ],
+            "selected_order": [
+              "gemini_lite",
+              "claude_haiku",
+              "gemini_flash"
+            ],
+            "training_value": 0.001076612486533328
+          },
+          "flash_training_value": 0.0,
+          "independence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_flash>gemini_lite",
+                "training_value": 0.0009527912766057549
+              },
+              {
+                "order": "gemini_lite>claude_haiku>gemini_flash",
+                "training_value": 0.0009384632787562636
+              },
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.0009158197939340382
+              },
+              {
+                "order": "gemini_lite>gemini_flash>claude_haiku",
+                "training_value": 0.0009051637669759508
+              }
+            ],
+            "selected_order": [
+              "claude_haiku",
+              "gemini_lite",
+              "gemini_flash"
+            ],
+            "training_value": 0.0009596545144593316
+          }
+        },
+        "raw/19": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.4373865363670533
+              },
+              {
+                "order": "gemini_lite>gemini_flash>claude_haiku",
+                "training_value": 0.4322164750994909
+              },
+              {
+                "order": "mistral_small>mistral_medium>gemini_flash",
+                "training_value": 0.4317839610405283
+              },
+              {
+                "order": "mistral_medium>mistral_small>gemini_flash",
+                "training_value": 0.4317816126202297
+              }
+            ],
+            "selected_order": [
+              "gemini_flash",
+              "gemini_lite",
+              "claude_haiku"
+            ],
+            "training_value": 0.43742754764739733
+          },
+          "flash_training_value": 0.4206969889642241,
+          "independence": {
+            "next_four": [
+              {
+                "order": "mistral_small>gemini_flash>claude_haiku",
+                "training_value": 0.4314543959829729
+              },
+              {
+                "order": "gemini_flash>claude_haiku>mistral_small",
+                "training_value": 0.4288322552005988
+              },
+              {
+                "order": "gemini_flash>mistral_small>gemini_lite",
+                "training_value": 0.42815649643803744
+              },
+              {
+                "order": "gemini_flash>gemini_lite>mistral_small",
+                "training_value": 0.4281067607204695
+              }
+            ],
+            "selected_order": [
+              "gemini_flash",
+              "mistral_small",
+              "claude_haiku"
+            ],
+            "training_value": 0.43151093912377425
+          }
+        },
+        "raw/99": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.07668859011690557
+              },
+              {
+                "order": "gemini_flash>gemini_lite>claude_haiku",
+                "training_value": 0.07577546076025196
+              },
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.07576580092579323
+              },
+              {
+                "order": "gemini_lite>gemini_flash>claude_haiku",
+                "training_value": 0.07572787295493066
+              }
+            ],
+            "selected_order": [
+              "gemini_lite",
+              "claude_haiku",
+              "gemini_flash"
+            ],
+            "training_value": 0.07669344017594155
+          },
+          "flash_training_value": 0.06266926161321107,
+          "independence": {
+            "next_four": [
+              {
+                "order": "gemini_flash>mistral_small>claude_haiku",
+                "training_value": 0.07279745619092653
+              },
+              {
+                "order": "mistral_small>claude_haiku>gemini_flash",
+                "training_value": 0.07094358805479932
+              },
+              {
+                "order": "claude_haiku>mistral_small>gemini_flash",
+                "training_value": 0.070886644478975
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_small",
+                "training_value": 0.07045534041395582
+              }
+            ],
+            "selected_order": [
+              "mistral_small",
+              "gemini_flash",
+              "claude_haiku"
+            ],
+            "training_value": 0.07283550829292382
+          }
+        }
+      },
+      "declared_brier_triple": {
+        "monotone_binned": {
+          "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)",
+          "development_cv_brier": 0.1105,
+          "development_cv_brier_flash": 0.109,
+          "model": "dependence",
+          "runner_up": "gemini_flash+mistral_medium+mistral_small",
+          "runner_up_brier": 0.1186,
+          "verifiers": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ]
+        },
+        "platt": {
+          "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)",
+          "development_cv_brier": 0.1115,
+          "development_cv_brier_flash": 0.1105,
+          "model": "dependence",
+          "runner_up": "gemini_flash+gemini_lite+mistral_small",
+          "runner_up_brier": 0.1194,
+          "verifiers": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ]
+        },
+        "raw": {
+          "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)",
+          "development_cv_brier": 0.1177,
+          "development_cv_brier_flash": 0.1202,
+          "model": "dependence",
+          "runner_up": "claude_haiku+gemini_flash+mistral_small",
+          "runner_up_brier": 0.1248,
+          "verifiers": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ]
+        }
+      },
+      "expected_cost_usd": {
+        "claude_haiku:probability": 0.0025582105263157896,
+        "gemini_flash:probability": 0.0016649453441295549,
+        "gemini_lite:probability": 0.0016436886639676115,
+        "mistral_medium:probability": 0.00014740890688259107,
+        "mistral_small:probability": 3.537125506072875e-05
+      },
+      "joint_models": {
+        "claude_haiku+gemini_flash+gemini_lite": {
+          "alpha": "32",
+          "counts": {
+            "0": [
+              [
+                [
+                  2.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  8.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  2.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.0,
+                  0.0,
+                  16.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  13.0,
+                  0.0,
+                  38.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.0,
+                  0.0,
+                  9.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  142.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -316.5090558500905,
+            "1": -312.50368837796225,
+            "128": -303.00455417463115,
+            "16": -299.9980251071031,
+            "2": -308.64958647316286,
+            "256": -306.90213934603304,
+            "32": -299.3008126092708,
+            "4": -305.0893641020966,
+            "64": -300.30516278393765,
+            "8": -302.0765525936888,
+            "inf": -321.4213383099
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_flash:probability",
+            "gemini_lite:probability"
+          ]
+        },
+        "claude_haiku+gemini_flash+gemini_lite+mistral_medium+mistral_small": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  [
+                    [
+                      2.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      2.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      2.0,
+                      0.0,
+                      2.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      2.0,
+                      0.0,
+                      2.0
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.0,
+                      0.0,
+                      1.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      2.0,
+                      0.0,
+                      3.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      2.0,
+                      0.0,
+                      9.0
+                    ]
+                  ]
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  [
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      8.0,
+                      0.0,
+                      2.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      1.0,
+                      0.0,
+                      1.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      17.0,
+                      0.0,
+                      7.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      5.0,
+                      0.0,
+                      9.0
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      3.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.0,
+                      0.0,
+                      2.0
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      27.0,
+                      0.0,
+                      24.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      9.0,
+                      1.0,
+                      80.0
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -717.349294081496,
+            "1": -702.3830986499574,
+            "128": -636.2561175432785,
+            "16": -649.0025230862159,
+            "2": -687.694124602088,
+            "256": -641.3762872810278,
+            "32": -640.4218112014217,
+            "4": -673.541721375489,
+            "64": -635.854920418235,
+            "8": -660.3923630679275,
+            "inf": -671.352833029915
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_flash:probability",
+            "gemini_lite:probability",
+            "mistral_medium:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "claude_haiku+gemini_flash+mistral_medium": {
+          "alpha": "128",
+          "counts": {
+            "0": [
+              [
+                [
+                  4.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  4.0,
+                  0.0,
+                  4.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  6.0,
+                  0.0,
+                  12.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  34.0,
+                  1.0,
+                  16.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  5.0,
+                  0.0,
+                  6.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  53.0,
+                  1.0,
+                  91.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -452.49842422384467,
+            "1": -446.34748509011524,
+            "128": -417.35522802887067,
+            "16": -424.2052426140965,
+            "2": -440.28944843602903,
+            "256": -417.66575312844884,
+            "32": -420.54600059399496,
+            "4": -434.426017723836,
+            "64": -418.2418735935031,
+            "8": -428.9566361322625,
+            "inf": -421.24062578790137
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_flash:probability",
+            "mistral_medium:probability"
+          ]
+        },
+        "claude_haiku+gemini_flash+mistral_small": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  4.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  4.0,
+                  0.0,
+                  4.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  5.0,
+                  0.0,
+                  13.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  31.0,
+                  0.0,
+                  20.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  7.0,
+                  0.0,
+                  4.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  36.0,
+                  1.0,
+                  108.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -435.6321536865315,
+            "1": -428.88258220523113,
+            "128": -401.03621679611757,
+            "16": -405.7917391120631,
+            "2": -422.3093320943761,
+            "256": -402.6007771568845,
+            "32": -402.52756673376075,
+            "4": -416.07161008765297,
+            "64": -400.9167736918216,
+            "8": -410.4387220781023,
+            "inf": -409.99564027087854
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_flash:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "claude_haiku+gemini_lite+mistral_medium": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  6.0,
+                  0.0,
+                  5.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  5.0,
+                  0.0,
+                  13.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  11.0,
+                  1.0,
+                  4.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  24.0,
+                  0.0,
+                  14.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  4.0,
+                  0.0,
+                  5.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  51.0,
+                  1.0,
+                  91.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -474.75414539009915,
+            "1": -468.0305378816961,
+            "128": -442.4125982023849,
+            "16": -445.4237867595693,
+            "2": -461.50567496141196,
+            "256": -445.2138780617135,
+            "32": -442.4866090058106,
+            "4": -455.35320300456317,
+            "64": -441.4178001738536,
+            "8": -449.85918740724105,
+            "inf": -458.5242036303502
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_lite:probability",
+            "mistral_medium:probability"
+          ]
+        },
+        "claude_haiku+gemini_lite+mistral_small": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  6.0,
+                  0.0,
+                  5.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  5.0,
+                  0.0,
+                  13.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  10.0,
+                  0.0,
+                  6.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  22.0,
+                  0.0,
+                  16.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  6.0,
+                  0.0,
+                  3.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  37.0,
+                  1.0,
+                  105.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -457.609521772839,
+            "1": -451.51913683834874,
+            "128": -428.90204220940524,
+            "16": -430.6796524722467,
+            "2": -445.57644892508927,
+            "256": -432.6034012204703,
+            "32": -428.0010172560859,
+            "4": -439.92461420461836,
+            "64": -427.29213431091546,
+            "8": -434.823425744401,
+            "inf": -449.18784200646337
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_lite:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "claude_haiku+mistral_medium+mistral_small": {
+          "alpha": "32",
+          "counts": {
+            "0": [
+              [
+                [
+                  6.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.0,
+                  0.0,
+                  3.0
+                ]
+              ],
+              [
+                [
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  3.0,
+                  0.0,
+                  3.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.0,
+                  0.0,
+                  11.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  26.0,
+                  0.0,
+                  9.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  6.0,
+                  0.0,
+                  12.0
+                ]
+              ],
+              [
+                [
+                  3.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  4.0,
+                  0.0,
+                  2.0
+                ]
+              ],
+              [
+                [
+                  27.0,
+                  0.0,
+                  26.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  10.0,
+                  1.0,
+                  81.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -535.6002558770023,
+            "1": -532.8001766330436,
+            "128": -523.5592727489426,
+            "16": -522.1957013352653,
+            "2": -529.9883358585605,
+            "256": -528.7493720898441,
+            "32": -520.7685858250134,
+            "4": -527.1884293888467,
+            "64": -520.9523249815758,
+            "8": -524.5018068798855,
+            "inf": -551.1200263289523
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "mistral_medium:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "gemini_flash+gemini_lite+mistral_medium": {
+          "alpha": "128",
+          "counts": {
+            "0": [
+              [
+                [
+                  3.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.0,
+                  0.0,
+                  2.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  10.0,
+                  0.0,
+                  16.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  12.0,
+                  1.0,
+                  3.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  79.0,
+                  1.0,
+                  109.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -332.2711776131225,
+            "1": -326.8381552481132,
+            "128": -303.1674621384568,
+            "16": -307.79128216154453,
+            "2": -321.5173217205172,
+            "256": -303.85496138666974,
+            "32": -304.93049598524703,
+            "4": -316.41799985239845,
+            "64": -303.399495777148,
+            "8": -311.73944912647335,
+            "inf": -307.07946883565035
+          },
+          "verifiers": [
+            "gemini_flash:probability",
+            "gemini_lite:probability",
+            "mistral_medium:probability"
+          ]
+        },
+        "gemini_flash+gemini_lite+mistral_small": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  3.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  9.0,
+                  0.0,
+                  17.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  10.0,
+                  0.0,
+                  6.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  64.0,
+                  1.0,
+                  124.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -317.2405619578425,
+            "1": -311.9073301302233,
+            "128": -292.3226351056943,
+            "16": -294.6983906548737,
+            "2": -306.7742336024221,
+            "256": -293.25624055157624,
+            "32": -292.7339356261951,
+            "4": -302.0096382153859,
+            "64": -292.0142681368245,
+            "8": -297.87593339064506,
+            "inf": -296.4756445155081
+          },
+          "verifiers": [
+            "gemini_flash:probability",
+            "gemini_lite:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "gemini_flash+mistral_medium+mistral_small": {
+          "alpha": "32",
+          "counts": {
+            "0": [
+              [
+                [
+                  5.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  6.0,
+                  0.0,
+                  5.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  4.0,
+                  0.0,
+                  13.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  55.0,
+                  0.0,
+                  37.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  19.0,
+                  1.0,
+                  93.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -399.90405882746296,
+            "1": -395.20849332542014,
+            "128": -380.80233924314854,
+            "16": -379.9368912666528,
+            "2": -390.6667577800466,
+            "256": -384.5778115970978,
+            "32": -378.468236192844,
+            "4": -386.4222741868989,
+            "64": -378.6778658481976,
+            "8": -382.7242229549485,
+            "inf": -398.24585222405346
+          },
+          "verifiers": [
+            "gemini_flash:probability",
+            "mistral_medium:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "gemini_lite+mistral_medium+mistral_small": {
+          "alpha": "32",
+          "counts": {
+            "0": [
+              [
+                [
+                  4.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  7.0,
+                  0.0,
+                  5.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  5.0,
+                  0.0,
+                  14.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  9.0,
+                  0.0,
+                  4.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  2.0,
+                  0.0,
+                  3.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  47.0,
+                  0.0,
+                  32.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  18.0,
+                  1.0,
+                  91.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -423.71188466215506,
+            "1": -421.01732747782506,
+            "128": -415.10674127439563,
+            "16": -412.24818667627454,
+            "2": -418.4024671678343,
+            "256": -419.5736606049077,
+            "32": -411.6283395678486,
+            "4": -415.94863787481637,
+            "64": -412.42382415212455,
+            "8": -413.8107365062505,
+            "inf": -435.81839553549787
+          },
+          "verifiers": [
+            "gemini_lite:probability",
+            "mistral_medium:probability",
+            "mistral_small:probability"
+          ]
+        }
+      },
+      "likelihoods": {
+        "claude_haiku:probability": {
+          "fit_correct": 211,
+          "fit_wrong": 36,
+          "p_bin_if_correct": [
+            0.2570093457943925,
+            0.056074766355140186,
+            0.6869158878504673
+          ],
+          "p_bin_if_incorrect": [
+            0.358974358974359,
+            0.10256410256410256,
+            0.5384615384615384
+          ]
+        },
+        "gemini_flash:probability": {
+          "fit_correct": 210,
+          "fit_wrong": 36,
+          "p_bin_if_correct": [
+            0.014084507042253521,
+            0.009389671361502348,
+            0.9765258215962441
+          ],
+          "p_bin_if_incorrect": [
+            0.20512820512820512,
+            0.05128205128205128,
+            0.7435897435897436
+          ]
+        },
+        "gemini_lite:probability": {
+          "fit_correct": 209,
+          "fit_wrong": 36,
+          "p_bin_if_correct": [
+            0.09433962264150944,
+            0.0047169811320754715,
+            0.9009433962264151
+          ],
+          "p_bin_if_incorrect": [
+            0.15384615384615385,
+            0.02564102564102564,
+            0.8205128205128205
+          ]
+        },
+        "mistral_medium:probability": {
+          "fit_correct": 211,
+          "fit_wrong": 36,
+          "p_bin_if_correct": [
+            0.4392523364485981,
+            0.014018691588785047,
+            0.5467289719626168
+          ],
+          "p_bin_if_incorrect": [
+            0.4358974358974359,
+            0.02564102564102564,
+            0.5384615384615384
+          ]
+        },
+        "mistral_small:probability": {
+          "fit_correct": 211,
+          "fit_wrong": 36,
+          "p_bin_if_correct": [
+            0.3598130841121495,
+            0.009345794392523364,
+            0.6308411214953271
+          ],
+          "p_bin_if_incorrect": [
+            0.4358974358974359,
+            0.02564102564102564,
+            0.5384615384615384
+          ]
+        }
+      },
+      "n": 249,
+      "prior_calibration": {
+        "monotone_binned": {
+          "blocks": [
+            {
+              "calibrated": 0.5,
+              "correct": 2,
+              "n": 4,
+              "raw_values": [
+                0.4,
+                0.5
+              ]
+            },
+            {
+              "calibrated": 0.6585365853658537,
+              "correct": 26,
+              "n": 39,
+              "raw_values": [
+                0.55,
+                0.6,
+                0.65,
+                0.7,
+                0.75,
+                0.8,
+                0.85
+              ]
+            },
+            {
+              "calibrated": 0.8,
+              "correct": 67,
+              "n": 83,
+              "raw_values": [
+                0.9,
+                0.95
+              ]
+            },
+            {
+              "calibrated": 0.9512195121951219,
+              "correct": 116,
+              "n": 121,
+              "raw_values": [
+                0.98,
+                0.99,
+                1.0
+              ]
+            }
+          ],
+          "interpolate_x": [
+            0.4,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.95,
+            0.98,
+            0.99,
+            1.0
+          ],
+          "interpolate_y": [
+            0.5,
+            0.5,
+            0.6585365853658537,
+            0.6585365853658537,
+            0.6585365853658537,
+            0.6585365853658537,
+            0.6585365853658537,
+            0.6585365853658537,
+            0.6585365853658537,
+            0.8,
+            0.8,
+            0.9512195121951219,
+            0.9512195121951219,
+            0.9512195121951219
+          ],
+          "method": "monotone_binned",
+          "outside_range": "constant at the end values (numpy.interp)"
+        },
+        "platt": {
+          "eps": 0.001,
+          "intercept": -0.15313132589848805,
+          "map": "1/(1+exp(-(slope*logit(clip(raw, eps, 1-eps)) + intercept)))",
+          "method": "platt",
+          "slope": 0.6463366702816412
+        }
+      },
+      "valid_n": 247,
+      "wrong_n": 36
+    },
+    "qwen": {
+      "adaptive_policies": {
+        "monotone_binned/19": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "mistral_small>gemini_flash>claude_haiku",
+                "training_value": 0.02735866906633839
+              },
+              {
+                "order": "gemini_flash>mistral_small>claude_haiku",
+                "training_value": 0.026303623563913536
+              },
+              {
+                "order": "claude_haiku>mistral_small>gemini_flash",
+                "training_value": 0.026144811421667167
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_small",
+                "training_value": 0.02542967956525309
+              }
+            ],
+            "selected_order": [
+              "mistral_small",
+              "claude_haiku",
+              "gemini_flash"
+            ],
+            "training_value": 0.027540479365325807
+          },
+          "flash_training_value": 0.0,
+          "independence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.039453798263470896
+              },
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.03925961004435235
+              },
+              {
+                "order": "gemini_lite>claude_haiku>gemini_flash",
+                "training_value": 0.039061772649163086
+              },
+              {
+                "order": "gemini_flash>gemini_lite>claude_haiku",
+                "training_value": 0.038900488044996386
+              }
+            ],
+            "selected_order": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "training_value": 0.03950054381006484
+          }
+        },
+        "monotone_binned/99": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_flash>mistral_medium",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_small",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>mistral_medium",
+                "training_value": 0.0
+              }
+            ],
+            "selected_order": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "training_value": 0.0
+          },
+          "flash_training_value": 0.0,
+          "independence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_flash>mistral_medium",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_small",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>mistral_medium",
+                "training_value": 0.0
+              }
+            ],
+            "selected_order": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "training_value": 0.0
+          }
+        },
+        "platt/19": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_flash>gemini_lite",
+                "training_value": 0.04045596412611496
+              },
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.04035379773204748
+              },
+              {
+                "order": "gemini_flash>gemini_lite>claude_haiku",
+                "training_value": 0.040220531765926375
+              },
+              {
+                "order": "gemini_lite>claude_haiku>gemini_flash",
+                "training_value": 0.03995151811888329
+              }
+            ],
+            "selected_order": [
+              "gemini_flash",
+              "claude_haiku",
+              "gemini_lite"
+            ],
+            "training_value": 0.04062913845118269
+          },
+          "flash_training_value": 0.006046304500573967,
+          "independence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.05215944572488708
+              },
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.05190547414126182
+              },
+              {
+                "order": "gemini_lite>claude_haiku>gemini_flash",
+                "training_value": 0.05177288789591255
+              },
+              {
+                "order": "gemini_flash>gemini_lite>claude_haiku",
+                "training_value": 0.05157774812137312
+              }
+            ],
+            "selected_order": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "training_value": 0.052189577295118444
+          }
+        },
+        "platt/99": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "mistral_small>gemini_lite>gemini_flash",
+                "training_value": 4.960382995067241e-07
+              },
+              {
+                "order": "claude_haiku>gemini_flash>gemini_lite",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_medium",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_small",
+                "training_value": 0.0
+              }
+            ],
+            "selected_order": [
+              "mistral_small",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "training_value": 4.98731146464464e-07
+          },
+          "flash_training_value": 0.0,
+          "independence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_flash>mistral_medium",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_flash>mistral_small",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>gemini_flash",
+                "training_value": 0.0
+              },
+              {
+                "order": "claude_haiku>gemini_lite>mistral_medium",
+                "training_value": 0.0
+              }
+            ],
+            "selected_order": [
+              "claude_haiku",
+              "gemini_flash",
+              "gemini_lite"
+            ],
+            "training_value": 0.0
+          }
+        },
+        "raw/19": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "gemini_flash>gemini_lite>claude_haiku",
+                "training_value": 0.5300520190833162
+              },
+              {
+                "order": "gemini_flash>mistral_medium>claude_haiku",
+                "training_value": 0.5295432988762495
+              },
+              {
+                "order": "mistral_medium>gemini_flash>claude_haiku",
+                "training_value": 0.529459308259116
+              },
+              {
+                "order": "gemini_flash>claude_haiku>mistral_medium",
+                "training_value": 0.5271786981004855
+              }
+            ],
+            "selected_order": [
+              "gemini_flash",
+              "claude_haiku",
+              "gemini_lite"
+            ],
+            "training_value": 0.5313061452794944
+          },
+          "flash_training_value": 0.4740915634881721,
+          "independence": {
+            "next_four": [
+              {
+                "order": "gemini_lite>gemini_flash>claude_haiku",
+                "training_value": 0.5488657796443421
+              },
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.5447487404344815
+              },
+              {
+                "order": "claude_haiku>gemini_flash>gemini_lite",
+                "training_value": 0.5401185986727566
+              },
+              {
+                "order": "gemini_lite>claude_haiku>gemini_flash",
+                "training_value": 0.5342153846658847
+              }
+            ],
+            "selected_order": [
+              "gemini_flash",
+              "gemini_lite",
+              "claude_haiku"
+            ],
+            "training_value": 0.5513145608027498
+          }
+        },
+        "raw/99": {
+          "dependence": {
+            "next_four": [
+              {
+                "order": "mistral_medium>gemini_flash>claude_haiku",
+                "training_value": 0.10681221135850638
+              },
+              {
+                "order": "mistral_small>claude_haiku>gemini_flash",
+                "training_value": 0.10644762709962491
+              },
+              {
+                "order": "mistral_small>gemini_flash>claude_haiku",
+                "training_value": 0.10551537665316385
+              },
+              {
+                "order": "claude_haiku>mistral_small>gemini_flash",
+                "training_value": 0.10323279444445412
+              }
+            ],
+            "selected_order": [
+              "mistral_medium",
+              "claude_haiku",
+              "gemini_flash"
+            ],
+            "training_value": 0.1072032887004422
+          },
+          "flash_training_value": 0.06642442116066964,
+          "independence": {
+            "next_four": [
+              {
+                "order": "claude_haiku>gemini_flash>gemini_lite",
+                "training_value": 0.14455130497669413
+              },
+              {
+                "order": "gemini_lite>claude_haiku>gemini_flash",
+                "training_value": 0.14373018656156428
+              },
+              {
+                "order": "gemini_flash>claude_haiku>gemini_lite",
+                "training_value": 0.14344045135548725
+              },
+              {
+                "order": "gemini_lite>gemini_flash>claude_haiku",
+                "training_value": 0.1427106883473331
+              }
+            ],
+            "selected_order": [
+              "claude_haiku",
+              "gemini_lite",
+              "gemini_flash"
+            ],
+            "training_value": 0.1446284036374079
+          }
+        }
+      },
+      "declared_brier_triple": {
+        "monotone_binned": {
+          "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)",
+          "development_cv_brier": 0.1007,
+          "development_cv_brier_flash": 0.0998,
+          "model": "dependence",
+          "runner_up": "claude_haiku+gemini_flash+mistral_medium",
+          "runner_up_brier": 0.1022,
+          "verifiers": [
+            "gemini_flash",
+            "mistral_medium",
+            "mistral_small"
+          ]
+        },
+        "platt": {
+          "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)",
+          "development_cv_brier": 0.1016,
+          "development_cv_brier_flash": 0.1014,
+          "model": "dependence",
+          "runner_up": "claude_haiku+gemini_flash+mistral_small",
+          "runner_up_brier": 0.1037,
+          "verifiers": [
+            "gemini_flash",
+            "mistral_medium",
+            "mistral_small"
+          ]
+        },
+        "raw": {
+          "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)",
+          "development_cv_brier": 0.1282,
+          "development_cv_brier_flash": 0.1404,
+          "model": "dependence",
+          "runner_up": "gemini_flash+gemini_lite+mistral_medium",
+          "runner_up_brier": 0.1313,
+          "verifiers": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ]
+        }
+      },
+      "expected_cost_usd": {
+        "claude_haiku:probability": 0.0025483413654618474,
+        "gemini_flash:probability": 0.0019200030120481925,
+        "gemini_lite:probability": 0.0017278465863453814,
+        "mistral_medium:probability": 0.00014919357429718876,
+        "mistral_small:probability": 3.577590361445784e-05
+      },
+      "joint_models": {
+        "claude_haiku+gemini_flash+gemini_lite": {
+          "alpha": "32",
+          "counts": {
+            "0": [
+              [
+                [
+                  13.0,
+                  0.0,
+                  12.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  6.0
+                ]
+              ],
+              [
+                [
+                  3.0,
+                  0.0,
+                  6.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  5.0
+                ]
+              ],
+              [
+                [
+                  10.0,
+                  0.0,
+                  20.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  14.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  0.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  4.0,
+                  0.0,
+                  22.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.0,
+                  0.0,
+                  3.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  119.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -359.50241294736895,
+            "1": -356.8163108167862,
+            "128": -351.20068815898026,
+            "16": -348.1918203518593,
+            "2": -354.21600659609453,
+            "256": -354.4220490640708,
+            "32": -347.738623380968,
+            "4": -351.78502870338525,
+            "64": -348.74174248929785,
+            "8": -349.6825595085332,
+            "inf": -362.8466193981467
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_flash:probability",
+            "gemini_lite:probability"
+          ]
+        },
+        "claude_haiku+gemini_flash+gemini_lite+mistral_medium+mistral_small": {
+          "alpha": "128",
+          "counts": {
+            "0": [
+              [
+                [
+                  [
+                    [
+                      5.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      2.0,
+                      0.0,
+                      4.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      4.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.0,
+                      0.0,
+                      5.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      1.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      2.0,
+                      0.0,
+                      2.0
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      3.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.0,
+                      0.0,
+                      5.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      4.0
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    [
+                      2.0,
+                      0.0,
+                      4.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      2.0,
+                      0.0,
+                      2.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      2.0,
+                      0.0,
+                      2.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      6.0,
+                      0.0,
+                      10.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      2.0,
+                      0.0,
+                      2.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      3.0,
+                      0.0,
+                      7.0
+                    ]
+                  ]
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      3.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      9.0,
+                      0.0,
+                      7.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.0,
+                      0.0,
+                      5.0
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      1.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      2.0
+                    ]
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      1.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ],
+                [
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      22.0,
+                      0.0,
+                      21.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    [
+                      6.0,
+                      1.0,
+                      68.0
+                    ]
+                  ]
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -788.1135235189798,
+            "1": -769.6024386816053,
+            "128": -679.9750270968169,
+            "16": -701.0226906878053,
+            "2": -751.2977727816128,
+            "256": -683.158311939417,
+            "32": -688.7882527839804,
+            "4": -733.4115742506343,
+            "64": -681.4545528957959,
+            "8": -716.3739738617876,
+            "inf": -701.0674067062728
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_flash:probability",
+            "gemini_lite:probability",
+            "mistral_medium:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "claude_haiku+gemini_flash+mistral_medium": {
+          "alpha": "128",
+          "counts": {
+            "0": [
+              [
+                [
+                  10.0,
+                  1.0,
+                  14.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  2.0,
+                  0.0,
+                  4.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  9.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  4.0
+                ]
+              ],
+              [
+                [
+                  10.0,
+                  0.0,
+                  21.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  4.0,
+                  0.0,
+                  11.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  19.0,
+                  0.0,
+                  7.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.0,
+                  0.0,
+                  2.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  44.0,
+                  1.0,
+                  76.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -488.1105586385756,
+            "1": -482.61234712425977,
+            "128": -454.046246864258,
+            "16": -461.9102799455147,
+            "2": -477.1619073775361,
+            "256": -454.119539625044,
+            "32": -457.938555332835,
+            "4": -471.8089785830848,
+            "64": -455.223431491263,
+            "8": -466.6563261343217,
+            "inf": -456.4027845494471
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_flash:probability",
+            "mistral_medium:probability"
+          ]
+        },
+        "claude_haiku+gemini_flash+mistral_small": {
+          "alpha": "256",
+          "counts": {
+            "0": [
+              [
+                [
+                  14.0,
+                  0.0,
+                  11.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  3.0,
+                  0.0,
+                  3.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  8.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  4.0
+                ]
+              ],
+              [
+                [
+                  12.0,
+                  0.0,
+                  19.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  6.0,
+                  0.0,
+                  9.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  13.0,
+                  0.0,
+                  13.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  4.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  28.0,
+                  1.0,
+                  92.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -484.1851540149363,
+            "1": -477.9634534793192,
+            "128": -443.500552675178,
+            "16": -453.9296843730696,
+            "2": -471.7625580690725,
+            "256": -442.9919712697619,
+            "32": -449.0140330307029,
+            "4": -465.6138172417809,
+            "64": -445.42099936427417,
+            "8": -459.60082333561445,
+            "inf": -444.2629353184546
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_flash:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "claude_haiku+gemini_lite+mistral_medium": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  6.0,
+                  1.0,
+                  6.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  6.0,
+                  0.0,
+                  13.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  3.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  10.0
+                ]
+              ],
+              [
+                [
+                  6.0,
+                  0.0,
+                  5.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  8.0,
+                  0.0,
+                  26.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  3.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  17.0,
+                  0.0,
+                  7.0
+                ]
+              ],
+              [
+                [
+                  2.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  2.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  43.0,
+                  1.0,
+                  77.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -455.5468968284747,
+            "1": -452.7794864502332,
+            "128": -441.85751173225054,
+            "16": -442.34777500648505,
+            "2": -450.0219692730975,
+            "256": -444.4344601096773,
+            "32": -440.7468168437239,
+            "4": -447.2964696247156,
+            "64": -440.4755445231031,
+            "8": -444.67317366696454,
+            "inf": -453.4352695971627
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_lite:probability",
+            "mistral_medium:probability"
+          ]
+        },
+        "claude_haiku+gemini_lite+mistral_small": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  7.0,
+                  0.0,
+                  6.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  11.0,
+                  0.0,
+                  8.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  3.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.0,
+                  0.0,
+                  9.0
+                ]
+              ],
+              [
+                [
+                  5.0,
+                  0.0,
+                  6.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  13.0,
+                  0.0,
+                  21.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  3.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  11.0,
+                  0.0,
+                  13.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  3.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  30.0,
+                  1.0,
+                  90.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -448.6696087200803,
+            "1": -446.5833630145245,
+            "128": -437.1942487663278,
+            "16": -438.49852953233454,
+            "2": -444.49437870937163,
+            "256": -438.63739286838,
+            "32": -437.0909111951203,
+            "4": -442.41048046489993,
+            "64": -436.5769584918922,
+            "8": -440.3698806580088,
+            "inf": -443.52764763988523
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "gemini_lite:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "claude_haiku+mistral_medium+mistral_small": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  10.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  8.0,
+                  0.0,
+                  11.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  12.0
+                ]
+              ],
+              [
+                [
+                  6.0,
+                  0.0,
+                  8.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  12.0,
+                  0.0,
+                  20.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  13.0,
+                  0.0,
+                  7.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  8.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  2.0
+                ]
+              ],
+              [
+                [
+                  22.0,
+                  0.0,
+                  22.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  8.0,
+                  1.0,
+                  69.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -548.9900140573673,
+            "1": -542.8062882964613,
+            "128": -517.2058752126568,
+            "16": -519.9913762150245,
+            "2": -536.6822550129618,
+            "256": -521.5565258317542,
+            "32": -516.402464751068,
+            "4": -530.6903115779936,
+            "64": -515.2604388048247,
+            "8": -524.9997439406864,
+            "inf": -536.7635010748894
+          },
+          "verifiers": [
+            "claude_haiku:probability",
+            "mistral_medium:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "gemini_flash+gemini_lite+mistral_medium": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  12.0,
+                  1.0,
+                  13.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  8.0,
+                  0.0,
+                  30.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  7.0,
+                  0.0,
+                  18.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  2.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  5.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  60.0,
+                  1.0,
+                  83.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -365.16562228247216,
+            "1": -360.40861727155675,
+            "128": -341.04463161469386,
+            "16": -343.695190195995,
+            "2": -355.7458373650814,
+            "256": -342.40404397341115,
+            "32": -341.3394057563204,
+            "4": -351.26879702439373,
+            "64": -340.47389665470996,
+            "8": -347.1508372211818,
+            "inf": -346.1332891227029
+          },
+          "verifiers": [
+            "gemini_flash:probability",
+            "gemini_lite:probability",
+            "mistral_medium:probability"
+          ]
+        },
+        "gemini_flash+gemini_lite+mistral_small": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  11.0,
+                  0.0,
+                  15.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  16.0,
+                  0.0,
+                  22.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  9.0,
+                  0.0,
+                  16.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  2.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  4.0,
+                  0.0,
+                  2.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  38.0,
+                  1.0,
+                  105.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -354.00770813237926,
+            "1": -349.2711099981071,
+            "128": -330.5403001822273,
+            "16": -332.9583376566895,
+            "2": -344.6473066478707,
+            "256": -331.73074553183795,
+            "32": -330.78498368684575,
+            "4": -340.2414689384914,
+            "64": -330.0208582780724,
+            "8": -336.24296732536413,
+            "inf": -334.9337580355871
+          },
+          "verifiers": [
+            "gemini_flash:probability",
+            "gemini_lite:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "gemini_flash+mistral_medium+mistral_small": {
+          "alpha": "64",
+          "counts": {
+            "0": [
+              [
+                [
+                  13.0,
+                  0.0,
+                  7.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  14.0,
+                  0.0,
+                  30.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  4.0,
+                  0.0,
+                  3.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  6.0,
+                  0.0,
+                  13.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              [
+                [
+                  35.0,
+                  0.0,
+                  31.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  7.0,
+                  1.0,
+                  77.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -444.879225951914,
+            "1": -439.3747195548393,
+            "128": -415.0944218554459,
+            "16": -418.82598840613485,
+            "2": -433.9147298065599,
+            "256": -418.1469821818735,
+            "32": -415.38060907820955,
+            "4": -428.55381247745186,
+            "64": -413.9629356866002,
+            "8": -423.42249351704265,
+            "inf": -428.4552957981855
+          },
+          "verifiers": [
+            "gemini_flash:probability",
+            "mistral_medium:probability",
+            "mistral_small:probability"
+          ]
+        },
+        "gemini_lite+mistral_medium+mistral_small": {
+          "alpha": "32",
+          "counts": {
+            "0": [
+              [
+                [
+                  7.0,
+                  0.0,
+                  5.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  5.0,
+                  0.0,
+                  9.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  10.0,
+                  0.0,
+                  5.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  16.0,
+                  0.0,
+                  33.0
+                ]
+              ]
+            ],
+            "1": [
+              [
+                [
+                  4.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  2.0
+                ]
+              ],
+              [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              [
+                [
+                  32.0,
+                  0.0,
+                  29.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                [
+                  9.0,
+                  1.0,
+                  76.0
+                ]
+              ]
+            ]
+          },
+          "inner_cv_loglik": {
+            "0.5": -424.35422713589946,
+            "1": -421.59324071210654,
+            "128": -413.099454381482,
+            "16": -411.40843866589546,
+            "2": -418.84897533802985,
+            "256": -417.09743348159986,
+            "32": -410.1390149045528,
+            "4": -416.1515645775838,
+            "64": -410.559811291768,
+            "8": -413.5903671142044,
+            "inf": -428.5467726278681
+          },
+          "verifiers": [
+            "gemini_lite:probability",
+            "mistral_medium:probability",
+            "mistral_small:probability"
+          ]
+        }
+      },
+      "likelihoods": {
+        "claude_haiku:probability": {
+          "fit_correct": 157,
+          "fit_wrong": 92,
+          "p_bin_if_correct": [
+            0.1875,
+            0.0375,
+            0.775
+          ],
+          "p_bin_if_incorrect": [
+            0.3473684210526316,
+            0.15789473684210525,
+            0.49473684210526314
+          ]
+        },
+        "gemini_flash:probability": {
+          "fit_correct": 156,
+          "fit_wrong": 92,
+          "p_bin_if_correct": [
+            0.025157232704402517,
+            0.012578616352201259,
+            0.9622641509433962
+          ],
+          "p_bin_if_incorrect": [
+            0.6947368421052632,
+            0.021052631578947368,
+            0.28421052631578947
+          ]
+        },
+        "gemini_lite:probability": {
+          "fit_correct": 155,
+          "fit_wrong": 91,
+          "p_bin_if_correct": [
+            0.05063291139240506,
+            0.006329113924050633,
+            0.9430379746835443
+          ],
+          "p_bin_if_incorrect": [
+            0.2978723404255319,
+            0.010638297872340425,
+            0.6914893617021277
+          ]
+        },
+        "mistral_medium:probability": {
+          "fit_correct": 157,
+          "fit_wrong": 92,
+          "p_bin_if_correct": [
+            0.425,
+            0.0125,
+            0.5625
+          ],
+          "p_bin_if_incorrect": [
+            0.29473684210526313,
+            0.021052631578947368,
+            0.6842105263157895
+          ]
+        },
+        "mistral_small:probability": {
+          "fit_correct": 157,
+          "fit_wrong": 92,
+          "p_bin_if_correct": [
+            0.2875,
+            0.0125,
+            0.7
+          ],
+          "p_bin_if_incorrect": [
+            0.4105263157894737,
+            0.010526315789473684,
+            0.5789473684210527
+          ]
+        }
+      },
+      "n": 249,
+      "prior_calibration": {
+        "monotone_binned": {
+          "blocks": [
+            {
+              "calibrated": 0.3333333333333333,
+              "correct": 0,
+              "n": 1,
+              "raw_values": [
+                0.1
+              ]
+            },
+            {
+              "calibrated": 0.35,
+              "correct": 20,
+              "n": 58,
+              "raw_values": [
+                0.75,
+                0.8,
+                0.85
+              ]
+            },
+            {
+              "calibrated": 0.5652173913043478,
+              "correct": 12,
+              "n": 21,
+              "raw_values": [
+                0.9
+              ]
+            },
+            {
+              "calibrated": 0.5882352941176471,
+              "correct": 9,
+              "n": 15,
+              "raw_values": [
+                0.92
+              ]
+            },
+            {
+              "calibrated": 0.7117117117117117,
+              "correct": 78,
+              "n": 109,
+              "raw_values": [
+                0.95
+              ]
+            },
+            {
+              "calibrated": 0.8297872340425532,
+              "correct": 38,
+              "n": 45,
+              "raw_values": [
+                0.98,
+                0.99
+              ]
+            }
+          ],
+          "interpolate_x": [
+            0.1,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.92,
+            0.95,
+            0.98,
+            0.99
+          ],
+          "interpolate_y": [
+            0.3333333333333333,
+            0.35,
+            0.35,
+            0.35,
+            0.5652173913043478,
+            0.5882352941176471,
+            0.7117117117117117,
+            0.8297872340425532,
+            0.8297872340425532
+          ],
+          "method": "monotone_binned",
+          "outside_range": "constant at the end values (numpy.interp)"
+        },
+        "platt": {
+          "eps": 0.001,
+          "intercept": -2.0974854829656797,
+          "map": "1/(1+exp(-(slope*logit(clip(raw, eps, 1-eps)) + intercept)))",
+          "method": "platt",
+          "slope": 0.9959882633092072
+        }
+      },
+      "valid_n": 249,
+      "wrong_n": 92
+    }
+  },
+  "implementation_sha256": {
+    "dependence_triples.py": "c7a0f1d85d0093d8b4e22c2e424e14d697a59c656d0cf8dc8e640bac984c5983",
+    "diamond_plan.py": "9514fc2c4f57d4be253e9654bc318086afa17d7132f2f071ec55e2bb59d42bfc",
+    "score.py": "7f0f8e7ab33704df85e8943236831080f77a73c7518d4accc76e37f3e7c98beb"
+  },
+  "plan_id": "e8674593b22690bd7e312356c057739422076b6a3ed5934d51d613bff0ce5f2c",
+  "purpose": "one confirmatory Diamond test of methods fitted on the 249 development questions",
+  "schema": 1,
+  "settings": {
+    "alpha_grid": [
+      0.5,
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "correct_reward": 1.0,
+    "inner_folds": 5,
+    "inner_seed": 20261012,
+    "laplace": 1.0,
+    "losses": [
+      19.0,
+      99.0
+    ],
+    "probability_bins": 3,
+    "reference_verifier": "gemini_flash:probability",
+    "utility_per_usd": 10.0
+  },
+  "source_bundle_sha256": "61677b5889987f140ce6f43f20d476c5734d6bd25f3780099310f69a36190469"
+}

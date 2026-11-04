@@ -15,13 +15,20 @@ dependencies = [
     "numpy>=1.26,<2.3",
     "pandas>=2.3.3",
     "scikit-learn>=1.9.0",
+    "scipy>=1.11",
     # PubMedQA ships as parquet. Declared here, not installed ad hoc: `uv run`
     # re-syncs from this file, so an ad-hoc install is dropped on the next call.
     "pyarrow>=15",
+    # Vertex AI requests use the VM's user-managed ADC file; gcloud's active
+    # account can be a differently scoped Compute Engine service identity.
+    "google-auth[requests]>=2.35",
+    # Official gated GPQA downloads are also needed on an API-only laptop.
+    "huggingface_hub>=0.34",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+report = ["matplotlib>=3.9"]
 # vllm needs CUDA and will not install on macOS. Only the VM installs this,
 # which is why vgx.common.llm imports it lazily.
 #

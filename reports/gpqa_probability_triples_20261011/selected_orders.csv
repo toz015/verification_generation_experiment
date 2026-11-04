@@ -1,0 +1,121 @@
+generator,cohort,seed,loss,fold,selected_order,selected_single,cheapest_three,selection_id
+gemini,all_calibration,seed_20261005,19.0,0,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,eab2e83bde6387ab4fffb03c9a73d90dc1851f9fbc465f8a7ef14803e99412d4
+gemini,all_calibration,seed_20261005,19.0,1,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,1f4d6c632dc5e9bfc97cd7d135a55a57d0c77d63c98bebed4d315c856ef983ea
+gemini,all_calibration,seed_20261005,19.0,2,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash,03bf1def7a428a4becacffbe5194f0d652a8934d52150a04e24a16435c909eee
+gemini,all_calibration,seed_20261005,99.0,0,Mistral Small → Haiku → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,f48dc4ec0baa59dd075aba6ee6bfae369c773808a2a461515e0039004770774b
+gemini,all_calibration,seed_20261005,99.0,1,Mistral Small → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,02a2b679ccd1c1abef6a461989c9f37d945b8f9335495287ba39036cbb3b9edf
+gemini,all_calibration,seed_20261005,99.0,2,Mistral Small → Haiku → Flash,Flash,Mistral Small → Mistral Medium → Flash,83581c5d26dd4314968a7f1bbc9610a2eb60edaaf13a8482b5fb48981a83be33
+gemini,all_calibration,seed_20261006,19.0,0,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,46da2f92155cd0915291b4a4d87543aa8b698944fdc3e00f36aab3d622d41e96
+gemini,all_calibration,seed_20261006,19.0,1,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash,fa6451242d725a53f17ff1a27c311f60c390344e48ef1f0bc92b9d662622f7b1
+gemini,all_calibration,seed_20261006,19.0,2,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,d3ac474bf8a12a6a036f4f978fa4fcfc5b2bf75ba3acf69a4f8cb0e1a23c6457
+gemini,all_calibration,seed_20261006,99.0,0,Mistral Small → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,3d84475da1c336babc8c0ede6ca534b90fee977c21016c93bc35bdfcbbee8d46
+gemini,all_calibration,seed_20261006,99.0,1,Mistral Small → Haiku → Flash,Flash,Mistral Small → Mistral Medium → Flash,12ab01ab86e885fd9fd3a5b2005913b1a7e220c47af33b0ce465d50b454d5e07
+gemini,all_calibration,seed_20261006,99.0,2,Mistral Small → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,250ccf04bffedeebd85ea31460c0789b5a2779b9a8070fb8316d289be0b0f755
+gemini,all_calibration,seed_20261007,19.0,0,Flash → Mistral Small → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,5533ad1bc9ecd76902031550999fc45aebea786fda7674584b7177a39e675ae7
+gemini,all_calibration,seed_20261007,19.0,1,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,76115099ab3f4575563161abc4459b0c12e3769bd3f9df54f7356faf4979f290
+gemini,all_calibration,seed_20261007,19.0,2,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash,34fbe61ad08215d9b737d26736fab9f217dbd374e92ba24b0db72c6f39180d37
+gemini,all_calibration,seed_20261007,99.0,0,Mistral Small → Haiku → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,029faf1cbb25da8b26aa97154087cfa26c59c4b0ed908d38906a54aa4e94bf45
+gemini,all_calibration,seed_20261007,99.0,1,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,fba83b4a18d99c652ceabafd0dfd3569e4f90e57e912b188fe5d9250bbefa3b1
+gemini,all_calibration,seed_20261007,99.0,2,Flash-Lite → Mistral Small → Flash,Flash,Mistral Small → Mistral Medium → Flash,87ccc5a646a28c7d0e7b0691cabe41ac589ed45161f855efa7acefc08e5ed9f3
+gemini,all_calibration,seed_20261008,19.0,0,Mistral Medium → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,7f891ac6f700669acfd2fd63dd95e0b388a0468abb3298ec4b193d6030f2c78a
+gemini,all_calibration,seed_20261008,19.0,1,Flash → Mistral Medium → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,a9b7d352be17b18874070f78e6b2e2ad2cc07e47e55725b5d249b67d18137591
+gemini,all_calibration,seed_20261008,19.0,2,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash,d0e82543551477c6aecd767a64904ee18723f6bca1ed978dee8794db7e991758
+gemini,all_calibration,seed_20261008,99.0,0,Mistral Medium → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,dd0540a5bfff4c3e4ae1de6806f2c3130d7b0e8dc32397b120d4c50827a262d9
+gemini,all_calibration,seed_20261008,99.0,1,Flash-Lite → Mistral Medium → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,18f1e59ddb0f1cc982aab359706a0bc76d1a3f19d0f210a39e3833ff76f81bfb
+gemini,all_calibration,seed_20261008,99.0,2,Mistral Small → Haiku → Flash,Flash,Mistral Small → Mistral Medium → Flash,f8e10116daabad49c78525bd153587d29fb7cb43da051c1543ba2b976abe32c9
+gemini,all_calibration,seed_20261009,19.0,0,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,fc7b2ad525090ad324f492f918e8a5b488b692262ba4692def3e0824ef86250f
+gemini,all_calibration,seed_20261009,19.0,1,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,6c16135dc6c85f9cfe1d43c8bba424b4b317be84df85f1405a9ff945a34d3467
+gemini,all_calibration,seed_20261009,19.0,2,Flash → Mistral Medium → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,08485c8c6ed0f793ad371b9f0c271bc7d101716f1779a025e505de3cf668f80c
+gemini,all_calibration,seed_20261009,99.0,0,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,dbf674829829e6c6ec66a53d034b2b758b8382ed099cd0c0be1948262fb40b68
+gemini,all_calibration,seed_20261009,99.0,1,Mistral Small → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,8317076656a9853745fbf008e1612af2c173882b68dd570c4bc15472c17d73ea
+gemini,all_calibration,seed_20261009,99.0,2,Mistral Medium → Haiku → Flash,Haiku,Mistral Small → Mistral Medium → Flash-Lite,0100b9e9f34a297989670c26666945779f2c31bf7fe1c31e3cff58692df4ace1
+gemini,remaining_calibration,seed_20261005,19.0,0,Mistral Medium → Flash → Haiku,Haiku,Mistral Small → Mistral Medium → Flash,000249cc6e8f27b87fb1b57245b7aee32f618d64d6020370bf6aff050892685a
+gemini,remaining_calibration,seed_20261005,19.0,1,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,a04a201efb3ef34348d4b159c09a685dc181fd7851246e9e630bbe41cb1e0ddb
+gemini,remaining_calibration,seed_20261005,19.0,2,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,e4170c5f96bd1dae918866f2d9ae710c109e2d6015fcee960b2d082f2462d8f6
+gemini,remaining_calibration,seed_20261005,99.0,0,Mistral Medium → Flash → Haiku,Haiku,Mistral Small → Mistral Medium → Flash,437f337a23e723862f6f9f71caaca2a6174224e8e85845647f837913fbbe44eb
+gemini,remaining_calibration,seed_20261005,99.0,1,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,448257425a266155b6e68aabb1a24d0d95c184b5b08a2a6a39b0a61c7691c4cc
+gemini,remaining_calibration,seed_20261005,99.0,2,Mistral Small → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,9221c56537d85df6d0f809130a6ced353ae864b691521da80e3f22673dee4a8e
+gemini,remaining_calibration,seed_20261006,19.0,0,Mistral Medium → Flash → Flash-Lite,Flash-Lite,Mistral Small → Mistral Medium → Flash-Lite,a6b838f3d79546e5e9bdeef8982ac989464a0059130dbc7263e24b9f3766ba68
+gemini,remaining_calibration,seed_20261006,19.0,1,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,4bf5129fb6d173b4b6eeb35b34853c11d64bb0240418e50f7db0a0ef8ac83293
+gemini,remaining_calibration,seed_20261006,19.0,2,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,bfc21d8a793b1f22901ed9d470d2a3ef82ed7aff5b3cb45788ee990e3eb7b455
+gemini,remaining_calibration,seed_20261006,99.0,0,Haiku → Flash-Lite → Flash,Haiku,Mistral Small → Mistral Medium → Flash-Lite,0664b42190a97c448cbbf3f49ea3ca3cb9c57bc7a20bfd90e2788c1e0f5ecd86
+gemini,remaining_calibration,seed_20261006,99.0,1,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,e3df780d98175a49da8d22d0b28cf56d03f9fffcf99829a57645da33e2218004
+gemini,remaining_calibration,seed_20261006,99.0,2,Mistral Small → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,becde03ab7269892831155d7773eadc2f680894116ff91cb6670dae7c4daabd6
+gemini,remaining_calibration,seed_20261007,19.0,0,Mistral Small → Flash → Haiku,Haiku,Mistral Small → Mistral Medium → Flash-Lite,a18ed839506c1861abaff4b7672a25061eecad2d55dc89d339eeb112c64f1507
+gemini,remaining_calibration,seed_20261007,19.0,1,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash,de96f7fcc029080df666ee7c4653ed3261bfd7ba000fef46e2525945c2ab239d
+gemini,remaining_calibration,seed_20261007,19.0,2,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,37e381a2e49bff4f4c0349d002dd726ed4806b5e73a8016c54fd95dc2c7e03b5
+gemini,remaining_calibration,seed_20261007,99.0,0,Mistral Small → Haiku → Flash,Haiku,Mistral Small → Mistral Medium → Flash-Lite,409edd53ba7f9f20f3f0f734b5441f96575a5e33ca35c5a0b656ab395514d3e5
+gemini,remaining_calibration,seed_20261007,99.0,1,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash,840290ff5bc535684f410aaba8b682212313bafd3624db1868f013a21437e1ce
+gemini,remaining_calibration,seed_20261007,99.0,2,Mistral Small → Flash-Lite → Flash,Mistral Small,Mistral Small → Mistral Medium → Flash-Lite,923388e246c869deac7f3be2117824ab0871b2b1d08ee19827db6b9c80ff8a38
+gemini,remaining_calibration,seed_20261008,19.0,0,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,7eda98ad6c31eb2df4b246bde684b815d70e53c5f0cbc37fee99ec6c06c87208
+gemini,remaining_calibration,seed_20261008,19.0,1,Flash → Haiku → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,3ab3078f708953fb8a74e20cbb770c44a9114fd1bd1cb69b4d60d0a0a6271f3f
+gemini,remaining_calibration,seed_20261008,19.0,2,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,575e0353a9c5432b2f66d613706f9ffb5f49527b1ec6c28ef4c57309c4897562
+gemini,remaining_calibration,seed_20261008,99.0,0,Mistral Small → Flash → Flash-Lite,Mistral Small,Mistral Small → Mistral Medium → Flash-Lite,8050132e36dd871519e12e86c8e936d6203dec283e82ae6cdc15e4ae7cbd2249
+gemini,remaining_calibration,seed_20261008,99.0,1,Haiku → Flash-Lite → Flash,Haiku,Mistral Small → Mistral Medium → Flash-Lite,332b00c082d7d8b62980822abf8b26552e5a4ea619d142276d4983308ae836af
+gemini,remaining_calibration,seed_20261008,99.0,2,Mistral Small → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,17f291ab4cab4e0227e443741924d75f7c18a8e9e70531f602b68c7ba0a744c6
+gemini,remaining_calibration,seed_20261009,19.0,0,Mistral Small → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,d8e273ab9ee6240b3b8a722b40a105ad849e56cb63b8c6c1abdf05f203861099
+gemini,remaining_calibration,seed_20261009,19.0,1,Flash → Mistral Small → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,e02b00f511877fa3efef36406a6721c770014ad04140c0f547f7ef82f98c3a5a
+gemini,remaining_calibration,seed_20261009,19.0,2,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,5c0e49d40872fde1a3d1b200f41cbbf208a1832bbd4249a311654ab9edd765af
+gemini,remaining_calibration,seed_20261009,99.0,0,Mistral Small → Flash → Haiku,Mistral Small,Mistral Small → Mistral Medium → Flash-Lite,d28cc7ab0a8a811df4dc2566b1bfc1f14f10be889895ed0ca5e1836c7208aa26
+gemini,remaining_calibration,seed_20261009,99.0,1,Mistral Small → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,95bae450be2485b9720f2d66280def025eee6b20383a50a6faed7993d4f3bf43
+gemini,remaining_calibration,seed_20261009,99.0,2,Mistral Small → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,d9dcee51c4bee6fa421f519b61d6db4a90d940a0dde41d2b637a41d74e125b93
+qwen,all_calibration,seed_20261005,19.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,a9ff0022a9742227360100a0d1a46c0083580cb3152d72be7efc3f0e637ac542
+qwen,all_calibration,seed_20261005,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,4912c4bcf244c58098c769cab1afec3eeee4c392a7e87e76ace6ef7d378b0137
+qwen,all_calibration,seed_20261005,19.0,2,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,886aa56345b4b677eb47058e202449c975c400f386d63532f0bc32f54f548db4
+qwen,all_calibration,seed_20261005,99.0,0,Haiku → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,27faa4eaacf5ffc7597ca4f18c8e258d220765c4f524593587d3df5a82dd09a6
+qwen,all_calibration,seed_20261005,99.0,1,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,fcc9271487ab91e3a3e0c314ea6c177f8ceb8dc91cc1b0f64f53f7c5106103fd
+qwen,all_calibration,seed_20261005,99.0,2,Mistral Medium → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,885410904d7014e94857c139e75be8dff4495dc2d05764f2550ac322eb6fcc3d
+qwen,all_calibration,seed_20261006,19.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,0d492319c78a2082d9cd013d453a71a906583e312301134db2c96a238b73d649
+qwen,all_calibration,seed_20261006,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,b8476657e37bd33e5ae2a91ef146ce75a84feebfd3fb596c2edfc0af95189a9d
+qwen,all_calibration,seed_20261006,19.0,2,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,8ae5f288963eee5f44a129599f0935de36e23bf0529817771e43ae317e580ea5
+qwen,all_calibration,seed_20261006,99.0,0,Mistral Medium → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,871976017be213030d00e52bda5acc97fadb57b1c239c6a58dea2a0b68152e60
+qwen,all_calibration,seed_20261006,99.0,1,Flash-Lite → Flash → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,08ef461c2f60075c687f7882af38a7e12b5832adf400cf6bdb2daf58e630956c
+qwen,all_calibration,seed_20261006,99.0,2,Haiku → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,28113f52752dccd59f68dac1a9addefa6d1f07323f0dc9e2bff5d3439dc1a0f1
+qwen,all_calibration,seed_20261007,19.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,50b18c88a273f3cfb88f5ef7c0b9325e2d1e26b366ca074cfa7dbd90221b713b
+qwen,all_calibration,seed_20261007,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,2bca793ffbb0a5e8537dff643ce5e774fcb917e8d3c5872302b6c72a51e7e886
+qwen,all_calibration,seed_20261007,19.0,2,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,6974358f4c791e2c3819dcc7fdd4d379e0e373b6b3417d26d0c79782f6a1c49e
+qwen,all_calibration,seed_20261007,99.0,0,Haiku → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,2b64f6b890fcd43a724d9a271da5dfdbdebabb6495b2514712fa6d06008cb022
+qwen,all_calibration,seed_20261007,99.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,cb4ff417e3476ec625f88f3685a7a789a5b9aafaf36ab1bbb3db22608f7df37b
+qwen,all_calibration,seed_20261007,99.0,2,Haiku → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,e21da009893142235091409f473f6855a843db5238f6e0aa93818df890355967
+qwen,all_calibration,seed_20261008,19.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,456712985968f705c4dcb325168ae028c89915e90e4523d9482dfd421343309b
+qwen,all_calibration,seed_20261008,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,7cd128f614c6b9b0e2b09f411c256797610034ff0575a12e0da97e65ddb4605f
+qwen,all_calibration,seed_20261008,19.0,2,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,3a3f57750915011499e57441f1245c979703898d208a6666474f159a20759165
+qwen,all_calibration,seed_20261008,99.0,0,Mistral Medium → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,4ac5abc2c68790994ced9af2cb0f5be9dd65c5a4a18f9f4cf2790ab1ecbbd162
+qwen,all_calibration,seed_20261008,99.0,1,Haiku → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,f7cf3a7db729f7e5862c687bcb85ad2582c2785758a71ceedd364c2b62a2bd2e
+qwen,all_calibration,seed_20261008,99.0,2,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,a19ba9eab049d96172fe22ceb54d737fed5864d2402b1fa2c0c321fd24680029
+qwen,all_calibration,seed_20261009,19.0,0,Flash → Haiku → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,36d01b2669789e69eee0e6b67425166180115e68639823d162e76ce609414d48
+qwen,all_calibration,seed_20261009,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,045e44064f7eb80917aa15493b6684fa52a976326392931a7d8794fb38969f19
+qwen,all_calibration,seed_20261009,19.0,2,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,e64153b759788a2c1bd104a39eb2baefe298268ee62a97e808f604ff43e697d1
+qwen,all_calibration,seed_20261009,99.0,0,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,e29d246494650bcddb162cce21e6516b32cf9fc36e6da1ee2c0e952e3b028457
+qwen,all_calibration,seed_20261009,99.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,eb5a812899fbcd3e5915f924413c00b982989caadf938b4d3227e37f1b050b27
+qwen,all_calibration,seed_20261009,99.0,2,Haiku → Flash-Lite → Flash,Flash,Mistral Small → Mistral Medium → Flash-Lite,5c3dcdaa2244aaddbc9e87c08e622abde6efa875a2b44d6ade60e0e0b56edd46
+qwen,remaining_calibration,seed_20261005,19.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,5d5b7eea132ef1f9b88bbe98b8144059f43b881c806a204208027bb96847ef5f
+qwen,remaining_calibration,seed_20261005,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,d158e229de31cd79e156d7388152a0419ed9278966185909c0bcc8ba1b553022
+qwen,remaining_calibration,seed_20261005,19.0,2,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,ab074dc3c93d3ae3881ff5f87fcd9398fa8d84dda5496dd795267b82fa13c0b0
+qwen,remaining_calibration,seed_20261005,99.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,1aa6a747d0d1bcf64100d1af0d2034b9732c45473aec77186401ce92af59000d
+qwen,remaining_calibration,seed_20261005,99.0,1,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,630f5a814cc7b3a6a3194bb0e9b8c81727096dade4f66dfbf83d57a44eb48fff
+qwen,remaining_calibration,seed_20261005,99.0,2,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,58134c3a46a5f2f4f9c2dc033a53b4b7c7537e5f21d56713e27d6c5a81ab7cc3
+qwen,remaining_calibration,seed_20261006,19.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,3aa54084dfd21e751892260896b55fe04a54941130fdb345d88c733f68cecfca
+qwen,remaining_calibration,seed_20261006,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,306d12cec78203522b2f11b270ddbb4cd3e5cff6910cc96d313c41e4951458d5
+qwen,remaining_calibration,seed_20261006,19.0,2,Mistral Medium → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,63ec2f587ca73679f71bc59f386067c636c657e2953cca99e9b251b1f4cc5edb
+qwen,remaining_calibration,seed_20261006,99.0,0,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,56a89722212704626ce6c21dbcdc18da13c630d6d1ef1f90357e567564722a41
+qwen,remaining_calibration,seed_20261006,99.0,1,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,e52cc71191be0d3e72caa5de723dafd906bbb85880e796eb81ef9cc77f74090d
+qwen,remaining_calibration,seed_20261006,99.0,2,Mistral Medium → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,7effcffc6c2d1e784d446b9aacf68df014eae41295f9e51e8d60339e02ec1ea2
+qwen,remaining_calibration,seed_20261007,19.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,500d189370c47872b2c04236561318ac84577f0703e59ad14bfb0e3f4bc1817f
+qwen,remaining_calibration,seed_20261007,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,3691e7d9748fab0e030c3e59e60eba969af91ec85fcb9b1bfc17d61e6631c5ab
+qwen,remaining_calibration,seed_20261007,19.0,2,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,818ffc9a12b29b96bfacb2e6a96fb8ecd9beb7f623465b4d6e6e1756be255ede
+qwen,remaining_calibration,seed_20261007,99.0,0,Mistral Medium → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,239569b29fdea4facb3450197bf1461d7f5ec8040fc5ce3fe2c92ce8698111e2
+qwen,remaining_calibration,seed_20261007,99.0,1,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,68c45f0f9f700d6bb0d63e8f99a39af0c767dea447e348d1e440404141f63d47
+qwen,remaining_calibration,seed_20261007,99.0,2,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,653b24cb28191afedd91e1cf886a9f682a825198627c2b55d6376062622062d3
+qwen,remaining_calibration,seed_20261008,19.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,fe23b77d73be23a2b364cbb63fe038b7b2a6f41b5ff8f7c9933627199e19c829
+qwen,remaining_calibration,seed_20261008,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,83b658ad878d207fcd801152b3e0f66335da66f44b540489e2664de36d1d52f3
+qwen,remaining_calibration,seed_20261008,19.0,2,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,343a28310e447f5fe3548a51140d974dda8bb839c0622a3099a9797241228dc3
+qwen,remaining_calibration,seed_20261008,99.0,0,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,76c3082fcc7f9e2b36a720d11ae12678c3b66b63658135a3eb4124c4e347158d
+qwen,remaining_calibration,seed_20261008,99.0,1,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,8b0767f8e5b8b0f549ca95ab3bc90c4bae0eca8258cdf27ccd81d14e0907e0a5
+qwen,remaining_calibration,seed_20261008,99.0,2,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,5fe62cd60ab348ecb52b241791a66b6be0be97fa6f7e915ef5e1acd4425e9352
+qwen,remaining_calibration,seed_20261009,19.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,c4b791fd90bef3c5b1d4e590558c218d135eadb115eab8c5eae38c6a364fe653
+qwen,remaining_calibration,seed_20261009,19.0,1,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,92e8676af497c6af67247d6a6f3af0b8fa86d3332870ffb3a3918b6dfcb7f7ab
+qwen,remaining_calibration,seed_20261009,19.0,2,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,64598b897affa451b2dfe12ee8ddd6a6dadde701d02ef09c327e20f4fb3f68ad
+qwen,remaining_calibration,seed_20261009,99.0,0,Flash → Flash-Lite → Haiku,Flash,Mistral Small → Mistral Medium → Flash-Lite,a3378cd1d628f7f5e10a9c0c1f333546c35d470bf1617990efea305ff0c8b99b
+qwen,remaining_calibration,seed_20261009,99.0,1,Haiku → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,5756998e5dc613495b6c91ed49489d20a670609908a2da8e3e783c88a8729f0e
+qwen,remaining_calibration,seed_20261009,99.0,2,Mistral Small → Flash → Flash-Lite,Flash,Mistral Small → Mistral Medium → Flash-Lite,8104eee13ab98727f7c832942d34cae49d11354267f2aa91bb40342a3911ef9a

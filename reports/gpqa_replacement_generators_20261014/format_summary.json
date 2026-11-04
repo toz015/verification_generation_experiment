@@ -1,0 +1,62 @@
+{
+  "confidence_calibrated": false,
+  "confirmed_billing_usd": null,
+  "correctness_scored": false,
+  "diagnosis": "R1 has one complete think envelope followed by explanatory text and a trailing answer/confidence JSON object. Strict JSON-only parsing rejects the wrapper. It is not a token-truncated or answer-free response. No primary parser or response was changed. The next request received HTTP 429 RESOURCE_EXHAUSTED.",
+  "evaluation_requests": 0,
+  "models": {
+    "deepseek_r1_0528": {
+      "all_project_bindings_match": true,
+      "confirmed_billing_usd": null,
+      "estimated_usd": 0.08774865000000001,
+      "failure_counts": {
+        "invalid_final_json": 1
+      },
+      "final_text_wrapper_issue_n": 1,
+      "finish_reasons": {
+        "stop": 4
+      },
+      "http_rejections": {
+        "429": 1
+      },
+      "input_tokens": 711,
+      "output_tokens_including_reasoning": 16072,
+      "provider_model_ids": {
+        "deepseek-ai/deepseek-r1-0528-maas": 4
+      },
+      "response_n": 4,
+      "valid_json_answer_confidence_n": 3
+    },
+    "gpt_oss_120b": {
+      "all_project_bindings_match": true,
+      "confirmed_billing_usd": null,
+      "estimated_usd": 0.0008595900000000001,
+      "failure_counts": {},
+      "final_text_wrapper_issue_n": 0,
+      "finish_reasons": {
+        "stop": 5
+      },
+      "http_rejections": {},
+      "input_tokens": 1483,
+      "output_tokens_including_reasoning": 2017,
+      "provider_model_ids": {
+        "openai/gpt-oss-120b-maas": 5
+      },
+      "response_n": 5,
+      "valid_json_answer_confidence_n": 5
+    }
+  },
+  "no_malformed_or_rejected_response_retry": true,
+  "project": "llm-applications-490420",
+  "sample_design": "original 50 development questions; only first 5 attempted per model",
+  "sources": {
+    "configs/gpqa_replacement_generators_20261014.json": "5e4e81572df10b16b43613d77ef03e0d9a32247cbc78a5045cf84d2b8e26d1f6",
+    "results/gpqa_replacement_generators_20261014/plan.json": "917bca331d3932bbad60e20581e9a3ccd13ff1df8cdfccd56b1899a2ad22ab1a",
+    "results/gpqa_replacement_generators_20261014/status.json": "457c6dbe823da96c09183039aab82a152b2ece0eaa5e05e8444967fbca70dcff",
+    "src/vgx/gpqa/replacement_generators.py": "f9e8dad2583aa99a60255d0ec957b55b616d499eef00ed728fd0e1ffc277a4e0"
+  },
+  "stage": "blocked",
+  "study_id": "4aa8801a74af6074119a5c43844f3106333aa5a4090aee0baceafd5eaa49523d",
+  "total_estimated_usd": 0.08860824,
+  "verifier_requests": 0
+}

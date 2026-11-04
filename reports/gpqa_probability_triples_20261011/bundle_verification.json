@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "counts": {
+    "files": 204,
+    "decision_records": 904960,
+    "decision_files": 40
+  },
+  "analysis_id": "8219549684e380b6c1a8238c6c90caa77c92c47eae180a5753f1d5251fcb311f",
+  "bundle_sha256": "61677b5889987f140ce6f43f20d476c5734d6bd25f3780099310f69a36190469",
+  "api_requests": 0
+}

@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "kind": "quantum_katas_grouped_crossfit",
+  "status": "three-generator rerun requested by tony 2026-10-19 (adds gpt-oss-120b); settings unchanged from the pre-registered two-generator config",
+  "split": "configs/quantum_katas_split_20261019.json",
+  "runs": {
+    "qwen3": "results/quantum_katas_full_qwen3_20261019",
+    "sonnet55": "results/quantum_katas_full_sonnet55_20261019",
+    "gptoss": "results/quantum_katas_full_gptoss_20261019"
+  },
+  "verifiers": [
+    "gemini_flash",
+    "gemini_lite",
+    "mistral_small",
+    "mistral_medium",
+    "claude_haiku"
+  ],
+  "single_arm_verifier": "gemini_flash",
+  "settings": {
+    "probability_bins": 3,
+    "laplace": 1.0,
+    "correct_reward": 1.0,
+    "losses": [
+      19.0,
+      99.0
+    ],
+    "utility_per_usd": 10.0,
+    "bootstrap_repeats": 10000,
+    "likelihood_model": "conditional_independence",
+    "prior": "raw_unmodified_p_correct",
+    "order_selection": "maximize mean training-fold prior exact J0 across all 60 ordered triples; lexicographic ties",
+    "cost_fit": "mean training-fold provider-token cost for each verifier, including returned malformed replies"
+  },
+  "procedure": [
+    "Settings copied from the GPQA Sonnet verification study (configs/gpqa_sonnet55_verification_20261016.json).",
+    "For each held-out fold k and each loss: fit per-verifier likelihoods, costs and the triple order on the other four folds only, separately per generator.",
+    "Apply the frozen fold policy to fold k with prefix-only signal access; pool held-out decisions over all 322 tasks.",
+    "A candidate is valid only with extractable code, a valid raw r and an official checker label; otherwise the policy abstains.",
+    "Arms: prior_only (raw r threshold), single gemini_flash, selected triple. Always-query Brier is a separate diagnostic.",
+    "Collection spend is reported separately from the counterfactual policy query cost."
+  ]
+}

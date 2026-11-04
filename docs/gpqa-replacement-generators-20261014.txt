@@ -1,0 +1,102 @@
+GPQA replacement-generator screen (2026-10-14)
+============================================
+
+Question
+--------
+Can DeepSeek-R1-0528 and gpt-oss-120b provide usable answers and raw subjective
+confidence for the existing generation/verification experiment?
+
+This is an exploratory generator screen, not a new verification-policy result.
+Changing generators changes which candidates are wrong. Future verifier
+likelihoods must be estimated using the new generator's development answers.
+The old Qwen/Gemini likelihood tables are not assumed to transfer.
+
+Lifecycle and hosting
+---------------------
+Both models are called through Vertex, with resource/quota project
+llm-applications-490420; no GPU VM or additional provider key is required.
+The read-only billing-enabled check is repeated before paid collection.
+
+Google lists both the historical Qwen 235B Instruct endpoint and R1-0528 for
+retirement on 2026-10-21. R1 here is a short-term research comparison, not a
+long-term replacement on this provider. gpt-oss-120b is absent from the checked
+retirement table; this does not guarantee its future availability.
+
+The models' overview capability grids say Thinking is not supported, while
+Google's dedicated open-model thinking documentation explicitly describes R1
+thinking tags and gpt-oss reasoning_content/reasoning_effort. We follow the
+dedicated API documentation and check real response metadata in the pilot.
+Configuration records the sources and price-check date. Provider model IDs
+are pinned, but a managed endpoint does not expose an immutable weights hash.
+
+Frozen comparison protocol
+--------------------------
+* Original 50 preselected development items from the existing dataset manifest.
+  Same questions, subjects, option order, and original JSON/confidence prompt.
+* Historical Gemini and two-step Qwen candidates are read-only comparators.
+  No old candidate, confidence, cache entry, plan, or result is modified.
+* New models: native reasoning; gpt-oss effort=medium; R1 native default.
+  Both use max_tokens=32768, temperature=0, top_p=1. The token cap includes
+  reasoning output. These are model-plus-protocol comparisons: the historical
+  protocols and serving dates differ, especially Qwen's two-step generation.
+* One worker per model, at least 10 seconds between starts for that model.
+* Five-item format/termination/usage gate, then continue the same requests to
+  50 items only if both models pass. The gate does not use correctness labels.
+* No automatic HTTP retry, truncated-response repair, or malformed-response
+  regeneration. A successful response is cached even when it fails parsing.
+  An unknown provider outcome remains blocked instead of being sent again.
+* All raw provider envelopes are retained. R1's complete <think>...</think>
+  envelope is excluded from final-answer parsing. gpt-oss content is parsed;
+  reasoning_content is never searched for an answer. Require finish_reason=stop
+  and a single JSON object (an enclosing JSON code fence is accepted).
+* Collection never opens answer keys. Separate offline reporting reads only
+  the sealed development labels, after all 50 replies per model are cached.
+* Report raw confidence distribution, confidence on correct/wrong answers,
+  accuracy, completeness, Brier, AUROC, risk-coverage, uncertainty, token usage
+  and usage-based USD. Confidence is neither calibrated nor replaced by the
+  observed correctness rate. No verifier requests in this stage.
+
+Budget
+------
+Stage cap: USD 10 within the previously authorized USD 200 Vertex budget.
+All-100-request conservative planning reservation: USD 9.57637872.
+Actual usage will normally be lower because outputs can stop before the cap.
+The cap is enforced by the local reservation ledger, not by a Cloud billing
+limit. Provider token estimates are distinct from confirmed charges.
+Published input/output USD per million: gpt-oss .09/.36; R1 1.35/5.40.
+If cached input is reported, use full input price conservatively, without
+assuming an undocumented discount. Unpriced/conflicting new usage blocks.
+prior_budget_audit.json records deduplicated historical ledger estimates and
+the retained reservation for a historical request with missing usage.
+
+Commands (run from repository root)
+-----------------------------------
+.venv/bin/python -m vgx.gpqa.replacement_generators prepare --config configs/gpqa_replacement_generators_20261014.json --output results/gpqa_replacement_generators_20261014
+.venv/bin/python -m vgx.gpqa.replacement_generators collect --output results/gpqa_replacement_generators_20261014 --limit 5 --allow-api
+.venv/bin/python -m vgx.gpqa.replacement_generators collect --output results/gpqa_replacement_generators_20261014 --limit 50 --allow-api
+.venv/bin/python -m vgx.gpqa.replacement_generators report --output results/gpqa_replacement_generators_20261014
+
+prepare is offline. collect without --allow-api is cache-only. Use a new
+directory for any approved change to the protocol; the plan seals inputs,
+implementation, parameters and request identities. Do not change a running
+study. Never commit caches, question text or per-item correctness records.
+
+Next stage, after reviewing this screen
+--------------------------------------
+Freeze generation settings, then extend to the remaining 199 development
+items and freeze the new candidates. Collect the five fixed probability
+verifiers for those candidates, estimate the new-generator likelihoods on
+development data, and freeze the policy/order/utility parameters. Only then
+collect and score new Diamond candidates under the frozen policy. Report
+prior-only, single-Flash, adaptive triple and fixed-cost controls.
+Diamond has been analyzed previously; it is not globally untouched holdout
+evidence. A stronger confirmatory claim requires a new independent test set.
+
+Sources checked 2026-10-14
+-------------------------
+https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/deprecations/open-models
+https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/maas/deepseek/r1-0528
+https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/maas/openai/gpt-oss-120b
+https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/maas/capabilities/thinking
+https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing
+https://developers.openai.com/api/docs/models/gpt-oss-120b

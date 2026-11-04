@@ -1,0 +1,34 @@
+Complete GPT-OSS positions49/50, preserving all existing experiment artifacts.
+
+User authorization on 2026-10-17: retry original position49, finish position50,
+preserve existing replies, keep raw confidence and budget, then compare four
+generators on the same questions. The already completed position22 retry is
+reused, alongside the other47 cached replies. Nothing is regenerated after
+a received response, even if malformed. No API request to another model.
+
+Current execution is a new sealed overlay under finish50_20261017, retaining
+original request/prompt/model/parameter/parser identities and historical log
+files. Position49's original unknown request and both historical unknown
+budget reservations are retained. New execution entries use the same shared
+USD1 budget ledger; no limit or prices change. Unknown actual spend is not
+assumed zero. Any additional unknown or unpriced execution blocks the run.
+
+At least30 seconds after each attempt completes. Only explicit429 allows
+60/120-second backoff. Preserve at most3 total attempts per item: position49
+already used1 and has at most2 new attempts, position50 has at most3. Cached
+responses do not consume new attempts. No transport-uncertain automatic retry.
+
+Run .venv/bin/python -m vgx.gpqa.gptoss_finish50 with commands:
+prepare, collect (offline), collect --allow-api, audit, report.
+Only this new report command resolves the multiple execution cache locations.
+The report requires50 received replies, including any preserved format failure.
+Freeze all candidates and shared usable subset before opening development
+labels. All50 are the primary accuracy denominator; raw confidence and Brier
+exclude missing/invalid pairs, with their denominators reported. Also provide
+all four models on the same usable subset. No confidence fitting/calibration,
+no likelihood fitting, no verifier calls, and no Diamond keys or evaluation.
+
+Expected summary: reports/gpqa_gptoss_completed50_20261017/, with aggregate
+result, status, plan, audit, README and SHA256 manifest. No raw replies, question
+text, answer keys, per-item outcomes, or credentials. Do not commit or push.
+No unit tests requested or run; audit actual frozen inputs, histories and costs.
