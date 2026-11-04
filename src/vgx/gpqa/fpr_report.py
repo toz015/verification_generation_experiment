@@ -69,12 +69,43 @@ def target(x):
     return rel_err(x) if FDR else x['fpr']
 
 
+def tradeoff(gen, c, alphas, b):
+    """Release rate against the realized error among released answers; one polyline per method across alpha."""
+    xmax = .25
+    pw, ph = W-L-R, H-T-Bt
+    sx = lambda v: L+min(v, xmax)/xmax*pw
+    sy = lambda v: T+ph-v*ph
+    g = []
+    for t in (0, .25, .5, .75, 1.):
+        g.append(f'<line class="grid" x1="{L}" x2="{L+pw}" y1="{sy(t):.1f}" y2="{sy(t):.1f}"/>')
+        g.append(f'<text class="tk" x="{L-6}" y="{sy(t)+4:.1f}" text-anchor="end">{t:.0%}</text>')
+    for t in (0, .05, .1, .15, .2, .25):
+        g.append(f'<text class="tk" x="{sx(t):.1f}" y="{T+ph+16}" text-anchor="middle">{t:.0%}</text>')
+    for key, name, slot in reversed(LINES):
+        pts = []
+        for a in alphas:
+            x = c[f'{a}|{b}'].get(key)
+            if x is not None:
+                pts.append((a, rel_err(x) or 0., x['pub']))
+        if not pts:
+            continue
+        w = 3 if key == 'ours' else 1.5
+        g.append(f'<polyline points="{" ".join(f"{sx(e):.1f},{sy(p):.1f}" for _, e, p in pts)}" fill="none" stroke="var(--s{slot})" stroke-width="{w}"/>')
+        for a, e, p in pts:
+            tip = html.escape(f'{name}，α = {a:.0%}：放行 {p:.1%}，实际错误率 {e:.1%}')
+            g.append(f'<circle cx="{sx(e):.1f}" cy="{sy(p):.1f}" r="{4.5 if key == "ours" else 3.5}" fill="var(--s{slot})" stroke="var(--surface)" stroke-width="1.5"><title>{tip}</title></circle>')
+    return f'<figure><figcaption>{GEN[gen]}</figcaption><svg viewBox="0 0 {W} {H}" role="img" aria-label="{GEN[gen]} 放行比例对实际错误率">{"".join(g)}</svg></figure>'
+
+
 def row(d, kind):
     alphas, budgets = d['alphas'], d['budgets']
     out = ''
     for gen in ('qwen3', 'gptoss', 'sonnet55'):
         c = d['generators'][gen]
         get = lambda a, b, m, f: c[f'{a}|{b}'][m][f] if m in c[f'{a}|{b}'] else None
+        if kind == 'trade':
+            out += tradeoff(gen, c, alphas, budgets[-1])
+            continue
         if kind == 'pub':
             s = [(m, n, k, [get(a, budgets[MAIN_B], m, 'pub') for a in alphas]) for m, n, k in LINES]
             out += chart(GEN[gen], [f'{a:.0%}' for a in alphas], 1., (0, .25, .5, .75, 1.), s)
@@ -141,6 +172,7 @@ def main():
     pub = ''.join(f'<h3>{n}</h3><p class="meta">{s}</p>{row(res[ds], "pub")}' for ds, _, n, s in DATASETS)
     fpr = ''.join(f'<h3>{n}</h3>{row(res[ds], "target")}' for ds, _, n, _ in DATASETS)
     err = ''.join(f'<h3>{n}</h3>{row(res[ds], "other")}' for ds, _, n, _ in DATASETS)
+    trade = ''.join(f'<h3>{n}</h3>{row(res[ds], "trade")}' for ds, _, n, _ in DATASETS)
     bud = ''.join(f'<h3>{n}</h3>{row(res[ds], "bud")}' for ds, _, n, _ in DATASETS)
     tab = ''.join(f'<h3>{n}</h3>{table(res[ds], (.01, .02, .05) if FDR and ds == "math500" else (.05, .1))}' for ds, _, n, _ in DATASETS)
     legend = ''.join(f'<span><i style="background:var(--s{k})"></i>{n}</span>' for _, n, k in LINES)
@@ -154,7 +186,7 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     page = TEMPLATE_FDR if FDR else TEMPLATE
     OUT.write_text(page.replace('{{PUB}}', pub).replace('{{FPR}}', fpr).replace('{{BUD}}', bud).replace('{{ERR}}', err).replace('{{TAB}}', tab)
-                   .replace('{{SUM}}', summary(res, SINGLE)).replace('{{MIX}}', mix).replace('{{LEGEND}}', legend))
+                   .replace('{{SUM}}', summary(res, SINGLE)).replace('{{MIX}}', mix).replace('{{TRADE}}', trade).replace('{{LEGEND}}', legend))
     print('wrote', OUT)
 
 
@@ -359,6 +391,7 @@ small { color: var(--muted); }
 <section>
   <h2>6. 结果</h2>
   <ul>
+    <li><b>同样的实际错误率下，我们放得更多或持平（见 6.1）。</b>比如 QuantumKatas 的 Qwen3，实际错误率约 5% 时我们放行 37%，固定问 3 个放行 26%；约 11% 时是 48% 对 34%。GPQA 的 gpt-oss 在实际错误率 8.7% 时，我们放行 66%，固定问 3 个 57%。GPQA 的 Qwen3 两者基本重合。所以多放的部分不是靠多犯错换来的。</li>
     <li><b>放行更多：</b>三个数据集上，我们在绝大多数设定下放行显著更多。75 格里，没有一个 baseline 显著多于我们超过 5 格（见下表）。</li>
     <li><b>错误率：</b>α ≥ 5% 时，我们的放行错误率基本贴着目标，比如 α = 5% 时 QuantumKatas 平均 5.5% 到 6.9%，GPQA 1.6% 到 5.7%。α = 1% 到 2% 时放行很少，几道错题就能让错误率跳很高，这一段不稳定。</li>
     <li><b>MATH-500 要看小 α：</b>Qwen3 和 gpt-oss 给出答案的题已经超过 95% 对，α ≥ 5% 时直接全部放行，方法之间没有差别，所以 MATH-500 的表改成 α = 1%、2%、5%。在 α = 1% 和 2% 时，我们在三个 generator 上都比所有 baseline 放行显著更多，只有 gpt-oss 在 α = 2% 时 SSV 更多（187 对 154）。但这一段错题容许得很少，放行错误率偏高：gpt-oss 在 α = 1% 时是 7.6%，Qwen3 是 3.5%，Sonnet 是 1.3%。</li>
@@ -370,22 +403,27 @@ small { color: var(--muted); }
 </section>
 <div class="legend">{{LEGEND}}<span>虚线：FPR = α</span></div>
 <section>
-  <h2>6.1 放行比例对 α</h2>
+  <h2>6.1 同样的实际错误率下谁放得多</h2>
+  <p class="meta">横轴是测试集上放行答案的实际错误率，纵轴是放行比例，每个方法的 5 个点对应 α = 1%、2%、5%、10%、20%，连成一条线。线越靠左上越好：同样的实际错误率下放得更多。这张图不看 α 定了多少，只看实际结果，所以「放得多是不是只是因为错得多」可以直接看出来。预算取最高一档（每题问 3 个 verifier 的平均花费），尽量减少预算对 baseline 的限制。放行 0 题的点画在原点，横轴超过 25% 的点画在右边界。</p>
+  {{TRADE}}
+</section>
+<section>
+  <h2>6.2 放行比例对 α</h2>
   <p class="meta">预算 B 取固定问 3 个花费的一半。横轴 α 均匀排列，不是线性刻度。</p>
   {{PUB}}
 </section>
 <section>
-  <h2>6.2 测试放行错误率对 α</h2>
+  <h2>6.3 测试放行错误率对 α</h2>
   <p class="meta">同样的预算。点在虚线以上表示超过目标。放行不到 1 题的点不画。纵轴上限 40%。</p>
   {{FPR}}
 </section>
 <section>
-  <h2>6.3 测试 FPR 对 α（参考）</h2>
+  <h2>6.4 测试 FPR 对 α（参考）</h2>
   <p class="meta">错答案里有多少被放行了。这一版不约束它，只作参考。</p>
   {{ERR}}
 </section>
 <section>
-  <h2>6.4 放行比例对预算</h2>
+  <h2>6.5 放行比例对预算</h2>
   <p class="meta">α = 5%。横轴是预算占固定问 3 个花费的比例。</p>
   {{BUD}}
 </section>
