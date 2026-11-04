@@ -13,7 +13,7 @@ from pathlib import Path
 SRC = Path('results/gpqa_fpr_routing_20261102')
 FDR = 'fdr' in sys.argv[1:]
 # single: one deployed rule per method (main results); the mixture runs move to an appendix table.
-SINGLE = 'single' in sys.argv[1:]
+SINGLE = False  # main results follow Algorithm 2 (mixture); single-rule runs are an appendix
 SUFFIX = ('_fdr' if FDR else '')+('_single' if SINGLE else '')
 OUT = Path(f'reports/gpqa_fpr_routing_20261102/results{"_fdr" if FDR else ""}.html')
 MAIN_B = -1 if SINGLE else 3
@@ -101,7 +101,7 @@ def table(d, alphas=(.05, .1)):
             for a in alphas:
                 x = d['generators'][g][f'{a}|{b}'].get(m)
                 cells += '<td class="n">—</td>' if x is None else (
-                    f'<td class="n">{x["released"]:.0f} / {x["wrong_released"]:.1f}{"*" if (target(x) or 0) > a else ""}<br><small>${x["usd"]:.4f}/题，放行错误率 {"—" if rel_err(x) is None else f"{rel_err(x):.1%}"}</small></td>')
+                    f'<td class="n">{x["released"]:.1f} / {x["wrong_released"]:.1f}{"*" if (target(x) or 0) > a else ""}<br><small>${x["usd"]:.4f}/题，放行错误率 {"—" if rel_err(x) is None else f"{rel_err(x):.1%}"}</small></td>')
         body += f'<tr><th scope="row">{name}</th>{cells}</tr>'
     return f'<div class="scroll"><table><thead><tr><th></th>{head}</tr></thead><tbody>{body}</tbody></table></div>'
 
@@ -145,9 +145,12 @@ def main():
     tab = ''.join(f'<h3>{n}</h3>{table(res[ds], (.01, .02, .05) if FDR and ds == "math500" else (.05, .1))}' for ds, _, n, _ in DATASETS)
     legend = ''.join(f'<span><i style="background:var(--s{k})"></i>{n}</span>' for _, n, k in LINES)
     mix = ''
-    if SINGLE:
-        rm = {ds: json.loads((SRC/f'{f.replace("_single", "")}.json').read_text()) for ds, f, _, _ in DATASETS}
-        mix = summary(rm)
+    if FDR:
+        rm = {ds: json.loads((SRC/f'{f}_single.json').read_text()) for ds, f, _, _ in DATASETS}
+        MAIN = globals()['MAIN_B']
+        globals()['MAIN_B'] = -1
+        mix = summary(rm, True)
+        globals()['MAIN_B'] = MAIN
     OUT.parent.mkdir(parents=True, exist_ok=True)
     page = TEMPLATE_FDR if FDR else TEMPLATE
     OUT.write_text(page.replace('{{PUB}}', pub).replace('{{FPR}}', fpr).replace('{{BUD}}', bud).replace('{{ERR}}', err).replace('{{TAB}}', tab)
@@ -332,7 +335,8 @@ small { color: var(--muted); }
 
 <section>
   <h2>3. 我们的方法</h2>
-  <p>每道题从校准后的置信度出发，按选定的顺序逐个问 verifier，每问一个就用贝叶斯公式更新「答案是对的」的概率，并决定现在放行、现在弃权，还是再问下一个。这个决定由动态规划算出，它权衡继续问的花费和可能带来的信息。这样的做法有很多种，区别在于放行门槛多严、多舍得问 verifier。在训练部分，我们用真实标签（样本外）数出每种做法的放行数、放行错误率和花费，选出放行错误率 ≤ α、平均花费 ≤ B 时放行最多的那一个，固定下来到测试部分用。每道题的结果是确定的，所以放行数和错误数都是整数。</p>
+  <p>每道题从校准后的置信度出发，按选定的顺序逐个问 verifier，每问一个就用贝叶斯公式更新「答案是对的」的概率，并决定现在放行、现在弃权，还是再问下一个。这个决定由动态规划算出，它权衡继续问的花费和可能带来的信息。几条这样的规则按比例混合使用，混合比例由线性规划决定，目标是放行最多，约束是放行错误率 ≤ α、平均花费 ≤ B。规则满不满足约束，是在训练部分用真实标签、样本外地数出来的。</p>
+  <p><b>为什么要混合，以及表里的小数：</b>单独一条规则往往卡不准 α，比如严一点的规则错误率 4%、松一点的 6%。按比例混着用（比如 60% 用严的、40% 用松的），平均下来正好卡在 α，能多放一些题。部署时每道题按这个比例抽签决定用哪条规则，所以同一道题是否放行带有随机性。测试集上我们没有真的抽签，而是把每道题被放行的概率加起来，也就是反复抽签的平均结果。所以表里的放行数和错误数都是期望值，会有小数。混合还有一个作用：花费高的做法可以只用在一部分题上，其余题弃权，从而满足预算。只用一条规则、结果为整数的版本见附录。</p>
 </section>
 
 <section>
@@ -344,25 +348,22 @@ small { color: var(--muted); }
     <tr><th scope="row">Self-consistency 投票</th><td>多采 10 个答案投票，用多数答案的平均置信度设门槛</td><td>同样的花费，花在 verifier 上是否比多采样更划算</td></tr>
     <tr><th scope="row">SSV</th><td>一个弱 verifier 加一个强 verifier，在线调整接受和拒绝两个阈值</td><td>和已有的弱强级联验证方法比</td></tr>
   </tbody></table></div>
-  <p class="meta">所有方法都走同样的流程：在训练部分用真实标签选参数，满足同样的 α 和预算，然后到测试部分评估。每个方法最后也都只用一个固定的做法。Self-consistency 的 10 次采样计入花费；QuantumKatas 的代码没法投票，所以没有这一项。</p>
+  <p class="meta">所有方法都走同样的流程：在训练部分用真实标签选参数，满足同样的 α 和预算，然后到测试部分评估。规则是随机混合的，放行数是期望值，会有小数。Self-consistency 的 10 次采样计入花费；QuantumKatas 的代码没法投票，所以没有这一项。</p>
 </section>
 
 <section>
   <h2>5. 怎么判断方法好坏</h2>
-  <p>在同一个 α 和预算下比较：<b>放行比例越高越好</b>，前提是测试集上的放行错误率不超过 α（下面错误率图的虚线），平均花费不超过预算。放行比例差不多时，花费更低、错误率更低的更好。不同 α 之间不能直接比，α 越大本来就放得越多。</p>
-  <p>预算有一个要注意的地方：baseline 每道题的花费是固定的（比如固定问 3 个，每题都要付 3 次的钱），如果这超过了预算，它就一题都不能用，只能全部弃权。所以下面的主图和主表取「不限预算」来比较放行能力，另外单独画一张放行比例对预算的图，看预算有限时各方法的表现。</p>
+  <p>在同一个 α 和预算下比较：<b>放行比例越高越好</b>，前提是测试集上的放行错误率不超过 α（下面错误率图的虚线），平均花费不超过预算。放行比例相同的话，错误率更低的更好。不同 α 之间不能直接比，α 越大本来就放得越多。</p>
 </section>
 
 <section>
   <h2>6. 结果</h2>
   <ul>
-    <li><b>不限预算时，我们和每题都问满 verifier 的方法放行得差不多，但花费低得多。</b>和固定问 3 个比，每个数据集 15 个设定里，我们显著更多的有 4 到 5 个，显著更少的 0 个。比如 GPQA 的 Sonnet 在 α = 5% 时，两者都放行 122 题、错 1 题，我们每题花 $0.0017，固定问 3 个花 $0.0038；QuantumKatas 的 Qwen3 在 α = 5% 时，我们放行 87 题、错 4 题、每题 $0.0007，固定问 3 个放行 90 题、错 4 题、每题 $0.0034。</li>
-    <li><b>预算有限时差别就大了</b>（见 6.4）：别的方法每题都要问满，超出预算就只能全部弃权；我们只在需要时才问，低预算下仍然能放行。</li>
-    <li><b>和只看置信度比：</b>我们放行显著更多的设定，GPQA 有 6 个，MATH-500 有 5 个，QuantumKatas 有 12 个（各 15 个），说明 verifier 值得花钱。</li>
-    <li><b>花大钱的方法有时放得更多：</b>MATH-500 上 self-consistency 有 9 个设定比我们放得多，Weaver 5 个有 4 个，但每题花费是我们的几倍到上百倍（self-consistency 每题 $0.006 到 $0.13）。</li>
-    <li><b>错误率：</b>不限预算时，我们的放行错误率超过 α 的设定在 GPQA 是 0 / 15，MATH-500 是 5 / 15，QuantumKatas 是 8 / 15，和 baseline 相近。α 很小时放行少，几道错题就会让错误率跳高。</li>
-    <li><b>MATH-500 要看小 α：</b>Qwen3 和 gpt-oss 给出答案的题已经超过 95% 对，α ≥ 5% 时所有方法都直接全部放行，没有差别，所以 MATH-500 的表用 α = 1%、2%、5%。</li>
-    <li><b>GPQA 的 Qwen3 在 α = 5% 时所有方法都放不出来，这是数据决定的。</b>在 249 道 calibration 题上，即使用全部 5 个 verifier 更新后再按概率从高到低排，排在最前面的 20 题也有 15% 是错的，前 50 题有 8% 是错的，找不到一段能做到 95% 正确的前排。gpt-oss 的前 105 题就能做到。原因是 Qwen3 的置信度区分不开对错，校准后最高一档也只有 84% 对；verifier 之间又常常一起错。两者叠加，最有把握的那批答案里也混着错题。α = 10% 时我们放行 108 题。</li>
+    <li><b>放行更多：</b>三个数据集上，我们在绝大多数设定下放行显著更多。75 格里，没有一个 baseline 显著多于我们超过 5 格（见下表）。</li>
+    <li><b>错误率：</b>α ≥ 5% 时，我们的放行错误率基本贴着目标，比如 α = 5% 时 QuantumKatas 平均 5.5% 到 6.9%，GPQA 1.6% 到 5.7%。α = 1% 到 2% 时放行很少，几道错题就能让错误率跳很高，这一段不稳定。</li>
+    <li><b>MATH-500 要看小 α：</b>Qwen3 和 gpt-oss 给出答案的题已经超过 95% 对，α ≥ 5% 时直接全部放行，方法之间没有差别，所以 MATH-500 的表改成 α = 1%、2%、5%。在 α = 1% 和 2% 时，我们在三个 generator 上都比所有 baseline 放行显著更多，只有 gpt-oss 在 α = 2% 时 SSV 更多（187 对 154）。但这一段错题容许得很少，放行错误率偏高：gpt-oss 在 α = 1% 时是 7.6%，Qwen3 是 3.5%，Sonnet 是 1.3%。</li>
+    <li><b>全部放行也可能是最优：</b>generator 本身的正确率已经高于 1 − α 时就会这样。比如 MATH-500 的 Qwen3 整体 96.8% 对，α ≥ 5% 时我们和只看置信度一样放行 495 题，verifier 用不上。</li>
+    <li><b>GPQA 的 Qwen3 在 α = 5% 时几乎不放行（4 题），这是数据决定的。</b>在 249 道 calibration 题上，即使用全部 5 个 verifier 更新后再按概率从高到低排，排在最前面的 20 题也有 15% 是错的，前 50 题有 8% 是错的，找不到一段能做到 95% 正确的前排。gpt-oss 的前 105 题就能做到。原因是 Qwen3 的置信度区分不开对错，校准后最高一档也只有 84% 对；verifier 之间又常常一起错。两者叠加，最有把握的那批答案里也混着错题。所以算法在训练数据上看不到能达标的放行方式，就选择弃权。α = 10% 时它能放行 111 题。</li>
   </ul>
   {{SUM}}
   <p class="meta">每个方法在每个数据集有 15 格（3 个 generator × 5 个 α，不限预算）。「我们放行显著更多」是其中我们的放行比例显著高于它的格数，「它放行显著更多」反过来，按配对 bootstrap 区间是否不含 0 判断，剩下的格数是差别不显著。「放行错误率超 α」是它自己在测试上超过目标的格数。</p>
@@ -370,12 +371,12 @@ small { color: var(--muted); }
 <div class="legend">{{LEGEND}}<span>虚线：FPR = α</span></div>
 <section>
   <h2>6.1 放行比例对 α</h2>
-  <p class="meta">不限预算。横轴 α 均匀排列，不是线性刻度。放行 0 题的方法画在 0 上。</p>
+  <p class="meta">预算 B 取固定问 3 个花费的一半。横轴 α 均匀排列，不是线性刻度。</p>
   {{PUB}}
 </section>
 <section>
   <h2>6.2 测试放行错误率对 α</h2>
-  <p class="meta">不限预算。点在虚线以上表示超过目标。放行不到 1 题的点不画。纵轴上限 40%。</p>
+  <p class="meta">同样的预算。点在虚线以上表示超过目标。放行不到 1 题的点不画。纵轴上限 40%。</p>
   {{FPR}}
 </section>
 <section>
@@ -385,17 +386,17 @@ small { color: var(--muted); }
 </section>
 <section>
   <h2>6.4 放行比例对预算</h2>
-  <p class="meta">α = 5%。横轴是预算占「每题问 3 个 verifier 平均花费」的比例，最后一档不限。超出预算的方法只能全部弃权，所以画在 0 上。</p>
+  <p class="meta">α = 5%。横轴是预算占固定问 3 个花费的比例。</p>
   {{BUD}}
 </section>
 <section>
   <h2>附录：各方法的数字</h2>
-  <p class="meta">不限预算。格子是放行 / 错，* 表示放行错误率超过 α，下面一行是每题花费和放行错误率。MATH-500 用 α = 1%、2%、5%，原因见第 6 节。</p>
+  <p class="meta">预算同上。格子是放行 / 错，* 表示放行错误率超过 α。MATH-500 用 α = 1%、2%、5%，原因见第 6 节。</p>
   {{TAB}}
 </section>
 <section>
-  <h2>附录：按稿子做法混合多个门槛的结果</h2>
-  <p class="meta">稿子的 Algorithm 2 最后会把两三个门槛按比例混着用，让训练上的错误率正好卡在 α。这样每道题是否放行带有随机性，测试结果只能报平均值（会有小数），但预算有限时可以只对部分题问 verifier。下表是混合版在全部 75 格（3 个 generator × 5 个 α × 5 个预算）上的汇总，格式同正文。</p>
+  <h2>附录：每个方法只用一条规则的结果</h2>
+  <p class="meta">不混合，训练后只保留满足约束、放行最多的那一条规则，每道题结果确定，放行数和错误数是整数。这时花费固定的 baseline（比如每题都问满 3 个）一旦超出预算就只能全部弃权，所以这里只在「不限预算」下汇总，每个数据集每个方法 15 格（3 个 generator × 5 个 α）。不限预算时，我们和问满 verifier 的方法放行数相近，但每题花费低得多。</p>
   {{MIX}}
 </section>
 </main>
