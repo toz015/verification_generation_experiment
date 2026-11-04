@@ -157,6 +157,24 @@ def solve(values, alpha, budget, wrong):
     return res.x, float(v[:, 0]@res.x), max(0., -res.ineqlin.marginals[0]), max(0., -res.ineqlin.marginals[1])
 
 
+# VGX_SINGLE=1: deploy the one rule with the most training publication among those meeting both
+# constraints (each item gets a definite decision), instead of the LP mixture of rules.
+SINGLE = os.environ.get('VGX_SINGLE') == '1'
+
+
+def deploy(values, alpha, budget, wrong):
+    """Deployment weights and training publication: the LP mixture, or one feasible rule."""
+    if not SINGLE:
+        w, pub, *_ = solve(values, alpha, budget, wrong)
+        return w, pub
+    v = np.array(values)
+    err_ok = v[:, 1] <= alpha*v[:, 0]+1e-12 if CONSTRAINT == 'fdr' else v[:, 1] <= alpha*wrong+1e-12
+    ok = np.flatnonzero(err_ok & (v[:, 2] <= budget+1e-12))
+    best = ok[np.argmax(v[ok, 0])]
+    w = np.zeros(len(v)); w[best] = 1.
+    return w, float(v[best, 0])
+
+
 def design(des, order, rules, values, alpha, budget):
     rules, values = list(rules), list(values)
     for _ in range(ROUNDS):
@@ -172,7 +190,7 @@ def design(des, order, rules, values, alpha, budget):
         if val[0]*scale-omega*val[1]-rho*val[2] <= z+TOL:
             break
         rules.append(rule); values.append(val)
-    w, pub, *_ = solve(values, alpha, budget, des.wrong)
+    w, pub = deploy(values, alpha, budget, des.wrong)
     return rules, w, pub, float(np.array(values)[:, 1]@w)/des.wrong, float(np.array(values)[:, 2]@w)
 
 

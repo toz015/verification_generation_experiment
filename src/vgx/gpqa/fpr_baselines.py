@@ -16,13 +16,13 @@ import numpy as np
 import vgx.baselines as B
 from vgx.common.storage import atomic_json
 from vgx.gpqa.dependence_triples import bin_of
-from vgx.gpqa.fpr_routing import ALPHAS, BUDGETS, Design, EDGES, Model, OMEGAS, OUT, RHOS, SEED, design, solve
+from vgx.gpqa.fpr_routing import ALPHAS, BUDGETS, Design, EDGES, Model, OMEGAS, OUT, RHOS, SEED, deploy, design, solve
 from vgx.quantum_katas import crossfit
 
 
 def lp(fam, wrong, alpha, budget):
     vals = [(a.mean(), (a*(1-fam['y_des'])).mean(), c.mean()) for a, c, _, _ in fam['rules']]
-    w = solve(vals, alpha, budget, wrong)[0]
+    w = deploy(vals, alpha, budget, wrong)[0]
     a = sum(wi*r[2] for wi, r in zip(w, fam['rules']))
     c = sum(wi*r[3] for wi, r in zip(w, fam['rules']))
     return a, c
