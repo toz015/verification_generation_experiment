@@ -76,7 +76,8 @@
       0.1
     ],
     "budget_fractions": [
-      0.25
+      0.25,
+      0.5
     ],
     "q_for_budget_sensitivity": [
       0.5
@@ -95,7 +96,8 @@
       "q": [
         0.5
       ]
-    }
+    },
+    "budget_sensitivity_note": "B = 50% of the D_init full-panel cost, all arms at q = 0.5; added 2026-11-09 after the primary results, at tony's go-ahead"
   },
   "bootstrap_reps": 2000
 }

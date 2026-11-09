@@ -245,6 +245,24 @@ def main():
                 x = bb['arms'][arm]
                 d = bb['diff'][f'{arm}-A']
                 L.append(f"| {eta} | {arm} | {x['pub']['point']:.3f} | {ci(x['risk'])} | {x['brier_prior']['point']:.4f} | {ci(d['brier_prior'], fmt='{:+.4f}')} |")
+    fracs = [f for f in cfg['grid']['budget_fractions'] if f != frac]
+    for f2 in fracs:
+        L.append(f'\n## Budget sensitivity: B = {f2:g} vs {frac:g} of the D_init full-panel cost (q = 0.5)\n')
+        L.append('| generator | arm | publication (B low -> high) | realized risk at high B [95%] | risk change | decision USD/task x1e-3 (low -> high) | hierarchy at high B (rotations 0-4) |')
+        L.append('|---|---|---|---|---|---|---|')
+        for gen in cfg['generators']:
+            lo, hi = summary[f'{gen}|q0.5|B{frac:g}'], summary[f'{gen}|q0.5|B{f2:g}']
+            hier = '; '.join('>'.join(json.loads((res_dir/'init'/f'{gen}_r{r}_B{f2:g}.json').read_text())['hierarchy'])
+                             for r in cfg['grid']['rotations'])
+            for arm in ALL:
+                b1, b2 = lo['bootstrap']['arms'][arm], hi['bootstrap']['arms'][arm]
+                dl = np.mean([lo['per_rotation'][arm][r]['decision_usd'] for r in lo['per_rotation'][arm]])*1e3
+                dh = np.mean([hi['per_rotation'][arm][r]['decision_usd'] for r in hi['per_rotation'][arm]])*1e3
+                L.append(f"| {gen} | {arm} | {b1['pub']['point']:.3f} -> {b2['pub']['point']:.3f} | {ci(b2['risk'])} | "
+                         f"{b2['risk']['point']-b1['risk']['point']:+.3f} | {dl:.3f} -> {dh:.3f} | {hier if arm == 'A' else ''} |")
+        for gen in cfg['generators']:
+            hi = summary[f'{gen}|q0.5|B{f2:g}']['bootstrap']['diff']
+            L.append(f"\n{gen}, B = {f2:g}: " + '; '.join(f"{d} risk {ci(hi[d]['risk'])}" for d in ('B-A', 'C1-B', 'C2-B', 'C1-C2', 'D-A')))
     if timing:
         L.append('\n## Controlled timing pass (single process, warm-up discarded, q = 0.5, order 0, 15 runs per arm)\n')
         L.append(f"Environment: {json.dumps(timing['environment'])}\n")

@@ -411,6 +411,38 @@ Within-class correlation of verifier bins (all processable labeled tasks): Y=0 n
 | 1.0 | C2 | 0.662 | 0.221 [0.160, 0.282] | 0.2258 | +0.0280 [+0.0098, +0.0465] |
 | 1.0 | D | 0.467 | 0.140 [0.092, 0.190] | 0.2075 | +0.0098 [-0.0015, +0.0222] |
 
+## Budget sensitivity: B = 0.5 vs 0.25 of the D_init full-panel cost (q = 0.5)
+
+| generator | arm | publication (B low -> high) | realized risk at high B [95%] | risk change | decision USD/task x1e-3 (low -> high) | hierarchy at high B (rotations 0-4) |
+|---|---|---|---|---|---|---|
+| qwen3 | A | 0.462 -> 0.517 | 0.114 [0.072, 0.174] | -0.010 | 1.002 -> 1.893 | gemini_lite>gemini_flash>claude_haiku; gemini_flash>gemini_lite>claude_haiku; gemini_lite>gemini_flash>claude_haiku; mistral_small>gemini_flash>claude_haiku; gemini_lite>claude_haiku>gemini_flash |
+| qwen3 | B | 0.473 -> 0.524 | 0.117 [0.075, 0.176] | -0.013 | 0.942 -> 1.845 |  |
+| qwen3 | C1 | 0.554 -> 0.618 | 0.198 [0.141, 0.276] | +0.024 | 1.059 -> 2.081 |  |
+| qwen3 | C2 | 0.531 -> 0.587 | 0.170 [0.121, 0.238] | +0.019 | 1.006 -> 2.099 |  |
+| qwen3 | D | 0.456 -> 0.525 | 0.114 [0.073, 0.174] | -0.006 | 0.925 -> 1.925 |  |
+| qwen3 | C1F | 0.526 -> 0.582 | 0.172 [0.116, 0.244] | +0.015 | 0.995 -> 2.044 |  |
+| qwen3 | C2F | 0.518 -> 0.573 | 0.154 [0.106, 0.219] | +0.009 | 0.998 -> 2.104 |  |
+| sonnet55 | A | 0.867 -> 0.867 | 0.094 [0.060, 0.134] | +0.001 | 1.075 -> 1.499 | mistral_medium>mistral_small>gemini_flash; mistral_medium>claude_haiku>gemini_flash; gemini_lite>gemini_flash>claude_haiku; gemini_flash>mistral_small>gemini_lite; gemini_lite>mistral_small>gemini_flash |
+| sonnet55 | B | 0.873 -> 0.870 | 0.094 [0.060, 0.133] | +0.002 | 1.062 -> 1.495 |  |
+| sonnet55 | C1 | 0.886 -> 0.900 | 0.100 [0.064, 0.141] | -0.000 | 0.849 -> 1.166 |  |
+| sonnet55 | C2 | 0.892 -> 0.901 | 0.099 [0.064, 0.139] | +0.000 | 0.965 -> 1.379 |  |
+| sonnet55 | D | 0.846 -> 0.848 | 0.090 [0.056, 0.129] | +0.000 | 1.083 -> 1.594 |  |
+| sonnet55 | C1F | 0.881 -> 0.896 | 0.099 [0.064, 0.141] | -0.000 | 0.839 -> 1.173 |  |
+| sonnet55 | C2F | 0.891 -> 0.898 | 0.099 [0.064, 0.139] | +0.000 | 0.964 -> 1.385 |  |
+| gptoss | A | 0.373 -> 0.428 | 0.115 [0.063, 0.172] | +0.027 | 0.723 -> 1.345 | gemini_flash>mistral_medium>gemini_lite; gemini_flash>gemini_lite>claude_haiku; claude_haiku>gemini_lite>gemini_flash; gemini_flash>gemini_lite>mistral_small; gemini_lite>gemini_flash>claude_haiku |
+| gptoss | B | 0.389 -> 0.450 | 0.113 [0.060, 0.169] | +0.028 | 0.775 -> 1.428 |  |
+| gptoss | C1 | 0.491 -> 0.540 | 0.128 [0.077, 0.181] | -0.010 | 1.060 -> 1.858 |  |
+| gptoss | C2 | 0.438 -> 0.510 | 0.123 [0.070, 0.177] | +0.011 | 0.969 -> 1.688 |  |
+| gptoss | D | 0.371 -> 0.432 | 0.104 [0.054, 0.160] | +0.033 | 0.764 -> 1.316 |  |
+| gptoss | C1F | 0.471 -> 0.519 | 0.126 [0.076, 0.178] | -0.011 | 1.000 -> 1.740 |  |
+| gptoss | C2F | 0.425 -> 0.489 | 0.122 [0.071, 0.175] | +0.007 | 0.953 -> 1.590 |  |
+
+qwen3, B = 0.5: B-A risk 0.003 [-0.005, 0.012]; C1-B risk 0.081 [0.042, 0.134]; C2-B risk 0.053 [0.027, 0.089]; C1-C2 risk 0.028 [0.012, 0.048]; D-A risk 0.000 [-0.006, 0.008]
+
+sonnet55, B = 0.5: B-A risk -0.000 [-0.001, 0.000]; C1-B risk 0.006 [-0.003, 0.016]; C2-B risk 0.005 [-0.000, 0.012]; C1-C2 risk 0.001 [-0.004, 0.006]; D-A risk -0.005 [-0.009, -0.001]
+
+gptoss, B = 0.5: B-A risk -0.002 [-0.006, 0.002]; C1-B risk 0.014 [-0.003, 0.034]; C2-B risk 0.010 [-0.000, 0.021]; C1-C2 risk 0.004 [-0.004, 0.015]; D-A risk -0.011 [-0.024, 0.001]
+
 ## Controlled timing pass (single process, warm-up discarded, q = 0.5, order 0, 15 runs per arm)
 
 Environment: {"cpu_count": 4, "numpy": "2.2.6", "omp_threads": "1", "processes": 1, "warmup_runs_discarded": 1}
