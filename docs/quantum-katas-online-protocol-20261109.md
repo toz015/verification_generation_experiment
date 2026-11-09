@@ -6,7 +6,7 @@
 ## 1. 数据与信息隔离
 
 - 数据：`results/quantum_katas_full_{qwen3,sonnet55,gptoss}_20261019`，通过 `crossfit.load_rows` 导出为
-  `reports/quantum_katas_online_20261109/data/`：
+  `reports/quantum_katas_online_20261109/rows/`：
   - `learner_<gen>.jsonl.gz`：任务 id、折、组、raw r、是否有代码、五个 verifier 的缓存分数/失败/估算费用。无标签，也无"是否有标签"。
   - `labels_<gen>.jsonl.gz`：官方 checker 标签，只给 evaluator、初始化（仅 D_init）和 D 组（仅审计轮）。
 - 可处理性只用公开信息：有可提取代码且 r ∈ [0,1]。不可处理的任务弃答、不审计、计入发布率分母。

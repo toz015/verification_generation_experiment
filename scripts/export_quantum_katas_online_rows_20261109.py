@@ -9,7 +9,7 @@ grouped cross-fit used), then writes
 No model calls are made.
 
   PYTHONPATH=src python scripts/export_quantum_katas_online_rows_20261109.py \
-      --results-root results --out reports/quantum_katas_online_20261109/data
+      --results-root results --out reports/quantum_katas_online_20261109/rows
 """
 from __future__ import annotations
 

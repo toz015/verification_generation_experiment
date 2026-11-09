@@ -2,7 +2,7 @@
   "schema": 1,
   "kind": "quantum_katas_online_replay",
   "status": "post-hoc analysis on cached outputs (not part of the pre-registered main study); settings frozen before the full grid run",
-  "data_dir": "reports/quantum_katas_online_20261109/data",
+  "data_dir": "reports/quantum_katas_online_20261109/rows",
   "data_export": "scripts/export_quantum_katas_online_rows_20261109.py (from results/quantum_katas_full_{qwen3,sonnet55,gptoss}_20261019 via vgx.quantum_katas.crossfit.load_rows)",
   "split": "configs/quantum_katas_split_20261019.json",
   "output": "results/quantum_katas_online_20261109",
