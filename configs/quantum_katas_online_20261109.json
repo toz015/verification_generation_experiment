@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "kind": "quantum_katas_online_replay",
+  "status": "post-hoc analysis on cached outputs (not part of the pre-registered main study); settings frozen before the full grid run",
+  "data_dir": "reports/quantum_katas_online_20261109/data",
+  "data_export": "scripts/export_quantum_katas_online_rows_20261109.py (from results/quantum_katas_full_{qwen3,sonnet55,gptoss}_20261019 via vgx.quantum_katas.crossfit.load_rows)",
+  "split": "configs/quantum_katas_split_20261019.json",
+  "output": "results/quantum_katas_online_20261109",
+  "generators": [
+    "qwen3",
+    "sonnet55",
+    "gptoss"
+  ],
+  "verifiers": [
+    "gemini_flash",
+    "gemini_lite",
+    "mistral_small",
+    "mistral_medium",
+    "claude_haiku"
+  ],
+  "settings": {
+    "alpha": 0.05,
+    "budget_fraction": 0.25,
+    "budget_definition": "fraction of the D_init mean full five-verifier panel cost (estimated USD, processable D_init tasks), converted to USD and frozen per rotation",
+    "eta0": 0.01,
+    "eta_schedule": "eta_n = eta0 / sqrt(1 + n), n = number of earlier confidence updates in this run",
+    "eta0_selection": "simulation only (reports/quantum_katas_online_20261109/sim/eta_sweep.json): grid {0.01,0.03,0.1,0.3,1,3,10}, scenarios ci_known/biased_conf/biased_lik, q in {0.5,0.1}, 12 seeds; criterion = mean stream Brier of arm B over scenarios and q; 0.01 minimizes it (0.1722; 0.03: 0.1726; 0.1: 0.1753). Larger eta0 fixes overconfidence faster with labels but amplifies Z-hat noise and theta bias.",
+    "gamma": 0.1,
+    "laplace": 1.0,
+    "bins": "3 equal-width bins on [0,1]; audit code A in {0, 1/2, 1}",
+    "calibrator": "p = sigmoid(a + b logit(clip(r, 1e-3, 1-1e-3))), a in [-10,10], b in [0,10], projected after each step; init = Brier minimization (L-BFGS-B, fixed multi-start)",
+    "em_max_iter": 500,
+    "em_tol": 1e-09,
+    "c2_gamma_schedule": "gamma_n = 1/(N0 + n), N0 = complete D_init panels",
+    "hierarchy_size": 3,
+    "hierarchy_rule": "ordered triple with the highest fitted DesignRouting publication on D_init reports under (phi_0, theta_0); ties lexicographic in verifier order",
+    "audit_verifier_rule": "minimize E[Var(A|Y)]/gap^2 under the unconstrained labeled D_init fit among verifiers with gap >= gamma; else the largest gap",
+    "design_routing": "exact tree values, column generation from {release-all, abstain-all}, eps 1e-9, max 200 rounds, HiGHS LP",
+    "missing_scores": "a missing verifier score during routing abstains (logged); theta updates use complete panels only; phi update needs the audit verifier's score",
+    "processable": "extractable code and raw r in [0,1]; non-processable tasks abstain, are not audited, count in the publication denominator",
+    "missing_label_in_evaluation": "counted as incorrect (none occur)"
+  },
+  "roles": "rotation k: D_init = fold k, D_design = fold (k+1) mod 5, stream = other three folds",
+  "seeds": {
+    "master": 20261109,
+    "per_run": "SeedSequence([master, rotation, order]) -> stream permutation, u_rule, u_audit (shared by all arms, generators and q)",
+    "bootstrap": 20261109
+  },
+  "grid": {
+    "rotations": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "orders": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arms": [
+      "A",
+      "B",
+      "C1",
+      "C2",
+      "D",
+      "C1F",
+      "C2F"
+    ],
+    "q": [
+      0.5,
+      0.25,
+      0.1
+    ],
+    "budget_fractions": [
+      0.25
+    ],
+    "q_for_budget_sensitivity": [
+      0.5
+    ],
+    "eta_sensitivity": {
+      "eta0": [
+        0.3,
+        1.0
+      ],
+      "arms": [
+        "B",
+        "C1",
+        "C2",
+        "D"
+      ],
+      "q": [
+        0.5
+      ]
+    }
+  },
+  "bootstrap_reps": 2000
+}
