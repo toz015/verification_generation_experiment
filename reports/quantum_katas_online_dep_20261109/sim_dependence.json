@@ -1,0 +1,1089 @@
+{
+  "alpha": 0.05,
+  "n_stream": 600,
+  "runs": {
+    "dependence|n_init=512": [
+      {
+        "alpha": 128.0,
+        "est_wrong": 12.939302192347657,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 266,
+        "seed": 0,
+        "wrong": 13
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 11.579964301754329,
+        "hierarchy": [
+          "v_strong",
+          "v_cheap2",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 233,
+        "seed": 1,
+        "wrong": 17
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 18.456414440029278,
+        "hierarchy": [
+          "v_strong",
+          "v_cheap2",
+          "v_weak"
+        ],
+        "n": 600,
+        "released": 309,
+        "seed": 2,
+        "wrong": 22
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 13.694381651551033,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 271,
+        "seed": 3,
+        "wrong": 21
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 8.366986124851145,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_cheap1"
+        ],
+        "n": 600,
+        "released": 205,
+        "seed": 4,
+        "wrong": 7
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 12.67743233038637,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 270,
+        "seed": 5,
+        "wrong": 25
+      },
+      {
+        "alpha": 128.0,
+        "est_wrong": 11.730890991202568,
+        "hierarchy": [
+          "v_cheap2",
+          "v_mid",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 219,
+        "seed": 6,
+        "wrong": 11
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 6.355979793990251,
+        "hierarchy": [
+          "v_cheap2",
+          "v_weak",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 131,
+        "seed": 7,
+        "wrong": 7
+      },
+      {
+        "alpha": 128.0,
+        "est_wrong": 17.494174979840498,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 329,
+        "seed": 8,
+        "wrong": 33
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 12.416780811601164,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 227,
+        "seed": 9,
+        "wrong": 11
+      },
+      {
+        "alpha": 128.0,
+        "est_wrong": 13.612171265562312,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 266,
+        "seed": 10,
+        "wrong": 17
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 10.856765823056431,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_weak"
+        ],
+        "n": 600,
+        "released": 215,
+        "seed": 11,
+        "wrong": 18
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 10.54228614754898,
+        "hierarchy": [
+          "v_cheap2",
+          "v_weak",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 219,
+        "seed": 12,
+        "wrong": 5
+      },
+      {
+        "alpha": 128.0,
+        "est_wrong": 14.06969002690355,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 279,
+        "seed": 13,
+        "wrong": 30
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 14.2554789781695,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 277,
+        "seed": 14,
+        "wrong": 15
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 13.678442976672457,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 276,
+        "seed": 15,
+        "wrong": 27
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 15.061142428069806,
+        "hierarchy": [
+          "v_cheap1",
+          "v_cheap2",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 309,
+        "seed": 16,
+        "wrong": 20
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 15.632523542717362,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 286,
+        "seed": 17,
+        "wrong": 14
+      },
+      {
+        "alpha": 128.0,
+        "est_wrong": 14.489601641489301,
+        "hierarchy": [
+          "v_cheap1",
+          "v_cheap2",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 297,
+        "seed": 18,
+        "wrong": 26
+      },
+      {
+        "alpha": 128.0,
+        "est_wrong": 14.243602654596376,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 275,
+        "seed": 19,
+        "wrong": 22
+      }
+    ],
+    "dependence|n_init=64": [
+      {
+        "alpha": 64.0,
+        "est_wrong": 19.137837509103196,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 385,
+        "seed": 0,
+        "wrong": 39
+      },
+      {
+        "alpha": 32.0,
+        "est_wrong": 4.601682919111827,
+        "hierarchy": [
+          "v_weak",
+          "v_strong",
+          "v_cheap1"
+        ],
+        "n": 600,
+        "released": 92,
+        "seed": 1,
+        "wrong": 6
+      },
+      {
+        "alpha": 128.0,
+        "est_wrong": 10.118641480754544,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 200,
+        "seed": 2,
+        "wrong": 11
+      },
+      {
+        "alpha": 32.0,
+        "est_wrong": 7.061233514644502,
+        "hierarchy": [
+          "v_cheap1",
+          "v_cheap2",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 167,
+        "seed": 3,
+        "wrong": 5
+      },
+      {
+        "alpha": 32.0,
+        "est_wrong": 15.073564726729321,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 340,
+        "seed": 4,
+        "wrong": 45
+      },
+      {
+        "alpha": 16.0,
+        "est_wrong": 15.341267343806082,
+        "hierarchy": [
+          "v_weak",
+          "v_cheap1",
+          "v_cheap2"
+        ],
+        "n": 600,
+        "released": 277,
+        "seed": 5,
+        "wrong": 33
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 19.533411430019324,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 454,
+        "seed": 6,
+        "wrong": 45
+      },
+      {
+        "alpha": 16.0,
+        "est_wrong": 17.121605598380143,
+        "hierarchy": [
+          "v_cheap2",
+          "v_mid",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 322,
+        "seed": 7,
+        "wrong": 31
+      },
+      {
+        "alpha": 128.0,
+        "est_wrong": 17.633991760092577,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 332,
+        "seed": 8,
+        "wrong": 24
+      },
+      {
+        "alpha": 128.0,
+        "est_wrong": 23.70649952569982,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 445,
+        "seed": 9,
+        "wrong": 47
+      },
+      {
+        "alpha": 32.0,
+        "est_wrong": 22.083544638665586,
+        "hierarchy": [
+          "v_strong",
+          "v_cheap2",
+          "v_weak"
+        ],
+        "n": 600,
+        "released": 419,
+        "seed": 10,
+        "wrong": 50
+      },
+      {
+        "alpha": 16.0,
+        "est_wrong": 17.127865186587403,
+        "hierarchy": [
+          "v_cheap1",
+          "v_mid",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 357,
+        "seed": 11,
+        "wrong": 38
+      },
+      {
+        "alpha": 32.0,
+        "est_wrong": 18.048749823523416,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 337,
+        "seed": 12,
+        "wrong": 35
+      },
+      {
+        "alpha": 16.0,
+        "est_wrong": 16.128102758262724,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 324,
+        "seed": 13,
+        "wrong": 32
+      },
+      {
+        "alpha": 32.0,
+        "est_wrong": 4.789259338968091,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 99,
+        "seed": 14,
+        "wrong": 3
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 5.742086928270965,
+        "hierarchy": [
+          "v_weak",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 118,
+        "seed": 15,
+        "wrong": 3
+      },
+      {
+        "alpha": "inf",
+        "est_wrong": 16.1707245510574,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 337,
+        "seed": 16,
+        "wrong": 34
+      },
+      {
+        "alpha": 64.0,
+        "est_wrong": 20.533233729697038,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_cheap1"
+        ],
+        "n": 600,
+        "released": 405,
+        "seed": 17,
+        "wrong": 52
+      },
+      {
+        "alpha": 32.0,
+        "est_wrong": 20.432597963795853,
+        "hierarchy": [
+          "v_cheap1",
+          "v_cheap2",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 454,
+        "seed": 18,
+        "wrong": 55
+      },
+      {
+        "alpha": 32.0,
+        "est_wrong": 19.068804501315668,
+        "hierarchy": [
+          "v_strong",
+          "v_cheap1",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 445,
+        "seed": 19,
+        "wrong": 63
+      }
+    ],
+    "independence|n_init=512": [
+      {
+        "alpha": null,
+        "est_wrong": 14.554095006494988,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 307,
+        "seed": 0,
+        "wrong": 22
+      },
+      {
+        "alpha": null,
+        "est_wrong": 12.338342618094739,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 259,
+        "seed": 1,
+        "wrong": 18
+      },
+      {
+        "alpha": null,
+        "est_wrong": 16.286226118247754,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 302,
+        "seed": 2,
+        "wrong": 20
+      },
+      {
+        "alpha": null,
+        "est_wrong": 14.77121271116858,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 303,
+        "seed": 3,
+        "wrong": 24
+      },
+      {
+        "alpha": null,
+        "est_wrong": 9.592568078158207,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 240,
+        "seed": 4,
+        "wrong": 9
+      },
+      {
+        "alpha": null,
+        "est_wrong": 15.633466524487387,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 325,
+        "seed": 5,
+        "wrong": 39
+      },
+      {
+        "alpha": null,
+        "est_wrong": 12.38075585592644,
+        "hierarchy": [
+          "v_cheap2",
+          "v_mid",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 239,
+        "seed": 6,
+        "wrong": 14
+      },
+      {
+        "alpha": null,
+        "est_wrong": 8.597398297273878,
+        "hierarchy": [
+          "v_cheap1",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 173,
+        "seed": 7,
+        "wrong": 6
+      },
+      {
+        "alpha": null,
+        "est_wrong": 17.93852763899197,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 350,
+        "seed": 8,
+        "wrong": 38
+      },
+      {
+        "alpha": null,
+        "est_wrong": 12.251123657585751,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 257,
+        "seed": 9,
+        "wrong": 19
+      },
+      {
+        "alpha": null,
+        "est_wrong": 15.565558200840792,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 302,
+        "seed": 10,
+        "wrong": 24
+      },
+      {
+        "alpha": null,
+        "est_wrong": 13.389349179818812,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 267,
+        "seed": 11,
+        "wrong": 17
+      },
+      {
+        "alpha": null,
+        "est_wrong": 11.162552191593303,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 239,
+        "seed": 12,
+        "wrong": 8
+      },
+      {
+        "alpha": null,
+        "est_wrong": 14.412145009358769,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 309,
+        "seed": 13,
+        "wrong": 36
+      },
+      {
+        "alpha": null,
+        "est_wrong": 14.167735648958171,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 288,
+        "seed": 14,
+        "wrong": 20
+      },
+      {
+        "alpha": null,
+        "est_wrong": 15.902921893962,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 331,
+        "seed": 15,
+        "wrong": 43
+      },
+      {
+        "alpha": null,
+        "est_wrong": 16.716671769106338,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 360,
+        "seed": 16,
+        "wrong": 31
+      },
+      {
+        "alpha": null,
+        "est_wrong": 16.10441372318315,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 312,
+        "seed": 17,
+        "wrong": 18
+      },
+      {
+        "alpha": null,
+        "est_wrong": 16.29978793835124,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 326,
+        "seed": 18,
+        "wrong": 31
+      },
+      {
+        "alpha": null,
+        "est_wrong": 13.455767965950725,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 278,
+        "seed": 19,
+        "wrong": 23
+      }
+    ],
+    "independence|n_init=64": [
+      {
+        "alpha": null,
+        "est_wrong": 18.89650067002076,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 393,
+        "seed": 0,
+        "wrong": 40
+      },
+      {
+        "alpha": null,
+        "est_wrong": 8.545417062706264,
+        "hierarchy": [
+          "v_cheap2",
+          "v_mid",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 165,
+        "seed": 1,
+        "wrong": 7
+      },
+      {
+        "alpha": null,
+        "est_wrong": 10.338616271127687,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 195,
+        "seed": 2,
+        "wrong": 11
+      },
+      {
+        "alpha": null,
+        "est_wrong": 8.342735325317783,
+        "hierarchy": [
+          "v_cheap1",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 198,
+        "seed": 3,
+        "wrong": 8
+      },
+      {
+        "alpha": null,
+        "est_wrong": 11.3328043789992,
+        "hierarchy": [
+          "v_strong",
+          "v_cheap1",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 279,
+        "seed": 4,
+        "wrong": 21
+      },
+      {
+        "alpha": null,
+        "est_wrong": 13.731286617430916,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_cheap1"
+        ],
+        "n": 600,
+        "released": 270,
+        "seed": 5,
+        "wrong": 17
+      },
+      {
+        "alpha": null,
+        "est_wrong": 20.259465639659282,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 454,
+        "seed": 6,
+        "wrong": 47
+      },
+      {
+        "alpha": null,
+        "est_wrong": 17.706592921834368,
+        "hierarchy": [
+          "v_cheap1",
+          "v_cheap2",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 341,
+        "seed": 7,
+        "wrong": 35
+      },
+      {
+        "alpha": null,
+        "est_wrong": 16.246565582741074,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 328,
+        "seed": 8,
+        "wrong": 23
+      },
+      {
+        "alpha": null,
+        "est_wrong": 23.954043674176706,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 439,
+        "seed": 9,
+        "wrong": 45
+      },
+      {
+        "alpha": null,
+        "est_wrong": 22.809574526722713,
+        "hierarchy": [
+          "v_cheap1",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 414,
+        "seed": 10,
+        "wrong": 50
+      },
+      {
+        "alpha": null,
+        "est_wrong": 14.447218510274846,
+        "hierarchy": [
+          "v_cheap2",
+          "v_mid",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 337,
+        "seed": 11,
+        "wrong": 28
+      },
+      {
+        "alpha": null,
+        "est_wrong": 18.08239570290204,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 349,
+        "seed": 12,
+        "wrong": 43
+      },
+      {
+        "alpha": null,
+        "est_wrong": 15.79542430201461,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 336,
+        "seed": 13,
+        "wrong": 39
+      },
+      {
+        "alpha": null,
+        "est_wrong": 5.920654404386603,
+        "hierarchy": [
+          "v_weak",
+          "v_mid",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 112,
+        "seed": 14,
+        "wrong": 2
+      },
+      {
+        "alpha": null,
+        "est_wrong": 5.7895797384452985,
+        "hierarchy": [
+          "v_cheap1",
+          "v_weak",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 119,
+        "seed": 15,
+        "wrong": 2
+      },
+      {
+        "alpha": null,
+        "est_wrong": 16.170724551057404,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 337,
+        "seed": 16,
+        "wrong": 34
+      },
+      {
+        "alpha": null,
+        "est_wrong": 20.025853026953705,
+        "hierarchy": [
+          "v_cheap2",
+          "v_strong",
+          "v_cheap1"
+        ],
+        "n": 600,
+        "released": 399,
+        "seed": 17,
+        "wrong": 54
+      },
+      {
+        "alpha": null,
+        "est_wrong": 20.376391205273414,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_mid"
+        ],
+        "n": 600,
+        "released": 458,
+        "seed": 18,
+        "wrong": 59
+      },
+      {
+        "alpha": null,
+        "est_wrong": 19.38981673164448,
+        "hierarchy": [
+          "v_cheap2",
+          "v_cheap1",
+          "v_strong"
+        ],
+        "n": 600,
+        "released": 457,
+        "seed": 19,
+        "wrong": 64
+      }
+    ]
+  },
+  "scenario": "correlated",
+  "summary": {
+    "dependence|n_init=512": {
+      "pooled_est_risk": 0.05081488914563682,
+      "pooled_risk": 0.0699748013180849,
+      "pub": 0.42991666666666667,
+      "risk_seed_mean": 0.06804353018359649,
+      "risk_seed_sd": 0.022407982639292227,
+      "seeds": 20
+    },
+    "dependence|n_init=64": {
+      "pooled_est_risk": 0.049049723447215955,
+      "pooled_risk": 0.10318592486923443,
+      "pub": 0.52575,
+      "risk_seed_mean": 0.0926184925607237,
+      "risk_seed_sd": 0.033996709908648434,
+      "seeds": 20
+    },
+    "independence|n_init=512": {
+      "pooled_est_risk": 0.048815782907500084,
+      "pooled_risk": 0.07976417548118606,
+      "pub": 0.4805833333333333,
+      "risk_seed_mean": 0.07669773023773094,
+      "risk_seed_sd": 0.026515155387896155,
+      "seeds": 20
+    },
+    "independence|n_init=64": {
+      "pooled_est_risk": 0.04830120075919893,
+      "pooled_risk": 0.09858934169278998,
+      "pub": 0.5316666666666666,
+      "risk_seed_mean": 0.08704697012656289,
+      "risk_seed_sd": 0.03686656098658016,
+      "seeds": 20
+    }
+  }
+}

@@ -5,6 +5,8 @@ Per round (stream task t, quantities fixed before the round's update):
   brier_panel   (b_full - Y_t)^2, b_full = posterior from p_hat_t and the full cached panel under theta_t
                 (evaluates theta_t; the learner never sees the full panel unless the round was audited)
   label_ll      log prod_j theta_t[j, Y_t, A_tj] on the full panel (true class-conditional fit of theta_t)
+  (dependence-model logs carry joint_start: the hierarchy enters through the joint table T_t and the
+  other verifiers through their marginals; see vgx.online.joint.panel_logs)
   release, wrong release, decision cost, audit cost, belief at release (model-estimated error 1 - b)
 
 Intervals: cluster bootstrap over the 35 task groups. A resampled group brings every one of its
@@ -14,6 +16,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from vgx.online import joint as jm
 from vgx.online import likelihood as lk
 from vgx.online.views import bin_of
 
@@ -21,7 +24,7 @@ SUMS = ('n', 'proc', 'released', 'wrong', 'brier_prior', 'brier_panel', 'n_panel
         'decision_usd', 'audit_usd', 'audits', 'extreme')
 
 
-def round_eval(rec, labels, signals, verifiers):
+def round_eval(rec, labels, signals, verifiers, hier=None):
     y = labels.outcome(rec['task_id'])
     out = {'y': y, 'release': rec['action'] == 'release'}
     out['wrong'] = out['release'] and y == 0
@@ -32,20 +35,27 @@ def round_eval(rec, labels, signals, verifiers):
         if all(sig[v]['score'] is not None for v in verifiers):
             bins = np.array([[bin_of(sig[v]['score']) for v in verifiers]])
             g = np.array(rec['theta_start'])
-            b = float(lk.posterior([rec['p_hat']], bins, g)[0])
+            if rec.get('joint_start') is not None:
+                if hier is None:
+                    raise ValueError('dependence-model log needs the hierarchy')
+                T = np.array(rec['joint_start'])
+                b = float(jm.posterior([rec['p_hat']], bins, g, T, hier)[0])
+                out['label_ll'] = float(jm.label_loglik(g, T, hier, bins, [y])[0])
+            else:
+                b = float(lk.posterior([rec['p_hat']], bins, g)[0])
+                j = np.arange(len(verifiers))
+                out['label_ll'] = float(np.log(g[j, y, bins[0]]).sum())
             out['brier_panel'] = (b - y)**2
-            j = np.arange(len(verifiers))
-            out['label_ll'] = float(np.log(g[j, y, bins[0]]).sum())
     if out['release'] and rec.get('belief') is not None:
         out['est_wrong'] = 1 - rec['belief']
     return out
 
 
-def group_sums(log, labels, signals, verifiers):
+def group_sums(log, labels, signals, verifiers, hier=None):
     """Per-group sums of the additive quantities, plus per-round evaluation rows."""
     groups, rows = {}, []
     for rec in log:
-        e = round_eval(rec, labels, signals, verifiers)
+        e = round_eval(rec, labels, signals, verifiers, hier)
         rows.append(e)
         s = groups.setdefault(rec['group'], dict.fromkeys(SUMS, 0.))
         s['n'] += 1

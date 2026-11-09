@@ -110,3 +110,29 @@
 
 - η0：只根据模拟实验选（`reports/quantum_katas_online_20261109/sim/eta_sweep.json`），在完整网格运行前冻结。
 - γ = 0.1、伪计数 1、EM 容差：事先固定，未根据真实数据调整。
+
+## 10. 追加：依赖感知 likelihood（2026-11-09，在独立模型结果之后，经 tony 选择）
+
+性质：在独立模型结果出来之后追加的分析，不是预先设定的主分析。配置
+`configs/quantum_katas_online_dependence_20261109.json`，代码 `vgx.online.joint`，测试 `tests/test_online_joint.py`。
+只跑 A、B、C2、D，q ∈ {0.5, 0.25, 0.1}，B = 25%；其余设置、随机数、题序与 §1–§9 完全相同。
+
+- 模型：对每个类别 y，hierarchy 三个 verifier 的 27 个分档格子用联合表
+  T[y] = (C[y] + α·∏_k g[h_k, y]) / (n_y + α)，与 `vgx.gpqa.dependence_triples` 相同。
+  C 为格子计数（D_init 为硬计数），g 为原来的边际（含审计 verifier 的均值差约束）。α = ∞ 即原独立模型。
+- hierarchy 之外的两个 verifier 仍用边际 g，并假设给定 Y 时与 hierarchy 独立；它们只进入完整 panel 后验
+  （C2 的 E 步和评估），不进入路由。
+- Ẑ 仍用审计 verifier 的约束边际 g[a] 计算，所以 B 组的 φ 轨迹在两种模型下相同，差异只来自路由。
+- α：每个轮换、每个 verifier 三元组，在 D_init 完整 panel 上做 5 折内层交叉验证（留出格子的类条件对数似然），
+  候选 {0.5, 1, 2, 4, 8, 16, 32, 64, 128, 256, ∞}，平局取较大 α。之后在整个 run 内冻结；
+  C2 与 D 更新计数，不重选 α。
+- hierarchy：60 个有序三元组在 (φ0, g0, T0) 下运行 DesignRouting，取拟合发布率最高者。
+- 路由：DesignRouting 与 NestedVerify 的 Bayes 更新改为 P(第 k 层分档 | 前面各层分档, Y)，仍在 3³ 树上精确计算。
+- C2：在 E 步用联合模型的后验权重，同时递推边际软计数和格子软计数，γ_n 与 §5 相同。
+- D：初始化标签与审计轮标签的格子硬计数加边际硬计数。
+- C1、C1F、C2F 未在依赖模型下实现（会报错）。
+- 评估：brier_panel 和 label_ll 用 T_t（hierarchy）乘其余两个 verifier 的边际。
+
+评估端 oracle 诊断（`scripts/online_oracle_decomposition_20261109.py`）：用数据流自身的官方标签在样本内拟合 φ*、
+θ*/T*（联合模型保留 D_init 选出的 α），在相同 hierarchy、预算、设计集和随机数下重放 A。它只用于拆解偏差来源，
+不是实验组，也不反馈给任何学习器。

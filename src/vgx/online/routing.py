@@ -1,7 +1,8 @@
 """DesignRouting (main-text version) and NestedVerify for a fixed hierarchy of singleton layers.
 
 Fitted law on the design set: Y ~ Bernoulli(pi_i) with pi_i = r_phi(U_i), layer-k bins ~ g[k, Y]
-(conditional independence). A rule is the Bellman policy for multipliers (omega, rho):
+(conditional independence), or, with a joint likelihood (vgx.online.joint.JointLik), layer-k bins ~
+P(. | earlier bins, Y). G may be a (K, 2, BINS) array or an object with cond(k, history). A rule is the Bellman policy for multipliers (omega, rho):
 
   A(b) = 1 - omega (1 - b - alpha),  G(b) = max(0, A(b)),  J_K = G,
   Q_k(b) = -rho d_{k+1} + sum_x M_k(x; b) J_{k+1}(Phi_k(b, x)),  J_k = max(G, Q_k);
@@ -24,12 +25,14 @@ import time
 import numpy as np
 from scipy.optimize import linprog
 
+from vgx.online.joint import as_lik
+
 TIE = 1e-12
 EPS = 1e-9
 MAX_ROUNDS = 200
 
 
-def _node(k, b, mass, G, d, omega, rho, alpha):
+def _node(k, b, mass, L, d, omega, rho, alpha, hist=()):
     """Returns J_k(b), and per-item contributions (p, e, c) of the Bellman rule from this node."""
     A = 1 - omega*(1 - b - alpha)
     stop = np.maximum(0., A)
@@ -39,11 +42,11 @@ def _node(k, b, mass, G, d, omega, rho, alpha):
         return stop, sp, se, np.zeros_like(b)
     q = np.full(b.shape, -rho*d[k])
     cp, ce, cc = np.zeros_like(b), np.zeros_like(b), np.full(b.shape, 0.)
-    g1, g0 = G[k, 1], G[k, 0]
-    for x in range(G.shape[2]):
+    g1, g0 = L.cond(k, hist)
+    for x in range(len(g1)):
         px = b*g1[x] + (1-b)*g0[x]
         bx = np.divide(b*g1[x], px, out=np.zeros_like(b), where=px > 0)
-        J, p_, e_, c_ = _node(k+1, bx, mass*px, G, d, omega, rho, alpha)
+        J, p_, e_, c_ = _node(k+1, bx, mass*px, L, d, omega, rho, alpha, (*hist, x))
         q += px*J
         cp, ce, cc = cp+p_, ce+e_, cc+c_
     go = q > stop + TIE
@@ -57,14 +60,14 @@ def rule_values(pi, G, d, omega, rho, alpha):
     ok = np.isfinite(pi)
     n = len(pi)
     b = np.where(ok, pi, 0.)
-    J, p, e, c = _node(0, b[ok], np.ones(ok.sum()), np.asarray(G), np.asarray(d, float), omega, rho, alpha)
+    J, p, e, c = _node(0, b[ok], np.ones(ok.sum()), as_lik(G), np.asarray(d, float), omega, rho, alpha)
     P, E, C, V = p.sum()/n, e.sum()/n, c.sum()/n, J.sum()/n
     return float(P), float(E), float(C), float(V)
 
 
-def decide(k, b, G, d, omega, rho, alpha):
-    """Rule action at layer k with current belief b: 'query', 'release' or 'abstain'."""
-    J, *_ = _node(k, np.array([b]), np.array([1.]), np.asarray(G), np.asarray(d, float), omega, rho, alpha)
+def decide(k, b, G, d, omega, rho, alpha, hist=()):
+    """Rule action at layer k with current belief b and earlier bins hist: 'query', 'release' or 'abstain'."""
+    J, *_ = _node(k, np.array([b]), np.array([1.]), as_lik(G), np.asarray(d, float), omega, rho, alpha, tuple(hist))
     A = 1 - omega*(1 - b - alpha)
     if k < len(d) and J[0] > max(0., A) + TIE:
         return 'query'
@@ -130,9 +133,9 @@ def nested_verify(prior, rule, G, d, alpha, read):
     if rule['kind'] == 'abstain_all':
         return {'action': 'abstain', 'layers_used': 0, 'belief': prior, 'failure': None, 'bins': []}
     b, k, bins = prior, 0, []
-    G = np.asarray(G)
+    L = as_lik(G)
     while True:
-        act = decide(k, b, G, d, rule['omega'], rule['rho'], alpha)
+        act = decide(k, b, L, d, rule['omega'], rule['rho'], alpha, bins)
         if act != 'query':
             return {'action': act, 'layers_used': k, 'belief': b, 'failure': None, 'bins': bins}
         x = read(k)
@@ -140,9 +143,10 @@ def nested_verify(prior, rule, G, d, alpha, read):
         if x is None:
             return {'action': 'abstain', 'layers_used': k, 'belief': b, 'failure': 'missing_verifier_score',
                     'bins': bins}
-        mass = b*G[k-1, 1, x] + (1-b)*G[k-1, 0, x]
+        g1, g0 = L.cond(k-1, bins)
+        mass = b*g1[x] + (1-b)*g0[x]
         if mass <= 0:
             return {'action': 'abstain', 'layers_used': k, 'belief': None, 'failure': 'zero_predictive_likelihood',
                     'bins': bins}
-        b = b*G[k-1, 1, x]/mass
+        b = b*g1[x]/mass
         bins.append(int(x))

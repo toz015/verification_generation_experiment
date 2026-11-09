@@ -30,8 +30,13 @@ _CFG = None
 
 def _settings(cfg, frac, eta=None):
     s = cfg['settings']
+    lik = cfg.get('likelihood', {'model': 'independence'})
+    extra = {}
+    if lik['model'] == 'dependence':
+        extra = {'alpha_grid': tuple(lik['alpha_grid']), 'inner_folds': lik['inner_folds'], 'inner_seed': lik['inner_seed']}
     return Settings(alpha=s['alpha'], budget_fraction=frac, eta0=s['eta0'] if eta is None else eta, gamma=s['gamma'],
-                    em_max_iter=s['em_max_iter'], em_tol=s['em_tol'], hierarchy_size=s['hierarchy_size'])
+                    em_max_iter=s['em_max_iter'], em_tol=s['em_tol'], hierarchy_size=s['hierarchy_size'],
+                    likelihood=lik['model'], **extra)
 
 
 @lru_cache(maxsize=None)
@@ -83,7 +88,10 @@ def run_one(task):
         f.write(json.dumps({'meta': {'gen': gen, 'rotation': rot, 'order': order, 'arm': arm, 'q': q,
                                      'budget_fraction': frac, 'eta0': _settings(_CFG, frac, eta).eta0, 'wall_seconds': wall,
                                      'initial_design_seconds': r.design_seconds_initial,
-                                     'final_phi': r.phi.tolist(), 'final_theta': r.theta.tolist()}}).encode() + b'\n')
+                                     'final_phi': r.phi.tolist(), 'final_theta': r.theta.tolist(),
+                                     'hierarchy': list(r.hier), 'likelihood': _settings(_CFG, frac, eta).likelihood,
+                                     'joint_alpha': None if r.T is None else I.info.get('joint_alpha'),
+                                     'final_joint': None if r.T is None else r.T.tolist()}}).encode() + b'\n')
         for rec in r.log:
             f.write(json.dumps(rec).encode() + b'\n')
     tmp.rename(path)
@@ -215,7 +223,7 @@ def cmd_summarize(cfg):
                     for rot in cfg['grid']['rotations']:
                         for order in cfg['grid']['orders']:
                             meta, log = read_log(_path(out, gen, rot, order, arm, qq, frac))
-                            groups, rows = ev.group_sums(log, store, signals, cfg['verifiers'])
+                            groups, rows = ev.group_sums(log, store, signals, cfg['verifiers'], meta.get('hierarchy'))
                             entries[arm].append(groups)
                             diags[arm].append(run_diagnostics(meta, log))
                             per_rot.setdefault(arm, {}).setdefault(rot, []).append(groups)
