@@ -121,7 +121,8 @@ def row(d, kind):
     return f'<div class="row">{out}</div>'
 
 
-def table(d, alphas=(.05, .1)):
+def table(d, alphas=(.05, .1), kind='count'):
+    """kind='rate': release rate and error among released; kind='count': released / wrong."""
     b = d['budgets'][MAIN_B]
     gens = ('qwen3', 'gptoss', 'sonnet55')
     head = ''.join(''.join(f'<th class="n">{GEN[g]} α={a:.0%}</th>' for a in alphas) for g in gens)
@@ -131,10 +132,33 @@ def table(d, alphas=(.05, .1)):
         for g in gens:
             for a in alphas:
                 x = d['generators'][g][f'{a}|{b}'].get(m)
-                cells += '<td class="n">—</td>' if x is None else (
-                    f'<td class="n">{x["released"]:.1f} / {x["wrong_released"]:.1f}{"*" if (target(x) or 0) > a else ""}<br><small>${x["usd"]:.4f}/题，放行错误率 {"—" if rel_err(x) is None else f"{rel_err(x):.1%}"}</small></td>')
+                star = '*' if x is not None and (target(x) or 0) > a else ''
+                if x is None:
+                    cells += '<td class="n">—</td>'
+                elif kind == 'rate':
+                    e = rel_err(x)
+                    cells += f'<td class="n">{x["pub"]:.1%}<br><small>错误率 {"—" if e is None else f"{e:.1%}"}{star}</small></td>'
+                else:
+                    cells += f'<td class="n">{x["released"]:.1f} / {x["wrong_released"]:.1f}{star}</td>'
         body += f'<tr><th scope="row">{name}</th>{cells}</tr>'
     return f'<div class="scroll"><table><thead><tr><th></th>{head}</tr></thead><tbody>{body}</tbody></table></div>'
+
+
+def budget_table(d, a):
+    """Release rate at one alpha across the budget grid; * marks error among released above alpha."""
+    gens = ('qwen3', 'gptoss', 'sonnet55')
+    labels = list(SHARE)[:len(d['budgets'])]
+    head1 = ''.join(f'<th class="n" colspan="{len(labels)}">{GEN[g]}</th>' for g in gens)
+    head2 = ''.join(f'<th class="n">{l}</th>' for _ in gens for l in labels)
+    body = ''
+    for m, name in TABLE:
+        cells = ''
+        for g in gens:
+            for b in d['budgets']:
+                x = d['generators'][g][f'{a}|{b}'].get(m)
+                cells += '<td class="n">—</td>' if x is None else f'<td class="n">{x["pub"]:.0%}{"*" if (target(x) or 0) > a else ""}</td>'
+        body += f'<tr><th scope="row">{name}</th>{cells}</tr>'
+    return f'<div class="scroll"><table><thead><tr><th></th>{head1}</tr><tr><th>预算占比</th>{head2}</tr></thead><tbody>{body}</tbody></table></div>'
 
 
 def counts(d, only_main=False):
@@ -174,7 +198,11 @@ def main():
     err = ''.join(f'<h3>{n}</h3>{row(res[ds], "other")}' for ds, _, n, _ in DATASETS)
     trade = ''.join(f'<h3>{n}</h3>{row(res[ds], "trade")}' for ds, _, n, _ in DATASETS)
     bud = ''.join(f'<h3>{n}</h3>{row(res[ds], "bud")}' for ds, _, n, _ in DATASETS)
-    tab = ''.join(f'<h3>{n}</h3>{table(res[ds], (.01, .02, .05) if FDR and ds == "math500" else (.05, .1))}' for ds, _, n, _ in DATASETS)
+    al = lambda ds: (.01, .02, .05) if FDR and ds == 'math500' else (.05, .1)
+    tab = ''.join(f'<h3>{n}</h3>{table(res[ds], al(ds), "rate")}' for ds, _, n, _ in DATASETS)
+    cnt = ''.join(f'<h3>{n}</h3>{table(res[ds], al(ds), "count")}' for ds, _, n, _ in DATASETS)
+    if FDR:
+        bud = ''.join(f'<h3>{n}</h3>{budget_table(res[ds], .02 if ds == "math500" else .05)}' for ds, _, n, _ in DATASETS)
     legend = ''.join(f'<span><i style="background:var(--s{k})"></i>{n}</span>' for _, n, k in LINES)
     mix = ''
     if FDR:
@@ -185,7 +213,7 @@ def main():
         globals()['MAIN_B'] = MAIN
     OUT.parent.mkdir(parents=True, exist_ok=True)
     page = TEMPLATE_FDR if FDR else TEMPLATE
-    OUT.write_text(page.replace('{{PUB}}', pub).replace('{{FPR}}', fpr).replace('{{BUD}}', bud).replace('{{ERR}}', err).replace('{{TAB}}', tab)
+    OUT.write_text(page.replace('{{PUB}}', pub).replace('{{FPR}}', fpr).replace('{{BUD}}', bud).replace('{{ERR}}', err).replace('{{TAB}}', tab).replace('{{CNT}}', cnt)
                    .replace('{{SUM}}', summary(res, SINGLE)).replace('{{MIX}}', mix).replace('{{TRADE}}', trade).replace('{{LEGEND}}', legend))
     print('wrote', OUT)
 
@@ -392,16 +420,14 @@ small { color: var(--muted); }
   <h2>6. 结果</h2>
   <ul>
     <li><b>同样的实际错误率下，我们放得更多或持平（见 6.1）。</b>比如 QuantumKatas 的 Qwen3，实际错误率约 5% 时我们放行 37%，固定问 3 个放行 26%；约 11% 时是 48% 对 34%。GPQA 的 gpt-oss 在实际错误率 8.7% 时，我们放行 66%，固定问 3 个 57%。GPQA 的 Qwen3 两者基本重合。所以多放的部分不是靠多犯错换来的。</li>
-    <li><b>放行更多：</b>三个数据集上，我们在绝大多数设定下放行显著更多。75 格里，没有一个 baseline 显著多于我们超过 5 格（见下表）。</li>
+    <li><b>放行更多：</b>三个数据集上，我们在绝大多数设定下放行显著更多。75 格里，没有一个 baseline 显著多于我们超过 5 格（见附录的汇总表）。</li>
     <li><b>错误率：</b>α ≥ 5% 时，我们的放行错误率基本贴着目标，比如 α = 5% 时 QuantumKatas 平均 5.5% 到 6.9%，GPQA 1.6% 到 5.7%。α = 1% 到 2% 时放行很少，几道错题就能让错误率跳很高，这一段不稳定。</li>
     <li><b>MATH-500 要看小 α：</b>Qwen3 和 gpt-oss 给出答案的题已经超过 95% 对，α ≥ 5% 时直接全部放行，方法之间没有差别，所以 MATH-500 的表改成 α = 1%、2%、5%。在 α = 1% 和 2% 时，我们在三个 generator 上都比所有 baseline 放行显著更多，只有 gpt-oss 在 α = 2% 时 SSV 更多（187 对 154）。但这一段错题容许得很少，放行错误率偏高：gpt-oss 在 α = 1% 时是 7.6%，Qwen3 是 3.5%，Sonnet 是 1.3%。</li>
     <li><b>全部放行也可能是最优：</b>generator 本身的正确率已经高于 1 − α 时就会这样。比如 MATH-500 的 Qwen3 整体 96.8% 对，α ≥ 5% 时我们和只看置信度一样放行 495 题，verifier 用不上。</li>
     <li><b>GPQA 的 Qwen3 在 α = 5% 时几乎不放行（4 题），这是数据决定的。</b>在 249 道 calibration 题上，即使用全部 5 个 verifier 更新后再按概率从高到低排，排在最前面的 20 题也有 15% 是错的，前 50 题有 8% 是错的，找不到一段能做到 95% 正确的前排。gpt-oss 的前 105 题就能做到。原因是 Qwen3 的置信度区分不开对错，校准后最高一档也只有 84% 对；verifier 之间又常常一起错。两者叠加，最有把握的那批答案里也混着错题。所以算法在训练数据上看不到能达标的放行方式，就选择弃权。α = 10% 时它能放行 111 题。</li>
   </ul>
-  {{SUM}}
-  <p class="meta">每个方法在每个数据集有 15 格（3 个 generator × 5 个 α，不限预算）。「我们放行显著更多」是其中我们的放行比例显著高于它的格数，「它放行显著更多」反过来，按配对 bootstrap 区间是否不含 0 判断，剩下的格数是差别不显著。「放行错误率超 α」是它自己在测试上超过目标的格数。</p>
 </section>
-<div class="legend">{{LEGEND}}<span>虚线：FPR = α</span></div>
+<div class="legend">{{LEGEND}}<span>虚线：实际错误率 = 目标 α</span></div>
 <section>
   <h2>6.1 同样的实际错误率下谁放得多</h2>
   <p class="meta">横轴是测试集上放行答案的实际错误率，纵轴是放行比例，每个方法的 5 个点对应 α = 1%、2%、5%、10%、20%，连成一条线。线越靠左上越好：同样的实际错误率下放得更多。这张图不看 α 定了多少，只看实际结果，所以「放得多是不是只是因为错得多」可以直接看出来。预算取最高一档（每题问 3 个 verifier 的平均花费），尽量减少预算对 baseline 的限制。放行 0 题的点画在原点，横轴超过 25% 的点画在右边界。</p>
@@ -424,13 +450,23 @@ small { color: var(--muted); }
 </section>
 <section>
   <h2>6.5 放行比例对预算</h2>
-  <p class="meta">α = 5%。横轴是预算占固定问 3 个花费的比例。</p>
+  <p class="meta">表里是测试集上的放行比例，* 表示放行错误率超过 α。α 取 5%；MATH-500 取 2%，因为 5% 时大多数方法都全部放行。预算占比是每题预算占「每题问 3 个 verifier 平均花费」的比例。花费固定的 baseline 在低预算下只能对一部分题问 verifier，其余弃权，所以放得少。</p>
   {{BUD}}
 </section>
 <section>
-  <h2>附录：各方法的数字</h2>
-  <p class="meta">预算同上。格子是放行 / 错，* 表示放行错误率超过 α。MATH-500 用 α = 1%、2%、5%，原因见第 6 节。</p>
+  <h2>6.6 各方法的放行比例和放行错误率</h2>
+  <p class="meta">每格上面是放行比例（放行数 / 全部题数），下面是放行错误率（放行里错的比例），* 表示超过 α。MATH-500 用 α = 1%、2%、5%，原因见第 6 节。</p>
   {{TAB}}
+</section>
+<section>
+  <h2>6.7 各方法的放行数和错误数</h2>
+  <p class="meta">和 6.6 对应的具体数字：放行数 / 其中错的数。规则是按比例混合的，这些是期望值，所以有小数。</p>
+  {{CNT}}
+</section>
+<section>
+  <h2>附录：汇总表</h2>
+  <p class="meta">每个 baseline 和我们比 75 次（3 个 generator × 5 个 α × 5 个预算）。「我们放行显著更多 / 它放行显著更多」是其中我们的放行比例显著高于它、它显著高于我们的次数，按配对 bootstrap 区间是否不含 0 判断，剩下的是差别不显著。「放行错误率超 α」是这个方法自己在测试集上超过目标的次数。</p>
+  {{SUM}}
 </section>
 <section>
   <h2>附录：每个方法只用一条规则的结果</h2>
