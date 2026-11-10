@@ -205,6 +205,17 @@ def cmd_timing(cfg, reps_orders=(0,)):
               'records_processed', 'theta_seconds', 'redesign_seconds')})
 
 
+def _finite(x):
+    """nan/inf -> None so summaries stay valid JSON (e.g. risk of a run that released nothing)."""
+    if isinstance(x, dict):
+        return {k: _finite(v) for k, v in x.items()}
+    if isinstance(x, (list, tuple)):
+        return [_finite(v) for v in x]
+    if isinstance(x, (float, np.floating)):
+        return float(x) if np.isfinite(x) else None
+    return x
+
+
 def cmd_summarize(cfg):
     out = Path(cfg['output'])
     _worker_init(cfg)
@@ -251,14 +262,14 @@ def cmd_summarize(cfg):
                                                                 'order_spread': order_spread, 'diagnostics': diag}
                 print(gen, q, frac, {a: (round(boot['arms'][a]['pub']['point'], 3), round(boot['arms'][a]['risk']['point'], 3),
                                          round(boot['arms'][a]['brier_prior']['point'], 4)) for a in boot['arms']}, flush=True)
-    atomic_json(out/'summary.json', res)
+    atomic_json(out/'summary.json', _finite(res))
     # learning curves: mean over runs of per-round values at each stream position
     cv = {}
     for k, c in curves.items():
         L = max(len(run) for run in c['released'])  # stream lengths differ by rotation (191-195); pad with nan
         cv[k] = {m: np.nanmean(np.array([[np.nan if v is None else float(v) for v in run] + [np.nan]*(L-len(run))
                                          for run in c[m]], float), axis=0).tolist() for m in ('brier_prior', 'released', 'wrong')}
-    atomic_json(out/'curves.json', cv)
+    atomic_json(out/'curves.json', _finite(cv))
 
 
 def main(argv=None):

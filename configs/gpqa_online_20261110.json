@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "kind": "gpqa_online_replay",
+  "status": "post-hoc analysis on cached GPQA outputs (not pre-registered); same protocol and frozen settings as the QuantumKatas online replay of 2026-11-09, requested by tony on 2026-11-10 to check whether its findings are dataset-specific; no new API calls",
+  "data_dir": "reports/gpqa_online_20261110/rows",
+  "data_export": "scripts/export_gpqa_online_rows_20261110.py (raw generator export 2026-10-26 + raw verifier export 2026-10-27; cost per call from the GPT-OSS GPQA verification policy)",
+  "output": "results/gpqa_online_20261110",
+  "generators": [
+    "qwen3_s0",
+    "gptoss_s0",
+    "sonnet55_s0"
+  ],
+  "verifiers": [
+    "gemini_flash",
+    "gemini_lite",
+    "mistral_small",
+    "mistral_medium",
+    "claude_haiku"
+  ],
+  "settings": {
+    "alpha": 0.05,
+    "budget_fraction": 0.25,
+    "budget_definition": "fraction of the D_init mean full five-verifier panel cost (estimated USD, processable D_init tasks), converted to USD and frozen per rotation",
+    "eta0": 0.01,
+    "eta_schedule": "eta_n = eta0 / sqrt(1 + n), n = number of earlier confidence updates in this run",
+    "eta0_selection": "unchanged from the QuantumKatas replay (simulation only); not re-tuned on GPQA",
+    "gamma": 0.1,
+    "laplace": 1.0,
+    "bins": "3 equal-width bins on [0,1]; audit code A in {0, 1/2, 1}",
+    "calibrator": "p = sigmoid(a + b logit(clip(r, 1e-3, 1-1e-3))), a in [-10,10], b in [0,10], projected after each step; init = Brier minimization (L-BFGS-B, fixed multi-start)",
+    "em_max_iter": 500,
+    "em_tol": 1e-09,
+    "c2_gamma_schedule": "gamma_n = 1/(N0 + n), N0 = complete D_init panels",
+    "hierarchy_size": 3,
+    "hierarchy_rule": "ordered triple with the highest fitted DesignRouting publication on D_init reports under (phi_0, theta_0); ties lexicographic in verifier order",
+    "audit_verifier_rule": "minimize E[Var(A|Y)]/gap^2 under the unconstrained labeled D_init fit among verifiers with gap >= gamma; else the largest gap",
+    "design_routing": "exact tree values, column generation from {release-all, abstain-all}, eps 1e-9, max 200 rounds, HiGHS LP",
+    "missing_scores": "a missing verifier score during routing abstains (logged); theta updates use complete panels only; phi update needs the audit verifier's score",
+    "processable": "an answer letter was returned and p_correct in [0,1]; others abstain, are not audited and count in the publication denominator",
+    "missing_label_in_evaluation": "counted as incorrect (only non-processable samples lack labels)"
+  },
+  "roles": "rotation k: D_init = fold k, D_design = fold (k+1) mod 5, stream = other three folds; 5 folds of 89 items from a seeded permutation; group = item (GPQA has no task groups), so the cluster bootstrap resamples items",
+  "seeds": {
+    "master": 20261109,
+    "per_run": "SeedSequence([master, rotation, order]) -> stream permutation, u_rule, u_audit (shared by all arms, generators and q)",
+    "bootstrap": 20261109
+  },
+  "grid": {
+    "rotations": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "orders": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "arms": [
+      "A",
+      "B",
+      "C1",
+      "C2",
+      "D"
+    ],
+    "q": [
+      0.5,
+      0.25,
+      0.1
+    ],
+    "budget_fractions": [
+      0.25
+    ],
+    "q_for_budget_sensitivity": []
+  },
+  "bootstrap_reps": 2000
+}

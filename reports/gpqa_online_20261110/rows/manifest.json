@@ -1,0 +1,241 @@
+{
+  "cost_usd_per_call": {
+    "claude_haiku": 0.002504823770491803,
+    "gemini_flash": 0.0018791834016393444,
+    "gemini_lite": 0.0016714459016393443,
+    "mistral_medium": 0.0001487393442622951,
+    "mistral_small": 3.567991803278688e-05
+  },
+  "files": {
+    "gptoss_s0": {
+      "answered": 427,
+      "correct": 294,
+      "labels_sha256": "6f831b8835871a0a5c45eaea4a0eb970d688be1906e1932f441502978568d532",
+      "learner_sha256": "1be8f498c7bbcb9bc26c769cce021fd80c2e31b3ffb051d6efca40c375f460ed",
+      "tasks": 445
+    },
+    "gptoss_s1": {
+      "answered": 414,
+      "correct": 272,
+      "labels_sha256": "83a6bab67264077ea19048d0fa1aec36d8a8b18f9dc11b4ad14a124ef6a2f629",
+      "learner_sha256": "1552c5ad84055e5e371a0d299fd1ef5e5a092d8836b9cef634e6453a8101c7d3",
+      "tasks": 445
+    },
+    "gptoss_s2": {
+      "answered": 433,
+      "correct": 301,
+      "labels_sha256": "19af93af93d8bee97944ebe8eeed3232a31f97fea4e678512e37549b079565f3",
+      "learner_sha256": "9deee6099c6fd0b9230ad9ba19a2e889e0faf03156039714619eb49445e3e036",
+      "tasks": 445
+    },
+    "gptoss_s3": {
+      "answered": 431,
+      "correct": 299,
+      "labels_sha256": "977b46c56f25b0c0af02dcd80a1bff340be75cd3f9ad39e8891959ee27d498e7",
+      "learner_sha256": "50165b29b0f2f386e04e26e8a7b31c446e73b00913bba48b8b90e23502c814a0",
+      "tasks": 445
+    },
+    "gptoss_s4": {
+      "answered": 427,
+      "correct": 297,
+      "labels_sha256": "008d17bb39d5d74ce65128953385a5251a25e6886194bdeb28aa96d0086d1f99",
+      "learner_sha256": "1973004168b612c6dd23eded4508b5e680fbaa8b07c563dedbdf461341588519",
+      "tasks": 445
+    },
+    "gptoss_s5": {
+      "answered": 423,
+      "correct": 288,
+      "labels_sha256": "9ab57458c74556a602509549deea77484dcb8dc8cfaf930081fcb6e9c5e67384",
+      "learner_sha256": "448bde2b5b0ba68f5926842b0ebbc1c9b530c75a83ea7b7ab5e2047aa2784883",
+      "tasks": 445
+    },
+    "gptoss_s6": {
+      "answered": 426,
+      "correct": 289,
+      "labels_sha256": "47031acfb5660b9c5d4654df77346ed1f0580fb28a515f9ec389ce81b3c0aca1",
+      "learner_sha256": "cd6f483a34736dcba7ce2f7daf878290276166a086fad684ba24f8d7ac085398",
+      "tasks": 445
+    },
+    "gptoss_s7": {
+      "answered": 424,
+      "correct": 302,
+      "labels_sha256": "dccee969a07abed2d74f22c03f1b2e0f9a66bd0f59530ed67149f33909eb121f",
+      "learner_sha256": "3bd8b2ee71915bd7ed80cdc1ab4d3917a15401e4cc6ec612de17ad03765db4a2",
+      "tasks": 445
+    },
+    "gptoss_s8": {
+      "answered": 423,
+      "correct": 285,
+      "labels_sha256": "66bb7e496987b723c70b205734cc2cff9ab6b5d993c0548138196fd1c6f83df1",
+      "learner_sha256": "f35b92ed508a32c8517eb09ecd5a8b1dcc06167ed6695b529ce5002f0bf91d3d",
+      "tasks": 445
+    },
+    "gptoss_s9": {
+      "answered": 423,
+      "correct": 292,
+      "labels_sha256": "329a98bf79083e1f096b55739ac8ada41ab50b28c705c24ee7674801af051bee",
+      "learner_sha256": "001c7610bf4b8a0a8f26c70aa29164974dfc679a7b0733b2fb84b93be94c9989",
+      "tasks": 445
+    },
+    "qwen3_s0": {
+      "answered": 445,
+      "correct": 205,
+      "labels_sha256": "46cad4b27d13ce7ea2ed5bcd11e66a8dedd2dba75ca5cf0b2252d3d6304820c6",
+      "learner_sha256": "3fd34ebc2cd338a6b87b2520d5a7b2ce4390fdf09fdc684b65286df8c4fb4dbd",
+      "tasks": 445
+    },
+    "qwen3_s1": {
+      "answered": 445,
+      "correct": 221,
+      "labels_sha256": "dffd9c53169b6e4618cee22e3ee531011aa86a495b804821e7f1867ccf6552e9",
+      "learner_sha256": "845aa8558da57f3478ba8b43b7deaffb6d07307954f9a622a84e226991b0bc53",
+      "tasks": 445
+    },
+    "qwen3_s2": {
+      "answered": 445,
+      "correct": 217,
+      "labels_sha256": "18171c5834bef675391344cccf4a25ee2e21994c07e8d6555ef5ee955eb1eb99",
+      "learner_sha256": "313c36107fe0a6564fd3d471ae503e45952d1d4b9d19a02219dd4dea640b49fc",
+      "tasks": 445
+    },
+    "qwen3_s3": {
+      "answered": 445,
+      "correct": 205,
+      "labels_sha256": "ef32802240bedb9f0b720b56b91862c785bdb752c82c8a5a0f160037421de4b3",
+      "learner_sha256": "791ebb0b52a748bdcd51a4ef53ceeeda8a4993c4ce7e5f85415f2c2cf0ecbc71",
+      "tasks": 445
+    },
+    "qwen3_s4": {
+      "answered": 445,
+      "correct": 219,
+      "labels_sha256": "63c3e36c4752f6a497e5f530dec5fa41b69fc5896e4de4bcd478bb6fbb0541cd",
+      "learner_sha256": "08cc05c03eda4ea4e8fd33cc2c6d7fee6b4c3e065b3a6c088fec6eb391b6b82f",
+      "tasks": 445
+    },
+    "qwen3_s5": {
+      "answered": 445,
+      "correct": 212,
+      "labels_sha256": "3dd6aa7624bd09d15b70826ea076a92f85c48c3a3ac61dd0d3ca0d6e8701c8ef",
+      "learner_sha256": "9a177866db31b7ec0f34936e40dccd7ab8ffa715e7ca8cb77942b014c025d938",
+      "tasks": 445
+    },
+    "qwen3_s6": {
+      "answered": 445,
+      "correct": 214,
+      "labels_sha256": "4cfe54724e68529f02531d7b0e9aebd49f3a3cc12044e7a030c38528edbad751",
+      "learner_sha256": "1c53d7c9fc783cc07f18e001f6fe5d50c2d84ea55964c2151b4c29929a2f9a20",
+      "tasks": 445
+    },
+    "qwen3_s7": {
+      "answered": 445,
+      "correct": 209,
+      "labels_sha256": "39b869b430e122b1a79e310a66fb6f89dc7c54c93e2ba036271c29a2c1e6d403",
+      "learner_sha256": "2824ef9c3237e83cced7f5cafa43e9b6f0986f1991dec6e8189b1ce70bc4e5d1",
+      "tasks": 445
+    },
+    "qwen3_s8": {
+      "answered": 445,
+      "correct": 209,
+      "labels_sha256": "5408fc4097a4b6effe13581aaafd0138356a01d571cf02c4074252114de79919",
+      "learner_sha256": "c90f7017116443e5af0b35dc1367f267f56e0615dd9918ad86dc39e0eeb84013",
+      "tasks": 445
+    },
+    "qwen3_s9": {
+      "answered": 445,
+      "correct": 209,
+      "labels_sha256": "11ebcd96ae36bca0bc1f96bb63d621d1ab0c1017e9a836b7677687ac05dcd614",
+      "learner_sha256": "9abcfac0d19d9dd883bf4dbf108e903ab336024600a47687ee90d2d5bb3058b3",
+      "tasks": 445
+    },
+    "sonnet55_s0": {
+      "answered": 439,
+      "correct": 378,
+      "labels_sha256": "971256c314473029c3bc921cd97b624676bc65addeb273f05917816577f6a4de",
+      "learner_sha256": "200123c45ce8ba272526058799c5355bea9efe76e0313f8641dbb63bb4705891",
+      "tasks": 445
+    },
+    "sonnet55_s1": {
+      "answered": 440,
+      "correct": 383,
+      "labels_sha256": "b0dd481a452a9f080a8055baccd30642aafd9dd14e5a0d23045185dcb28a457f",
+      "learner_sha256": "6487be6a04df6e5db5b1c3641bb1224fe9ade91bec2cd6ec9817cbfe43f9641b",
+      "tasks": 445
+    },
+    "sonnet55_s2": {
+      "answered": 438,
+      "correct": 381,
+      "labels_sha256": "a0ef938c09f9c2a2824df993d69eecd7061e42cd51c458b457c210b4db31a9fa",
+      "learner_sha256": "b47947f7e5e97d0333b98c9735b6bd0d9990bc8c336ec01a7a49c4515c8f8f0e",
+      "tasks": 445
+    },
+    "sonnet55_s3": {
+      "answered": 440,
+      "correct": 383,
+      "labels_sha256": "56ae585611c1cd3ce3124c1e305a3e50439800d1ea3bfe6647c32129583a260c",
+      "learner_sha256": "294d84a9969b73b5deadf69e82b631c77e235ce4618cfcf919eae7f7f8d941f2",
+      "tasks": 445
+    },
+    "sonnet55_s4": {
+      "answered": 441,
+      "correct": 382,
+      "labels_sha256": "0310aeafcaffb4f11a149d4b291b10ace6aa8ce0070c0e8a9aa6197dc33fd4cd",
+      "learner_sha256": "ced525779a3a8bc69f00cc06a508f2d82732cbd2278a30418ad9ed9cd30db605",
+      "tasks": 445
+    },
+    "sonnet55_s5": {
+      "answered": 443,
+      "correct": 384,
+      "labels_sha256": "dce42e316595c4609e3baf5e90045ff4fc122b8380b2fc43d2835d67f4de3988",
+      "learner_sha256": "462a16918530c883898ebbde9bb6ed739223aee636cb9b60e23877769025b551",
+      "tasks": 445
+    },
+    "sonnet55_s6": {
+      "answered": 438,
+      "correct": 376,
+      "labels_sha256": "214c0fadefdd1477b87154f6718dafdf6f018d133237e5938aee9734926dc8c7",
+      "learner_sha256": "d5f4e0a87c65e8c5f4b027befcd8fd741ba4cb65fb15fb89af568115ec963847",
+      "tasks": 445
+    },
+    "sonnet55_s7": {
+      "answered": 444,
+      "correct": 383,
+      "labels_sha256": "3d01d02b1f320d42c1a144ada7fadebca80de56384af17a99623a6d02c13fbc5",
+      "learner_sha256": "580fd6b170ee61fdb943c8d88535b5ec7a4b1107c95022c7e20de24bc1fbec28",
+      "tasks": 445
+    },
+    "sonnet55_s8": {
+      "answered": 439,
+      "correct": 376,
+      "labels_sha256": "434d3994b44061d29e3cf7aa71e048f41eb0b9b6c88ffce37c7f5ae67f6e9046",
+      "learner_sha256": "7d97b7be30cd7a14c099b216714d814978c49e07026803118f91d383cef74b70",
+      "tasks": 445
+    },
+    "sonnet55_s9": {
+      "answered": 441,
+      "correct": 380,
+      "labels_sha256": "74dd9befc0b626dbec6eef05749e79742ab92f7bafcd8b77059008e75ea2ac03",
+      "learner_sha256": "c05681c84ffb2514b9101666fca6e23529865673c78414571d1cb62ab5d7f9a2",
+      "tasks": 445
+    }
+  },
+  "fold_seed": 20261110,
+  "folds": {
+    "0": 89,
+    "1": 89,
+    "2": 89,
+    "3": 89,
+    "4": 89
+  },
+  "sources": {
+    "reports/gpqa_gptoss_verification_20261020/policy.json": "9d09ed7fdc518b385055ada45194f95318d864f566afcded969da9eafbeb6379",
+    "reports/raw_generator_export_20261026/gpqa.jsonl.gz": "c9b62407040eff1efa4747da76f4c4cdda58908d8e660c24e04e773056c8ac5b",
+    "reports/raw_verifier_export_20261027/gpqa_verifier_scores.jsonl.gz": "23d2b27c7365bcc8c49969f30cb822eb7153e0995f45a0e7acc82717abc60910"
+  },
+  "verifiers": [
+    "gemini_flash",
+    "gemini_lite",
+    "mistral_small",
+    "mistral_medium",
+    "claude_haiku"
+  ]
+}

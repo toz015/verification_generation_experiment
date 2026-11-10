@@ -57,8 +57,8 @@ def oracle_fits(I, stream, signals, store, V):
 
 
 def one(task):
-    model, gen, rot = task
-    cfg = json.loads(Path(CONFIGS[model]).read_text())
+    model, cfg_path, gen, rot = task
+    cfg = json.loads(Path(cfg_path).read_text())
     ex._worker_init(cfg)
     ex._init.cache_clear()  # the two models share a worker process; never reuse the other model's init
     items, signals, labels = ex._data(gen)
@@ -82,7 +82,7 @@ def one(task):
             groups, _ = ev.group_sums(r.log, store, signals, V, list(I.hierarchy))
             runs.append(groups)
         out[var] = runs
-    return task, out
+    return (model, gen, rot), out
 
 
 def main(argv=None):
@@ -90,9 +90,12 @@ def main(argv=None):
     ap.add_argument('--jobs', type=int, default=4)
     ap.add_argument('--reps', type=int, default=2000)
     ap.add_argument('--out', type=Path, required=True)
+    ap.add_argument('--indep-config', default=CONFIGS[next(iter(CONFIGS))])
+    ap.add_argument('--dep-config', default=CONFIGS[list(CONFIGS)[1]])
     args = ap.parse_args(argv)
+    CONFIGS[list(CONFIGS)[0]], CONFIGS[list(CONFIGS)[1]] = args.indep_config, args.dep_config
     gens = json.loads(Path(CONFIGS['independence']).read_text())['generators']
-    todo = [(m, g, r) for m in CONFIGS for g in gens for r in range(5)]
+    todo = [(m, CONFIGS[m], g, r) for m in CONFIGS for g in gens for r in range(5)]
     acc = {}
     with ProcessPoolExecutor(args.jobs) as pool:
         for (m, g, r), out in pool.map(one, todo):

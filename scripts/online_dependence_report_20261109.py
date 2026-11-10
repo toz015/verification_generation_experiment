@@ -48,11 +48,14 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--out', type=Path, required=True)
     ap.add_argument('--reps', type=int, default=2000)
+    ap.add_argument('--indep-config', default=CONFIGS[next(iter(CONFIGS))])
+    ap.add_argument('--dep-config', default=CONFIGS[list(CONFIGS)[1]])
     args = ap.parse_args(argv)
+    CONFIGS[list(CONFIGS)[0]], CONFIGS[list(CONFIGS)[1]] = args.indep_config, args.dep_config
     cfgs = {k: json.loads(Path(v).read_text()) for k, v in CONFIGS.items()}
     base = cfgs['dep']
     res, md = {}, ['# Independence vs dependence-aware likelihood (arms A/B/C2/D, B = 25%)', '',
-                   'Cluster bootstrap over 35 task groups, 2000 reps, paired across models and arms. '
+                   'Cluster bootstrap over task groups (QuantumKatas: 35 groups; GPQA: items), 2000 reps, paired across models and arms. '
                    'Percent unless noted. est = model-estimated risk (mean 1 - belief over releases).', '']
     for gen in base['generators']:
         items, signals, labels = load_generator(Path(base['data_dir']), gen)
