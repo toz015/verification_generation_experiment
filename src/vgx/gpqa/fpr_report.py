@@ -144,6 +144,33 @@ def table(d, alphas=(.05, .1), kind='count'):
     return f'<div class="scroll"><table><thead><tr><th></th>{head}</tr></thead><tbody>{body}</tbody></table></div>'
 
 
+def cost_chart(gen, c, a, budgets):
+    """Release rate against actual cost per question (1e-4 USD) at one alpha; one polyline per method across budgets."""
+    xmax = max(budgets)*1e4*1.15
+    step = next(v for v in (1, 2, 5, 10, 20) if xmax/v <= 6)
+    pw, ph = W-L-R, H-T-Bt
+    sx = lambda v: L+min(v, xmax)/xmax*pw
+    sy = lambda v: T+ph-v*ph
+    g = []
+    for t in (0, .25, .5, .75, 1.):
+        g.append(f'<line class="grid" x1="{L}" x2="{L+pw}" y1="{sy(t):.1f}" y2="{sy(t):.1f}"/>')
+        g.append(f'<text class="tk" x="{L-6}" y="{sy(t)+4:.1f}" text-anchor="end">{t:.0%}</text>')
+    v = 0
+    while v <= xmax:
+        g.append(f'<text class="tk" x="{sx(v):.1f}" y="{T+ph+16}" text-anchor="middle">{v:g}</text>')
+        v += step
+    for key, name, slot in reversed(LINES):
+        pts = [(b, c[f'{a}|{b}'][key]) for b in budgets if key in c[f'{a}|{b}']]
+        if not pts:
+            continue
+        w = 3 if key == 'ours' else 1.5
+        g.append(f'<polyline points="{" ".join(f"{sx(x["usd"]*1e4):.1f},{sy(x["pub"]):.1f}" for _, x in pts)}" fill="none" stroke="var(--s{slot})" stroke-width="{w}"/>')
+        for b, x in pts:
+            tip = html.escape(f'{name}，预算 {b*1e4:.2g}：放行 {x["pub"]:.0%}，实际花费 {x["usd"]*1e4:.2g}')
+            g.append(f'<circle cx="{sx(x["usd"]*1e4):.1f}" cy="{sy(x["pub"]):.1f}" r="{4.5 if key == "ours" else 3.5}" fill="var(--s{slot})" stroke="var(--surface)" stroke-width="1.5"><title>{tip}</title></circle>')
+    return f'<figure><figcaption>{GEN[gen]}</figcaption><svg viewBox="0 0 {W} {H}" role="img" aria-label="{GEN[gen]} 放行比例对每题花费">{"".join(g)}</svg></figure>'
+
+
 def budget_table(d, a):
     """Release rate at one alpha across the budget grid; * marks error among released above alpha."""
     gens = ('qwen3', 'gptoss', 'sonnet55')
@@ -204,7 +231,8 @@ def main():
     tab = ''.join(f'<h3>{n}</h3>{table(res[ds], al(ds), "rate")}' for ds, _, n, _ in DATASETS)
     cnt = ''.join(f'<h3>{n}</h3>{table(res[ds], al(ds), "count")}' for ds, _, n, _ in DATASETS)
     if FDR:
-        bud = ''.join(f'<h3>{n}</h3>{budget_table(res[ds], .02 if ds == "math500" else .05)}' for ds, _, n, _ in DATASETS)
+        bud = ''.join(f'<h3>{n}</h3><div class="row">' + ''.join(cost_chart(g, res[ds]['generators'][g], .02 if ds == 'math500' else .05, res[ds]['budgets'])
+                                                            for g in ('qwen3', 'gptoss', 'sonnet55')) + '</div>' for ds, _, n, _ in DATASETS)
     legend = ''.join(f'<span><i style="background:var(--s{k})"></i>{n}</span>' for _, n, k in LINES)
     mix = ''
     if FDR:
@@ -451,8 +479,8 @@ small { color: var(--muted); }
   {{ERR}}
 </section>
 <section>
-  <h2>6.5 放行比例对预算</h2>
-  <p class="meta">每格上：放行比例；下：实际每题花费（×10⁻⁴ 美元）；* 表示放行错误率超过 α。α = 5%，MATH-500 用 2%。</p>
+  <h2>6.5 放行比例对每题花费</h2>
+  <p class="meta">横轴是测试集上实际每题平均花费（×10⁻⁴ 美元），纵轴是放行比例。每个方法的 5 个点对应 5 档预算，越靠左上越好：花得少、放得多。α = 5%，MATH-500 用 2%。只看置信度不花钱，所以在最左边。</p>
   {{BUD}}
 </section>
 <section>
