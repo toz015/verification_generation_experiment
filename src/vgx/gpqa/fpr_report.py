@@ -158,7 +158,7 @@ def budget_table(d, a):
             for b in d['budgets']:
                 x = d['generators'][g][f'{a}|{b}'].get(m)
                 cells += '<td class="n">—</td>' if x is None else (
-                    f'<td class="n">{x["pub"]:.0%}{"*" if (target(x) or 0) > a else ""}<br><small>{x["usd"]*1e4:.2g}</small></td>')
+                    f'<td class="n">放行 {x["pub"]:.0%}{"*" if (target(x) or 0) > a else ""}<br><small>花费 {x["usd"]*1e4:.2g}</small></td>')
         body += f'<tr><th scope="row">{name}</th>{cells}</tr>'
     return f'<div class="scroll"><table><thead><tr><th></th>{head1}</tr><tr><th>每题预算（×10⁻⁴ 美元）</th>{head2}</tr></thead><tbody>{body}</tbody></table></div>'
 
