@@ -158,7 +158,7 @@ def budget_table(d, a):
             for b in d['budgets']:
                 x = d['generators'][g][f'{a}|{b}'].get(m)
                 cells += '<td class="n">—</td>' if x is None else (
-                    f'<td class="n">放行 {x["pub"]:.0%}{"*" if (target(x) or 0) > a else ""}<br><small>花费 {x["usd"]*1e4:.2g}</small></td>')
+                    f'<td class="n">{x["pub"]:.0%}{"*" if (target(x) or 0) > a else ""}<br><small>{x["usd"]*1e4:.2g}</small></td>')
         body += f'<tr><th scope="row">{name}</th>{cells}</tr>'
     return f'<div class="scroll"><table><thead><tr><th></th>{head1}</tr><tr><th>每题预算（×10⁻⁴ 美元）</th>{head2}</tr></thead><tbody>{body}</tbody></table></div>'
 
@@ -452,7 +452,7 @@ small { color: var(--muted); }
 </section>
 <section>
   <h2>6.5 放行比例对预算</h2>
-  <p class="meta">表里是测试集上的放行比例，* 表示放行错误率超过 α。α 取 5%；MATH-500 取 2%，因为 5% 时大多数方法都全部放行。金额单位都是 10⁻⁴ 美元。表头是每题平均最多能花的钱；每格上面是放行比例，下面是这个方法在测试集上实际每题平均花了多少钱。作为参照，GPQA 上问一次 verifier 约 0.4（mistral_small）到 28（claude_haiku）。花费固定的 baseline 在低预算下只能对一部分题问 verifier，其余弃权，所以放得少。</p>
+  <p class="meta">每格上：放行比例；下：实际每题花费（×10⁻⁴ 美元）；* 表示放行错误率超过 α。α = 5%，MATH-500 用 2%。</p>
   {{BUD}}
 </section>
 <section>
