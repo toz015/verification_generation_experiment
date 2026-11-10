@@ -147,7 +147,8 @@ def table(d, alphas=(.05, .1), kind='count'):
 def budget_table(d, a):
     """Release rate at one alpha across the budget grid; * marks error among released above alpha."""
     gens = ('qwen3', 'gptoss', 'sonnet55')
-    labels = list(SHARE)[:len(d['budgets'])]
+    money = lambda b: f'${b:.4f}' if b < 1 else '不限'
+    labels = [money(b) for b in d['budgets']]
     head1 = ''.join(f'<th class="n" colspan="{len(labels)}">{GEN[g]}</th>' for g in gens)
     head2 = ''.join(f'<th class="n">{l}</th>' for _ in gens for l in labels)
     body = ''
@@ -156,9 +157,10 @@ def budget_table(d, a):
         for g in gens:
             for b in d['budgets']:
                 x = d['generators'][g][f'{a}|{b}'].get(m)
-                cells += '<td class="n">—</td>' if x is None else f'<td class="n">{x["pub"]:.0%}{"*" if (target(x) or 0) > a else ""}</td>'
+                cells += '<td class="n">—</td>' if x is None else (
+                    f'<td class="n">{x["pub"]:.0%}{"*" if (target(x) or 0) > a else ""}<br><small>${x["usd"]:.4f}</small></td>')
         body += f'<tr><th scope="row">{name}</th>{cells}</tr>'
-    return f'<div class="scroll"><table><thead><tr><th></th>{head1}</tr><tr><th>预算占比</th>{head2}</tr></thead><tbody>{body}</tbody></table></div>'
+    return f'<div class="scroll"><table><thead><tr><th></th>{head1}</tr><tr><th>每题预算</th>{head2}</tr></thead><tbody>{body}</tbody></table></div>'
 
 
 def counts(d, only_main=False):
@@ -450,7 +452,7 @@ small { color: var(--muted); }
 </section>
 <section>
   <h2>6.5 放行比例对预算</h2>
-  <p class="meta">表里是测试集上的放行比例，* 表示放行错误率超过 α。α 取 5%；MATH-500 取 2%，因为 5% 时大多数方法都全部放行。预算占比是每题预算占「每题问 3 个 verifier 平均花费」的比例。花费固定的 baseline 在低预算下只能对一部分题问 verifier，其余弃权，所以放得少。</p>
+  <p class="meta">表里是测试集上的放行比例，* 表示放行错误率超过 α。α 取 5%；MATH-500 取 2%，因为 5% 时大多数方法都全部放行。表头是每题平均最多能花的钱（美元）；每格上面是放行比例，下面是这个方法在测试集上实际每题平均花了多少钱。作为参照，GPQA 上问一次 verifier 约 $0.00004（mistral_small）到 $0.0028（claude_haiku）。花费固定的 baseline 在低预算下只能对一部分题问 verifier，其余弃权，所以放得少。</p>
   {{BUD}}
 </section>
 <section>
