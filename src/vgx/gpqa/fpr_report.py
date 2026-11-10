@@ -147,7 +147,7 @@ def table(d, alphas=(.05, .1), kind='count'):
 def budget_table(d, a):
     """Release rate at one alpha across the budget grid; * marks error among released above alpha."""
     gens = ('qwen3', 'gptoss', 'sonnet55')
-    money = lambda b: f'${b:.4f}' if b < 1 else '不限'
+    money = lambda b: f'{b*1e4:.2g}' if b < 1 else '不限'
     labels = [money(b) for b in d['budgets']]
     head1 = ''.join(f'<th class="n" colspan="{len(labels)}">{GEN[g]}</th>' for g in gens)
     head2 = ''.join(f'<th class="n">{l}</th>' for _ in gens for l in labels)
@@ -158,9 +158,9 @@ def budget_table(d, a):
             for b in d['budgets']:
                 x = d['generators'][g][f'{a}|{b}'].get(m)
                 cells += '<td class="n">—</td>' if x is None else (
-                    f'<td class="n">{x["pub"]:.0%}{"*" if (target(x) or 0) > a else ""}<br><small>${x["usd"]:.4f}</small></td>')
+                    f'<td class="n">{x["pub"]:.0%}{"*" if (target(x) or 0) > a else ""}<br><small>{x["usd"]*1e4:.2g}</small></td>')
         body += f'<tr><th scope="row">{name}</th>{cells}</tr>'
-    return f'<div class="scroll"><table><thead><tr><th></th>{head1}</tr><tr><th>每题预算</th>{head2}</tr></thead><tbody>{body}</tbody></table></div>'
+    return f'<div class="scroll"><table><thead><tr><th></th>{head1}</tr><tr><th>每题预算（×10⁻⁴ 美元）</th>{head2}</tr></thead><tbody>{body}</tbody></table></div>'
 
 
 def counts(d, only_main=False):
@@ -376,13 +376,13 @@ small { color: var(--muted); }
     <tr><th scope="row">Sonnet 5.5</th><td>claude-sonnet-5-5</td><td class="n">89.2%</td><td class="n">87.4%</td><td class="n">89.1%</td></tr>
   </tbody></table></div>
   <h3>Verifier</h3>
-  <p class="meta">5 个 verifier 来自三家公司。每个都给出「这个答案是对的」的概率，按 0.2 一档分成 5 档使用。表里是每次调用的平均花费（美元）。</p>
+  <p class="meta">5 个 verifier 来自三家公司。每个都给出「这个答案是对的」的概率，按 0.2 一档分成 5 档使用。表里是每次调用的平均花费，单位 10⁻⁴ 美元。</p>
   <div class="scroll"><table><thead><tr><th>名称</th><th>模型</th><th class="n">GPQA</th><th class="n">MATH-500</th><th class="n">QuantumKatas</th></tr></thead><tbody>
-    <tr><th scope="row">mistral_small</th><td>mistral-small-2503</td><td class="n">$0.00004</td><td class="n">$0.00003</td><td class="n">$0.00011</td></tr>
-    <tr><th scope="row">mistral_medium</th><td>mistral-medium-3</td><td class="n">$0.00015</td><td class="n">$0.00012</td><td class="n">$0.00043</td></tr>
-    <tr><th scope="row">gemini_lite</th><td>gemini-3.5-flash-lite</td><td class="n">$0.0018</td><td class="n">$0.00066</td><td class="n">$0.00034</td></tr>
-    <tr><th scope="row">gemini_flash</th><td>gemini-3.7-flash</td><td class="n">$0.0019</td><td class="n">$0.0012</td><td class="n">$0.0022</td></tr>
-    <tr><th scope="row">claude_haiku</th><td>claude-haiku-4-5</td><td class="n">$0.0028</td><td class="n">$0.00047</td><td class="n">$0.0014</td></tr>
+    <tr><th scope="row">mistral_small</th><td>mistral-small-2503</td><td class="n">0.4</td><td class="n">0.3</td><td class="n">1.1</td></tr>
+    <tr><th scope="row">mistral_medium</th><td>mistral-medium-3</td><td class="n">1.5</td><td class="n">1.2</td><td class="n">4.3</td></tr>
+    <tr><th scope="row">gemini_lite</th><td>gemini-3.5-flash-lite</td><td class="n">18</td><td class="n">6.6</td><td class="n">3.4</td></tr>
+    <tr><th scope="row">gemini_flash</th><td>gemini-3.7-flash</td><td class="n">19</td><td class="n">12</td><td class="n">22</td></tr>
+    <tr><th scope="row">claude_haiku</th><td>claude-haiku-4-5</td><td class="n">28</td><td class="n">4.7</td><td class="n">14</td></tr>
   </tbody></table></div>
   <h3>怎么选 verifier</h3>
   <p>5 个是候选池，每道题最多问其中 3 个，按固定顺序问。对每个 generator（MATH-500 和 QuantumKatas 是每一折），在训练部分试遍全部 60 种「选哪 3 个、按什么顺序」，挑在整个 α、预算网格上平均放行最多的那一组，测试时固定不变。这个标准同时考虑准不准和贵不贵，所以便宜的 mistral_small 常被放在前面。GPQA 选出的是：Qwen3 用 mistral_small → mistral_medium → gemini_flash；gpt-oss 用 gemini_flash → claude_haiku → mistral_medium；Sonnet 用 gemini_flash → mistral_small → claude_haiku。另外两个数据集每折选的略有不同。</p>
@@ -452,7 +452,7 @@ small { color: var(--muted); }
 </section>
 <section>
   <h2>6.5 放行比例对预算</h2>
-  <p class="meta">表里是测试集上的放行比例，* 表示放行错误率超过 α。α 取 5%；MATH-500 取 2%，因为 5% 时大多数方法都全部放行。表头是每题平均最多能花的钱（美元）；每格上面是放行比例，下面是这个方法在测试集上实际每题平均花了多少钱。作为参照，GPQA 上问一次 verifier 约 $0.00004（mistral_small）到 $0.0028（claude_haiku）。花费固定的 baseline 在低预算下只能对一部分题问 verifier，其余弃权，所以放得少。</p>
+  <p class="meta">表里是测试集上的放行比例，* 表示放行错误率超过 α。α 取 5%；MATH-500 取 2%，因为 5% 时大多数方法都全部放行。金额单位都是 10⁻⁴ 美元。表头是每题平均最多能花的钱；每格上面是放行比例，下面是这个方法在测试集上实际每题平均花了多少钱。作为参照，GPQA 上问一次 verifier 约 0.4（mistral_small）到 28（claude_haiku）。花费固定的 baseline 在低预算下只能对一部分题问 verifier，其余弃权，所以放得少。</p>
   {{BUD}}
 </section>
 <section>
