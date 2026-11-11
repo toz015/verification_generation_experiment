@@ -203,6 +203,124 @@ def brier_table(rows):
             '<th class="n">Ours 校准先验（isotonic）</th><th class="n">Ours 原始先验</th></tr></thead><tbody>'+body+'</tbody></table></div>')
 
 
+LINES = [('Ours-Offline', '我们的方法（Ours-Offline）', 'var(--s1)'), ('AT-Frozen', 'AT-Frozen', 'var(--s2)'),
+         ('AT+Cal-Frozen', 'AT+Cal-Frozen', 'var(--s3)'), ('Raw-threshold', '原始置信度阈值', 'var(--s4)')]
+ALPHAS = [0.01, 0.05, 0.10]
+TOP = 'frac:1.0'
+
+
+def cell(rows, ds, gen, alpha, bkey, m):
+    return next((y for y in rows if y['dataset'] == ds and y['generator'] == gen and y['alpha_target'] == alpha and y['budget'] == bkey and y['method'] == m), None)
+
+
+def panel(gen, series, xs, xticks, ymax, yticks, diag=None, xfmt=None):
+    W, H, L, R_, T, Bm = 300, 210, 44, 10, 10, 28
+    pw, ph = W-L-R_, H-T-Bm
+    x0, x1 = xs
+    sx = lambda v: L+(min(max(v, x0), x1)-x0)/(x1-x0)*pw
+    sy = lambda v: T+ph-min(v, ymax)/ymax*ph
+    g = []
+    for v in yticks:
+        g.append(f'<line class="grid" x1="{L}" x2="{L+pw}" y1="{sy(v):.1f}" y2="{sy(v):.1f}"/><text class="tk" x="{L-5}" y="{sy(v)+4:.1f}" text-anchor="end">{v:.0%}</text>')
+    for v, lab in xticks:
+        g.append(f'<text class="tk" x="{sx(v):.1f}" y="{H-6}" text-anchor="middle">{lab}</text>')
+    if diag:
+        g.append(f'<polyline class="ideal" points="{" ".join(f"{sx(x):.1f},{sy(y):.1f}" for x, y in diag)}" fill="none"/>')
+    for key, name, col in reversed(LINES):
+        pts = series.get(key) or []
+        if not pts:
+            continue
+        g.append(f'<polyline points="{" ".join(f"{sx(x):.1f},{sy(y):.1f}" for x, y, _ in pts)}" fill="none" stroke="{col}" stroke-width="{3 if key == "Ours-Offline" else 1.6}"/>')
+        for x, y, tip in pts:
+            g.append(f'<circle cx="{sx(x):.1f}" cy="{sy(y):.1f}" r="{4.5 if key == "Ours-Offline" else 3.5}" fill="{col}" stroke="var(--surface)" stroke-width="1.5"><title>{html.escape(name+"，"+tip)}</title></circle>')
+    return f'<figure><figcaption>{GEN[gen]}</figcaption><svg viewBox="0 0 {W} {H}" role="img" aria-label="{GEN[gen]}">{"".join(g)}</svg></figure>'
+
+
+def grid(rows, kind):
+    out = ''
+    for ds, name in DS:
+        figs = ''
+        for gen in GEN:
+            series = {}
+            if kind == 'cost':
+                a = 0.01 if ds == 'math500' else 0.05
+                xmax = max([(cell(rows, ds, gen, a, b, m) or {}).get('mean_screen_cost') or 0 for b in FRACS for m, _, _ in LINES]+[1e-5])*1e4*1.1
+                step = next(v for v in (1, 2, 5, 10, 20) if xmax/v <= 6)
+                for m, _, _ in LINES:
+                    pts = []
+                    for b in FRACS:
+                        x = cell(rows, ds, gen, a, b, m)
+                        if x:
+                            pts.append((x['mean_screen_cost']*1e4, x['coverage'], f'预算 {b.split(":")[1]}×c_ref：放行 {pct(x["coverage"])}，每题花费 {x["mean_screen_cost"]*1e4:.1f}'))
+                    series[m] = sorted(pts)
+                figs += panel(gen, series, (0, xmax), [(v, f'{v:g}') for v in np.arange(0, xmax, step)], 1.0, (0, .5, 1))
+                continue
+            for m, _, _ in LINES:
+                pts = []
+                for i, a in enumerate(ALPHAS):
+                    x = cell(rows, ds, gen, a, TOP, m)
+                    if not x:
+                        continue
+                    if kind == 'actual':
+                        if x['release_error_rate'] is not None:
+                            pts.append((x['release_error_rate'], x['coverage'], f'α = {a:.0%}：实际放行错误率 {pct(x["release_error_rate"])}，放行 {pct(x["coverage"])}'))
+                    elif kind == 'alpha':
+                        pts.append((i, x['coverage'], f'α = {a:.0%}：放行 {pct(x["coverage"])}'))
+                    elif kind == 'fpr':
+                        if x['error_capture_rate'] is not None:
+                            pts.append((i, 1-x['error_capture_rate'], f'α = {a:.0%}：错答案被放行的比例 {pct(1-x["error_capture_rate"])}'))
+                    elif x['release_error_rate'] is not None:
+                        pts.append((i, x['release_error_rate'], f'α = {a:.0%}：实际放行错误率 {pct(x["release_error_rate"])}'))
+                series[m] = sorted(pts) if kind == 'actual' else pts
+            if kind == 'actual':
+                figs += panel(gen, series, (0, .2), [(v, f'{v:.0%}') for v in (0, .05, .1, .15, .2)], 1.0, (0, .5, 1))
+            elif kind == 'alpha':
+                figs += panel(gen, series, (0, 2), [(i, f'{a:.0%}') for i, a in enumerate(ALPHAS)], 1.0, (0, .5, 1))
+            elif kind == 'fpr':
+                figs += panel(gen, series, (0, 2), [(i, f'{a:.0%}') for i, a in enumerate(ALPHAS)], .6, (0, .3, .6))
+            else:
+                figs += panel(gen, series, (0, 2), [(i, f'{a:.0%}') for i, a in enumerate(ALPHAS)], .2, (0, .1, .2),
+                              diag=[(i, a) for i, a in enumerate(ALPHAS)])
+        out += f'<h3>{name}</h3><div class="row">{figs}</div>'
+    return out
+
+
+def method_table(rows, kind):
+    out = ''
+    for ds, name in DS:
+        al = [0.01, 0.05] if ds == 'math500' else [0.05, 0.10]
+        head = ''.join(f'<th class="n">{GEN[g]} α={a:.0%}</th>' for g in GEN for a in al)
+        body = ''
+        for m, label, _ in LINES:
+            cells = ''
+            for g in GEN:
+                for a in al:
+                    x = cell(rows, ds, g, a, TOP, m)
+                    if x is None:
+                        cells += '<td class="n">—</td>'
+                    elif kind == 'rate':
+                        star = '*' if x['risk_target_exceeded'] > 0.5 else ''
+                        cells += f'<td class="n">{pct(x["coverage"])}<br><small>错误率 {pct(x["release_error_rate"])}{star}</small></td>'
+                    else:
+                        cells += f'<td class="n">{x["n_released"]:.1f} / {x["n_wrong_released"]:.1f}</td>'
+            body += f'<tr><th scope="row">{label}</th>{cells}</tr>'
+        out += f'<h3>{name}</h3><div class="scroll"><table><thead><tr><th></th>{head}</tr></thead><tbody>{body}</tbody></table></div>'
+    return out
+
+
+def significance(rows):
+    body = ''
+    for m in ['AT-Frozen', 'AT+Cal-Frozen', 'Raw-threshold', 'AT-Frozen (calibrated confidence)', 'Ours-Offline (raw prior)']:
+        cells = ''
+        for ds, _ in DS:
+            r = [x for x in rows if x['dataset'] == ds and x['method'] == m and x['budget'].startswith('frac') and x['ours_minus_coverage']]
+            more = sum(x['ours_minus_coverage'][1] > 0 for x in r); less = sum(x['ours_minus_coverage'][2] < 0 for x in r)
+            cells += f'<td class="n">{more} / {less}（共 {len(r)}）</td>'
+        body += f'<tr><td>{html.escape(m)}</td>{cells}</tr>'
+    return ('<div class="scroll"><table><thead><tr><th>和 Ours 比</th>' + ''.join(f'<th class="n">{n}：Ours 显著更多 / 更少</th>' for _, n in DS)
+            + '</tr></thead><tbody>'+body+'</tbody></table></div>')
+
+
 def main():
     rows, res = load()
     SRC.mkdir(parents=True, exist_ok=True)
@@ -215,118 +333,19 @@ def main():
         w.writeheader()
         for r in rows:
             w.writerow({k: (json.dumps(v) if isinstance(v, list) else v) for k, v in r.items()})
-    sections = ''
-    for ds, name in DS:
-        if ds not in res:
-            continue
-        sections += (f'<section><h2>{name}</h2><p class="meta">α = 5%。B 以 Fit 上 5 个 verifier 全面板的平均成本 c_ref 为单位。AT 类方法是 20 个训练种子的平均，放行数下面是种子间范围；「风险超标 x%」是超过 α 的种子比例。</p>'
-                     + main_table(rows, ds, 0.05, ['frac:0', 'frac:0.25', 'frac:1.0'], MAIN)
-                     + '<h3>放行率对预算（α = 5%；空心点表示测试放行错误率超过 α）</h3><div class="row">'
-                     + ''.join(chart(rows, ds, g, 0.05, 'budget') for g in GEN) + '</div>'
-                     + '<h3>错误拦截率对拦截率（全部 α 和预算）</h3><div class="row">'
-                     + ''.join(chart(rows, ds, g, 0.05, 'capture') for g in GEN) + '</div>'
-                     + '<h3>送审选择质量（α = 5%，B = 1×c_ref）</h3>' + capture_table(rows, ds, 0.05, 'frac:1.0')
-                     + '<h3>补充对照（α = 5%，B = 1×c_ref）</h3>' + main_table(rows, ds, 0.05, ['frac:1.0'], SUPP)
-                     + '</section>')
-    page = (TEMPLATE.replace('{{SECTIONS}}', sections).replace('{{OVERRUNS}}', overruns(rows))
-            .replace('{{SUMMARY}}', SUMMARY).replace('{{SERVICE}}', service_table(rows, 0.05, 'frac:1.0')).replace('{{BRIER}}', brier_table(rows)))
+    capture = ''.join(f'<h3>{n}</h3>'+capture_table(rows, ds, 0.05, TOP) for ds, n in DS)
+    supp = ''.join(f'<h3>{n}</h3>'+main_table(rows, ds, 0.05, [TOP], SUPP) for ds, n in DS)
+    legend = ''.join(f'<span><i style="background:{c}"></i>{n}</span>' for _, n, c in LINES)
+    page = Path(__file__).with_name('offline_frozen_template.html').read_text()
+    for k, v in {'{{LEGEND}}': legend, '{{ACTUAL}}': grid(rows, 'actual'), '{{ALPHA}}': grid(rows, 'alpha'), '{{CONTROL}}': grid(rows, 'control'), '{{FPR}}': grid(rows, 'fpr'),
+                 '{{COST}}': grid(rows, 'cost'), '{{RATE}}': method_table(rows, 'rate'), '{{COUNT}}': method_table(rows, 'count'),
+                 '{{SIG}}': significance(rows), '{{OVERRUNS}}': overruns(rows), '{{CAPTURE}}': capture, '{{SUPP}}': supp,
+                 '{{BRIER}}': brier_table(rows), '{{SERVICE}}': service_table(rows, 0.05, TOP)}.items():
+        page = page.replace(k, v)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(page)
     print('wrote', OUT, len(rows), 'rows')
 
-
-SUMMARY = '''<section>
-  <h2>结论</h2>
-  <ul>
-    <li><b>有 verifier 预算时，Ours-Offline 放行更多。</b>在以 c_ref 为单位的 6 档预算下（含 B = 0，各数据集 54 个 α × 预算 × generator 格子，配对 bootstrap，QuantumKatas 按 kata 组重采样），Ours 比 AT-Frozen 显著放行更多的格子是 GPQA 44、MATH-500 25、QuantumKatas 38；比 AT+Cal-Frozen 是 50、26、39；比直接在 Validation 上选原始置信度阈值是 30、24、26，但原始阈值也有 9、6、17 格显著更多。例如 α = 5%、B = 1×c_ref 时，QuantumKatas 的 Qwen3：Ours 放行 115 题，原始阈值 29 题，AT-Frozen 12 题。</li>
-    <li><b>没有 verifier 预算（B = 0）时，Ours 和原始置信度阈值基本一样；AT 两种方法更差。</b>它们的阈值是按论文的漏审比例更新学出来的，没有针对放行错误率；AT+Cal-Frozen 在 207 个格子里有 75 个找不到可行工作点，只能全部弃答。</li>
-    <li><b>放行错误率常常超过目标，Ours 最多。</b>测试放行错误率超过 α 的格子：Ours 103 / 207，原始阈值 81，AT-Frozen 63，AT+Cal-Frozen 24（另有 75 格全弃答）。α = 5% 时 Ours 典型为 6% 到 8%，例如 QuantumKatas Qwen3 7.2%、GPQA Qwen3 7.8%。Validation 只有 50 到 100 题，在其上挑放行最多的工作点会偏乐观。</li>
-    <li><b>只有 Ours 会超预算，且只在 GPQA。</b>23 个格子测试成本超过 B，都是 GPQA（Validation 仅 50 题）；AT 类方法不调用 verifier，成本为 0。</li>
-    <li><b>测试时保留随机送审（γ_test = γ_fit）只会按比例少放 10%，</b>放行错误率不变，所以主表不依赖这个设定。</li>
-    <li><b>MATH-500 的 Qwen3 和 gpt-oss 几乎全部放行，</b>方法间没有差别；差别集中在 Sonnet。</li>
-  </ul>
-</section>'''
-
-TEMPLATE = '''<title>离线冻结对照实验</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<style>
-/* Layout: one reading column, wide tables scroll in their own box, small multiples per generator. */
-:root {
-  --bg: #f6f7f5; --surface: #ffffff; --fg: #1d2522; --muted: #5b6662; --line: #dbe0dd;
-  --s1: #1F5FA8; --s2: #B4581F; --s3: #1E8A6E; --s4: #8E4FA8;
-  --display: "Noto Serif SC", "Songti SC", serif; --body: "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, monospace;
-}
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #141917; --surface: #1c2320; --fg: #e4ebe7; --muted: #9aa7a1; --line: #303a36;
-  --s1: #4F97E3; --s2: #C8743A; --s3: #2FA383; --s4: #A873C8; color-scheme: dark } }
-:root[data-theme="dark"] {
-  --bg: #141917; --surface: #1c2320; --fg: #e4ebe7; --muted: #9aa7a1; --line: #303a36;
-  --s1: #4F97E3; --s2: #C8743A; --s3: #2FA383; --s4: #A873C8; color-scheme: dark }
-body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.65; }
-main { max-width: 1160px; margin: 0 auto; padding-block: 36px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 30px; min-width: 0; }
-section { display: grid; gap: 10px; min-width: 0; }
-h1 { font-family: var(--display); font-size: 28px; line-height: 1.3; margin: 0; text-wrap: balance; }
-h2 { font-size: 19px; margin: 0; } h3 { font-size: 15px; margin: 10px 0 0; }
-p { margin: 0; max-width: 76ch; } .meta { color: var(--muted); font-size: 13px; }
-ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 80ch; }
-.scroll { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; font-size: 13px; }
-th, td { text-align: left; padding: 5px 9px; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
-thead th { color: var(--muted); font-weight: 500; }
-.n { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; } thead .n { font-family: var(--body); }
-small { color: var(--muted); }
-.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
-figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px; min-width: 0; }
-figcaption { font-size: 13px; font-weight: 700; }
-svg { width: 100%; height: auto; display: block; }
-.grid { stroke: var(--line); stroke-width: 1; }
-.tk { font: 10.5px var(--mono); fill: var(--muted); }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); }
-.legend i { display: inline-block; width: 16px; height: 4px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
-code { font-family: var(--mono); font-size: 13px; }
-</style>
-<main>
-<header style="display:grid;gap:8px">
-  <h1>离线冻结对照实验：AT-Frozen、AT+Cal-Frozen、Ours-Offline</h1>
-  <p class="meta">按 docs/offline-at-frozen-experiment-protocol-20261110.md 实施。AT 两种方法是论文在线算法的 offline adaptation，论文的在线风险保证不适用于冻结版本。只用缓存，没有新增 API 调用。</p>
-</header>
-{{SUMMARY}}
-<section>
-  <h2>设置</h2>
-  <ul>
-    <li><b>统一任务：</b>只决定是否放行原始候选；「拦截」即不放行，包括弃答或送审，测试时不获取任何外部标签（外部标签获取数恒为 0）。verifier 查询单独计数，查询后仍可能放行。</li>
-    <li><b>划分：</b>GPQA 的 249 道 calibration 题按种子 20261111 分为 Fit 199 / Validation 50，Diamond 196 道作 Test；MATH-500 和 QuantumKatas 的五折中，测试折 k、验证折 (k+1) mod 5，其余三折 Fit。三种方法用同一安排，选定工作点后不再合并 Fit 和 Validation 重训。</li>
-    <li><b>工作点选择（三种方法统一）：</b>在 Validation 上，从满足 Σ a(e − α) ≤ 0 且平均成本 ≤ B 的候选中选放行最多者；平局时成本低、规则简单、序号小者优先。没有非零放行的可行候选时记为 no_nontrivial_feasible_policy，部署全弃答。</li>
-    <li><b>AT-Frozen：</b>在 Fit 上按种子打乱顺序跑一遍论文更新（τ₁ = 0.5，γ_fit = 0.1，α_at × η 网格），冻结 τ；测试时 γ_test = 0，放行条件为 C ≥ τ。<b>AT+Cal-Frozen：</b>同上并按 Algorithm 1 学习 21 点网格上的指数权重（β 网格），冻结 w 和 τ，放行条件为 S(C) ≥ τ。各 20 个训练种子。</li>
-    <li><b>Ours-Offline：</b>在 Fit 上拟合 isotonic 校准（无 Laplace 的单调 Brier 最优拟合）和 verifier 似然（5 档，Laplace 1）；在 Validation 的报告置信度上按模型规划（不看标签）生成混合路由，风险定义为 Σw(e − α_plan p) ≤ 0；verifier 顺序先按不看标签的规划放行率从 60 种里取前 3。候选为 3 个顺序 × α_plan 6 档 × B_plan 6 档，再按统一规则在 Validation 上选。</li>
-    <li><b>成本：</b>主表只计筛选决策成本，即实际读取的 verifier 调用（含返回格式错误但已付费的调用）；generator 自带的置信度不计费。候选生成成本和标签采集成本是共同成本，单列不计入 B。</li>
-  </ul>
-</section>
-{{SECTIONS}}
-<section>
-  <h2>风险与预算超限汇总</h2>
-  <p class="meta">全部数据集、generator、α ∈ {1%, 5%, 10%} 和预算的格子。AT 类方法以过半种子超标计为超标。</p>
-  {{OVERRUNS}}
-</section>
-<section>
-  <h2>校准诊断（Test 上的 Brier）</h2>
-  {{BRIER}}
-</section>
-<section>
-  <h2>外部审计服务情景（补充）</h2>
-  <p class="meta">假设所有被拦截的答案都转交同一种外部审计服务，每次花费 c_A。没有可信单价，因此按 c_A = 1、5、20 倍 c_ref 做情景估算（单位 10⁻⁴ USD/题，含筛选成本）。工作点沿用主表，没有在新成本下重新选择。</p>
-  {{SERVICE}}
-</section>
-<section>
-  <h2>复现</h2>
-  <p><code>python -m vgx.offline_frozen config</code>，<code>python -m pytest tests/test_offline_frozen.py tests/test_selective_auditing.py</code>，<code>python -m vgx.offline_frozen run</code>，<code>python -m vgx.offline_frozen_report</code>。逐题决策日志在 results/offline_at_frozen_20261111/*_decisions.jsonl.gz，全部格子在 summary.csv。</p>
-</section>
-</main>
-'''
 
 if __name__ == '__main__':
     main()
