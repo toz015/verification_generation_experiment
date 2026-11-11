@@ -1,0 +1,69 @@
+Sonnet 5.5: approved parsing amendment and continuation (2026-10-15)
+=================================================================
+
+Scope
+-----
+The user approved accepting explanatory text followed by a single final JSON
+answer, reusing the first five cached replies, and collecting the other 45
+original development questions. Confidence remains raw and uncalibrated.
+
+The original screen and its strict-format failure are preserved under
+results/gpqa_sonnet55_20261015/ and reports/gpqa_sonnet55_20261015/after_enable/.
+New protocol, status and reporting artifacts live in the parser_v2 subdirectory.
+The original code, config, sealed plan, request keys and cached responses are
+unchanged. A new module imports the original runner and checks its source seal.
+
+Parsing rule: sonnet_unique_final_json_v2
+---------------------------------------
+Inspect only the provider's final text blocks. Require normal end_turn.
+Accept explanation before one JSON object with exactly answer and p_correct.
+Allow an optional matched JSON/unspecified code fence around the final object.
+No prose after that object is allowed. Multiple decoded objects, duplicate
+fields, missing fields, invalid answer labels and nonnumeric/nonfinite/out-of-
+range probabilities fail. Thinking blocks are never searched for an answer.
+The provider model identity and token-usage checks remain in force.
+
+The five cached replies pass v2; all five still fail the old strict-JSON rule.
+This gate uses no correctness labels, scoring, or confidence calibration.
+The change was chosen after observing the five reply formats and is therefore
+an explicit protocol amendment, not a preregistered successful strict-format run.
+
+Collection and accounting
+-------------------------
+The amended collector reads the old cache and writes new requests into that
+same cache. Existing replies are reused exactly; no candidate is regenerated.
+Request identity excludes analysis/parser metadata, so changing the parser
+does not cause new calls for the first five questions.
+The collector uses the same global endpoint, project llm-applications-490420,
+adaptive thinking with effort high, 32768 output-token cap, original prompts,
+provider-default sampling and nominal 10-second request-start pacer.
+The pacer runs before credential refresh; exact logged HTTP start spacing can
+differ slightly due to authentication latency. Requests are sequential.
+The shared USD 20 stage budget includes the first-five cost of USD 0.021174.
+No additional USD 20 budget is allocated by this amendment.
+HTTP/unknown-outcome/unpriced-usage errors stop the run without automatic retry.
+Malformed successful replies stay cached and are not repaired or regenerated.
+
+Commands
+--------
+.venv/bin/python -m vgx.gpqa.sonnet_screen_v2 prepare --root results/gpqa_sonnet55_20261015
+.venv/bin/python -m vgx.gpqa.sonnet_screen_v2 collect --root results/gpqa_sonnet55_20261015 --allow-api
+.venv/bin/python -m vgx.gpqa.sonnet_screen_v2 report --root results/gpqa_sonnet55_20261015
+
+prepare is offline and accepts only the five existing replies. collect first
+rechecks the frozen parent and amendment seals and cached gate, then resumes
+identical requests. Interrupted successful replies are cached, while uncertain
+executions remain blocked. A saved blocked status needs explicit review.
+report is offline: it requires all 50 cached responses, freezes candidates,
+and only then opens the sealed development labels. It does not read Diamond
+labels, fit a probability model, or change any confidence value.
+
+Interpretation
+--------------
+Report Sonnet completeness, raw-confidence distribution, confidence conditional
+on correctness, accuracy, raw Brier/AUROC, risk-coverage and provider token cost.
+Historical Gemini and Qwen answers on these same original 50 questions are
+read-only comparators. They have different generation protocols and serving
+dates, notably two-step Qwen. Report those differences with any comparison.
+This exploratory screen does not establish verifier benefit or a deployment
+error guarantee. There are no verifier requests or policy updates at this stage.

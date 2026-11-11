@@ -1,0 +1,13 @@
+{
+  "stage": "blocked",
+  "budget_states": {
+    "settled": 13,
+    "rejected": 1
+  },
+  "new_successes": 13,
+  "reused_original": 5,
+  "rejected_attempts": 1,
+  "minimum_request_start_interval_seconds": 9.982702016830444,
+  "max_success_request_seconds": 160.3685212135315,
+  "historical_files_unchanged": true
+}

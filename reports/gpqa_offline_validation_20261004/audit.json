@@ -1,0 +1,43 @@
+{
+  "api_calls": 0,
+  "byte_identical_rerun_and_original_reports": {
+    "results/gpqa_jev_20261004/report.json": true,
+    "results/gpqa_offline_validation_20261004/calibration_selection.json": true,
+    "results/gpqa_offline_validation_20261004/policy_decisions.json": true,
+    "results/gpqa_offline_validation_20261004/protocol.json": true,
+    "results/gpqa_offline_validation_20261004/report.json": true,
+    "results/gpqa_vertex_20261004/report.json": true
+  },
+  "code_sha256": {
+    "offline_validation.py": "a9d69bb2151a24f66e474801a32d79669fff2316381dc3b98bd6adf6650f038a",
+    "planner.py": "b4c7ab16a80af5e89a7a65fd1bd63b3e1dbe07fa0e0485425271ee64b2699da8",
+    "report.py": "05eb07fba502b0ba6f50f3bd935fa9d36f742d240c9e9058afbf61b6990da546",
+    "score.py": "7f0f8e7ab33704df85e8943236831080f77a73c7518d4accc76e37f3e7c98beb",
+    "simulation_validation.py": "01648dcd7b029563bd01fc43f0288fd48fd6282a9b1310c05c541b3b9ea0d18c"
+  },
+  "input_sha256": {
+    "jev_policy": "a9101711b7c5cb11764cf6b272ea486330159ad73b70b720359c2969b606fc3c",
+    "records": "73401b5c7b0e4704102f89af1511c96b5c245444627c4d1896c21a20a45d5b64",
+    "vertex_policy": "37fdcba1fe6043d79d7f332687c2d3310cac825a5b65dc61e2808f16231aaa7e"
+  },
+  "new_api_spend_usd": 0,
+  "notes": [
+    "No inference client or credential loader is imported by the analysis.",
+    "End-to-end synthetic test blocks socket connections.",
+    "Paid provider spending from prior runs remains estimated, not confirmed billing."
+  ],
+  "refit_bootstrap_successful": 200,
+  "sha256": {
+    "results/gpqa_jev_20261004/report.json": "ac4adf1ef40109e95ec8264317ca919b1391319f4201cefb8ba8b9ffb5722321",
+    "results/gpqa_offline_validation_20261004/calibration_selection.json": "6710d8639f454560c324eb60f3ef496e056470fb53857822a9085528ad59dd91",
+    "results/gpqa_offline_validation_20261004/policy_decisions.json": "e9c10e21bed13fb69627162d0c9b943e7c28d7154eccac74c100abc686b9b5fe",
+    "results/gpqa_offline_validation_20261004/protocol.json": "c37741e30cbedf395baafbfd504e8d0f7bfa6648e0300388184c8cb9f7d6c492",
+    "results/gpqa_offline_validation_20261004/report.json": "569d07eb5af1bd9ba3a40b526974a65f00c18c932a3a9e763b8abf03a118df1b",
+    "results/gpqa_vertex_20261004/report.json": "2be4cce7beac78f90d8f3e572a892ae23ba3c31f79d8e92652cc83c7fb765977"
+  },
+  "tests": {
+    "new_focused_tests": 29,
+    "passed": 238,
+    "skipped": 4
+  }
+}

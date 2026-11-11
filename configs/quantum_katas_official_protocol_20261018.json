@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "status": "planned_adapter_not_implemented",
+  "dataset": "qiskit-community/Qiskit-QuantumKatas",
+  "revision": "3790fb3e9892537b550c884ad54b65c73c13f1ad",
+  "pilot_selection_config": "configs/quantum_katas_pilot_20261018.json",
+  "pilot_task_count": 28,
+  "partition": "development",
+  "excluded_task_ids": [],
+  "evaluation_target": "Probability that the frozen candidate passes the pinned official checker",
+  "official_evaluator": {
+    "source_file": "benchmark/evaluator.py",
+    "source_sha256": "f91f4f6da9efbdb8fb88dbbd964979a9272119fb517c844a6680cedceb1b1e2e",
+    "entry_point": "evaluate_solution",
+    "timeout_s": 30,
+    "tests": "Unmodified per-task test field from the pinned dataset",
+    "dataset_sha256": "03abb872a87bc62c36c9ea453659cb741d7a8f4892a4c1b52c39a08f882e7b8c",
+    "label_field": "passed",
+    "result_handling": "Persist the complete evaluator result; do not override its verdict",
+    "evaluations_per_frozen_candidate": 1,
+    "seed_policy": "Preserve upstream behavior; no injected seed bank, changed shots, or majority voting",
+    "resume_policy": "Reuse the recorded evaluator result; never rerun a completed evaluation until it passes",
+    "service_failure": "No evaluator return value means missing result, not a fabricated official verdict"
+  },
+  "requirements": "configs/quantum_katas_pilot_requirements.txt",
+  "diagnostics": {
+    "existing_results": "reports/quantum_katas_pilot_20261018/diagnostics",
+    "affect_primary_labels": false,
+    "affect_task_selection": false,
+    "block_framework_integration": false,
+    "run_additional_mutation_audits": false
+  },
+  "model_protocol": {
+    "generator_output": ["complete Python code", "p_correct for official checker acceptance"],
+    "freeze_candidate_before_verification": true,
+    "verifier_input": ["original public task", "public execution conditions", "frozen candidate code"],
+    "verifier_hidden_fields": ["generator confidence", "generator identity", "reference solution", "test source", "official verdict", "other verifier outputs"],
+    "verifier_output": "p_correct for official checker acceptance"
+  },
+  "comparison": "Use the official criterion; align dataset revision, task set, sampling budget, prompting conditions and metric before claiming direct cross-paper comparability",
+  "paid_api_collection_started": false
+}

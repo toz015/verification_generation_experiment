@@ -1,0 +1,52 @@
+GPT-OSS continuation after the unknown position179 request
+
+Authorization: after being informed that position179 timed out with unknown
+execution status, the user asked to continue the remaining questions.
+Retain178 received replies, retry179, then collect180–445 (267 replies to add).
+The178 preserved replies include2 invalid_final_json and2 abort responses;
+do not repair, regenerate, retry or delete those responses.
+
+Use a separate continuation module and result directory. Earlier modules,
+plans, statuses, replies, candidate hashes and budget entries remain sealed.
+Successful prior retries are reconciled by their unique execution IDs, while
+the original unknown attempts and reservations remain intact.
+
+Collection: src/vgx/gpqa/gptoss_retry179_expansion.py
+Scoring: src/vgx/gpqa/gptoss_retry179_offline_score.py
+Root: results/gpqa_gptoss_continuation_20261017/
+New collection: retry179_resume_20261018/
+New analysis: offline_score_445_retry179_20261018/
+
+Keep openai/gpt-oss-120b-maas, the original prompt, medium reasoning,
+max_tokens32768, temperature0, top_p1, parser and prices unchanged. Each request
+starts at least30 seconds after the previous request completes. Only explicit
+HTTP429 permits60/120-second backoff, with at most3 total attempts per item.
+The original unknown179 attempt counts as one: at most2 new attempts; a429 on
+the first new attempt requires120 seconds before the final attempt. Any new
+unknown request stops collection. Do not expand scope or alter the protocol.
+
+Shared USD1 cap and project llm-applications-490420 remain unchanged. Six
+historical unknowns (22,49,65,96,176,179) retain USD0.07201584 of reservations.
+Received178 replies cost an estimated USD0.07558236 at the frozen token rates;
+USD0.07472277 is in this shared ledger, with the first5 imported responses
+accounted for by the earlier study. These are estimates, not confirmed billing.
+New requests reserve budget individually; old reservations are never released.
+
+Label-free preparation; only one paid process may run:
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_expansion prepare
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_offline_score prepare
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_expansion collect --allow-api
+
+Only after complete status and445 received replies:
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_expansion audit
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_expansion report
+  .venv/bin/python -m vgx.gpqa.gptoss_retry179_offline_score score
+
+Scoring preserves the prior frozen methods, baseline identities and question
+order. Freeze predictions/common valid cohorts before reading existing labels.
+Report four-model accuracy, mean raw confidence, confidence when wrong and raw
+Brier with denominators, separately on249 development and196 Diamond questions.
+No fitting, confidence calibration, verifier requests or additional model calls
+in analysis. Export aggregates, plans and audits only, excluding questions,
+answers, keys, raw responses, per-item correctness and credentials. No push or
+commit is authorized for this continuation.

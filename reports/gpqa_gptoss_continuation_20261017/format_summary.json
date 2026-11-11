@@ -1,0 +1,50 @@
+{
+  "all_gptoss_estimated_usd": 0.005610329999999999,
+  "answer_keys_read": false,
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.00475074,
+    "limit_usd": 1.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 1,
+    "successful_priced_calls": 13
+  },
+  "confidence_calibrated": false,
+  "confirmed_billing_usd": null,
+  "continuation_id": "bde28f2d6c6317c2bf66d6981df3741db84ef6a9d57bcc8f1d7115bd8d388b2d",
+  "correctness_scored": false,
+  "explicit_http429_rejections": 1,
+  "finish_reasons": {
+    "stop": 18
+  },
+  "format_failures": [
+    {
+      "failure": "invalid_final_json",
+      "final_content_characters": 43,
+      "finish_reason": "stop",
+      "pilot_position": 13
+    }
+  ],
+  "input_tokens": 5437,
+  "invalid": {
+    "invalid_final_json": 1
+  },
+  "missing_responses": 32,
+  "never_attempted": 31,
+  "new_estimated_usd": 0.00475074,
+  "new_successes": 13,
+  "no_duplicate_successes": true,
+  "no_retry": true,
+  "original_five_estimated_usd": 0.0008595899999999999,
+  "original_hashes_unchanged": true,
+  "original_reused": 5,
+  "output_tokens_including_reasoning": 14225,
+  "reasoning_content_present_n": 18,
+  "responses": 18,
+  "source_seals_valid": true,
+  "stage": "blocked",
+  "target": 50,
+  "unit_tests_run": false,
+  "valid": 17
+}

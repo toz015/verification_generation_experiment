@@ -1,0 +1,36 @@
+{
+  "analysis_id": "8219549684e380b6c1a8238c6c90caa77c92c47eae180a5753f1d5251fcb311f",
+  "checks": {
+    "runs_checked": 20,
+    "selection_and_planner_seals_checked": 120,
+    "stored_decision_records_checked": 904960,
+    "summaries_recomputed": 4040
+  },
+  "evaluation_labels_read": false,
+  "new_api_requests": 0,
+  "note": "Saved decision records include aliases and repeated splits; counts are software audits, not independent observations.",
+  "result_hashes": {
+    "gemini/all_calibration/seed_20261005": "10c31ff3672d08961b47e33192abd2800b7200dceb64f839bc40bc6a6038df1b",
+    "gemini/all_calibration/seed_20261006": "f8118dc084cfcdb93e641d518a3194155014dda2a58f8fc67440913bffa10c59",
+    "gemini/all_calibration/seed_20261007": "c96f5cc053537857156d7eff671d57f50304fac51914bdd4d2020856edebb724",
+    "gemini/all_calibration/seed_20261008": "d6da125923ec312abb5ccca310347dcc4c51118a3cfa4e236e334f584071e5a0",
+    "gemini/all_calibration/seed_20261009": "d24d4f0eba1cace44daa9a600c26362af8994059c0d23cc2b1eb0c8789acee3b",
+    "gemini/remaining_calibration/seed_20261005": "a3d20a76f17e303d040058980046cd698631d1100d38b1491ee1b74e64b2c6db",
+    "gemini/remaining_calibration/seed_20261006": "5db86a99e214fb0ad682af2e0dcc5da55dff12bf5f7f28e63addb354195112ab",
+    "gemini/remaining_calibration/seed_20261007": "aba5a6e70f0136116633ca6078933e5c8d2de99d461d08f3cd3dccb4778c3a3d",
+    "gemini/remaining_calibration/seed_20261008": "f31628c35e673e8f2f2ff7de4728aecfb9ad47df1e4b5046118c1682dfebaebc",
+    "gemini/remaining_calibration/seed_20261009": "8f4526db4ab4787a63ac287fc08350359d00681961c2199b85fccbae8d6faf2c",
+    "qwen/all_calibration/seed_20261005": "507b6488ea25595abaf5971cc8965ae91cece59110d61e31268d396b34e69ab7",
+    "qwen/all_calibration/seed_20261006": "446fdab87b15636cb675d06b14d58ad5d171a9fe970c7bf13d42157bb772896c",
+    "qwen/all_calibration/seed_20261007": "7537543a848163ce270d16b83edbc02544f8588cbf922e4fd6523362129a7de5",
+    "qwen/all_calibration/seed_20261008": "4c175fc465c46f43c1fd700bf0aa5e86e01094ae10b61dffc0a4a15c91333e3a",
+    "qwen/all_calibration/seed_20261009": "a8ecec78b34a8dc64a0c787d4f39c5a2114cd4b71555e6e2cc79c1fb10aec4d0",
+    "qwen/remaining_calibration/seed_20261005": "6680f33d6c81615c085d56daf94e5b74bedbd281d68fa44f0d0c0f636bc3eec0",
+    "qwen/remaining_calibration/seed_20261006": "cea9da163acb24c60a0f64b495d315a2850af0d4dcec5dc6982812b27a799f64",
+    "qwen/remaining_calibration/seed_20261007": "8113fce7aae3fd0879b24de523c6a8c437ab3677bb98c33e5fcd00d10e52f28c",
+    "qwen/remaining_calibration/seed_20261008": "3ffd323da8dc13ef001268e13d5c85eab590f543ac224101e398c9410ef29828",
+    "qwen/remaining_calibration/seed_20261009": "45e6e2ffda908ccded5e99b24d32f2f81e15ab7c2ef974bfc154f753aa95ea07"
+  },
+  "resume_with_unchanged_protocol_completed": true,
+  "status": "passed"
+}

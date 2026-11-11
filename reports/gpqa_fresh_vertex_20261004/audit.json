@@ -1,0 +1,24 @@
+{
+  "all_successful_usage_priced": true,
+  "both_verifiers_evaluation_estimated_usd": 0.4038240600000001,
+  "calibration_before_live_check_passed": true,
+  "generator_distinct_items": 445,
+  "generator_successes": 445,
+  "live_before_baseline_check_passed": true,
+  "live_evaluation_cost_reduction_fraction": 0.4095312448693623,
+  "live_verifier_calls": 266,
+  "live_verifier_estimated_usd": 0.23844549,
+  "offline_resume_made_zero_provider_attempts": true,
+  "offline_resume_report_identical": true,
+  "project_checks_passed": true,
+  "rejected_attempts": 63,
+  "report_sha256_before_offline_resume": "2be4cce7beac78f90d8f3e572a892ae23ba3c31f79d8e92652cc83c7fb765977",
+  "software_tests": {
+    "passed": 200,
+    "skipped": 4,
+    "warning_count": 1
+  },
+  "successful_calls": 1329,
+  "total_estimated_usd": 1.91270913,
+  "unresolved_attempts": []
+}

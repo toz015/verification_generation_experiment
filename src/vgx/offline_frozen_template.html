@@ -1,0 +1,193 @@
+<title>离线冻结对照实验</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; each dataset is a row of three small multiples, one per generator. */
+:root {
+  --bg: #f6f8f7; --surface: #ffffff; --fg: #1c2522; --muted: #5a6661; --line: #dbe1de;
+  --s1: #1F5FA8; --s2: #B4581F; --s3: #1E8A6E; --s4: #8E4FA8;
+  --display: "Noto Serif SC", "Songti SC", serif; --body: "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141917; --surface: #1c2320; --fg: #e4ebe7; --muted: #9aa7a1; --line: #303a36;
+  --s1: #4F97E3; --s2: #C8743A; --s3: #2FA383; --s4: #A873C8; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141917; --surface: #1c2320; --fg: #e4ebe7; --muted: #9aa7a1; --line: #303a36;
+  --s1: #4F97E3; --s2: #C8743A; --s3: #2FA383; --s4: #A873C8; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.65; }
+main { max-width: 1120px; margin: 0 auto; padding-block: 36px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 30px; min-width: 0; }
+section { display: grid; gap: 10px; min-width: 0; }
+h1 { font-family: var(--display); font-size: 28px; line-height: 1.3; margin: 0; text-wrap: balance; }
+h2 { font-size: 18px; margin: 0; } h3 { font-size: 15px; margin: 10px 0 0; }
+p { margin: 0; max-width: 72ch; } .meta { color: var(--muted); font-size: 13px; }
+ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 76ch; }
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 12px; }
+figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px; min-width: 0; }
+figcaption { font-size: 13px; font-weight: 700; }
+svg { width: 100%; height: auto; display: block; }
+.grid { stroke: var(--line); stroke-width: 1; }
+.ideal { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 5 4; }
+.tk { font: 10.5px var(--mono); fill: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); }
+.legend i { display: inline-block; width: 16px; height: 4px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+td.wrap { white-space: normal; min-width: 220px; }
+thead th { color: var(--muted); font-weight: 500; }
+tbody th { font-weight: 500; }
+.n { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; } thead .n { font-family: var(--body); }
+small { color: var(--muted); }
+code { font-family: var(--mono); font-size: 13px; }
+</style>
+<main>
+<header style="display:grid;gap:8px">
+  <h1>离线冻结对照实验：我们的方法和 AT / AT+Cal</h1>
+  <p class="meta">GPQA、MATH-500、QuantumKatas 三个数据集，三个 generator。AT 和 AT+Cal 来自 selective auditing 论文，原本是在线算法，这里改成「训练一次、测试时冻结」的离线版本，论文的在线保证不适用。只用缓存，没有新增 API 调用。</p>
+</header>
+
+<section>
+  <h2>1. 任务和数据</h2>
+  <p>每道题，generator 给出一个固定答案，并报告它认为这个答案对的概率 p_correct。系统只决定放不放行这个答案：不放行就是拦下（弃权或留给人工），测试时不会拿到任何外部标签。决定之前，可以花钱请 verifier 给答案打分，问了 verifier 不等于拦下，问完仍可以放行。目标是在放行错误率不超过 α、每题平均花费不超过预算 B 的前提下，放行尽量多的答案。</p>
+  <div class="scroll"><table><thead><tr><th>数据集</th><th>题目</th><th>怎么判对</th><th>拟合 / 验证 / 测试</th></tr></thead><tbody>
+    <tr><th scope="row">GPQA</th><td>445 道研究生水平的四选一科学题</td><td>和标准答案比对</td><td class="wrap">249 道 calibration 题按固定种子分成拟合 199、验证 50；196 道 Diamond 题测试</td></tr>
+    <tr><th scope="row">MATH-500</th><td>500 道竞赛数学题</td><td>固定版本的 math_equal 判等价</td><td class="wrap">5 折：第 k 折测试，第 k+1 折验证，其余 3 折拟合；5 次测试合并成全部 500 题</td></tr>
+    <tr><th scope="row">QuantumKatas</th><td>322 道量子编程题（Qiskit）</td><td>官方测试程序</td><td class="wrap">5 折，同上；同一个 kata 组的题在同一折</td></tr>
+  </tbody></table></div>
+  <p>和之前那份报告的区别是多了一个<b>验证部分</b>：所有方法都只在拟合部分训练，在验证部分挑工作点，然后冻结，到测试部分只评估。三种方法用同一套划分。</p>
+  <h3>Generator</h3>
+  <p class="meta">不做筛选、全部放行时的正确率。没给答案的题算错。Gemini 3.8 Flash 没有用作 generator，因为它和 Gemini 系的 verifier 太相似。</p>
+  <div class="scroll"><table><thead><tr><th>Generator</th><th>模型</th><th class="n">GPQA</th><th class="n">MATH-500</th><th class="n">QuantumKatas</th></tr></thead><tbody>
+    <tr><th scope="row">Qwen3</th><td>qwen3-235b-a22b-instruct-2507</td><td class="n">63.4%</td><td class="n">96.8%</td><td class="n">54.7%</td></tr>
+    <tr><th scope="row">gpt-oss</th><td>gpt-oss-120b（reasoning medium）</td><td class="n">66.5%</td><td class="n">79.8%</td><td class="n">60.6%</td></tr>
+    <tr><th scope="row">Sonnet 5.5</th><td>claude-sonnet-5-5</td><td class="n">89.2%</td><td class="n">87.4%</td><td class="n">89.1%</td></tr>
+  </tbody></table></div>
+  <h3>Verifier 和预算</h3>
+  <p class="meta">5 个 verifier 来自三家公司，每次调用的平均花费（10⁻⁴ 美元）：</p>
+  <div class="scroll"><table><thead><tr><th>名称</th><th>模型</th><th class="n">GPQA</th><th class="n">MATH-500</th><th class="n">QuantumKatas</th></tr></thead><tbody>
+    <tr><th scope="row">mistral_small</th><td>mistral-small-2503</td><td class="n">0.4</td><td class="n">0.3</td><td class="n">1.1</td></tr>
+    <tr><th scope="row">mistral_medium</th><td>mistral-medium-3</td><td class="n">1.5</td><td class="n">1.2</td><td class="n">4.3</td></tr>
+    <tr><th scope="row">gemini_lite</th><td>gemini-3.5-flash-lite</td><td class="n">18</td><td class="n">6.6</td><td class="n">3.4</td></tr>
+    <tr><th scope="row">gemini_flash</th><td>gemini-3.7-flash</td><td class="n">19</td><td class="n">12</td><td class="n">22</td></tr>
+    <tr><th scope="row">claude_haiku</th><td>claude-haiku-4-5</td><td class="n">28</td><td class="n">4.7</td><td class="n">14</td></tr>
+  </tbody></table></div>
+  <p>预算以 <b>c_ref</b> 为单位：c_ref 是在拟合部分每题问满全部 5 个 verifier 的平均花费，约为 GPQA 61 到 64、MATH-500 23 到 26、QuantumKatas 39 到 50（×10⁻⁴ 美元/题）。预算取 0、0.1、0.25、0.5、0.75、1 倍 c_ref。我们的方法每题最多按固定顺序问 3 个 verifier，顺序在拟合部分不看标签地选出前 3 种，再在验证部分挑。AT 两种方法只看 generator 的置信度，不问 verifier，花费为 0。</p>
+</section>
+
+<section>
+  <h2>2. 校准</h2>
+  <p><b>为什么：</b>generator 自报的置信度不准，偏差方向因模型而异。比如 GPQA 上 Qwen3 报 95% 以上的题实际只有约 78% 对。我们的方法从置信度出发做贝叶斯更新，起点必须是真实的概率。</p>
+  <p><b>我们怎么做：</b>只用 p_correct 一个输入，在拟合部分的带标签题目上拟合一个单调函数（isotonic 回归），把报的置信度映射成实际正确率，拟合完固定。验证和测试部分不参与拟合。</p>
+  <p><b>AT+Cal 怎么做：</b>它有自己的校准，即论文的 Algorithm 1：在 21 个阈值格点上学指数权重，把置信度映射成一个分数，也只在拟合部分学。AT 不校准，直接对原始置信度设门槛。为了确认差别不是来自校准本身，附录里还有「AT 用我们校准后的置信度」的对照。</p>
+</section>
+
+<section>
+  <h2>3. 方法</h2>
+  <p><b>我们的方法（Ours-Offline）：</b>每道题从校准后的置信度出发，按选定顺序逐个问 verifier，每问一个就更新「答案是对的」的概率，并决定现在放行、现在拦下，还是再问下一个。这个决定由动态规划算出。几条这样的规则按比例混合，比例由线性规划决定：放行最多，约束是放行错误率 ≤ α、平均花费 ≤ B。生成候选时只用拟合出的模型和验证部分的报告值，不看验证标签；共 3 个顺序 × 6 档规划 α × 6 档规划预算 = 108 个候选。</p>
+  <p><b>AT-Frozen：</b>在拟合部分把题目打乱，按论文的更新规则跑一遍，学出一个置信度门槛 τ，测试时置信度 ≥ τ 就放行。论文的更新目标是「错答案里漏审的比例」，不是放行错误率，所以我们把论文参数（α_at 8 档 × 学习率 η 若干档）都跑一遍当候选。训练时 10% 随机送审，测试时不再随机送审。20 个训练种子取平均。</p>
+  <p><b>AT+Cal-Frozen：</b>同上，但门槛加在 AT+Cal 自己校准后的分数上，多一个参数 β。</p>
+  <p><b>统一的选工作点规则（三种方法都一样）：</b>在验证部分，从「放行错误率 ≤ α 且平均花费 ≤ B」的候选里选放行最多的；平局时选花费低、规则简单的。没有任何候选能在满足约束的同时放行至少一题，就全部拦下。选完冻结，到测试部分评估。</p>
+  <p><b>表里的小数：</b>我们的方法是按比例混合规则，部署时每道题抽签决定用哪条。测试时把每道题被放行的概率加起来，相当于反复抽签的平均，所以放行数和错误数是期望值，有小数。AT 两种方法的小数来自 20 个种子的平均。</p>
+</section>
+
+<section>
+  <h2>4. Baseline，以及各自用来说明什么</h2>
+  <div class="scroll"><table><thead><tr><th>方法</th><th>做法</th><th>和它比，说明我们的什么</th></tr></thead><tbody>
+    <tr><th scope="row">AT-Frozen</th><td class="wrap">论文的自适应门槛，原始置信度，冻结</td><td class="wrap">和已发表的 selective auditing 方法比，在同样的放行错误率和预算下谁放得多</td></tr>
+    <tr><th scope="row">AT+Cal-Frozen</th><td class="wrap">论文的校准版自适应门槛，冻结</td><td class="wrap">论文自带的校准能不能补上置信度不准的问题</td></tr>
+    <tr><th scope="row">原始置信度阈值</th><td class="wrap">在验证部分直接选一个原始置信度门槛，不问 verifier</td><td class="wrap">最简单的做法；和它比看 verifier 和我们的规划值不值得</td></tr>
+  </tbody></table></div>
+  <p class="meta">附录里还有几个对照：AT 用我们校准后的置信度；AT 和 AT+Cal 在测试时保留 10% 随机送审；我们的方法不校准、直接用原始置信度。</p>
+</section>
+
+<section>
+  <h2>5. 怎么判断方法好坏</h2>
+  <p>在同一个 α 和预算下比较：<b>放行比例越高越好</b>，前提是测试集上的放行错误率不超过 α（错误率图的虚线），平均花费不超过预算。放行比例差不多时，错误率低的更好。不同 α 之间不能直接比，α 越大本来就放得越多。所有方法测试时拿到的外部标签都是 0。</p>
+</section>
+
+<section>
+  <h2>6. 结果</h2>
+  <ul>
+    <li><b>放行更多：</b>每个数据集有 54 个设定（3 个 generator × 3 个 α × 6 档预算）。我们比 AT-Frozen 放行显著更多的设定：GPQA 44 个、MATH-500 25 个、QuantumKatas 38 个；比 AT+Cal-Frozen 是 50、26、39 个。比原始置信度阈值是 30、24、26 个，但原始阈值也有 9、6、17 个设定显著比我们多，主要在 B = 0（没有 verifier 可用）和 Sonnet 上（见附录汇总表）。</li>
+    <li><b>同样的实际错误率下，我们一般放得更多（见 6.1）。</b>比如 QuantumKatas 的 Qwen3，我们在实际错误率 2.4% 时放行 26%，原始阈值在 5.0% 时只放行 18%，AT-Frozen 在 4.8% 时放行 8%。MATH-500 的 Sonnet，我们在 2.3% 时放行 51%，原始阈值在 8.6% 时放行 30%。所以多放的部分不是靠多犯错换来的。</li>
+    <li><b>错误率常常超过目标，我们超得最多（见 6.3）。</b>全部 207 个设定里，测试错误率超过 α 的：我们 103 个，原始阈值 81 个，AT-Frozen 63 个，AT+Cal-Frozen 24 个（它另有 75 个设定一题都不放）。α = 5% 时我们一般是 6% 到 8%，比如 GPQA Qwen3 7.8%、QuantumKatas Qwen3 7.1%。原因是验证部分只有 50 到 100 题，在上面挑「放行最多且看起来达标」的工作点会偏乐观。之前那份报告不分验证部分，错误率贴得更近。</li>
+    <li><b>AT+Cal-Frozen 经常一题都不放。</b>GPQA 的 Qwen3、QuantumKatas 的 Qwen3 和 gpt-oss，在 α ≤ 5% 时它在验证部分找不到能达标的门槛，只能全部拦下。</li>
+    <li><b>只有我们会超预算，而且只在 GPQA。</b>共 23 个设定测试花费超过 B，都在 GPQA（验证只有 50 题）。实际花费一般远低于预算，比如 QuantumKatas 在 B = 1×c_ref（约 40 到 50）时只花 10 到 14（α = 5%，见 6.5）。</li>
+    <li><b>MATH-500 要看小 α。</b>Qwen3 和 gpt-oss 给出答案的题绝大多数是对的，α ≥ 5% 时几种方法都接近全部放行，没有差别。α = 1% 时我们放行 43% 到 51%，AT-Frozen 0% 到 20%，原始阈值 0% 到 44%；但我们的错误率是 2.3% 到 3.5%，超过了 1%。</li>
+    <li><b>GPQA 的 Qwen3 这次能放行了。</b>α = 5% 时我们放行 59%（115 题），错误率 7.8%，超了目标；AT-Frozen 放行 10%，错误率 12.9%；AT+Cal 不放行。之前那份报告里它几乎不放行，那里是在全部 249 道题上卡 5%；这里只在 50 道验证题上卡，能「看起来达标」的工作点更多，测试时就超了（这是推断，没有单独做实验验证）。</li>
+  </ul>
+</section>
+<div class="legend">{{LEGEND}}<span>虚线：实际错误率 = 目标 α</span></div>
+<section>
+  <h2>6.1 同样的实际错误率下谁放得多</h2>
+  <p class="meta">横轴是测试集上放行答案的实际错误率，纵轴是放行比例，每个方法的 3 个点对应 α = 1%、5%、10%。越靠左上越好：同样的实际错误率下放得更多。预算取最高一档 1×c_ref。放行 0 题的点不画，横轴超过 20% 的点画在右边界。</p>
+  {{ACTUAL}}
+</section>
+<section>
+  <h2>6.2 放行比例对 α</h2>
+  <p class="meta">预算 1×c_ref。横轴 α 均匀排列，不是线性刻度。</p>
+  {{ALPHA}}
+</section>
+<section>
+  <h2>6.3 测试放行错误率对 α</h2>
+  <p class="meta">同样的预算。点在虚线以上表示超过目标。一题都不放的点不画。纵轴上限 20%。</p>
+  {{CONTROL}}
+</section>
+<section>
+  <h2>6.4 测试 FPR 对 α（参考）</h2>
+  <p class="meta">错答案里有多少被放行了。不约束它，只作参考。</p>
+  {{FPR}}
+</section>
+<section>
+  <h2>6.5 放行比例对每题花费</h2>
+  <p class="meta">横轴是测试集上实际每题平均花费（×10⁻⁴ 美元），纵轴是放行比例。每个方法的点对应 6 档预算，越靠左上越好。α = 5%，MATH-500 用 1%。AT 两种方法和原始阈值不花钱，都在最左边。</p>
+  {{COST}}
+</section>
+<section>
+  <h2>6.6 各方法的放行比例和放行错误率</h2>
+  <p class="meta">预算 1×c_ref。每格上面是放行比例，下面是放行错误率，* 表示超过 α（AT 类方法是过半种子超过）。MATH-500 用 α = 1%、5%。</p>
+  {{RATE}}
+</section>
+<section>
+  <h2>6.7 各方法的放行数和错误数</h2>
+  <p class="meta">和 6.6 对应：放行数 / 其中错的数。我们的是混合规则的期望值，AT 类是 20 个种子的平均，所以有小数。</p>
+  {{COUNT}}
+</section>
+
+<section>
+  <h2>附录：汇总表</h2>
+  <p class="meta">每个数据集 54 个设定（3 个 generator × 3 个 α × 6 档预算）。「Ours 显著更多 / 更少」按配对 bootstrap（2000 次，QuantumKatas 按 kata 组重采样）的 95% 区间是否不含 0 判断，其余是差别不显著。</p>
+  {{SIG}}
+</section>
+<section>
+  <h2>附录：错误率和预算超限</h2>
+  <p class="meta">全部数据集、generator、α 和预算的设定，GPQA 另含美元预算档。AT 类方法以过半种子超标计。</p>
+  {{OVERRUNS}}
+</section>
+<section>
+  <h2>附录：拦下了哪些题</h2>
+  <p class="meta">α = 5%，预算 1×c_ref。区分「拦下」和「问了 verifier」：问了 verifier 的题仍可能放行。</p>
+  {{CAPTURE}}
+</section>
+<section>
+  <h2>附录：其他对照</h2>
+  <p class="meta">α = 5%，预算 1×c_ref。包括 AT 用我们校准后的置信度、测试时保留 10% 随机送审、我们的方法不校准。</p>
+  {{SUPP}}
+</section>
+<section>
+  <h2>附录：校准诊断（测试集 Brier）</h2>
+  {{BRIER}}
+</section>
+<section>
+  <h2>附录：外部审计服务情景</h2>
+  <p class="meta">假设被拦下的答案都交给外部审计，每次花费 c_A = 1、5、20 倍 c_ref，单位 10⁻⁴ 美元/题，含筛选花费。工作点沿用上面的，没有按新成本重选。</p>
+  {{SERVICE}}
+</section>
+<section>
+  <h2>附录：复现</h2>
+  <p><code>python -m vgx.offline_frozen config</code>，<code>python -m pytest tests/test_offline_frozen.py tests/test_selective_auditing.py</code>，<code>python -m vgx.offline_frozen run</code>，<code>python -m vgx.offline_frozen_report</code>。协议见 docs/offline-at-frozen-experiment-protocol-20261110.md，逐题决策在 results/offline_at_frozen_20261111/*_decisions.jsonl.gz，全部设定在 summary.csv。</p>
+</section>
+</main>

@@ -1,0 +1,779 @@
+{
+  "alphas_leak": [
+    0.05,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "hyperparameter_sensitivity": {
+    "declared": "before any QuantumKatas replay, primary order only; reported separately, never used to pick the main result",
+    "sets": {
+      "lower_spot_check": {
+        "beta": 1.0,
+        "eta": 1.0,
+        "gamma": 0.2,
+        "grid": "step0.05"
+      },
+      "smaller_steps": {
+        "beta": 1.0,
+        "eta": 0.2,
+        "gamma": 0.1,
+        "grid": "step0.05"
+      }
+    }
+  },
+  "hyperparameters": {
+    "AT": {
+      "eta": 1.0,
+      "gamma": 0.5,
+      "tau0": 0.5
+    },
+    "AT+CC": {
+      "beta": 1.0,
+      "eta": 1.0,
+      "gamma": 0.5,
+      "grid": "step0.05",
+      "grid_points": [
+        0.0,
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85,
+        0.9,
+        0.95,
+        1.0
+      ],
+      "tau0": 0.5,
+      "w0": "uniform over k+1"
+    }
+  },
+  "kind": "selective_auditing_baselines",
+  "paper": "Gibbs, Tibshirani, Han, Zrnic. Reliable AI-Assisted Decisions via Selective Auditing. arXiv:2610.31662v1",
+  "schema": 1,
+  "selection": {
+    "data": "GPQA calibration partition (249 questions, Main minus Diamond), raw p_correct and answer-key labels of the frozen candidates; no QuantumKatas labels",
+    "first_search_without_feasible_point": {
+      "eta": [
+        0.005,
+        0.01,
+        0.02,
+        0.05,
+        0.1,
+        0.2
+      ],
+      "gamma": [
+        0.05,
+        0.1,
+        0.2
+      ]
+    },
+    "order_seed": 20261109,
+    "rule": "stage 1: (eta, gamma) shared by AT and AT+CC with beta=1.0, grid=step0.1; stage 2: (beta, grid) for AT+CC. Feasible: for every method and alpha, the mean over generators of (leak rate - alpha) <= 0.01. Among feasible, least mean audit rate; if none, least excess.",
+    "search": {
+      "beta": [
+        0.1,
+        0.5,
+        1.0,
+        2.0,
+        5.0
+      ],
+      "eta": [
+        0.01,
+        0.02,
+        0.05,
+        0.1,
+        0.2,
+        0.5,
+        1.0,
+        2.0,
+        5.0
+      ],
+      "gamma": [
+        0.05,
+        0.1,
+        0.2,
+        0.3,
+        0.5,
+        0.7
+      ],
+      "grid": [
+        "step0.1",
+        "step0.05"
+      ]
+    },
+    "seeds": 50,
+    "stage1": [
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.01,
+          "gamma": 0.05,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.4790590841292104,
+        "mean_audit_rate": 0.310669060651207
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.01,
+          "gamma": 0.1,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.49961619804537055,
+        "mean_audit_rate": 0.31183415112061147
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.01,
+          "gamma": 0.2,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.45774204679534275,
+        "mean_audit_rate": 0.372137366670985
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.01,
+          "gamma": 0.3,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.44001357999955476,
+        "mean_audit_rate": 0.4372488475407004
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.01,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.33913744740532953,
+        "mean_audit_rate": 0.5806435958889321
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.01,
+          "gamma": 0.7,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.20802411006478327,
+        "mean_audit_rate": 0.7420644540527702
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.02,
+          "gamma": 0.05,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.37332331530087487,
+        "mean_audit_rate": 0.43375878514056226
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.02,
+          "gamma": 0.1,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.3550614439324116,
+        "mean_audit_rate": 0.40754693505203604
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.02,
+          "gamma": 0.2,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.320103519668737,
+        "mean_audit_rate": 0.44308724143887374
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.02,
+          "gamma": 0.3,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.30405774839154925,
+        "mean_audit_rate": 0.4890562248995984
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.02,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.23839065874128984,
+        "mean_audit_rate": 0.6046929249255085
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.02,
+          "gamma": 0.7,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.17948696542665687,
+        "mean_audit_rate": 0.7456635682515006
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.05,
+          "gamma": 0.05,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.2193147665798437,
+        "mean_audit_rate": 0.641726624238891
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.05,
+          "gamma": 0.1,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.2341831964202231,
+        "mean_audit_rate": 0.5588822089433001
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.05,
+          "gamma": 0.2,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.18046895523052608,
+        "mean_audit_rate": 0.5680976189705057
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.05,
+          "gamma": 0.3,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.1796006144393241,
+        "mean_audit_rate": 0.581126900073412
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.05,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.13886495692246045,
+        "mean_audit_rate": 0.6517940984367577
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.05,
+          "gamma": 0.7,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.10360782742269418,
+        "mean_audit_rate": 0.757975234270415
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.1,
+          "gamma": 0.05,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.2197115919766691,
+        "mean_audit_rate": 0.6748332307725525
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.1,
+          "gamma": 0.1,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.12824339366415102,
+        "mean_audit_rate": 0.6792855696981475
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.1,
+          "gamma": 0.2,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.11716244796188696,
+        "mean_audit_rate": 0.6491356015459688
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.1,
+          "gamma": 0.3,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.10605155947371937,
+        "mean_audit_rate": 0.6491275721164227
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.1,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.08053240276942941,
+        "mean_audit_rate": 0.693189748240273
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.1,
+          "gamma": 0.7,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.06649791847547808,
+        "mean_audit_rate": 0.7700764077816643
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.2,
+          "gamma": 0.05,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.21810124891471314,
+        "mean_audit_rate": 0.6861371156669689
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.2,
+          "gamma": 0.1,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.1273268550056769,
+        "mean_audit_rate": 0.7227703826056916
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.2,
+          "gamma": 0.2,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.07313252743827778,
+        "mean_audit_rate": 0.720367127110593
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.2,
+          "gamma": 0.3,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.06707128386651529,
+        "mean_audit_rate": 0.7037770436585049
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.2,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.040020481310803886,
+        "mean_audit_rate": 0.7278221892948137
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.2,
+          "gamma": 0.7,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.04022907900888265,
+        "mean_audit_rate": 0.7823101006175239
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.5,
+          "gamma": 0.05,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.2182727798926957,
+        "mean_audit_rate": 0.6888745978537808
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.5,
+          "gamma": 0.1,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.12525568245063337,
+        "mean_audit_rate": 0.7550071252752947
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.5,
+          "gamma": 0.2,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.05562523653687749,
+        "mean_audit_rate": 0.7777031513149372
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.5,
+          "gamma": 0.3,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.035917095215832945,
+        "mean_audit_rate": 0.7592325349786243
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.5,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.019101048554063978,
+        "mean_audit_rate": 0.7629323071857321
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 0.5,
+          "gamma": 0.7,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.015849751775417975,
+        "mean_audit_rate": 0.7971480950684459
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 1.0,
+          "gamma": 0.05,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.22337006611901422,
+        "mean_audit_rate": 0.6900076380791985
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 1.0,
+          "gamma": 0.1,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.12415993232262518,
+        "mean_audit_rate": 0.7655721542082308
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 1.0,
+          "gamma": 0.2,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.04784278367728578,
+        "mean_audit_rate": 0.8025204176922744
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 1.0,
+          "gamma": 0.3,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.031244573565751683,
+        "mean_audit_rate": 0.7905830445437666
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.009948128854159709,
+        "mean_audit_rate": 0.7855059755149632
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 1.0,
+          "gamma": 0.7,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.010230971303902577,
+        "mean_audit_rate": 0.806564335298182
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 2.0,
+          "gamma": 0.05,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.23130657405552216,
+        "mean_audit_rate": 0.6905601572958501
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 2.0,
+          "gamma": 0.1,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.11885271266056678,
+        "mean_audit_rate": 0.7717813728030402
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 2.0,
+          "gamma": 0.2,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.043132861372693065,
+        "mean_audit_rate": 0.8139391166817808
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 2.0,
+          "gamma": 0.3,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.02656737683385649,
+        "mean_audit_rate": 0.807883631299391
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 2.0,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.00813898350363988,
+        "mean_audit_rate": 0.8068832183573001
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 2.0,
+          "gamma": 0.7,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.006231438812083973,
+        "mean_audit_rate": 0.8158587036317312
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 5.0,
+          "gamma": 0.05,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.23541819719940338,
+        "mean_audit_rate": 0.6900957998661311
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 5.0,
+          "gamma": 0.1,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.1188885549544736,
+        "mean_audit_rate": 0.7731435554044133
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 5.0,
+          "gamma": 0.2,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.03972094214029697,
+        "mean_audit_rate": 0.8234823568467418
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 5.0,
+          "gamma": 0.3,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.021135043077539564,
+        "mean_audit_rate": 0.8241705261907847
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 5.0,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.010961842427480573,
+        "mean_audit_rate": 0.8285297372284838
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 5.0,
+          "gamma": 0.7,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.00603675504797524,
+        "mean_audit_rate": 0.831168234767025
+      }
+    ],
+    "stage2": [
+      {
+        "hp": {
+          "beta": 0.1,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.009136556913555508,
+        "mean_audit_rate": 0.7960657684501445
+      },
+      {
+        "hp": {
+          "beta": 0.1,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.05"
+        },
+        "max_mean_excess": 0.009043945769050958,
+        "mean_audit_rate": 0.7866279364770913
+      },
+      {
+        "hp": {
+          "beta": 0.5,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.00996994590262472,
+        "mean_audit_rate": 0.7889262695945072
+      },
+      {
+        "hp": {
+          "beta": 0.5,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.05"
+        },
+        "max_mean_excess": 0.012092878292036773,
+        "mean_audit_rate": 0.7820662218767543
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.009948128854159709,
+        "mean_audit_rate": 0.7857685581033813
+      },
+      {
+        "hp": {
+          "beta": 1.0,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.05"
+        },
+        "max_mean_excess": 0.00973084886128364,
+        "mean_audit_rate": 0.7804174493673619
+      },
+      {
+        "hp": {
+          "beta": 2.0,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.013272223335336938,
+        "mean_audit_rate": 0.7870798786544024
+      },
+      {
+        "hp": {
+          "beta": 2.0,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.05"
+        },
+        "max_mean_excess": 0.012640975978984392,
+        "mean_audit_rate": 0.7825333862331045
+      },
+      {
+        "hp": {
+          "beta": 5.0,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.1"
+        },
+        "max_mean_excess": 0.015717513746966755,
+        "mean_audit_rate": 0.79937405536123
+      },
+      {
+        "hp": {
+          "beta": 5.0,
+          "eta": 1.0,
+          "gamma": 0.5,
+          "grid": "step0.05"
+        },
+        "max_mean_excess": 0.012310603530799885,
+        "mean_audit_rate": 0.7994823649436457
+      }
+    ]
+  },
+  "status": "frozen before any QuantumKatas replay; hyperparameters are this implementation's choices (the paper reports none)",
+  "streams": {
+    "audit_seeds": "run r uses numpy default_rng(1000 + r); 100 runs per order; shared by all methods (common random numbers)",
+    "end_to_end_sensitivity": "primary order over all 322 tasks with end-to-end failures entered as confidence 0 and error 1",
+    "evaluable": "extractable code, confidence in [0, 1] and an official checker label; others excluded and counted",
+    "generators": [
+      "qwen3",
+      "sonnet55",
+      "gptoss"
+    ],
+    "orders": {
+      "plan": "the run plan order (tasks grouped by kata)",
+      "primary": "seeded permutation of the evaluable stream, seed 20261110",
+      "random": "seeded permutations, seeds 20261111..20261130"
+    }
+  }
+}

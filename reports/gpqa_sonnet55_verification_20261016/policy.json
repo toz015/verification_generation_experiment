@@ -1,0 +1,1786 @@
+{
+  "confidence_calibrated": false,
+  "development_item_ids_sha256": "a621cbcb9f9d3e882985ad35640bf56ca6dcb8266bc4b84783d3c6d6a873d2d7",
+  "development_labels_sha256": "c146051ad91cdceec3c204bd599bc7f833334577c089855d674f54f6066b4b29",
+  "development_questions": 249,
+  "development_signals_sha256": "e8f69e0f454d4cded05884da0b014df924bdee12177687a4c5e776c9e96ed238",
+  "development_valid": 248,
+  "development_wrong_valid": 31,
+  "evaluation_labels_read_for_fitting": false,
+  "evaluation_signals_read_for_fitting": false,
+  "expected_cost_usd": {
+    "claude_haiku:probability": 0.0025208709677419353,
+    "gemini_flash:probability": 0.0016797308467741937,
+    "gemini_lite:probability": 0.0016284850806451612,
+    "mistral_medium:probability": 0.00014920967741935482,
+    "mistral_small:probability": 3.581532258064516e-05
+  },
+  "frozen_at_unix": 1792178306.561606,
+  "implementation": {
+    "common/api.py": "6701f2d7542828ca28dfd1b4da46bd0c1c2ef4717003f7fb60b621a3fce7d238",
+    "common/billing.py": "e1633b993b867497a487ec989981fad87a76040e09c70ce6c902f7a57b9caf47",
+    "common/budget.py": "0b2e7797e142f124333ad1addb896f54a7ef76e18829feb8b5757ad8356a69ad",
+    "common/concurrency.py": "4087933a3c634f92a7cd42ade57a91f197bdb822fed22cb18de452b068d81a0e",
+    "common/storage.py": "479eaee0587ada9f6576066a3f40e1ead9bb7159e39061bb8f7cc2b1b4ecb1bf",
+    "common/vertex.py": "0aca7bc7efd42f97e28ca8478c11fc3645937935a196768430e1cfaf731e4d8c",
+    "common/vertex_partner.py": "1f332ecc2f6649f7abc2bee735d5c84843ffdec52d740df52e48af10adc4463b",
+    "gpqa/artifacts.py": "42d21bed514960653e07360d143ee3184ed34028057177ad6ef02c3aa2e89d10",
+    "gpqa/dependence_triples.py": "c7a0f1d85d0093d8b4e22c2e424e14d697a59c656d0cf8dc8e640bac984c5983",
+    "gpqa/diamond_score.py": "3830aea69a3f84ae8d5a9ce2d1acbb3ac65ca120d9e3808d84eddefed508424c",
+    "gpqa/diamond_signals.py": "aa68e8b7a99787f66f5b9f258ea867ca9f216a0069536b864abf308e56ef3b45",
+    "gpqa/generator_calibration.py": "e8e860e21248d08dd3ffda64cf39a6a128bc5e017785a77e6ce9fb1f9a638a90",
+    "gpqa/prompt.py": "3edbba668fe44f10dba0188c25196c16163320ebdde4693fb7deba6d027e2355",
+    "gpqa/qwen_signal_completion.py": "bda93aec809cfd06fb612cc2bea68cc93c0f2a3c908f2795aae48340bdb009d2",
+    "gpqa/raw_prior_analysis.py": "16b20fcbeef40963d2a60af00a3f94aa2c0f6e8bef12e3c4e389e3e0693028a3",
+    "gpqa/replacement_generators.py": "f9e8dad2583aa99a60255d0ec957b55b616d499eef00ed728fd0e1ffc277a4e0",
+    "gpqa/report.py": "05eb07fba502b0ba6f50f3bd935fa9d36f742d240c9e9058afbf61b6990da546",
+    "gpqa/score.py": "7f0f8e7ab33704df85e8943236831080f77a73c7518d4accc76e37f3e7c98beb",
+    "gpqa/sequential.py": "ee1d0ea50d83b6b5c6a1ebe90570c917b35727d8d5ceea2b59ea8d9c77662fd4",
+    "gpqa/signal_collect.py": "cf3bd43c3222a9f1ab538e841c24f009c91d5c785309a1196a3484f1d641275b",
+    "gpqa/signal_study.py": "3c3394aa4943102778a4142e34cc152b665f34eaffab10172ad35b9a78142719",
+    "gpqa/sonnet_verification.py": "4d4451aeec866de7881b892da82310f705f27aed994000a09e6c1d6685d46f52"
+  },
+  "likelihoods": {
+    "claude_haiku:probability": {
+      "edges": [
+        0.0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1.0
+      ],
+      "fit_correct_n": 217,
+      "fit_n": 248,
+      "fit_wrong_n": 31,
+      "likelihood_ratio_by_bin": [
+        0.7083333333333333,
+        0.5795454545454545,
+        1.2878787878787878
+      ],
+      "p_bin_if_correct": [
+        0.25,
+        0.06818181818181818,
+        0.6818181818181818
+      ],
+      "p_bin_if_incorrect": [
+        0.35294117647058826,
+        0.11764705882352941,
+        0.5294117647058824
+      ]
+    },
+    "gemini_flash:probability": {
+      "edges": [
+        0.0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1.0
+      ],
+      "fit_correct_n": 216,
+      "fit_n": 247,
+      "fit_wrong_n": 31,
+      "likelihood_ratio_by_bin": [
+        0.1358447488584475,
+        0.1552511415525114,
+        1.3584474885844746
+      ],
+      "p_bin_if_correct": [
+        0.0319634703196347,
+        0.0091324200913242,
+        0.958904109589041
+      ],
+      "p_bin_if_incorrect": [
+        0.23529411764705882,
+        0.058823529411764705,
+        0.7058823529411765
+      ]
+    },
+    "gemini_lite:probability": {
+      "edges": [
+        0.0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1.0
+      ],
+      "fit_correct_n": 215,
+      "fit_n": 246,
+      "fit_wrong_n": 31,
+      "likelihood_ratio_by_bin": [
+        0.6238532110091743,
+        0.1559633027522936,
+        1.0973132372214942
+      ],
+      "p_bin_if_correct": [
+        0.09174311926605505,
+        0.0045871559633027525,
+        0.9036697247706422
+      ],
+      "p_bin_if_incorrect": [
+        0.14705882352941177,
+        0.029411764705882353,
+        0.8235294117647058
+      ]
+    },
+    "mistral_medium:probability": {
+      "edges": [
+        0.0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1.0
+      ],
+      "fit_correct_n": 217,
+      "fit_n": 248,
+      "fit_wrong_n": 31,
+      "likelihood_ratio_by_bin": [
+        0.95625,
+        0.4636363636363636,
+        1.0727272727272728
+      ],
+      "p_bin_if_correct": [
+        0.45,
+        0.013636363636363636,
+        0.5363636363636364
+      ],
+      "p_bin_if_incorrect": [
+        0.47058823529411764,
+        0.029411764705882353,
+        0.5
+      ]
+    },
+    "mistral_small:probability": {
+      "edges": [
+        0.0,
+        0.3333333333333333,
+        0.6666666666666666,
+        1.0
+      ],
+      "fit_correct_n": 217,
+      "fit_n": 248,
+      "fit_wrong_n": 31,
+      "likelihood_ratio_by_bin": [
+        0.9051948051948052,
+        0.3090909090909091,
+        1.1062200956937798
+      ],
+      "p_bin_if_correct": [
+        0.37272727272727274,
+        0.00909090909090909,
+        0.6181818181818182
+      ],
+      "p_bin_if_incorrect": [
+        0.4117647058823529,
+        0.029411764705882353,
+        0.5588235294117647
+      ]
+    }
+  },
+  "policy_id": "b20baa146f03e0ac407a177e348918e177ef5588e4cf59a17c917165dec8ea0f",
+  "protocol_id": "ba94fcbec635d7a40767daaa3572f0b6a7556b4e54c49dea8df136ab89472bd4",
+  "ranked_60_orders": {
+    "19": [
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0016284850806451612,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "gemini_lite:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.059021050315799045
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0025208709677419353,
+          0.0016284850806451612
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "claude_haiku:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.058857363899019376
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016797308467741937,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_flash:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.05882758232691104
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          3.581532258064516e-05,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_small:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0587940997949901
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0016797308467741937,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "gemini_flash:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0585552193611926
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0025208709677419353,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "claude_haiku:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.058064819645349104
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016797308467741937,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_flash:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0577527245908081
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.00014920967741935482,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_medium:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.057742713878719834
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0025208709677419353,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "claude_haiku:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.05748693788742117
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016797308467741937,
+          0.0016284850806451612
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_flash:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.05732791153025995
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0025208709677419353,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_small:probability",
+          "claude_haiku:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05670859902991464
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          3.581532258064516e-05,
+          0.0016797308467741937
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_small:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05666400034091022
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016284850806451612,
+          0.0016797308467741937
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_lite:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05659860715496754
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016797308467741937,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_flash:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.05657277319271938
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0025208709677419353,
+          0.0016797308467741937
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "claude_haiku:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05631397277165243
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016797308467741937,
+          0.00014920967741935482
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_flash:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.05569667102618547
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0025208709677419353,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "claude_haiku:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05567981991071195
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.00014920967741935482,
+          0.0016797308467741937
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_medium:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05567137094265072
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016797308467741937,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_flash:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.05557169224773815
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016284850806451612,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_lite:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0550052937327631
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          3.581532258064516e-05,
+          0.0016284850806451612
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_small:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.05492788239574035
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          3.581532258064516e-05,
+          0.0016797308467741937
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_small:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05438168713519046
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0016284850806451612,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "gemini_lite:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.05404567758225318
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0016797308467741937,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "gemini_flash:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0537787614462037
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.00014920967741935482,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_small:probability",
+          "mistral_medium:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05348127413495502
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          3.581532258064516e-05,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "mistral_small:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05344021207949302
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016797308467741937,
+          0.00014920967741935482
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_flash:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.05319550893794185
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016797308467741937,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_flash:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.053153733598245066
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016797308467741937,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_flash:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0530832886067294
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          3.581532258064516e-05,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_small:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.05255169908594401
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016284850806451612,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_lite:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.05253203198200521
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.00014920967741935482,
+          0.0016284850806451612
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_medium:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.052440815514073
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.00014920967741935482,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_medium:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.052427308034161416
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.00014920967741935482,
+          0.0016797308467741937
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_medium:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0518010824142294
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0016284850806451612,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "gemini_lite:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.05168873635374145
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0016797308467741937,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "gemini_flash:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.05119265652140479
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016284850806451612,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_lite:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.03773821439011314
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0025208709677419353,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_small:probability",
+          "claude_haiku:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0375267605182136
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          3.581532258064516e-05,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_small:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.037128129000243974
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.00014920967741935482,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_small:probability",
+          "mistral_medium:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.037096733396565
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          3.581532258064516e-05,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "mistral_small:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.037055671341103005
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0025208709677419353,
+          0.00014920967741935482
+        ],
+        "order": [
+          "mistral_small:probability",
+          "claude_haiku:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.036391610195126385
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0025208709677419353,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "claude_haiku:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.03638912882112658
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          3.581532258064516e-05,
+          0.0016284850806451612
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_small:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0363474642783778
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016284850806451612,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_lite:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.036277695091914544
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.00014920967741935482,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_medium:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.03626670651133252
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016284850806451612,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_lite:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.03619526597498056
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0025208709677419353,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "claude_haiku:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.03608241455988784
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0025208709677419353,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "claude_haiku:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0359904032271234
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          3.581532258064516e-05,
+          0.00014920967741935482
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_small:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.03595028282133616
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.00014920967741935482,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_medium:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.035945662466741815
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0025208709677419353,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "claude_haiku:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.03587607901996676
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.00014920967741935482,
+          0.0016284850806451612
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_medium:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.03584945991908911
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016284850806451612,
+          0.00014920967741935482
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_lite:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.03570181894902353
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.00014920967741935482,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_small:probability",
+          "mistral_medium:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.03553884492357401
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          3.581532258064516e-05,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "mistral_small:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.035537643457645554
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016284850806451612,
+          0.00014920967741935482
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_lite:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.03539606472874562
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          3.581532258064516e-05,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_small:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.035216071588175094
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016284850806451612,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_lite:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.03520485463728747
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.00014920967741935482,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_medium:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.035186547857477476
+      }
+    ],
+    "99": [
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016797308467741937,
+          0.0016284850806451612
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_flash:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016797308467741937,
+          0.00014920967741935482
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_flash:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016797308467741937,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_flash:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016284850806451612,
+          0.0016797308467741937
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_lite:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016284850806451612,
+          0.00014920967741935482
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_lite:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.0016284850806451612,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "gemini_lite:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.00014920967741935482,
+          0.0016797308467741937
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_medium:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.00014920967741935482,
+          0.0016284850806451612
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_medium:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          0.00014920967741935482,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_medium:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          3.581532258064516e-05,
+          0.0016797308467741937
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_small:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          3.581532258064516e-05,
+          0.0016284850806451612
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_small:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0025208709677419353,
+          3.581532258064516e-05,
+          0.00014920967741935482
+        ],
+        "order": [
+          "claude_haiku:probability",
+          "mistral_small:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0025208709677419353,
+          0.0016284850806451612
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "claude_haiku:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0025208709677419353,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "claude_haiku:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0025208709677419353,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "claude_haiku:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0016284850806451612,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "gemini_lite:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0016284850806451612,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "gemini_lite:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.0016284850806451612,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "gemini_lite:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.00014920967741935482,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_medium:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.00014920967741935482,
+          0.0016284850806451612
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_medium:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          0.00014920967741935482,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_medium:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          3.581532258064516e-05,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_small:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          3.581532258064516e-05,
+          0.0016284850806451612
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_small:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016797308467741937,
+          3.581532258064516e-05,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_flash:probability",
+          "mistral_small:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0025208709677419353,
+          0.0016797308467741937
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "claude_haiku:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0025208709677419353,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "claude_haiku:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0025208709677419353,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "claude_haiku:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0016797308467741937,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "gemini_flash:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0016797308467741937,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "gemini_flash:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.0016797308467741937,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "gemini_flash:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.00014920967741935482,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_medium:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.00014920967741935482,
+          0.0016797308467741937
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_medium:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          0.00014920967741935482,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_medium:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          3.581532258064516e-05,
+          0.0025208709677419353
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_small:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          3.581532258064516e-05,
+          0.0016797308467741937
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_small:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.0016284850806451612,
+          3.581532258064516e-05,
+          0.00014920967741935482
+        ],
+        "order": [
+          "gemini_lite:probability",
+          "mistral_small:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0025208709677419353,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "claude_haiku:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0025208709677419353,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "claude_haiku:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0025208709677419353,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "claude_haiku:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016797308467741937,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_flash:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016797308467741937,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_flash:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016797308467741937,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_flash:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016284850806451612,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_lite:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016284850806451612,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_lite:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          0.0016284850806451612,
+          3.581532258064516e-05
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "gemini_lite:probability",
+          "mistral_small:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          3.581532258064516e-05,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "mistral_small:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          3.581532258064516e-05,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "mistral_small:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          0.00014920967741935482,
+          3.581532258064516e-05,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_medium:probability",
+          "mistral_small:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0025208709677419353,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_small:probability",
+          "claude_haiku:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0025208709677419353,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_small:probability",
+          "claude_haiku:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0025208709677419353,
+          0.00014920967741935482
+        ],
+        "order": [
+          "mistral_small:probability",
+          "claude_haiku:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016797308467741937,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_flash:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016797308467741937,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_flash:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016797308467741937,
+          0.00014920967741935482
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_flash:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016284850806451612,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_lite:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016284850806451612,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_lite:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.0016284850806451612,
+          0.00014920967741935482
+        ],
+        "order": [
+          "mistral_small:probability",
+          "gemini_lite:probability",
+          "mistral_medium:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.00014920967741935482,
+          0.0025208709677419353
+        ],
+        "order": [
+          "mistral_small:probability",
+          "mistral_medium:probability",
+          "claude_haiku:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.00014920967741935482,
+          0.0016797308467741937
+        ],
+        "order": [
+          "mistral_small:probability",
+          "mistral_medium:probability",
+          "gemini_flash:probability"
+        ],
+        "training_mean_J0": 0.0
+      },
+      {
+        "expected_costs_usd": [
+          3.581532258064516e-05,
+          0.00014920967741935482,
+          0.0016284850806451612
+        ],
+        "order": [
+          "mistral_small:probability",
+          "mistral_medium:probability",
+          "gemini_lite:probability"
+        ],
+        "training_mean_J0": 0.0
+      }
+    ]
+  },
+  "selected_triples": {
+    "19": {
+      "expected_costs_usd": [
+        0.0016797308467741937,
+        0.0016284850806451612,
+        0.0025208709677419353
+      ],
+      "order": [
+        "gemini_flash:probability",
+        "gemini_lite:probability",
+        "claude_haiku:probability"
+      ],
+      "training_mean_J0": 0.059021050315799045
+    },
+    "99": {
+      "expected_costs_usd": [
+        0.0025208709677419353,
+        0.0016797308467741937,
+        0.0016284850806451612
+      ],
+      "order": [
+        "claude_haiku:probability",
+        "gemini_flash:probability",
+        "gemini_lite:probability"
+      ],
+      "training_mean_J0": 0.0
+    }
+  },
+  "settings": {
+    "bootstrap_repeats": 10000,
+    "correct_reward": 1.0,
+    "cost_fit": "mean development provider-token cost for each verifier, including returned malformed replies",
+    "laplace": 1.0,
+    "likelihood_model": "conditional_independence",
+    "losses": [
+      19.0,
+      99.0
+    ],
+    "order_selection": "maximize mean development-prior exact J0 across all 60 ordered triples; lexicographic ties",
+    "prior": "raw_unmodified_p_correct",
+    "probability_bins": 3,
+    "utility_per_usd": 10.0
+  }
+}

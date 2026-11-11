@@ -1,0 +1,2269 @@
+{
+  "generators": {
+    "gptoss": {
+      "14.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 15,
+            "coverage": 0.07653061224489796,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.07653061224489796,
+            "mean_utility_ci95": [
+              0.04081632653061224,
+              0.11734693877551021
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.20388330103584862,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 15
+            },
+            "released": 15,
+            "wrong_released": 0
+          },
+          "triple": [
+            "gemini_flash",
+            "gemini_lite",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.05282582600857882,
+              0.3683460863810999
+            ],
+            "mean": 0.190286218832291
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.5357142857142858,
+            "correct_released": 86,
+            "coverage": 0.4489795918367347,
+            "expected_usd_per_task": 0.0029101536269749823,
+            "fpr": 0.03125,
+            "mean_utility": 0.2668168310771889,
+            "mean_utility_ci95": [
+              0.022139359016262735,
+              0.44555304611895163
+            ],
+            "measured_usd_per_task": 0.0027397086734693874,
+            "output_error_rate": 0.022727272727272728,
+            "output_error_wilson95": {
+              "high": 0.07912545355267586,
+              "low": 0.006254928263812166,
+              "method": "Wilson",
+              "n": 88
+            },
+            "released": 88,
+            "wrong_released": 2
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.11679475952518102,
+            0.3748900702803548
+          ],
+          "mean": 0.09666338761109283
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 49,
+            "coverage": 0.25,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.25,
+            "mean_utility_ci95": [
+              0.18877551020408162,
+              0.3112244897959184
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.07269781922049637,
+              "low": 6.938893903907228e-18,
+              "method": "Wilson",
+              "n": 49
+            },
+            "released": 49,
+            "wrong_released": 0
+          },
+          "triple": [
+            "gemini_flash",
+            "gemini_lite",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.4369125763017406,
+              0.2092339701155159
+            ],
+            "mean": -0.07984655653390393
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.530612244897959,
+            "correct_released": 109,
+            "coverage": 0.5816326530612245,
+            "expected_usd_per_task": 0.002882614837063857,
+            "fpr": 0.078125,
+            "mean_utility": 0.17015344346609604,
+            "mean_utility_ci95": [
+              -0.18776498663800206,
+              0.46099178672620755
+            ],
+            "measured_usd_per_task": 0.003012896683673469,
+            "output_error_rate": 0.043859649122807015,
+            "output_error_wilson95": {
+              "high": 0.09858080231087835,
+              "low": 0.018877509553328058,
+              "method": "Wilson",
+              "n": 114
+            },
+            "released": 114,
+            "wrong_released": 5
+          }
+        }
+      },
+      "19.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 1,
+            "coverage": 0.00510204081632653,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.00510204081632653,
+            "mean_utility_ci95": [
+              0.0,
+              0.015306122448979591
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.7934506856227626,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 1
+            },
+            "released": 1,
+            "wrong_released": 0
+          },
+          "triple": [
+            "gemini_flash",
+            "gemini_lite",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.1354249329392795,
+              0.4151094705243993
+            ],
+            "mean": 0.18538633301102705
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.4948979591836735,
+            "correct_released": 81,
+            "coverage": 0.42346938775510207,
+            "expected_usd_per_task": 0.002889938127468729,
+            "fpr": 0.03125,
+            "mean_utility": 0.19048837382735356,
+            "mean_utility_ci95": [
+              -0.13218922255338622,
+              0.4191906194183571
+            ],
+            "measured_usd_per_task": 0.002887285714285714,
+            "output_error_rate": 0.024096385542168676,
+            "output_error_wilson95": {
+              "high": 0.08366309243416317,
+              "low": 0.006633166140727599,
+              "method": "Wilson",
+              "n": 83
+            },
+            "released": 83,
+            "wrong_released": 2
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.11341303543912523,
+            0.557409437987317
+          ],
+          "mean": 0.1768988050320935
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 49,
+            "coverage": 0.25,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.25,
+            "mean_utility_ci95": [
+              0.18877551020408162,
+              0.3112244897959184
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.07269781922049637,
+              "low": 6.938893903907228e-18,
+              "method": "Wilson",
+              "n": 49
+            },
+            "released": 49,
+            "wrong_released": 0
+          },
+          "triple": [
+            "gemini_flash",
+            "gemini_lite",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.717195710595478,
+              0.15106505631274686
+            ],
+            "mean": -0.23641043120473998
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.6887755102040816,
+            "correct_released": 104,
+            "coverage": 0.5561224489795918,
+            "expected_usd_per_task": 0.003232879855167873,
+            "fpr": 0.078125,
+            "mean_utility": 0.013589568795260045,
+            "mean_utility_ci95": [
+              -0.46547410887611085,
+              0.40284345479139244
+            ],
+            "measured_usd_per_task": 0.0031987915816326534,
+            "output_error_rate": 0.045871559633027525,
+            "output_error_wilson95": {
+              "high": 0.10291243600295912,
+              "low": 0.019750448413382082,
+              "method": "Wilson",
+              "n": 109
+            },
+            "released": 109,
+            "wrong_released": 5
+          }
+        }
+      },
+      "4.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 72,
+            "coverage": 0.3826530612244898,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.046875,
+            "mean_utility": 0.30612244897959184,
+            "mean_utility_ci95": [
+              0.1989795918367347,
+              0.4030612244897959
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.04,
+            "output_error_wilson95": {
+              "high": 0.11112987082403747,
+              "low": 0.013696064260143935,
+              "method": "Wilson",
+              "n": 75
+            },
+            "released": 75,
+            "wrong_released": 3
+          },
+          "triple": [
+            "gemini_flash",
+            "gemini_lite",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.10560433955958895,
+              0.16721630380930097
+            ],
+            "mean": 0.0330992113952436
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.219387755102041,
+            "correct_released": 107,
+            "coverage": 0.5918367346938775,
+            "expected_usd_per_task": 0.002302323758434825,
+            "fpr": 0.140625,
+            "mean_utility": 0.3392216603748354,
+            "mean_utility_ci95": [
+              0.17690967505348915,
+              0.48112610495185965
+            ],
+            "measured_usd_per_task": 0.002304575,
+            "output_error_rate": 0.07758620689655173,
+            "output_error_wilson95": {
+              "high": 0.14089966249935576,
+              "low": 0.04135328264689075,
+              "method": "Wilson",
+              "n": 116
+            },
+            "released": 116,
+            "wrong_released": 9
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.05343973800994691,
+            0.174085803005678
+          ],
+          "mean": 0.0520072297255596
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 106,
+            "coverage": 0.6479591836734694,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.328125,
+            "mean_utility": 0.11224489795918367,
+            "mean_utility_ci95": [
+              -0.10204081632653061,
+              0.3163265306122449
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.16535433070866143,
+            "output_error_wilson95": {
+              "high": 0.23958844262600937,
+              "low": 0.11077037509028903,
+              "method": "Wilson",
+              "n": 127
+            },
+            "released": 127,
+            "wrong_released": 21
+          },
+          "triple": [
+            "gemini_flash",
+            "gemini_lite",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.03494833393551468,
+              0.38543835222339945
+            ],
+            "mean": 0.1749695326900922
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.2653061224489797,
+            "correct_released": 125,
+            "coverage": 0.7193877551020408,
+            "expected_usd_per_task": 0.0024010059146642522,
+            "fpr": 0.25,
+            "mean_utility": 0.2872144306492759,
+            "mean_utility_ci95": [
+              0.0869588541598091,
+              0.4706348852670856
+            ],
+            "measured_usd_per_task": 0.0026298545918367346,
+            "output_error_rate": 0.11347517730496454,
+            "output_error_wilson95": {
+              "high": 0.17638719377744136,
+              "low": 0.07106584289118204,
+              "method": "Wilson",
+              "n": 141
+            },
+            "released": 141,
+            "wrong_released": 16
+          }
+        }
+      },
+      "49.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 1,
+            "coverage": 0.00510204081632653,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.00510204081632653,
+            "mean_utility_ci95": [
+              0.0,
+              0.015306122448979591
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.7934506856227626,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 1
+            },
+            "released": 1,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_lite",
+            "gemini_flash"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.5045986489158162,
+              0.3335651513948322
+            ],
+            "mean": 0.03529967747078669
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.010204081632653,
+            "correct_released": 61,
+            "coverage": 0.3163265306122449,
+            "expected_usd_per_task": 0.0020822771508805134,
+            "fpr": 0.015625,
+            "mean_utility": 0.04040171828711324,
+            "mean_utility_ci95": [
+              -0.508477098749177,
+              0.3394844509160015
+            ],
+            "measured_usd_per_task": 0.0020166834183673473,
+            "output_error_rate": 0.016129032258064516,
+            "output_error_wilson95": {
+              "high": 0.08586720260689992,
+              "low": 0.002852867168621827,
+              "method": "Wilson",
+              "n": 62
+            },
+            "released": 62,
+            "wrong_released": 1
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.10179483197338915,
+            0.7017389822045754
+          ],
+          "mean": 0.17776015228974654
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 2,
+            "coverage": 0.01020408163265306,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.01020408163265306,
+            "mean_utility_ci95": [
+              0.0,
+              0.025510204081632654
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.6576197724933469,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 2
+            },
+            "released": 2,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.9275339468528842,
+              0.3868553529897342
+            ],
+            "mean": -0.14756251563528636
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.4183673469387754,
+            "correct_released": 77,
+            "coverage": 0.4030612244897959,
+            "expected_usd_per_task": 0.0030215576859776165,
+            "fpr": 0.03125,
+            "mean_utility": -0.1373584340026333,
+            "mean_utility_ci95": [
+              -0.9178165498323319,
+              0.3952223086220375
+            ],
+            "measured_usd_per_task": 0.0030727084183673477,
+            "output_error_rate": 0.02531645569620253,
+            "output_error_wilson95": {
+              "high": 0.08768584628891136,
+              "low": 0.006970367306584818,
+              "method": "Wilson",
+              "n": 79
+            },
+            "released": 79,
+            "wrong_released": 2
+          }
+        }
+      },
+      "9.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 49,
+            "coverage": 0.25,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.25,
+            "mean_utility_ci95": [
+              0.18877551020408162,
+              0.3112244897959184
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.07269781922049637,
+              "low": 6.938893903907228e-18,
+              "method": "Wilson",
+              "n": 49
+            },
+            "released": 49,
+            "wrong_released": 0
+          },
+          "triple": [
+            "gemini_flash",
+            "gemini_lite",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.2142711004181411,
+              0.2138641307500823
+            ],
+            "mean": 0.020818093009381176
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.2959183673469388,
+            "correct_released": 103,
+            "coverage": 0.5510204081632653,
+            "expected_usd_per_task": 0.0025100274337557602,
+            "fpr": 0.078125,
+            "mean_utility": 0.2708180930093812,
+            "mean_utility_ci95": [
+              0.028977907346784508,
+              0.4686839994162483
+            ],
+            "measured_usd_per_task": 0.0024331173469387757,
+            "output_error_rate": 0.046296296296296294,
+            "output_error_wilson95": {
+              "high": 0.1038248258365625,
+              "low": 0.019934815414942943,
+              "method": "Wilson",
+              "n": 108
+            },
+            "released": 108,
+            "wrong_released": 5
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.004049526021951125,
+            0.3967086964607163
+          ],
+          "mean": 0.17710545661208033
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 72,
+            "coverage": 0.3826530612244898,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.046875,
+            "mean_utility": 0.22959183673469388,
+            "mean_utility_ci95": [
+              0.03571428571428571,
+              0.3826530612244898
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.04,
+            "output_error_wilson95": {
+              "high": 0.11112987082403747,
+              "low": 0.013696064260143935,
+              "method": "Wilson",
+              "n": 75
+            },
+            "released": 75,
+            "wrong_released": 3
+          },
+          "triple": [
+            "gemini_flash",
+            "gemini_lite",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.4443986168454782,
+              0.15949437716142373
+            ],
+            "mean": -0.13587920033739317
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.5153061224489797,
+            "correct_released": 114,
+            "coverage": 0.6326530612244898,
+            "expected_usd_per_task": 0.002873634319453587,
+            "fpr": 0.15625,
+            "mean_utility": 0.09371263639730086,
+            "mean_utility_ci95": [
+              -0.227800491764473,
+              0.37862289124732545
+            ],
+            "measured_usd_per_task": 0.0030487614795918364,
+            "output_error_rate": 0.08064516129032258,
+            "output_error_wilson95": {
+              "high": 0.14209940229094858,
+              "low": 0.04439298476897466,
+              "method": "Wilson",
+              "n": 124
+            },
+            "released": 124,
+            "wrong_released": 10
+          }
+        }
+      },
+      "99.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 1,
+            "coverage": 0.00510204081632653,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.00510204081632653,
+            "mean_utility_ci95": [
+              0.0,
+              0.015306122448979591
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.7934506856227626,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 1
+            },
+            "released": 1,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_lite",
+            "gemini_flash"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.12858288301308426,
+              0.23372721964491444
+            ],
+            "mean": 0.18076760276086243
+          },
+          "with_verifiers": {
+            "calls_per_task": 0.6326530612244898,
+            "correct_released": 39,
+            "coverage": 0.1989795918367347,
+            "expected_usd_per_task": 0.0013109948259545754,
+            "fpr": 0.0,
+            "mean_utility": 0.18586964357718894,
+            "mean_utility_ci95": [
+              0.13700259509751483,
+              0.23895840998395326
+            ],
+            "measured_usd_per_task": 0.0011686061224489795,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.08966685370757144,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 39
+            },
+            "released": 39,
+            "wrong_released": 0
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.10388632709636275,
+            1.4654845521879114
+          ],
+          "mean": 0.4304020485311059
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 1,
+            "coverage": 0.00510204081632653,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.00510204081632653,
+            "mean_utility_ci95": [
+              0.0,
+              0.015306122448979591
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.7934506856227626,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 1
+            },
+            "released": 1,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_lite",
+            "gemini_flash"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -1.2993076963809969,
+              0.303043148298634
+            ],
+            "mean": -0.24963444577024357
+          },
+          "with_verifiers": {
+            "calls_per_task": 0.9642857142857143,
+            "correct_released": 55,
+            "coverage": 0.2857142857142857,
+            "expected_usd_per_task": 0.0020042609035549703,
+            "fpr": 0.015625,
+            "mean_utility": -0.24453240495391704,
+            "mean_utility_ci95": [
+              -1.2992525229951857,
+              0.30900613648987824
+            ],
+            "measured_usd_per_task": 0.0019474267857142857,
+            "output_error_rate": 0.017857142857142856,
+            "output_error_wilson95": {
+              "high": 0.09445637149397576,
+              "low": 0.0031592103419746734,
+              "method": "Wilson",
+              "n": 56
+            },
+            "released": 56,
+            "wrong_released": 1
+          }
+        }
+      }
+    },
+    "qwen3": {
+      "14.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 0,
+            "coverage": 0.0,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": null,
+            "output_error_wilson95": {
+              "high": null,
+              "low": null,
+              "method": "Wilson",
+              "n": 0
+            },
+            "released": 0,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.06976831129799811,
+              0.34664213569277114
+            ],
+            "mean": 0.173213602819441
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.4285714285714286,
+            "correct_released": 68,
+            "coverage": 0.35714285714285715,
+            "expected_usd_per_task": 0.0030868029833620195,
+            "fpr": 0.028169014084507043,
+            "mean_utility": 0.173213602819441,
+            "mean_utility_ci95": [
+              -0.06633214751582864,
+              0.34639785495835385
+            ],
+            "measured_usd_per_task": 0.003204483163265306,
+            "output_error_rate": 0.02857142857142857,
+            "output_error_wilson95": {
+              "high": 0.09832256118423902,
+              "low": 0.007870611945441225,
+              "method": "Wilson",
+              "n": 70
+            },
+            "released": 70,
+            "wrong_released": 2
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            0.1391457697212319,
+            1.10067956120989
+          ],
+          "mean": 0.5884396252971069
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 93,
+            "coverage": 0.6122448979591837,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.38028169014084506,
+            "mean_utility": -1.4540816326530612,
+            "mean_utility_ci95": [
+              -2.163265306122449,
+              -0.7704081632653061
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.225,
+            "output_error_wilson95": {
+              "high": 0.3075689948464516,
+              "low": 0.15949154668383533,
+              "method": "Wilson",
+              "n": 120
+            },
+            "released": 120,
+            "wrong_released": 27
+          },
+          "triple": [
+            "mistral_small",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.24767636779823365,
+              1.840644208689091
+            ],
+            "mean": 1.0388556101753954
+          },
+          "with_verifiers": {
+            "calls_per_task": 2.1683673469387754,
+            "correct_released": 119,
+            "coverage": 0.6785714285714286,
+            "expected_usd_per_task": 0.0022368879620522915,
+            "fpr": 0.19718309859154928,
+            "mean_utility": -0.4152260224776659,
+            "mean_utility_ci95": [
+              -0.9920700428691807,
+              0.07901488978439239
+            ],
+            "measured_usd_per_task": 0.002405125,
+            "output_error_rate": 0.10526315789473684,
+            "output_error_wilson95": {
+              "high": 0.16894400063192314,
+              "low": 0.06374468227971236,
+              "method": "Wilson",
+              "n": 133
+            },
+            "released": 133,
+            "wrong_released": 14
+          }
+        }
+      },
+      "19.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 0,
+            "coverage": 0.0,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": null,
+            "output_error_wilson95": {
+              "high": null,
+              "low": null,
+              "method": "Wilson",
+              "n": 0
+            },
+            "released": 0,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.20639208741803952,
+              0.33766717811526714
+            ],
+            "mean": 0.1135314993238259
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.3622448979591837,
+            "correct_released": 66,
+            "coverage": 0.3469387755102041,
+            "expected_usd_per_task": 0.002932564353331694,
+            "fpr": 0.028169014084507043,
+            "mean_utility": 0.1135314993238259,
+            "mean_utility_ci95": [
+              -0.2031425039279568,
+              0.33721407778844975
+            ],
+            "measured_usd_per_task": 0.003043764540816327,
+            "output_error_rate": 0.029411764705882353,
+            "output_error_wilson95": {
+              "high": 0.10104631365223063,
+              "low": 0.008103179543129883,
+              "method": "Wilson",
+              "n": 68
+            },
+            "released": 68,
+            "wrong_released": 2
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            0.11709137278911559,
+            1.2464827868053847
+          ],
+          "mean": 0.63219761591263
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 93,
+            "coverage": 0.6122448979591837,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.38028169014084506,
+            "mean_utility": -2.142857142857143,
+            "mean_utility_ci95": [
+              -3.0969387755102042,
+              -1.2295918367346939
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.225,
+            "output_error_wilson95": {
+              "high": 0.3075689948464516,
+              "low": 0.15949154668383533,
+              "method": "Wilson",
+              "n": 120
+            },
+            "released": 120,
+            "wrong_released": 27
+          },
+          "triple": [
+            "gemini_flash",
+            "gemini_lite",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.5667109557372343,
+              2.7011625027815342
+            ],
+            "mean": 1.6241910262683383
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.7653061224489797,
+            "correct_released": 114,
+            "coverage": 0.6377551020408163,
+            "expected_usd_per_task": 0.0033972239037783785,
+            "fpr": 0.15492957746478872,
+            "mean_utility": -0.5186661165888043,
+            "mean_utility_ci95": [
+              -1.2076708190773298,
+              0.07300504171584296
+            ],
+            "measured_usd_per_task": 0.0037824086734693876,
+            "output_error_rate": 0.088,
+            "output_error_wilson95": {
+              "high": 0.15071963863031254,
+              "low": 0.049848245785348466,
+              "method": "Wilson",
+              "n": 125
+            },
+            "released": 125,
+            "wrong_released": 11
+          }
+        }
+      },
+      "4.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 27,
+            "coverage": 0.15816326530612246,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.056338028169014086,
+            "mean_utility": 0.05612244897959184,
+            "mean_utility_ci95": [
+              -0.04591836734693878,
+              0.14795918367346939
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.12903225806451613,
+            "output_error_wilson95": {
+              "high": 0.28852406256306423,
+              "low": 0.051342843746291486,
+              "method": "Wilson",
+              "n": 31
+            },
+            "released": 31,
+            "wrong_released": 4
+          },
+          "triple": [
+            "mistral_small",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.11707467661871974,
+              0.4112546126116711
+            ],
+            "mean": 0.2689242441295795
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.9591836734693877,
+            "correct_released": 100,
+            "coverage": 0.5510204081632653,
+            "expected_usd_per_task": 0.0021892082401032704,
+            "fpr": 0.11267605633802817,
+            "mean_utility": 0.32504669310917134,
+            "mean_utility_ci95": [
+              0.17317355815788665,
+              0.45890835216759884
+            ],
+            "measured_usd_per_task": 0.002203969387755102,
+            "output_error_rate": 0.07407407407407407,
+            "output_error_wilson95": {
+              "high": 0.13939676145640315,
+              "low": 0.03801024869807134,
+              "method": "Wilson",
+              "n": 108
+            },
+            "released": 108,
+            "wrong_released": 8
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.06408334194840591,
+            0.18168469177270305
+          ],
+          "mean": 0.048665156851897304
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 122,
+            "coverage": 0.9744897959183674,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.971830985915493,
+            "mean_utility": -0.7857142857142857,
+            "mean_utility_ci95": [
+              -1.1275510204081634,
+              -0.4489795918367347
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.3612565445026178,
+            "output_error_wilson95": {
+              "high": 0.4314968942332051,
+              "low": 0.29648707632013555,
+              "method": "Wilson",
+              "n": 191
+            },
+            "released": 191,
+            "wrong_released": 69
+          },
+          "triple": [
+            "gemini_flash",
+            "mistral_small",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.8169870185914578,
+              1.3274129131625994
+            ],
+            "mean": 1.0620958219715597
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.2448979591836735,
+            "correct_released": 122,
+            "coverage": 0.7040816326530612,
+            "expected_usd_per_task": 0.001953683108966478,
+            "fpr": 0.22535211267605634,
+            "mean_utility": 0.2763815362572741,
+            "mean_utility_ci95": [
+              0.07682798356333513,
+              0.45514206974812527
+            ],
+            "measured_usd_per_task": 0.002092566071428571,
+            "output_error_rate": 0.11594202898550725,
+            "output_error_wilson95": {
+              "high": 0.18004773094786264,
+              "low": 0.07263903016337457,
+              "method": "Wilson",
+              "n": 138
+            },
+            "released": 138,
+            "wrong_released": 16
+          }
+        }
+      },
+      "49.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 0,
+            "coverage": 0.0,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": null,
+            "output_error_wilson95": {
+              "high": null,
+              "low": null,
+              "method": "Wilson",
+              "n": 0
+            },
+            "released": 0,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.07103978149203959,
+              0.15731695559790182
+            ],
+            "mean": 0.11385372572944841
+          },
+          "with_verifiers": {
+            "calls_per_task": 0.40816326530612246,
+            "correct_released": 24,
+            "coverage": 0.12244897959183673,
+            "expected_usd_per_task": 0.0008595253862388329,
+            "fpr": 0.0,
+            "mean_utility": 0.11385372572944841,
+            "mean_utility_ci95": [
+              0.07139857711458078,
+              0.1573169555979018
+            ],
+            "measured_usd_per_task": 0.0008480132653061227,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.13797620467498017,
+              "low": 1.3877787807814457e-17,
+              "method": "Wilson",
+              "n": 24
+            },
+            "released": 24,
+            "wrong_released": 0
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.11638693863617737,
+            1.7129477197289158
+          ],
+          "mean": 0.6830021655294648
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 27,
+            "coverage": 0.15816326530612246,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.056338028169014086,
+            "mean_utility": -0.8622448979591837,
+            "mean_utility_ci95": [
+              -1.8826530612244898,
+              -0.07653061224489796
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.12903225806451613,
+            "output_error_wilson95": {
+              "high": 0.28852406256306423,
+              "low": 0.051342843746291486,
+              "method": "Wilson",
+              "n": 31
+            },
+            "released": 31,
+            "wrong_released": 4
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.9425499094108579,
+              1.5334581576717585
+            ],
+            "mean": 0.29309645815916735
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.9948979591836735,
+            "correct_released": 93,
+            "coverage": 0.49489795918367346,
+            "expected_usd_per_task": 0.004363823571838374,
+            "fpr": 0.056338028169014086,
+            "mean_utility": -0.5691484398000163,
+            "mean_utility_ci95": [
+              -1.6154895714669906,
+              0.2307858041174904
+            ],
+            "measured_usd_per_task": 0.004933090816326531,
+            "output_error_rate": 0.041237113402061855,
+            "output_error_wilson95": {
+              "high": 0.10127525604073725,
+              "low": 0.016151236586163194,
+              "method": "Wilson",
+              "n": 97
+            },
+            "released": 97,
+            "wrong_released": 4
+          }
+        }
+      },
+      "9.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 0,
+            "coverage": 0.0,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": null,
+            "output_error_wilson95": {
+              "high": null,
+              "low": null,
+              "method": "Wilson",
+              "n": 0
+            },
+            "released": 0,
+            "wrong_released": 0
+          },
+          "triple": [
+            "gemini_flash",
+            "claude_haiku",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.012339556008216524,
+              0.37509980107906127
+            ],
+            "mean": 0.1988841712359643
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.7040816326530612,
+            "correct_released": 82,
+            "coverage": 0.4387755102040816,
+            "expected_usd_per_task": 0.0035809706315056145,
+            "fpr": 0.056338028169014086,
+            "mean_utility": 0.1988841712359643,
+            "mean_utility_ci95": [
+              -0.017634984360656865,
+              0.37565678799150676
+            ],
+            "measured_usd_per_task": 0.003800259183673469,
+            "output_error_rate": 0.046511627906976744,
+            "output_error_wilson95": {
+              "high": 0.1135699781371198,
+              "low": 0.01823396823832083,
+              "method": "Wilson",
+              "n": 86
+            },
+            "released": 86,
+            "wrong_released": 4
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.018380604142334625,
+            0.5622415658383534
+          ],
+          "mean": 0.25217878156503565
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 107,
+            "coverage": 0.7857142857142857,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.6619718309859155,
+            "mean_utility": -1.6122448979591837,
+            "mean_utility_ci95": [
+              -2.2091836734693877,
+              -1.0406887755102059
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.3051948051948052,
+            "output_error_wilson95": {
+              "high": 0.38193070725444084,
+              "low": 0.23794102702698633,
+              "method": "Wilson",
+              "n": 154
+            },
+            "released": 154,
+            "wrong_released": 47
+          },
+          "triple": [
+            "mistral_small",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              1.0228882860959143,
+              2.1141563744037373
+            ],
+            "mean": 1.558950287630112
+          },
+          "with_verifiers": {
+            "calls_per_task": 2.183673469387755,
+            "correct_released": 120,
+            "coverage": 0.6836734693877551,
+            "expected_usd_per_task": 0.002268236543111221,
+            "fpr": 0.19718309859154928,
+            "mean_utility": -0.053294610329071485,
+            "mean_utility_ci95": [
+              -0.43629097960156954,
+              0.2779775758690373
+            ],
+            "measured_usd_per_task": 0.0024276989795918363,
+            "output_error_rate": 0.1044776119402985,
+            "output_error_wilson95": {
+              "high": 0.16773964680343512,
+              "low": 0.06326094687218671,
+              "method": "Wilson",
+              "n": 134
+            },
+            "released": 134,
+            "wrong_released": 14
+          }
+        }
+      },
+      "99.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 0,
+            "coverage": 0.0,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": null,
+            "output_error_wilson95": {
+              "high": null,
+              "low": null,
+              "method": "Wilson",
+              "n": 0
+            },
+            "released": 0,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "mean": 0.0
+          },
+          "with_verifiers": {
+            "calls_per_task": 0.0,
+            "correct_released": 0,
+            "coverage": 0.0,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": null,
+            "output_error_wilson95": {
+              "high": null,
+              "low": null,
+              "method": "Wilson",
+              "n": 0
+            },
+            "released": 0,
+            "wrong_released": 0
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.3460821253749693,
+            2.238968056989181
+          ],
+          "mean": 0.6944369382120318
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 1,
+            "coverage": 0.00510204081632653,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.00510204081632653,
+            "mean_utility_ci95": [
+              0.0,
+              0.015306122448979591
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.7934506856227626,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 1
+            },
+            "released": 1,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_lite",
+            "gemini_flash"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -2.244857335832616,
+              0.34125691454260926
+            ],
+            "mean": -0.6995389790283583
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.4489795918367347,
+            "correct_released": 68,
+            "coverage": 0.35714285714285715,
+            "expected_usd_per_task": 0.0031171632089582826,
+            "fpr": 0.028169014084507043,
+            "mean_utility": -0.6944369382120318,
+            "mean_utility_ci95": [
+              -2.238589130805364,
+              0.3459195596841448
+            ],
+            "measured_usd_per_task": 0.0032320035714285718,
+            "output_error_rate": 0.02857142857142857,
+            "output_error_wilson95": {
+              "high": 0.09832256118423902,
+              "low": 0.007870611945441225,
+              "method": "Wilson",
+              "n": 70
+            },
+            "released": 70,
+            "wrong_released": 2
+          }
+        }
+      }
+    },
+    "sonnet55": {
+      "14.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 125,
+            "coverage": 0.6479591836734694,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.125,
+            "mean_utility": 0.49489795918367346,
+            "mean_utility_ci95": [
+              0.23979591836734693,
+              0.673469387755102
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.015748031496062992,
+            "output_error_wilson95": {
+              "high": 0.05560163905253891,
+              "low": 0.004329355995751596,
+              "method": "Wilson",
+              "n": 127
+            },
+            "released": 127,
+            "wrong_released": 2
+          },
+          "triple": [
+            "mistral_small",
+            "gemini_flash",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.399918686537967,
+              0.1757405749179662
+            ],
+            "mean": -0.09899016961199805
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.8265306122448979,
+            "correct_released": 138,
+            "coverage": 0.7244897959183674,
+            "expected_usd_per_task": 0.002245955736710007,
+            "fpr": 0.25,
+            "mean_utility": 0.39590778957167533,
+            "mean_utility_ci95": [
+              0.07244723319283862,
+              0.6558916247173818
+            ],
+            "measured_usd_per_task": 0.0024821811224489793,
+            "output_error_rate": 0.028169014084507043,
+            "output_error_wilson95": {
+              "high": 0.07018630902805872,
+              "low": 0.01100774180252639,
+              "method": "Wilson",
+              "n": 142
+            },
+            "released": 142,
+            "wrong_released": 4
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.31425382893453746,
+            0.2516903687458853
+          ],
+          "mean": -0.0019074383229098174
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 44,
+            "coverage": 0.22448979591836735,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.22448979591836735,
+            "mean_utility_ci95": [
+              0.1683673469387755,
+              0.2857142857142857
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.08029560375848066,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 44
+            },
+            "released": 44,
+            "wrong_released": 0
+          },
+          "triple": [
+            "mistral_small",
+            "gemini_flash",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.11949302269636686,
+              0.22933488471162153
+            ],
+            "mean": 0.17332543197621791
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.3061224489795917,
+            "correct_released": 81,
+            "coverage": 0.413265306122449,
+            "expected_usd_per_task": 0.001545007822786373,
+            "fpr": 0.0,
+            "mean_utility": 0.39781522789458523,
+            "mean_utility_ci95": [
+              0.3314123580593729,
+              0.4673336212408451
+            ],
+            "measured_usd_per_task": 0.0017251854591836732,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.045278085432415204,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 81
+            },
+            "released": 81,
+            "wrong_released": 0
+          }
+        }
+      },
+      "19.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 84,
+            "coverage": 0.42857142857142855,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.42857142857142855,
+            "mean_utility_ci95": [
+              0.35714285714285715,
+              0.49489795918367346
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.04373172841465989,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 84
+            },
+            "released": 84,
+            "wrong_released": 0
+          },
+          "triple": [
+            "mistral_small",
+            "gemini_flash",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.2030325933735187,
+              0.16650271347951978
+            ],
+            "mean": 0.027006173047646458
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.2040816326530612,
+            "correct_released": 111,
+            "coverage": 0.5714285714285714,
+            "expected_usd_per_task": 0.0013810153482965769,
+            "fpr": 0.0625,
+            "mean_utility": 0.45557760161907507,
+            "mean_utility_ci95": [
+              0.20266457659335918,
+              0.6076056132228749
+            ],
+            "measured_usd_per_task": 0.0014348974489795919,
+            "output_error_rate": 0.008928571428571428,
+            "output_error_wilson95": {
+              "high": 0.048848468308884896,
+              "low": 0.001577854703292133,
+              "method": "Wilson",
+              "n": 112
+            },
+            "released": 112,
+            "wrong_released": 1
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.0739879938394914,
+            0.3045554927979961
+          ],
+          "mean": 0.1608809361113397
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 44,
+            "coverage": 0.22448979591836735,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.22448979591836735,
+            "mean_utility_ci95": [
+              0.1683673469387755,
+              0.2857142857142857
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.08029560375848066,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 44
+            },
+            "released": 44,
+            "wrong_released": 0
+          },
+          "triple": [
+            "mistral_small",
+            "gemini_flash",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.03141671507056451,
+              0.11059558722998271
+            ],
+            "mean": 0.070206869589368
+          },
+          "with_verifiers": {
+            "calls_per_task": 0.9948979591836735,
+            "correct_released": 60,
+            "coverage": 0.30612244897959184,
+            "expected_usd_per_task": 0.0011425783471856485,
+            "fpr": 0.0,
+            "mean_utility": 0.2946966655077354,
+            "mean_utility_ci95": [
+              0.23386203975065833,
+              0.35864779629304844
+            ],
+            "measured_usd_per_task": 0.0013096785714285714,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.06017185214208986,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 60
+            },
+            "released": 60,
+            "wrong_released": 0
+          }
+        }
+      },
+      "4.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 166,
+            "coverage": 0.8826530612244898,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.4375,
+            "mean_utility": 0.7040816326530612,
+            "mean_utility_ci95": [
+              0.5612244897959183,
+              0.826530612244898
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.04046242774566474,
+            "output_error_wilson95": {
+              "high": 0.08115362333145137,
+              "low": 0.019735947132815256,
+              "method": "Wilson",
+              "n": 173
+            },
+            "released": 173,
+            "wrong_released": 7
+          },
+          "triple": [
+            "mistral_small",
+            "mistral_medium",
+            "gemini_flash"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.03869664555525839,
+              0.04767097213241648
+            ],
+            "mean": -0.0033402504834595097
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.663265306122449,
+            "correct_released": 163,
+            "coverage": 0.8622448979591837,
+            "expected_usd_per_task": 0.0008442291299786042,
+            "fpr": 0.375,
+            "mean_utility": 0.7007413821696016,
+            "mean_utility_ci95": [
+              0.5630492393667195,
+              0.8135815659513351
+            ],
+            "measured_usd_per_task": 0.0009140933673469387,
+            "output_error_rate": 0.03550295857988166,
+            "output_error_wilson95": {
+              "high": 0.0752820792399535,
+              "low": 0.01637103991780639,
+              "method": "Wilson",
+              "n": 169
+            },
+            "released": 169,
+            "wrong_released": 6
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            0.008829583117748145,
+            0.12621029408585008
+          ],
+          "mean": 0.07079880463092499
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 150,
+            "coverage": 0.7857142857142857,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.25,
+            "mean_utility": 0.6836734693877551,
+            "mean_utility_ci95": [
+              0.5663265306122449,
+              0.7857142857142857
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.025974025974025976,
+            "output_error_wilson95": {
+              "high": 0.06487509619880974,
+              "low": 0.010146123885996193,
+              "method": "Wilson",
+              "n": 154
+            },
+            "released": 154,
+            "wrong_released": 4
+          },
+          "triple": [
+            "mistral_small",
+            "gemini_flash",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.13870902223579454,
+              0.027941989936070166
+            ],
+            "mean": -0.05373089184907836
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.8061224489795917,
+            "correct_released": 147,
+            "coverage": 0.7755102040816326,
+            "expected_usd_per_task": 0.0018016606134792625,
+            "fpr": 0.3125,
+            "mean_utility": 0.6299425775386769,
+            "mean_utility_ci95": [
+              0.5008920122379545,
+              0.7384606902996935
+            ],
+            "measured_usd_per_task": 0.0019878826530612243,
+            "output_error_rate": 0.03289473684210526,
+            "output_error_wilson95": {
+              "high": 0.07468664329518646,
+              "low": 0.01413092120553882,
+              "method": "Wilson",
+              "n": 152
+            },
+            "released": 152,
+            "wrong_released": 5
+          }
+        }
+      },
+      "49.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 29,
+            "coverage": 0.14795918367346939,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.14795918367346939,
+            "mean_utility_ci95": [
+              0.10204081632653061,
+              0.1989795918367347
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.11696979849974075,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 29
+            },
+            "released": 29,
+            "wrong_released": 0
+          },
+          "triple": [
+            "mistral_small",
+            "claude_haiku",
+            "gemini_flash"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.15528871547893353,
+              0.26780027354550695
+            ],
+            "mean": 0.20929995170548057
+          },
+          "with_verifiers": {
+            "calls_per_task": 0.75,
+            "correct_released": 72,
+            "coverage": 0.3673469387755102,
+            "expected_usd_per_task": 0.0010087803396560237,
+            "fpr": 0.0,
+            "mean_utility": 0.35725913537895,
+            "mean_utility_ci95": [
+              0.2920592640308694,
+              0.4224210740927419
+            ],
+            "measured_usd_per_task": 0.0012204767857142856,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.05065117259645781,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 72
+            },
+            "released": 72,
+            "wrong_released": 0
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            0.16134430321963464,
+            0.2732066299793758
+          ],
+          "mean": 0.21556811991853192
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 6,
+            "coverage": 0.030612244897959183,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.030612244897959183,
+            "mean_utility_ci95": [
+              0.01020408163265306,
+              0.05612244897959184
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.3903342879021653,
+              "low": 2.7755575615628914e-17,
+              "method": "Wilson",
+              "n": 6
+            },
+            "released": 6,
+            "wrong_released": 0
+          },
+          "triple": [
+            "mistral_small",
+            "claude_haiku",
+            "gemini_flash"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.0709108752263002,
+              0.1554841317890059
+            ],
+            "mean": 0.11107877056245885
+          },
+          "with_verifiers": {
+            "calls_per_task": 0.44387755102040816,
+            "correct_released": 29,
+            "coverage": 0.14795918367346939,
+            "expected_usd_per_task": 0.0006268168213051349,
+            "fpr": 0.0,
+            "mean_utility": 0.14169101546041804,
+            "mean_utility_ci95": [
+              0.09771794169684002,
+              0.19054998630883804
+            ],
+            "measured_usd_per_task": 0.0007002426020408163,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.11696979849974075,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 29
+            },
+            "released": 29,
+            "wrong_released": 0
+          }
+        }
+      },
+      "9.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 126,
+            "coverage": 0.6530612244897959,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.125,
+            "mean_utility": 0.5510204081632653,
+            "mean_utility_ci95": [
+              0.37755102040816324,
+              0.6785714285714286
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.015625,
+            "output_error_wilson95": {
+              "high": 0.055180976679817195,
+              "low": 0.004295449710144082,
+              "method": "Wilson",
+              "n": 128
+            },
+            "released": 128,
+            "wrong_released": 2
+          },
+          "triple": [
+            "mistral_small",
+            "mistral_medium",
+            "gemini_flash"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.20856512779506461,
+              0.20972359389092332
+            ],
+            "mean": 0.010711043593647138
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.9285714285714286,
+            "correct_released": 157,
+            "coverage": 0.826530612244898,
+            "expected_usd_per_task": 0.0009697119671658984,
+            "fpr": 0.3125,
+            "mean_utility": 0.5617314517569123,
+            "mean_utility_ci95": [
+              0.31809714251409227,
+              0.7592627173759975
+            ],
+            "measured_usd_per_task": 0.0010351158163265305,
+            "output_error_rate": 0.030864197530864196,
+            "output_error_wilson95": {
+              "high": 0.07020805576946676,
+              "low": 0.013253938107826307,
+              "method": "Wilson",
+              "n": 162
+            },
+            "released": 162,
+            "wrong_released": 5
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            -0.13388847773514653,
+            0.2475511561797955
+          ],
+          "mean": 0.07546908410138246
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 84,
+            "coverage": 0.42857142857142855,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.42857142857142855,
+            "mean_utility_ci95": [
+              0.35714285714285715,
+              0.49489795918367346
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.04373172841465989,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 84
+            },
+            "released": 84,
+            "wrong_released": 0
+          },
+          "triple": [
+            "mistral_small",
+            "gemini_flash",
+            "claude_haiku"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              -0.06366993690981937,
+              0.14764300390959303
+            ],
+            "mean": 0.05769093908410138
+          },
+          "with_verifiers": {
+            "calls_per_task": 1.7295918367346939,
+            "correct_released": 108,
+            "coverage": 0.5561224489795918,
+            "expected_usd_per_task": 0.0018839673160796575,
+            "fpr": 0.0625,
+            "mean_utility": 0.48626236765552994,
+            "mean_utility_ci95": [
+              0.3502145189127819,
+              0.5884312958052172
+            ],
+            "measured_usd_per_task": 0.002112599744897959,
+            "output_error_rate": 0.009174311926605505,
+            "output_error_wilson95": {
+              "high": 0.05014562459178324,
+              "low": 0.001621331292545096,
+              "method": "Wilson",
+              "n": 109
+            },
+            "released": 109,
+            "wrong_released": 1
+          }
+        }
+      },
+      "99.0": {
+        "calibrated": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 29,
+            "coverage": 0.14795918367346939,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.14795918367346939,
+            "mean_utility_ci95": [
+              0.10204081632653061,
+              0.1989795918367347
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.11696979849974075,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 29
+            },
+            "released": 29,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "mean": 0.0
+          },
+          "with_verifiers": {
+            "calls_per_task": 0.0,
+            "correct_released": 29,
+            "coverage": 0.14795918367346939,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.14795918367346939,
+            "mean_utility_ci95": [
+              0.10204081632653061,
+              0.1989795918367347
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.11696979849974075,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 29
+            },
+            "released": 29,
+            "wrong_released": 0
+          }
+        },
+        "calibrated_minus_raw_with_verifiers": {
+          "ci95": [
+            0.07844364246626069,
+            0.1708350112841507
+          ],
+          "mean": 0.12406460742058921
+        },
+        "raw": {
+          "prior_only": {
+            "calls_per_task": 0.0,
+            "correct_released": 0,
+            "coverage": 0.0,
+            "expected_usd_per_task": 0.0,
+            "fpr": 0.0,
+            "mean_utility": 0.0,
+            "mean_utility_ci95": [
+              0.0,
+              0.0
+            ],
+            "measured_usd_per_task": 0.0,
+            "output_error_rate": null,
+            "output_error_wilson95": {
+              "high": null,
+              "low": null,
+              "method": "Wilson",
+              "n": 0
+            },
+            "released": 0,
+            "wrong_released": 0
+          },
+          "triple": [
+            "claude_haiku",
+            "gemini_flash",
+            "gemini_lite"
+          ],
+          "verifiers_minus_prior_only": {
+            "ci95": [
+              0.004676022558015141,
+              0.04778915250576037
+            ],
+            "mean": 0.023894576252880186
+          },
+          "with_verifiers": {
+            "calls_per_task": 0.08163265306122448,
+            "correct_released": 5,
+            "coverage": 0.025510204081632654,
+            "expected_usd_per_task": 0.00016156278287524686,
+            "fpr": 0.0,
+            "mean_utility": 0.023894576252880186,
+            "mean_utility_ci95": [
+              0.004676022558015141,
+              0.047917768371461486
+            ],
+            "measured_usd_per_task": 0.00013892423469387755,
+            "output_error_rate": 0.0,
+            "output_error_wilson95": {
+              "high": 0.43448246478317476,
+              "low": 0.0,
+              "method": "Wilson",
+              "n": 5
+            },
+            "released": 5,
+            "wrong_released": 0
+          }
+        }
+      }
+    }
+  },
+  "levels": 5,
+  "losses": [
+    4.0,
+    9.0,
+    14.0,
+    19.0,
+    49.0,
+    99.0
+  ]
+}

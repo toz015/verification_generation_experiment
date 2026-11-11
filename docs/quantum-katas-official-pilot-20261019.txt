@@ -1,0 +1,122 @@
+QuantumKatas 官方 checker pilot：离线接入完成，等待模型与预算确认
+日期：2026-10-19
+
+状态
+官方协议、28 题题单、上游数据/测试/参考解均未修改。新增 vgx.quantum_katas
+包与 CLI；完整离线 dry run 与针对性测试通过；未发起任何付费 API 调用。
+
+1. 新增代码（src/vgx/quantum_katas/）
+  load.py           固定 commit 文件哈希校验；按 task_id 加载 28 题（entry_point 有重名）；
+                    PublicTask 不含 canonical_solution/test；从上游 prompt 解析全部必需函数
+                    （MagicSquareGame/2.6 同时要求 alice_quantum、bob_quantum）。
+  prompt.py         generator 返回 {"code","p_correct"}，verifier 返回 {"p_correct"}；
+                    prompt_version=qkatas_official_v1_json_or_single_fence：整段 JSON，或整段恰好
+                    一个 ```json/``` fence；完整 JSON 解析，拒绝重复键、NaN/Infinity、布尔、越界、
+                    多余字段；provider 声明截断即格式失败；不修复、不补问。
+  artifacts.py      FrozenCodeCandidate（task_id、generation_id、candidate_id、raw_code、code_sha256、
+                    raw_p_correct、各状态、模型身份、request_key、execution_id、prompt/response 哈希、
+                    prompt_version、dataset_revision）；身份由来源和代码哈希决定，写入后不可改；
+                    verifier 只看白名单视图（题面、入口、必需函数、代码）。
+  runners.py        复用 VertexBatchRunner / VertexPartnerRunner 与 execute_request；Claude adaptive
+                    thinking 走独立的 AnthropicVertexRunner（参数原样进入身份与请求体）；离线 MockRunner。
+  oracle_worker.py  独立解释器中的纯标准库 worker，原样调用官方 evaluate_solution(code, test,
+                    entry_point, timeout=30.0)，返回全部官方字段，另记执行代码哈希与环境。
+  oracle.py         每个冻结候选一次评估：先写 intent，再写 result 或 service_error；intent 无结果
+                    或服务错误均为 unresolved，永不重跑；外层 supervisor 超时记服务异常，不冒充官方
+                    Timeout；key 绑定 task、candidate、code、test、evaluator 与环境哈希。
+                    后端：reviewed_local（只运行已审阅 fixture 白名单）、macos_sandbox
+                    （sandbox-exec 禁网、禁读主目录与仓库、只能写作业目录、清空环境变量、CPU/文件
+                    rlimit；未审阅的模型代码还需 model_code_execution_approved=true）、mock。
+  run_pilot.py      sealed plan.json；collect-generators / collect-verifiers 只读公开文件与缓存，
+                    默认禁 API；真实 provider 需要 --allow-api、budget 与 paid_collection_authorized；
+                    BudgetedRequestCache 记账，不确定请求不重发；score-official 只在私有侧运行。
+  sequential.py     复用 NestedPlanner 与 seal/unseal；策略选中某层才请求该层信号；无代码或
+                    r 无效直接弃答（不填 0.5）；checkpoint 恢复不重复请求；replay 只读被选层。
+  report.py / workflow.py / dryrun.py   报告、CLI、离线 dry-run fixtures。
+GPQA、common 模块均未修改；GPQA 缓存身份不变。
+
+2. 可运行命令（主环境 .venv；量子执行自动使用独立解释器）
+  离线 dry run（sandbox 后端，约 30 秒）：
+    PYTHONPATH=src .venv/bin/python -m vgx.quantum_katas.workflow dry-run \
+      --root results/quantum_katas_official_dryrun_<id> --checker macos_sandbox
+  真实 pilot（模型与预算确认、填好配置之后）：
+    W="PYTHONPATH=src .venv/bin/python -m vgx.quantum_katas.workflow"
+    $W prepare --config configs/quantum_katas_official_pilot_<run_id>.json \
+               --output results/quantum_katas_official_pilot_<run_id>
+    $W collect-generators --root R --allow-api --limit 3     # 前三题冒烟
+    $W collect-verifiers  --root R --allow-api --limit 3
+    $W score-official     --root R --limit 3
+    （检查格式、身份、计费、冻结、隔离均正常后去掉 --limit 继续其余 25 题）
+    $W synthetic-policy --root R --output R/../policy_synthetic.json
+    $W run-sequential --root R --policy R/../policy_synthetic.json
+    $W report --root R
+  测试：.venv/bin/python -m pytest tests/test_quantum_katas_*.py
+
+3. dry run 结果（mock 回复 + 已审阅 fixtures，不描述任何模型）
+  results/quantum_katas_official_dryrun_20261019/：28 题全部有状态；2 题格式失败
+  （截断、非法 JSON）计入分母；2 题有代码但 r 无效（1.7、true）仍拿到官方标签、顺序
+  策略弃答；26 次官方评估：22 通过（含 SAT return True、H-only QFT、硬编码 QEC 三个
+  已知缺口，官方原样判通过），4 失败（3 个空实现 AttributeError、1 个 SyntaxError）。
+  reviewed_local 与 macos_sandbox 的官方结果逐题一致，也与直接调用 evaluate_solution 一致。
+  恢复运行：0 次新增调用、0 次重复官方评估；live 与 replay 动作一致 28/28。
+
+4. 测试
+  tests/test_quantum_katas_load_prompt.py、test_quantum_katas_pipeline.py、
+  test_quantum_katas_oracle.py：共 55 项通过（含 Qiskit 独立解释器与 sandbox 集成，
+  禁网/禁读主目录/禁读仓库/禁写外部均实测）。全量 pytest：376 通过，4 跳过。
+
+5. 真实调用的请求量与成本（价格取自 Vertex 官方价格页，2026-10-19）
+  请求量：最多 28 次 generator + 84 次 verifier = 112 个逻辑请求；官方 checker 最多 28 次；
+  前三题冒烟 = 3 + 9 + 3。输入估算：generator 合计约 1.7 万 token，verifier 合计约 7.6 万。
+  下表假设三个角色用同一模型；"预期"为 generator 4,500、verifier 2,500 输出+推理 token；
+  "上限"为每次用满 max_tokens（32,768 / 16,384）。已确认账单：未知。
+    模型                                 输入/输出 $/1M   预期     上限     冒烟上限
+    google/gemini-3.8-flash              0.75 / 3.75     $1.33    $8.67    $0.93
+      （Gemini 推理不受 max_tokens 约束，预算账本每次预留 131,072 输出 token：$55.12）
+    google/gemini-3.5-flash-lite         0.30 / 2.50     $0.87    $5.76    $0.62
+    anthropic/claude-sonnet-5-5          2.00 / 10.00    $3.55    $23.12   $2.48
+    anthropic/claude-haiku-5-5           0.10 / 0.50     $0.18    $1.16    $0.12
+    anthropic/claude-opus-5-5            4.00 / 20.00    $7.09    $46.25   $4.96
+    openai/gpt-oss-120b-maas             0.09 / 0.36     $0.13    $0.83    $0.09
+    qwen/qwen3-coder-480b-a35b-instruct  0.22 / 1.80     $0.63    $4.15    $0.44
+  Gemini 3.8 Flash 优惠价截至 2026-12-31，之后为 $1.50/$7.50。详见
+  configs/quantum_katas_vertex_pricing_20261019.json；配置模板见
+  configs/quantum_katas_official_pilot_template_20261019.json（原样会被 prepare 拒绝）。
+
+6. 尚未完成 / 待确认
+  - 模型组合、endpoint/project、thinking 与采样、max_tokens、美元预算（未授权）。
+  - 模型代码执行边界：本机无 Docker；macos_sandbox 已实测禁网、禁读主目录与仓库，但
+    macOS 不强制内存与进程数上限。需确认是否接受，或改用 Linux 容器。
+  - Haiku 5.5、Opus 5.5、Qwen3-Coder 的 Vertex 模型 ID 尚需在 Model Garden 确认。
+  - 真实候选的顺序策略只用合成参数做工程检查；正式先验/似然需另行拟合。
+
+7. 扩大到 350 题的建议
+  这 28 题及其近似变体保留在开发侧；其余题按原题/模板族分组划分 calibration/evaluation，
+  同一题的多个候选不跨组；继续用固定官方 checker；在量子领域重新拟合 prior/likelihood，
+  不拿 GPQA 参数充当校准结果；多次独立采样需改变请求身份（prompt 或 runner），不能只改
+  meta；全量阶段另行确认预算，不在本次扩大付费规模。
+
+8. tony 已确认的模型与设置（2026-10-19）
+  两个 generator 各自一个运行目录、各生成一份候选（每题 2 个候选，按 generator 分开统计）：
+    configs/quantum_katas_official_pilot_qwen3_20261019.json
+      qwen/qwen3-235b-a22b-instruct-2507-maas，us-south1，单次调用，temperature 0、top_p 1、max_tokens 4096
+      （GPQA 后来对 Qwen 用了 draft+finalize 两步；本 pilot 每题冻结一次调用，故不采用）
+    configs/quantum_katas_official_pilot_sonnet55_20261019.json
+      anthropic/claude-sonnet-5-5，global，adaptive thinking、effort high、max_tokens 32768、不设采样参数
+  verifier：GPQA 的五个候选，transport 与生成设置照搬（提示词为 QuantumKatas 版本）：
+    gemini_flash  google/gemini-3.7-flash        global       max_tokens 4096, reasoning_effort low
+    gemini_lite   google/gemini-3.5-flash-lite   global       max_tokens 4096, reasoning_effort low
+    mistral_small mistralai/mistral-small-2503   us-central1  max_tokens 4096, temperature 0（partner rawPredict）
+    mistral_medium mistralai/mistral-medium-3    us-central1  max_tokens 4096, temperature 0（partner rawPredict）
+    claude_haiku  anthropic/claude-haiku-4-5     global       max_tokens 4096, temperature 0（partner rawPredict）
+  project：llm-applications-490420（与 GPQA 相同）。预算尚未授权，两个配置中 limit_usd 待填、
+  paid_collection_authorized=false。
+  请求量：每个运行 28 generator + 140 verifier；合计 336 个逻辑请求，官方 checker 最多 56 次。
+  冒烟：每个运行前三题 = 3 + 15 个请求。
+  费用（2026-10-19 官方价格）：
+                         预期      每次用满 max_tokens   本地账本保守预留（Gemini 每次 131k）
+    Qwen 运行            ~$0.2     ~$1.7                 $24.2
+    Sonnet 运行          ~$1.9     ~$10.8                $33.4
+    合计                 ~$2.1     ~$12.5                $57.6
+  预留随每次调用结算，限额只需覆盖实际用量加一次在途预留（约 $0.5），不必等于预留合计。
+  已确认账单：未知。

@@ -1,0 +1,80 @@
+{
+  "same_candidate_native_test": {
+    "task_id": "CHSHGame/2.4",
+    "code_sha256": "ae210968a75e1e576be8c27869cfc18c329c0294a3ce8ee6b7a8e6f83357e33f",
+    "runs": 30,
+    "passes": 22,
+    "failures": 8,
+    "distinct_error_types": [
+      "AssertionError"
+    ],
+    "note": "Fixed incorrect +0.15 radian rotation; unmodified unseeded upstream test."
+  },
+  "extension_checks": [
+    {
+      "task_id": "PhaseEstimation/2",
+      "kind": "reference_extension",
+      "repeat": 0,
+      "entry_point": "qft",
+      "code_sha256": "34b2f3af544dfef4d9fa59b031b66faa0b7faaa115730e254eb64134ba6b9b19",
+      "test_sha256": "ded81a7cc7c91820180a22871b7fbdbc16e9c9acfbfcf98e5e9a0603be7033cc",
+      "wall_elapsed_s": 0.21201008395291865,
+      "passed": true,
+      "error_message": null,
+      "error_type": null,
+      "stdout": "",
+      "test_elapsed_s": 0.13521445798687637,
+      "stderr": "",
+      "process_stderr": ""
+    },
+    {
+      "task_id": "PhaseEstimation/2",
+      "kind": "mutant_extension",
+      "repeat": 0,
+      "entry_point": "qft",
+      "code_sha256": "a6934d38d1c853ddf9922384866f1665c36ada48b56ead6db0e7b66f14fc4129",
+      "test_sha256": "ded81a7cc7c91820180a22871b7fbdbc16e9c9acfbfcf98e5e9a0603be7033cc",
+      "wall_elapsed_s": 0.20336499996483326,
+      "passed": false,
+      "error_message": "AssertionError: Wrong full QFT unitary n=2",
+      "error_type": "AssertionError",
+      "stdout": "",
+      "test_elapsed_s": 0.12807366694323719,
+      "stderr": "",
+      "process_stderr": ""
+    },
+    {
+      "task_id": "QEC_BitFlipCode/6",
+      "kind": "reference_extension",
+      "repeat": 0,
+      "entry_point": "decode_qubit",
+      "code_sha256": "9daaf7240ec9f1878227e1e2ca715bd516fae2be63dbd5bf99b5003163bff16a",
+      "test_sha256": "1f3a8ed564421c3bc0cc23192fccd91ff3f7936798a8c207fabbfafe355c5ff7",
+      "wall_elapsed_s": 0.2094535839278251,
+      "passed": true,
+      "error_message": null,
+      "error_type": null,
+      "stdout": "",
+      "test_elapsed_s": 0.13107091607525945,
+      "stderr": "",
+      "process_stderr": ""
+    },
+    {
+      "task_id": "QEC_BitFlipCode/6",
+      "kind": "mutant_extension",
+      "repeat": 0,
+      "entry_point": "decode_qubit",
+      "code_sha256": "01a689e3d387e400fe5b56334d33bfcfb8306aff409dcc5102a042d44a0e3e0a",
+      "test_sha256": "1f3a8ed564421c3bc0cc23192fccd91ff3f7936798a8c207fabbfafe355c5ff7",
+      "wall_elapsed_s": 0.20595450000837445,
+      "passed": false,
+      "error_message": "AssertionError: Wrong decoded state for (1, 0, 2, 3.141592653589793, 0)",
+      "error_type": "AssertionError",
+      "stdout": "",
+      "test_elapsed_s": 0.12725870893336833,
+      "stderr": "",
+      "process_stderr": ""
+    }
+  ],
+  "total_wall_elapsed_s": 5.76514987484552
+}

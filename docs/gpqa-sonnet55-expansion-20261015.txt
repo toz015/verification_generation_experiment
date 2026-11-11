@@ -1,0 +1,46 @@
+Sonnet 5.5 expansion to the original 445 questions — 2026-10-15
+================================================================
+
+Authorization: extend the completed Sonnet pilot to all questions previously
+answered by Gemini and Qwen, reuse 50 responses, preserve settings and historical
+results, and keep raw confidence. No confidence calibration is performed.
+
+Inputs: exactly the existing 249 development and 196 Diamond evaluation inputs,
+with original questions, option order and generator prompt. Match all public
+inputs to both historical candidate bundles. Reuse the 50 pilot replies first,
+then collect 199 development and 196 evaluation requests in original input order.
+No answer-key files are opened. This step collects and freezes answers; it does
+not compute accuracy, fit likelihoods, run verifiers or change stopping policies.
+
+Protocol is imported from the sealed screen and parser amendment unchanged:
+anthropic/claude-sonnet-5-5 on Vertex global, project llm-applications-490420,
+adaptive thinking, high effort, max_tokens 32768, default sampling, sequential
+requests with the original nominal 10-second start pacer. Use parser
+sonnet_unique_final_json_v2 on final text only. Retain malformed successful
+responses without repair or regeneration. HTTP/accounting failures stop the run;
+uncertain outcomes cannot be silently retried. The model name is a provider alias,
+so recorded response identity is checked but immutable provider weights cannot
+be independently established by this experiment.
+
+The extension shares the original cache and USD 20 ledger (including the pilot's
+USD 0.332382), without a new budget allocation. Pilot-average projection for 395
+new calls is USD 2.6258178; actual use can differ. Reserve each request before
+submission and reconcile provider tokens after completion. Cost estimates are
+not confirmed Cloud billing. The existing USD 200 overall authorization remains.
+
+The new module is separate: no edits to sealed screen code, config, requests,
+prompts, candidates or old reports. Seal all 50 original response files and
+attempt logs, parent plans, pilot candidates/reports and implementation hash.
+The shared budget ledger is append-only in scope (new entries plus settlements).
+Collection uses the original process lock, acquired without waiting, and durable
+per-request cache/reservations. Completed requests are reused on resume; a saved
+blocked state needs explicit review. Resumes retain original inputs and settings.
+
+Commands:
+.venv/bin/python -m vgx.gpqa.sonnet_expansion prepare --root results/gpqa_sonnet55_20261015
+.venv/bin/python -m vgx.gpqa.sonnet_expansion collect --root results/gpqa_sonnet55_20261015 --allow-api
+
+Outputs: results/gpqa_sonnet55_20261015/expansion_445/{plan,status,frozen_candidates,
+completion_report}.json. The frozen candidate file includes dataset content and
+must remain local. Aggregate reports can be copied separately without questions,
+answer keys, raw provider replies or credentials. No commit or push is requested.

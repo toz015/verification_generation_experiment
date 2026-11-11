@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "kind": "math500_full_generation",
+  "status": "full MATH-500 (500 problems), generator gptoss; tony asked 2026-10-21 to run MATH-500 first; cap $3.0; uncertain requests recorded as generator failures",
+  "generation_id": "g0",
+  "seed": 20261020,
+  "sample": {
+    "math500": 500
+  },
+  "generator": {
+    "id": "generator",
+    "provider": "vertex_openai",
+    "model": "openai/gpt-oss-120b-maas",
+    "location": "us-central1",
+    "project": "llm-applications-490420",
+    "generation": {
+      "max_tokens": 32768,
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "reasoning_effort": "medium",
+      "response_format": {
+        "type": "json_object"
+      }
+    }
+  },
+  "budget": {
+    "project": "llm-applications-490420",
+    "limit_usd": 3.0,
+    "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)",
+    "pricing": {
+      "usd_per_million_tokens": {
+        "openai/gpt-oss-120b-maas": {
+          "input": 0.09,
+          "output": 0.36,
+          "cached_input": 0.09
+        }
+      }
+    }
+  },
+  "paid_collection_authorized": true,
+  "notes": [
+    "Prompt math_trial_v1 unchanged from the trial; max_tokens 32768 for every generator (trial used 8192 for Qwen and truncated 3/100 MATH-500 replies).",
+    "Qwen/gpt-oss settings as in QuantumKatas; Sonnet 5.5 adaptive thinking, effort high, structured output with the reasoning/answer/p_correct schema."
+  ]
+}

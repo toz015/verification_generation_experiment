@@ -1,0 +1,387 @@
+{
+  "collection_budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.22246335,
+    "limit_usd": 5.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 139
+  },
+  "confidence_calibrated": false,
+  "decisions_id": "7977cdfc1488570c761cfc7b3a0021b72a52cc881cd35b1d2285b8289970cfd8",
+  "evaluation_key_sha256": "f6b94cede799b781806fb6d1760c728c15edb9d44b9556aae53a679b6a776b9b",
+  "evaluation_n": 196,
+  "evaluation_signals_id": "33966937409cc70f5566be6fe54f864d753aaf3e7f34bec71515ca88662ddc06",
+  "generator": "sonnet_5_5",
+  "notes": [
+    "Reuse exact historical requests including malformed returns; only missing requests may be collected.",
+    "Keep the five existing probability prompts, runners, model settings and parser unchanged.",
+    "Development labels only for fitting; freeze likelihoods, costs and orders before evaluation cache access/collection and decisions.",
+    "Diamond generator-only results were previously inspected; this is an exploratory extension, not a newly untouched confirmatory holdout.",
+    "No confidence calibration, generator calls, candidate repair, model substitution or budget expansion.",
+    "Primary arms are raw confidence, adaptive single Flash, and adaptive selected triple. Always-query Brier diagnostics are separate from stopping-policy results.",
+    "Conditional independence is an assumption, not established by family diversity. Sonnet and Haiku share a family.",
+    "The cache-first experiment collects complete signals for offline comparisons; replay accesses only the selected query prefix, without labels or future scores.",
+    "Costs of the policy are counterfactual token-usage estimates for queried prefixes, distinct from new collection spending and confirmed billing.",
+    "This is accept/abstain on frozen candidates, not generator fine-tuning or answer correction."
+  ],
+  "policy_id": "b20baa146f03e0ac407a177e348918e177ef5588e4cf59a17c917165dec8ea0f",
+  "prefix_only_replay_checks": 784,
+  "protocol_id": "ba94fcbec635d7a40767daaa3572f0b6a7556b4e54c49dea8df136ab89472bd4",
+  "refit_on_evaluation": false,
+  "result_id": "fe401563ac01867ee8f5ad1da221162ffe6995b45af64e430ad2c12033125702",
+  "results": {
+    "19": {
+      "arms": {
+        "flash": {
+          "acceptance_rate": 0.22448979591836735,
+          "calls_per_question": 0.22448979591836735,
+          "confirmed_billing_usd": null,
+          "correct_released": 44,
+          "coverage": 0.22448979591836735,
+          "expected_cost_usd": 0.07390815725806453,
+          "expected_usd_per_question": 0.00037708243499012513,
+          "mean_utility": 0.22071897156846607,
+          "mean_utility_at_observed_usage": 0.2210870918367347,
+          "mean_utility_ci95": [
+            0.16553922867634954,
+            0.28091505472350226
+          ],
+          "n": 196,
+          "output_error_rate": 0.0,
+          "output_error_wilson95": {
+            "high": 0.08029560375848066,
+            "low": 0.0,
+            "method": "Wilson",
+            "n": 44
+          },
+          "queries": 44,
+          "query_histogram": {
+            "0": 152,
+            "1": 44
+          },
+          "released": 44,
+          "released_accuracy": 1.0,
+          "released_accuracy_wilson95": {
+            "high": 1.0,
+            "low": 0.9197043962415192,
+            "method": "Wilson",
+            "n": 44
+          },
+          "signal_failures_queried": 0,
+          "usage_estimated_cost_usd": 0.066693,
+          "usage_estimated_usd_per_question": 0.00034027040816326533,
+          "wrong_released": 0
+        },
+        "prior_only": {
+          "acceptance_rate": 0.22448979591836735,
+          "calls_per_question": 0.0,
+          "confirmed_billing_usd": null,
+          "correct_released": 44,
+          "coverage": 0.22448979591836735,
+          "expected_cost_usd": 0.0,
+          "expected_usd_per_question": 0.0,
+          "mean_utility": 0.22448979591836735,
+          "mean_utility_at_observed_usage": 0.22448979591836735,
+          "mean_utility_ci95": [
+            0.1683673469387755,
+            0.2857142857142857
+          ],
+          "n": 196,
+          "output_error_rate": 0.0,
+          "output_error_wilson95": {
+            "high": 0.08029560375848066,
+            "low": 0.0,
+            "method": "Wilson",
+            "n": 44
+          },
+          "queries": 0,
+          "query_histogram": {
+            "0": 196
+          },
+          "released": 44,
+          "released_accuracy": 1.0,
+          "released_accuracy_wilson95": {
+            "high": 1.0,
+            "low": 0.9197043962415192,
+            "method": "Wilson",
+            "n": 44
+          },
+          "signal_failures_queried": 0,
+          "usage_estimated_cost_usd": 0.0,
+          "usage_estimated_usd_per_question": 0.0,
+          "wrong_released": 0
+        },
+        "triple": {
+          "acceptance_rate": 0.3010204081632653,
+          "calls_per_question": 0.6887755102040817,
+          "confirmed_billing_usd": null,
+          "correct_released": 59,
+          "coverage": 0.3010204081632653,
+          "expected_cost_usd": 0.24474745927419356,
+          "expected_usd_per_question": 0.0012487115269091509,
+          "mean_utility": 0.2885332928941738,
+          "mean_utility_at_observed_usage": 0.2879821198979592,
+          "mean_utility_ci95": [
+            0.2281192673122223,
+            0.351811625661928
+          ],
+          "n": 196,
+          "output_error_rate": 0.0,
+          "output_error_wilson95": {
+            "high": 0.061129370526788386,
+            "low": 0.0,
+            "method": "Wilson",
+            "n": 59
+          },
+          "queries": 135,
+          "query_histogram": {
+            "0": 128,
+            "1": 25,
+            "2": 19,
+            "3": 24
+          },
+          "released": 59,
+          "released_accuracy": 1.0,
+          "released_accuracy_wilson95": {
+            "high": 1.0,
+            "low": 0.9388706294732116,
+            "method": "Wilson",
+            "n": 59
+          },
+          "signal_failures_queried": 0,
+          "usage_estimated_cost_usd": 0.25555045,
+          "usage_estimated_usd_per_question": 0.0013038288265306121,
+          "wrong_released": 0
+        }
+      },
+      "brier_always_query_common": {
+        "brier": {
+          "flash": 0.06508681405455657,
+          "prior_only": 0.07061384615384615,
+          "triple": 0.07162657378223453
+        },
+        "flash_minus_prior": {
+          "ci95": [
+            -0.01504004604814378,
+            0.004876046010392963
+          ],
+          "mean": -0.00552703209928958,
+          "n": 195
+        },
+        "n": 195,
+        "triple_minus_flash": {
+          "ci95": [
+            0.0020781167103626394,
+            0.011172502871687987
+          ],
+          "mean": 0.006539759727677969,
+          "n": 195
+        }
+      },
+      "paired_utility_flash_minus_prior": {
+        "ci95": [
+          -0.0047992309907834195,
+          -0.0028281182624259435
+        ],
+        "mean": -0.003770824349901258,
+        "n": 196
+      },
+      "paired_utility_triple_minus_flash": {
+        "ci95": [
+          0.03418440157510081,
+          0.1031727364942499
+        ],
+        "mean": 0.06781432132570771,
+        "n": 196
+      },
+      "triple_order": [
+        "gemini_flash:probability",
+        "gemini_lite:probability",
+        "claude_haiku:probability"
+      ]
+    },
+    "99": {
+      "arms": {
+        "flash": {
+          "acceptance_rate": 0.0,
+          "calls_per_question": 0.0,
+          "confirmed_billing_usd": null,
+          "correct_released": 0,
+          "coverage": 0.0,
+          "expected_cost_usd": 0.0,
+          "expected_usd_per_question": 0.0,
+          "mean_utility": 0.0,
+          "mean_utility_at_observed_usage": 0.0,
+          "mean_utility_ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 196,
+          "output_error_rate": null,
+          "output_error_wilson95": {
+            "high": null,
+            "low": null,
+            "method": "Wilson",
+            "n": 0
+          },
+          "queries": 0,
+          "query_histogram": {
+            "0": 196
+          },
+          "released": 0,
+          "released_accuracy": null,
+          "released_accuracy_wilson95": {
+            "high": null,
+            "low": null,
+            "method": "Wilson",
+            "n": 0
+          },
+          "signal_failures_queried": 0,
+          "usage_estimated_cost_usd": 0.0,
+          "usage_estimated_usd_per_question": 0.0,
+          "wrong_released": 0
+        },
+        "prior_only": {
+          "acceptance_rate": 0.0,
+          "calls_per_question": 0.0,
+          "confirmed_billing_usd": null,
+          "correct_released": 0,
+          "coverage": 0.0,
+          "expected_cost_usd": 0.0,
+          "expected_usd_per_question": 0.0,
+          "mean_utility": 0.0,
+          "mean_utility_at_observed_usage": 0.0,
+          "mean_utility_ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 196,
+          "output_error_rate": null,
+          "output_error_wilson95": {
+            "high": null,
+            "low": null,
+            "method": "Wilson",
+            "n": 0
+          },
+          "queries": 0,
+          "query_histogram": {
+            "0": 196
+          },
+          "released": 0,
+          "released_accuracy": null,
+          "released_accuracy_wilson95": {
+            "high": null,
+            "low": null,
+            "method": "Wilson",
+            "n": 0
+          },
+          "signal_failures_queried": 0,
+          "usage_estimated_cost_usd": 0.0,
+          "usage_estimated_usd_per_question": 0.0,
+          "wrong_released": 0
+        },
+        "triple": {
+          "acceptance_rate": 0.0,
+          "calls_per_question": 0.0,
+          "confirmed_billing_usd": null,
+          "correct_released": 0,
+          "coverage": 0.0,
+          "expected_cost_usd": 0.0,
+          "expected_usd_per_question": 0.0,
+          "mean_utility": 0.0,
+          "mean_utility_at_observed_usage": 0.0,
+          "mean_utility_ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 196,
+          "output_error_rate": null,
+          "output_error_wilson95": {
+            "high": null,
+            "low": null,
+            "method": "Wilson",
+            "n": 0
+          },
+          "queries": 0,
+          "query_histogram": {
+            "0": 196
+          },
+          "released": 0,
+          "released_accuracy": null,
+          "released_accuracy_wilson95": {
+            "high": null,
+            "low": null,
+            "method": "Wilson",
+            "n": 0
+          },
+          "signal_failures_queried": 0,
+          "usage_estimated_cost_usd": 0.0,
+          "usage_estimated_usd_per_question": 0.0,
+          "wrong_released": 0
+        }
+      },
+      "brier_always_query_common": {
+        "brier": {
+          "flash": 0.06508681405455657,
+          "prior_only": 0.07061384615384615,
+          "triple": 0.07162657378223455
+        },
+        "flash_minus_prior": {
+          "ci95": [
+            -0.01504004604814378,
+            0.004876046010392963
+          ],
+          "mean": -0.00552703209928958,
+          "n": 195
+        },
+        "n": 195,
+        "triple_minus_flash": {
+          "ci95": [
+            0.0020781167103626425,
+            0.011172502871687981
+          ],
+          "mean": 0.006539759727677969,
+          "n": 195
+        }
+      },
+      "paired_utility_flash_minus_prior": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "n": 196
+      },
+      "paired_utility_triple_minus_flash": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "n": 196
+      },
+      "triple_order": [
+        "claude_haiku:probability",
+        "gemini_flash:probability",
+        "gemini_lite:probability"
+      ]
+    }
+  },
+  "settings": {
+    "bootstrap_repeats": 10000,
+    "correct_reward": 1.0,
+    "cost_fit": "mean development provider-token cost for each verifier, including returned malformed replies",
+    "laplace": 1.0,
+    "likelihood_model": "conditional_independence",
+    "losses": [
+      19.0,
+      99.0
+    ],
+    "order_selection": "maximize mean development-prior exact J0 across all 60 ordered triples; lexicographic ties",
+    "prior": "raw_unmodified_p_correct",
+    "probability_bins": 3,
+    "utility_per_usd": 10.0
+  }
+}

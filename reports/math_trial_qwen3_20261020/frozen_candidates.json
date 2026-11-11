@@ -1,0 +1,5092 @@
+{
+  "bundle_id": "9bf177c6a2f32f222e6442649656061cf4d41609685775eccca12c69d4125ae1",
+  "plan_id": "876d6123addfcae503e73bb2af28393f7242e491d4f96a3d059aeb4670e26a48",
+  "rows": [
+    {
+      "answer": "[-2, 7]",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/101.json",
+      "latency_s": 9.531,
+      "p_correct": 0.99,
+      "request_key": "sha256:3795a72a43633ec67025c939e9cfed4558362869cf18b147dad98782896e3e54",
+      "response_sha256": "fca85a4613bdee4cd34034230e807df5314954d7c599d11e36221325453be048",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 529,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 198,
+        "prompt_tokens_details": {
+          "cached_tokens": 3
+        },
+        "total_tokens": 727
+      }
+    },
+    {
+      "answer": "17",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/1143.json",
+      "latency_s": 9.35,
+      "p_correct": 0.99,
+      "request_key": "sha256:97ca396d359cb511c6bd17b9bff003928ee399abad771817eb3d6550d9a6cf35",
+      "response_sha256": "dd6aa9fa164ac1c73a651b6d6c123a9f3ce5aebd08bd5c342bec2bcd4da8d8ba",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 672,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 205,
+        "prompt_tokens_details": {
+          "cached_tokens": 3
+        },
+        "total_tokens": 877
+      }
+    },
+    {
+      "answer": "4",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/1303.json",
+      "latency_s": 2.91,
+      "p_correct": 0.99,
+      "request_key": "sha256:d60c3b797308ee3ffd30153db3b66245c238701becd29a0cdc4fc96cd0668cf1",
+      "response_sha256": "7982b0651b38800f93dac9089c71acfa8681b601b86a36d0355e9609f75f6724",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 155,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 184,
+        "prompt_tokens_details": {
+          "cached_tokens": 3
+        },
+        "total_tokens": 339
+      }
+    },
+    {
+      "answer": "66",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/1338.json",
+      "latency_s": 12.123,
+      "p_correct": 0.99,
+      "request_key": "sha256:efb07ac46b1671cf34e17beed62cc824e2d7354a289c1c698cfdd0a9d702a382",
+      "response_sha256": "eda926d48effd714eb17e66a9744da041bffaf59687e92d2e6c98c9bc5c92dc1",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 430,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 196,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 626
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/1425.json",
+      "latency_s": 4.537,
+      "p_correct": 0.99,
+      "request_key": "sha256:c39fad149ffb6dc9a912395959c473aa4c1e6c22e146493352906a84f788a305",
+      "response_sha256": "b97c2f6f41fbf29fbf005bc073abb55f9a133c0b24288c5d480f390bcb5cabfc",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 174,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 189,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 363
+      }
+    },
+    {
+      "answer": "1",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/1529.json",
+      "latency_s": 7.689,
+      "p_correct": 0.99,
+      "request_key": "sha256:f9887c0275b9accfd9637df1a41c636424afad3ce7da0219a0d90e367c86f25a",
+      "response_sha256": "7d6898d506f8593f16fdae506870b4ae7233dfd4aae738781b7865d6d96af4cb",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 279,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 196,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 475
+      }
+    },
+    {
+      "answer": "143",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/1814.json",
+      "latency_s": 10.68,
+      "p_correct": 0.99,
+      "request_key": "sha256:5cc71a86c44594e940960a52d0a0288cf58055437dca6bb5265001037f1bf2df",
+      "response_sha256": "5319c0b47aa2cfd40210abee7fb8d7b74877dd058e0ce8ca82067dcf364b2814",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 488,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 210,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 698
+      }
+    },
+    {
+      "answer": "1",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/2023.json",
+      "latency_s": 15.973,
+      "p_correct": 0.99,
+      "request_key": "sha256:6aaf51b7422e791a5c0893438b608503cb5dafd613d00bc2eda61d3e34c035b5",
+      "response_sha256": "2a1ee3a65cd2b6e9077f853afaf53ba1ee8a01763aa2a3627e34b7d3e8490196",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 624,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 205,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 829
+      }
+    },
+    {
+      "answer": "13",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/2058.json",
+      "latency_s": 8.972,
+      "p_correct": 0.98,
+      "request_key": "sha256:c22451745795c12ca4c137c8a70926bd75269df092bd2e3efcc635bde4c1d535",
+      "response_sha256": "5e0aef49265d3d21521366f43e5d90033589d0b6e08b04f974ca750550cc6d80",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 655,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 238,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 893
+      }
+    },
+    {
+      "answer": "81",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/2064.json",
+      "latency_s": 42.143,
+      "p_correct": 0.99,
+      "request_key": "sha256:481f9be7468e83bbecf0c077435fb10fc3c47fe0d41961967d0f6e54a7c73e3d",
+      "response_sha256": "2afce5adc1dc48233da388811a9d1313fd836596563d2f1d9a6dcaef73f9b457",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2109,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 188,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 2297
+      }
+    },
+    {
+      "answer": "14",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/2080.json",
+      "latency_s": 5.736,
+      "p_correct": 0.99,
+      "request_key": "sha256:c5dacf92d9bb3711c1fdaf6531a98eab5226a6a4f767cfdfa2b35393117a9412",
+      "response_sha256": "fff2b844e51890c2539f6bd8792e99d278d324e81b257aa3a659a9d3392ad5e9",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 358,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 184,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 542
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/2157.json",
+      "latency_s": 3.81,
+      "p_correct": 0.99,
+      "request_key": "sha256:376ef8ec0438df3f0a88a980033b2d083b0828f8a38f2a85db483479716136cc",
+      "response_sha256": "4e22d6f73f2d018adfa050f03aaccaf4075e802c7953bf03dd390dfb7d184ef3",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 208,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 187,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 395
+      }
+    },
+    {
+      "answer": "7",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/2199.json",
+      "latency_s": 5.065,
+      "p_correct": 0.99,
+      "request_key": "sha256:fd1919e171091327f9a2833c4f14fb48633992766fa804210a630540e28dc15c",
+      "response_sha256": "96a97f1c3a48079de05b2ac47f8018721fc72348dfd99a01f5eef1c3a86d9ffb",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 306,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 194,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 500
+      }
+    },
+    {
+      "answer": "-3",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/2232.json",
+      "latency_s": 5.949,
+      "p_correct": 0.99,
+      "request_key": "sha256:657f519cc5f96d153bf015118c9bdc3f49fda8040730e43520efea3e5c29c16f",
+      "response_sha256": "589ff8c76412d68e96b91bf3e76173f8f90a94b20ff4524a36419354ef8a0f38",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 311,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 192,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 503
+      }
+    },
+    {
+      "answer": "8",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/2430.json",
+      "latency_s": 11.812,
+      "p_correct": 0.99,
+      "request_key": "sha256:c280e91be6c3dcac0cbc7e70d368eaadfde622a022d98ce314f662e295bc3a6f",
+      "response_sha256": "a95db9fb4123c9e3244ad8e0ffb2fdfca5aae5063e7065316f86bb93335e5221",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 607,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 225,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 832
+      }
+    },
+    {
+      "answer": "10",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/2476.json",
+      "latency_s": 3.893,
+      "p_correct": 0.99,
+      "request_key": "sha256:dff4daf218938bb0469c0d3eee00a22a098f251f7e71ca1806783ef63380461d",
+      "response_sha256": "48e37b9c2ae330611d4f75883cf7d43b12f8059355d2550d3a59b1481042e703",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 238,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 225,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 463
+      }
+    },
+    {
+      "answer": "7",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/346.json",
+      "latency_s": 4.795,
+      "p_correct": 0.99,
+      "request_key": "sha256:739297aaee33b451c005d7f3174bdfbff11f32d852c8de1bd321cbf648512ce8",
+      "response_sha256": "0885ac4a46952cf51363abc2133f409ed9cdf07d2d9e965b79cd5c22aadb51f3",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 217,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 198,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 415
+      }
+    },
+    {
+      "answer": "\\frac{13}{6}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/509.json",
+      "latency_s": 15.451,
+      "p_correct": 0.98,
+      "request_key": "sha256:b83f1533dd31a23d09068bc474c408184b2b6d49859e8128131e45c37eadb5c3",
+      "response_sha256": "adf7873da370ed1f910a329705f28d3ee0d24614975bd426e6b982927bc8f026",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 904,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 215,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1119
+      }
+    },
+    {
+      "answer": "4005",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/524.json",
+      "latency_s": 5.111,
+      "p_correct": 0.999,
+      "request_key": "sha256:567e6024d77c783e6501b9396545d32c2cd7b4b6a058ca3a2fb6b66620f28ff9",
+      "response_sha256": "ce5d28b652c156abaf7ef5e1896a8f9ea030379d02e0d41fe7e14b107f6cb31a",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 203,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 194,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 397
+      }
+    },
+    {
+      "answer": "3.21",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/621.json",
+      "latency_s": 7.524,
+      "p_correct": 0.99,
+      "request_key": "sha256:326f3297716f4bd555ff7601ae2c84414c4cf3339c0e777c96577d27c6272e8e",
+      "response_sha256": "5f9df4d3623b59189aa86ff64320392eb3ccdd575acb12071b22d874ede29405",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 312,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 525
+      }
+    },
+    {
+      "answer": "9901",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/722.json",
+      "latency_s": 4.804,
+      "p_correct": 0.99,
+      "request_key": "sha256:eddfbdb20831e5d06a66a8106148a511ebc68341d2eb023ea4fdc032f1f552ff",
+      "response_sha256": "1a3951a5d7741a0ff7bdbbe03f3e5c0730101c60de677a3bd890b39265a79c12",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 241,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 178,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 419
+      }
+    },
+    {
+      "answer": "6",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/733.json",
+      "latency_s": 59.46,
+      "p_correct": 0.99,
+      "request_key": "sha256:a888809281ca84662ceb24e5f51f7fabb2f2f5b8218f9ceba9fe31f365d93748",
+      "response_sha256": "eb89fccb83e9bcecddadd655df66856fb8bfe1346d3461b3a939359f094f1b76",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 3917,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 386,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 4303
+      }
+    },
+    {
+      "answer": "12",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/824.json",
+      "latency_s": 11.828,
+      "p_correct": 0.99,
+      "request_key": "sha256:cce680b2554234f25917c5a7b7bfefe0215b678fe407384c14a8c4cf79007d00",
+      "response_sha256": "a9a868fc1fdd2477460635df7b05c7cf22cca8f2cad57ed05a3e071b01d95b07",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 786,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 261,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 1047
+      }
+    },
+    {
+      "answer": "12",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/853.json",
+      "latency_s": 12.013,
+      "p_correct": 0.98,
+      "request_key": "sha256:324296fe6eead60ede30df60a5b566abf0130f5bd6181cc874a77f9c638fa9a9",
+      "response_sha256": "7c0ed554179144663f56a89e90d3340a8b8289cf737d5f25e834cf0e91cb3e7b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 882,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 244,
+        "prompt_tokens_details": {
+          "cached_tokens": 73
+        },
+        "total_tokens": 1126
+      }
+    },
+    {
+      "answer": "(-1,6)",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/algebra/864.json",
+      "latency_s": 3.421,
+      "p_correct": 0.999,
+      "request_key": "sha256:23bebad4e9d9bdb8e12a7de9b4b665cba7b83a8cf07924dbe9dc5a28a0042b99",
+      "response_sha256": "9e8bc92eaae77fae30574faa68d74561c488ddbc33e15fd8565b45688d8562f0",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 246,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 196,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 442
+      }
+    },
+    {
+      "answer": "29",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/counting_and_probability/1003.json",
+      "latency_s": 95.421,
+      "p_correct": 0.98,
+      "request_key": "sha256:72701170619f5850219cdb6d4a79d7278b57f7db889e9d978790180305685c68",
+      "response_sha256": "4117a429b6ea51d399e36c622e498288d1d3db75baf06721302768f349b16b8d",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 4665,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 322,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 4987
+      }
+    },
+    {
+      "answer": "19",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/counting_and_probability/181.json",
+      "latency_s": 74.273,
+      "p_correct": 0.98,
+      "request_key": "sha256:3fdf866a30a1066c2f6b7c51e4e0d08bbf7d72cb72a2135985b6a003863fdb49",
+      "response_sha256": "279c6437bb198f43c2c8a9618add74b3d99d07a4d9a3f60147dc74ad98b72cdb",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2964,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 829,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 3793
+      }
+    },
+    {
+      "answer": "210",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/counting_and_probability/23957.json",
+      "latency_s": 5.899,
+      "p_correct": 0.99,
+      "request_key": "sha256:5c47209e5ffb6e7322cd95c2f2e3270a2e0cb60f2a9b8b313dec219b4d6329d9",
+      "response_sha256": "ca2ade9a054be4a95b898f9e3049b40ef5452340421a62c0dc6ab4b9272ccede",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 293,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 214,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 507
+      }
+    },
+    {
+      "answer": "12",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/counting_and_probability/339.json",
+      "latency_s": 9.003,
+      "p_correct": 0.98,
+      "request_key": "sha256:da1794b28f4d8cc5275fd275d25be4a23662dfe437f7aa1c105b6d678937cd88",
+      "response_sha256": "ce80ec80a0e5b8b36b80d56f0acf854a65bd7888b6383d5b8b206d6fea58b73d",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 356,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 187,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 543
+      }
+    },
+    {
+      "answer": "\\frac{1}{3}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/counting_and_probability/430.json",
+      "latency_s": 78.524,
+      "p_correct": 0.98,
+      "request_key": "sha256:e64c3887af804571eceb0457acd6c4cc3c73c740973f4f212c0f3b10d39bdb17",
+      "response_sha256": "c5833d092e6113803ab10f9b39e268ace49238823a5e06d8158b88a123b1c8f4",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2899,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 243,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 3142
+      }
+    },
+    {
+      "answer": "\\frac{13}{18}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/counting_and_probability/51.json",
+      "latency_s": 12.899,
+      "p_correct": 0.99,
+      "request_key": "sha256:112d185fe3ff195602b13f6a3be4c7fff903d18bf94380d46cea1ba607795260",
+      "response_sha256": "2a3c714d4f481863effdd414d7bea8a9e2a7fee2cf0da26923dabf55edbe634b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 395,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 192,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 587
+      }
+    },
+    {
+      "answer": "225",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/counting_and_probability/666.json",
+      "latency_s": 4.944,
+      "p_correct": 0.99,
+      "request_key": "sha256:d9e47dc184fa37ff304247afa843db4aee1b18ef0d6a8840536f8614e87a014c",
+      "response_sha256": "798e60b838481cab82a693f59769ea453706629224243973e18ae6fb7892ac6e",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 340,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 240,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 580
+      }
+    },
+    {
+      "answer": "58500",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/counting_and_probability/737.json",
+      "latency_s": 3.616,
+      "p_correct": 0.99,
+      "request_key": "sha256:3b7eb2c869ddfcc95ed76e518da6c0f87417109f5d114e5de569e2cdda1bd8d5",
+      "response_sha256": "594ce5d27935acf1af1e084ac02b687cc89a02c413007a8cddcfe30e30e6de8a",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 282,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 197,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 479
+      }
+    },
+    {
+      "answer": "\\frac{1}{3}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/counting_and_probability/870.json",
+      "latency_s": 92.383,
+      "p_correct": 0.98,
+      "request_key": "sha256:3506cbaf9af3484213c38421edeef529975416c9bff18277cde805806abcda9a",
+      "response_sha256": "fe2c935438a8cf4b9051b53d11db0d3ec3c9da78b0862a22fa61a65f687237ed",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5549,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 205,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 5754
+      }
+    },
+    {
+      "answer": "31",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/geometry/106.json",
+      "latency_s": 4.545,
+      "p_correct": 0.99,
+      "request_key": "sha256:263dcba6339290f4ae8bfa4186e2321bfa6983a079d7d38da2e097fa1c48f5ba",
+      "response_sha256": "10c02c14d81dfe057287f33f5f8f7066e329633d37b9933b4bcf8fee008b5dfa",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 407,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 199,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 606
+      }
+    },
+    {
+      "answer": "16",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/geometry/229.json",
+      "latency_s": 110.555,
+      "p_correct": 0.98,
+      "request_key": "sha256:561ed043a973cacda5ba856e7ae4d5d5ae03a46d4f316149c9b84fb8c01182ab",
+      "response_sha256": "9e20e1fc2405503343555d8e3b4d40b0be6d84a78159ef1e4f83a1b63ecac548",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 6317,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 269,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 6586
+      }
+    },
+    {
+      "answer": "3",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/geometry/254.json",
+      "latency_s": 4.291,
+      "p_correct": 0.99,
+      "request_key": "sha256:196222a9590d107195ae7776d538284f623bcf98fa9497f0f8f01f10f1b4f32b",
+      "response_sha256": "478cdc426f686caab71c87ca31caa070da7626abf7f8217da03579b78f28d46f",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 266,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 200,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 466
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "math500:test/geometry/434.json",
+      "latency_s": 145.323,
+      "p_correct": null,
+      "request_key": "sha256:7f41a5d9034850964cc86428bfbb0b1cda014bbfc043434eabeb259823beb729",
+      "response_sha256": "4f8457ec3c3ca1ba87e68eb63ed791b9ce09813fbc0f560136dec3ba275f87a4",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 312,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8504
+      }
+    },
+    {
+      "answer": "150",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/geometry/465.json",
+      "latency_s": 116.407,
+      "p_correct": 0.95,
+      "request_key": "sha256:c759eda92847727d25c03278d81b85fd571289cdb3b51fb24fe7c1163333cfb6",
+      "response_sha256": "ea6de8f385f5e419dbb16efc1cac5307c566b36f59ccc974d9f9a4f3a88bb48c",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 6960,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 436,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 7396
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "math500:test/geometry/547.json",
+      "latency_s": 150.03,
+      "p_correct": null,
+      "request_key": "sha256:ec1d7de2a27e1a68fc1e1d73fc8dbce49fa3f87db9910d47123b169d3e7af802",
+      "response_sha256": "d22b6cb699f24fe6b9047434850f654492fe8555604b7821e58392606aa6223c",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 299,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 8491
+      }
+    },
+    {
+      "answer": "106^\\circ",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/geometry/615.json",
+      "latency_s": 17.769,
+      "p_correct": 0.99,
+      "request_key": "sha256:146daafdca4436e3204b4d0250f7dd8e73ecab302bdaa6b88005a79778fc0773",
+      "response_sha256": "65366e1b2faf25f2fe082a8d53693e615fd54995fd4cbe9dcd2d0df2ab7d23b5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 780,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 220,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 1000
+      }
+    },
+    {
+      "answer": "30",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/geometry/65.json",
+      "latency_s": 18.569,
+      "p_correct": 0.98,
+      "request_key": "sha256:a26f1deed1cf8de114a4c0c9db47aca39df8bf957e8b69cb4f1f04755d5d81ef",
+      "response_sha256": "2e548cbe82f866aaeceecb38f3628e310b3fee678ced7401df49b20fd034ad94",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1165,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 413,
+        "prompt_tokens_details": {
+          "cached_tokens": 57
+        },
+        "total_tokens": 1578
+      }
+    },
+    {
+      "answer": "\\frac{\\sqrt{21}}{5}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/geometry/795.json",
+      "latency_s": 12.834,
+      "p_correct": 0.98,
+      "request_key": "sha256:13d7a93cff64323ac6a8bc5d9f59bf8d0bf72b060673a6ce99254b52a81db99e",
+      "response_sha256": "8214864cd0fb89ac93f36c59995b433f4c2adf5b95b27a49f1ec76458348e1bc",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 671,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 286,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 957
+      }
+    },
+    {
+      "answer": "-\\frac{24}{25}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/geometry/947.json",
+      "latency_s": 14.804,
+      "p_correct": 0.98,
+      "request_key": "sha256:c501a0a9e6363cd10192214c0211714726020ea84bf6c2d4a5711c4855c659c9",
+      "response_sha256": "f2ebb17f3288029ae351114d866e81e5718ded0164e545d2e337ce8230a67bf6",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 737,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 285,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 1022
+      }
+    },
+    {
+      "answer": "50",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/1014.json",
+      "latency_s": 13.252,
+      "p_correct": 0.99,
+      "request_key": "sha256:81f1f54ac096641fa9fb53d11600b4ae5462d7a269f44952ca05701403e702f3",
+      "response_sha256": "7c93b63af567e1811b6edc1bbb8395cacb21fdfb3b5397721d7fbbaf764876bd",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 802,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 200,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 1002
+      }
+    },
+    {
+      "answer": "16",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/1126.json",
+      "latency_s": 10.709,
+      "p_correct": 0.98,
+      "request_key": "sha256:1008ccb1df87182918788025c15e3ba85fc03b93fff5ba70dfdaee4f8a651e4e",
+      "response_sha256": "1d316caec8dda0802fe1d041258e8ac372ea35e3bb2e972fde5540807a6933a5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 734,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 279,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1013
+      }
+    },
+    {
+      "answer": "100",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/1166.json",
+      "latency_s": 29.292,
+      "p_correct": 0.98,
+      "request_key": "sha256:f91ab20e2971f0d4e9b32cfc90a72c931afa374ee92999aee3ada3c06652869d",
+      "response_sha256": "4ccf387a83602d04f7694fe088090a135af4b3db49891d152f1b279305812ad5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2043,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 218,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 2261
+      }
+    },
+    {
+      "answer": "\\frac{3}{56}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/1197.json",
+      "latency_s": 41.418,
+      "p_correct": 0.98,
+      "request_key": "sha256:e68a88058cde4fb102fc6a8c1716a9939fd2360907ba7c8bc90efdbadb2369e3",
+      "response_sha256": "d5f72d1a6a7b494972174c9997b2bc50db8ba3146dc3a7b30a95210ccd24b34a",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2850,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 221,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 3071
+      }
+    },
+    {
+      "answer": "\\frac{1997}{2}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/1354.json",
+      "latency_s": 62.023,
+      "p_correct": 0.99,
+      "request_key": "sha256:a4e602e18e96ea7c3b8b5f3d2085ef8dd21157ee272bccc427388b2d5a007e9d",
+      "response_sha256": "3478d629868400792a379335d51a630ee45358cecfe16ece04bf9d8d93bae3b4",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 3323,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 232,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 3555
+      }
+    },
+    {
+      "answer": "6",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/1407.json",
+      "latency_s": 31.956,
+      "p_correct": 0.98,
+      "request_key": "sha256:46227a439c4f505d0d91d8d00aa4761704a4fb9b0549a8f6fae5384751956324",
+      "response_sha256": "adf9dc21dd779444f7ab2575e16378536cf3dc84b73c714ce564505dfdd27ee3",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1684,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 259,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 1943
+      }
+    },
+    {
+      "answer": "8n^2 + 4n + 1",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/1467.json",
+      "latency_s": 67.981,
+      "p_correct": 0.99,
+      "request_key": "sha256:c82f8d93402fce0e5add463a42739d669f8e8c1e7e8ec11a1ca70242474f26f1",
+      "response_sha256": "f1169030542210f37544f282c7d23024b9754e2c426c0d563a74e00bd8c5ec8b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 4715,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 265,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 4980
+      }
+    },
+    {
+      "answer": "x^8 + x^7 + x^6 + x^5 + x^4 + x^3 + x^2 + x + 1",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/199.json",
+      "latency_s": 30.084,
+      "p_correct": 0.99,
+      "request_key": "sha256:e6c7da1052e94a66125aafeba1e843d87829d47123c53e959cc0e7a8a711f642",
+      "response_sha256": "2460eddd87c3145cbc44f627255ab13952f25d31d454544a9b2077457c88aa15",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1663,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 184,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 1847
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/2046.json",
+      "latency_s": 13.308,
+      "p_correct": 0.99,
+      "request_key": "sha256:29952c8469fd179d3536fa5aab80012e8a25ac675a2aa83f7aa55b6187395bd3",
+      "response_sha256": "686a6b694a5d3ab138eea52a02ab938fea09f08919bd36b439ed8e9619cdfe20",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 788,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 186,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 974
+      }
+    },
+    {
+      "answer": "40",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/362.json",
+      "latency_s": 44.631,
+      "p_correct": 0.98,
+      "request_key": "sha256:abdd00d00aa1c5a4c4b5542d178a4aedf1a9de25fa8a5c56763d3292bcc7fba1",
+      "response_sha256": "03642c7657ef94863d5e93fa34f2040a2093408028dec8dabe7ee7d968827a87",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 3511,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 242,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 3753
+      }
+    },
+    {
+      "answer": "(-2, 1)",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/47.json",
+      "latency_s": 12.844,
+      "p_correct": 0.99,
+      "request_key": "sha256:cadee6459c8e25e3f95267ebac1e467c7ff0ddcfd1021afbc1a555da82e08706",
+      "response_sha256": "3e8712329d1a7d3a0020a2683bf79423f0c111ebff2889f7345d336b1eed0f67",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1030,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 231,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1261
+      }
+    },
+    {
+      "answer": "(3,4]",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/558.json",
+      "latency_s": 77.164,
+      "p_correct": 0.98,
+      "request_key": "sha256:124860a60f1354ba4f83122bc23903b0fd1bd9cb733a2235fbb2951a5775f365",
+      "response_sha256": "3d01cab7e318f36c4f596b22d320fc8196aaa95c1213a0089e0eb662b3c109d0",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5687,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 269,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 5956
+      }
+    },
+    {
+      "answer": "(1, -16, -4, 43)",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/690.json",
+      "latency_s": 9.955,
+      "p_correct": 0.98,
+      "request_key": "sha256:3c4e1c9b0141e48a4b886c1ef7d6b99f6422e648e4f9ea2d28c24821ebcc319e",
+      "response_sha256": "21bbc088d6a1509c9d98a2bfb6656d1b3301885f0f894bc9add9b4d16514d0ec",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 864,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 234,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 1098
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/intermediate_algebra/894.json",
+      "latency_s": 73.22,
+      "p_correct": 0.98,
+      "request_key": "sha256:cb3f58a653d0dc1c799a461c069640c42f47ae41a809857a90e591d17ca8843c",
+      "response_sha256": "386f29d32c918f68c1887fc7f65d859252164221a719247fc3d01595fc1bfa4b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5141,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 248,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 5389
+      }
+    },
+    {
+      "answer": "4",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/109.json",
+      "latency_s": 7.692,
+      "p_correct": 0.99,
+      "request_key": "sha256:de5e49cc4e08650fe4dba043c172ce308ae1b3c5dee94d00484fdd407ffe9a47",
+      "response_sha256": "87e7dfa97644257b1579cb2d4e8ea93e06c4af908c787fbb180d0e78f4fb7d84",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 477,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 198,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 675
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/1128.json",
+      "latency_s": 6.218,
+      "p_correct": 0.99,
+      "request_key": "sha256:63765de28bcd4abbd0e82af6384b222520c11b1e60b69273501a5e79c8323cb3",
+      "response_sha256": "fb73fd6446201a8b28214c9d20f3e29e64023571f7656cfbd65f0f6f8015ddf9",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 608,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 208,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 816
+      }
+    },
+    {
+      "answer": "6",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/1185.json",
+      "latency_s": 25.497,
+      "p_correct": 0.98,
+      "request_key": "sha256:3a2379e2a86bfc16fea8aa075f11cbc66a746811cbdca8275f7f86fd28a47e3d",
+      "response_sha256": "d833f7cec06e5d3aac74d5c31686a792dbdd69bf2a10858c6d3c2043293019d5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1424,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 225,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 1649
+      }
+    },
+    {
+      "answer": "1",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/1201.json",
+      "latency_s": 2.75,
+      "p_correct": 0.99,
+      "request_key": "sha256:229803d93c2ac2840b352094fce1395fe8cd9be12af937ec4883f9b09c5b01fd",
+      "response_sha256": "9f5d35dd3f061328c1de33c72983ae08a4bf41700455c93f7e3bde3f895ec72a",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 310,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 185,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 495
+      }
+    },
+    {
+      "answer": "66",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/149.json",
+      "latency_s": 8.831,
+      "p_correct": 0.98,
+      "request_key": "sha256:4b9f7198a65f56d01b3b1dcd5cacadaf4c60304464b1aedb03fa4e217d20562b",
+      "response_sha256": "d58e9e05ce12782a898144aed005810d9669d283adb58938fd8111a74f12638b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 507,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 236,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 743
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/239.json",
+      "latency_s": 4.319,
+      "p_correct": 0.99,
+      "request_key": "sha256:d14242315321c95b4584a1cf03b50bc47d6d803420a880eb162af6d9a6c5620c",
+      "response_sha256": "b6cc1ab22ac4080342db3951bfddb00b3710222c4192d57cf495c9fdb8517263",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 339,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 216,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 555
+      }
+    },
+    {
+      "answer": "0",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/342.json",
+      "latency_s": 2.079,
+      "p_correct": 1.0,
+      "request_key": "sha256:ef908481b51d8f9629e72a0567d9acdcf00c6da467fb55af9c35a18d3cc2063a",
+      "response_sha256": "79bed9203e5440dbc73dab8115266ed48f4d8f260380693a73e963de0b68c02e",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 115,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 175,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 290
+      }
+    },
+    {
+      "answer": "23",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/45.json",
+      "latency_s": 5.556,
+      "p_correct": 0.99,
+      "request_key": "sha256:795f77e128a6790d102953b324fc2b65f251663b052de09b056bb46cfbba090a",
+      "response_sha256": "1f954b607de5b6f3500e70e4a1d8963026d5a396ad287844aa3050f7daed2e7a",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 455,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 189,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 644
+      }
+    },
+    {
+      "answer": "1",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/466.json",
+      "latency_s": 4.491,
+      "p_correct": 0.99,
+      "request_key": "sha256:be4f6d6ec1f5a40cc3a45e0cac93980479ef5a6da34f30c29d242af4219cd77d",
+      "response_sha256": "d335ecee795df769f0231fe663c5bb7a7eae230ded99d5fa445d0263504b6545",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 294,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 195,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 489
+      }
+    },
+    {
+      "answer": "58",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/488.json",
+      "latency_s": 26.922,
+      "p_correct": 0.98,
+      "request_key": "sha256:c0a8f2cd0bea42aa23ebd1939e19b91b6237a93446e86de865f6481aa39d9e35",
+      "response_sha256": "6f00afc987cfec8b11283a492c25df3d3628f914c2c3896d80ee2abe3d0f8e0c",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2275,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 220,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 2495
+      }
+    },
+    {
+      "answer": "1030",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/533.json",
+      "latency_s": 12.668,
+      "p_correct": 0.98,
+      "request_key": "sha256:9176c3a58202cbf52bc999326fd6e74991940251c055364deaa731fdc952e266",
+      "response_sha256": "a80bdd924ada490a66f1202668d005c9ed63b3c44d29c0de37457aca44ca5ced",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 891,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 1104
+      }
+    },
+    {
+      "answer": "59",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/679.json",
+      "latency_s": 6.293,
+      "p_correct": 0.99,
+      "request_key": "sha256:8602a1522625f13338c5db743cd7961ed09dcb63477f4419ec18744e48adba75",
+      "response_sha256": "8d62a9b3d95c32317499d1922d06462cbd715a98edf2b135452b94970a22191e",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 619,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 267,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 886
+      }
+    },
+    {
+      "answer": "9",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/769.json",
+      "latency_s": 10.173,
+      "p_correct": 0.98,
+      "request_key": "sha256:93daabe00d832ef7ec4e8e9721eeef87d64796cf3e1a5cf7864f17abde5cf9c7",
+      "response_sha256": "7f203f1bbbf0301263225a4493962b65023f9175512f83398caa40bcdd547a6a",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 907,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 190,
+        "prompt_tokens_details": {
+          "cached_tokens": 60
+        },
+        "total_tokens": 1097
+      }
+    },
+    {
+      "answer": "6",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/838.json",
+      "latency_s": 13.705,
+      "p_correct": 0.98,
+      "request_key": "sha256:8b47dffa5194d109f1eacefea055a6e8ac3931c8a4dc4a52864078de4ed04f0f",
+      "response_sha256": "d2efa4fdcf93e67bc38461319076fc998fd0dc6d3413de1375946f421344f9fe",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1095,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 227,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1322
+      }
+    },
+    {
+      "answer": "3",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/number_theory/911.json",
+      "latency_s": 8.192,
+      "p_correct": 0.99,
+      "request_key": "sha256:5366d78018f01fc8ffddb9051e74d6a106bc57e569abf53e482002196a0eec3c",
+      "response_sha256": "7aaacaf626ba9b46bab64f8862d1460a8da97bcfe4dbd21945049a06caa60b0b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 794,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 237,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 1031
+      }
+    },
+    {
+      "answer": "\\frac{270}{7}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/1003.json",
+      "latency_s": 73.845,
+      "p_correct": 0.95,
+      "request_key": "sha256:d255c6abcf4dfd5cdf0b41242a04d2c5749ee222dc93e0f7b7d5d8b6fc37b824",
+      "response_sha256": "5ff07ba75cbea7dbd80e21076a22733843923f86610525bd5d548a58a388bbc5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5650,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 366,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 6016
+      }
+    },
+    {
+      "answer": "4",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/1139.json",
+      "latency_s": 169.436,
+      "p_correct": 0.95,
+      "request_key": "sha256:eb8dcdb4dec85f7bcb58b7b59fac32cf56817b68c0e9a645d1ce155db0a2bba9",
+      "response_sha256": "7212dbfb10518cca6fe6847b10d811afb324f93e0c62e2a403ac7ccc7bad731e",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 7820,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 311,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 8131
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/1238.json",
+      "latency_s": 9.047,
+      "p_correct": 0.99,
+      "request_key": "sha256:91f1d1e0e03afd3dc8bd1ad5649dce331088e72a8a32124d332435162d646ac6",
+      "response_sha256": "575962729469a8df2cb5509b4644b0941f114ab1cd0129c855d4ca08d1d16dc5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 413,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 189,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 602
+      }
+    },
+    {
+      "answer": "9",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/1297.json",
+      "latency_s": 6.484,
+      "p_correct": 0.99,
+      "request_key": "sha256:1b83ec05c9a3c66fc2c757779bdd60988a39efaa16ab04aeb2d6aa6a11cacba2",
+      "response_sha256": "2df098fc99fac7d58afccdb66d2587cdf11ef9509b0d5077508f15787e45d9bc",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 453,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 232,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 685
+      }
+    },
+    {
+      "answer": "7\\pi",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/1512.json",
+      "latency_s": 6.393,
+      "p_correct": 0.99,
+      "request_key": "sha256:211550889065b87c96e8719d59609e75c020cccf0cb41eef151086d16543fceb",
+      "response_sha256": "c713dd5c310be84c03a38da232aedaf9fc1657f8676231aa326acf655e9ef911",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 528,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 337,
+        "prompt_tokens_details": {
+          "cached_tokens": 57
+        },
+        "total_tokens": 865
+      }
+    },
+    {
+      "answer": "42",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/1622.json",
+      "latency_s": 5.761,
+      "p_correct": 0.99,
+      "request_key": "sha256:5b5e4d5760bd2411f804f8971c12cbaf7c1842f641bab0cf87032d714c50e306",
+      "response_sha256": "cf94fcc929f5fac72032de84e3d2decdb67559d8970bccd64d8c3152f2756ef2",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 298,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 203,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 501
+      }
+    },
+    {
+      "answer": "78",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/1840.json",
+      "latency_s": 3.437,
+      "p_correct": 0.99,
+      "request_key": "sha256:3f9a756ad5bcedbac9eadb42d1ec538b20f0427978fc991418e2c3ff5527d0d5",
+      "response_sha256": "6f9495b33b89faebb8b7461c40471f8e174286f6d56ed4e5f28dae2980fcc101",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 262,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 243,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 505
+      }
+    },
+    {
+      "answer": "4.5",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/2019.json",
+      "latency_s": 2.033,
+      "p_correct": 1.0,
+      "request_key": "sha256:085b39da515845cd7ca836ba9911aedb3fc8ed46f1965814770a06af2c69b956",
+      "response_sha256": "f321f50cccb2ca9d4a56adda2e3ed3c1a001565f9709cbf25f209cba48fdcdb9",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 166,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 176,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 342
+      }
+    },
+    {
+      "answer": "22",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/2066.json",
+      "latency_s": 4.496,
+      "p_correct": 0.98,
+      "request_key": "sha256:15669b1d60027f18e59d13572887dafb6e7b0be633d91963f61844da296535ac",
+      "response_sha256": "e4125c0a2d79aedd6035c1d4975c7900698438b9f226a4226876b0c02b7909f6",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 283,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 242,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 525
+      }
+    },
+    {
+      "answer": "36^\\circ",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/260.json",
+      "latency_s": 124.536,
+      "p_correct": 0.99,
+      "request_key": "sha256:12ecc70ba65278c40437d31c2cff381fbf05095f7fa8295ef69e299269525df5",
+      "response_sha256": "7bb75f26711929d66434b80edaf9da600aa6a68a7f20616e948921af2d3fd9bb",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5849,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 504,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 6353
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/631.json",
+      "latency_s": 29.616,
+      "p_correct": 0.98,
+      "request_key": "sha256:bb1ce786ce51fd16c3ce372f8a7ebfdd4039663b9b270026eb82c0d72dcc5af7",
+      "response_sha256": "c6dc1866157569ac010d36aa7eba05eee90de486a85d4e3d41957ffc7c99883c",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1818,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 384,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 2202
+      }
+    },
+    {
+      "answer": "1250",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/prealgebra/993.json",
+      "latency_s": 5.898,
+      "p_correct": 0.99,
+      "request_key": "sha256:19f25e233681414be56e0eb657b46a409dca3da85b83ed99e795aca8b8f0436a",
+      "response_sha256": "18ed84d3a69fa152fe31747904f1881a27529094d89517cbab5a215ffb2410d7",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 386,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 237,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 623
+      }
+    },
+    {
+      "answer": "30",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/117.json",
+      "latency_s": 83.089,
+      "p_correct": 0.98,
+      "request_key": "sha256:d1b31e02fc5f632a9374a161dc21bf6407acdba95db76eba9deafb72d463a829",
+      "response_sha256": "8584502fdc96c3199665f6a8306647edd3b5b0f9fc2cff318fd5549da789ce27",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 3492,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 356,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 3848
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "math500:test/precalculus/1281.json",
+      "latency_s": 161.024,
+      "p_correct": null,
+      "request_key": "sha256:cc2d18d48ca40c699e5c38c7f163b1da4387dd74d19ccbfd1307350ff291e412",
+      "response_sha256": "fe55467ac7e731a029c2d4cc525db379f389c9283436b794519ce0cbc4e31199",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 361,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8553
+      }
+    },
+    {
+      "answer": "1 - 12i",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/1291.json",
+      "latency_s": 4.68,
+      "p_correct": 0.98,
+      "request_key": "sha256:6705a041751615943b3abbbe2ad2d767099f893d846c65527293efcdb806c99b",
+      "response_sha256": "32d6ff3c7f55564f5c95df10717f0ebe518c94aea018ede7731d98ca7dafe701",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 378,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 203,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 581
+      }
+    },
+    {
+      "answer": "\\sqrt{51}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/1303.json",
+      "latency_s": 9.005,
+      "p_correct": 0.99,
+      "request_key": "sha256:7dc951585eb28a366aaee61d205f2844feecfd0f8d86761c7bdc349f5f379401",
+      "response_sha256": "58c5908c78ffa750fbc44a2b1ccf08b6ec00e3be1fc4c69035433bed21ef1f76",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 480,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 275,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 755
+      }
+    },
+    {
+      "answer": "\\begin{pmatrix} -2 \\\\ -14 \\\\ -7 \\end{pmatrix}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/263.json",
+      "latency_s": 16.841,
+      "p_correct": 0.99,
+      "request_key": "sha256:ce187257142bf3552fd8ba8eb6d5ebc2054dc9d767b62ca57f2882478ea13f55",
+      "response_sha256": "f1b6104feb6c8b594079f0c1ce6518085c1918b90751083e6954817d0774387b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1015,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 311,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1326
+      }
+    },
+    {
+      "answer": "6",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/285.json",
+      "latency_s": 46.69,
+      "p_correct": 0.99,
+      "request_key": "sha256:c1cba0b8f581bd37d9a2df61bcfc835dc906997d59aee33e837f0720655bfaf4",
+      "response_sha256": "10026f589ccaf16c4e6e16b2363105c9e045ae3a6e50aff26acc13ab6f7de06d",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2383,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 206,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 2589
+      }
+    },
+    {
+      "answer": "120^\\circ",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/44.json",
+      "latency_s": 32.882,
+      "p_correct": 0.98,
+      "request_key": "sha256:408121b7a1d9ec911ec1046a6280c46880692e03262585cf720f7c0d5679174a",
+      "response_sha256": "fcd1571d07038c55e08c570460b51be44456fc162c5da5e175e708e54f0aceca",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2729,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 303,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 3032
+      }
+    },
+    {
+      "answer": "\\left[ \\frac{\\pi^2}{8}, \\frac{5\\pi^2}{4} \\right]",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/499.json",
+      "latency_s": 65.319,
+      "p_correct": 0.98,
+      "request_key": "sha256:81aa67fe6105c6f367fb998337a05c545ea24c6603a1a0d97cf176d7e9cb6845",
+      "response_sha256": "dea6d01f4780305409046736f97d7e0c38a0112fb20bdef1173d99d14a2a1206",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 4047,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 202,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 4249
+      }
+    },
+    {
+      "answer": "\\begin{pmatrix} \\frac{16}{49} \\\\ \\frac{48}{49} \\\\ \\frac{24}{49} \\end{pmatrix}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/625.json",
+      "latency_s": 8.34,
+      "p_correct": 0.99,
+      "request_key": "sha256:cd96d38c576201c76ff39947a06eee3ef30c7075df964dc2bc94b247d8ecf77f",
+      "response_sha256": "025c08fcce9224d8009a823d40eed174cc9f8318651e05dec2d25f64768ef65d",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 555,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 220,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 775
+      }
+    },
+    {
+      "answer": "\\frac{1}{8}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/681.json",
+      "latency_s": 7.584,
+      "p_correct": 0.98,
+      "request_key": "sha256:fd9e47b3d97d8cb29586560c6c487fbd5fd87c78f9c884cb48705c7668ca575f",
+      "response_sha256": "4bae607847909eaf7b53d3b485571dc70ab2136f56a1e2238b22f180eba9baf3",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 746,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 184,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 930
+      }
+    },
+    {
+      "answer": "(-\\infty, 0]",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/695.json",
+      "latency_s": 10.851,
+      "p_correct": 0.99,
+      "request_key": "sha256:4481f6c50b7e3f7bd569a3b7153db54cdbed03719cc57e64bdd92c69ec28165e",
+      "response_sha256": "255bf9c9066f4551e06ebd1ca21aa79531099302ebaeddce6221f5b7f614f488",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 953,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 198,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1151
+      }
+    },
+    {
+      "answer": "8\\pi",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/703.json",
+      "latency_s": 37.235,
+      "p_correct": 0.99,
+      "request_key": "sha256:ed8e83ddf5e634965405751b6b89a21e65579aa879bd3d50bc5718ce818a1709",
+      "response_sha256": "c9d6216ebda1be81e49777669b304841d08d3d5befd1742d9e5bd2f84cfafda6",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 3074,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 246,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 3320
+      }
+    },
+    {
+      "answer": "55^\\circ",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/801.json",
+      "latency_s": 80.257,
+      "p_correct": 0.98,
+      "request_key": "sha256:b42a444fbc8539436a003bbe0a1d0c38a3c7df802f9d041d2171f0aea80ca433",
+      "response_sha256": "cb28b1515aae4d459d3d66efe3e7dad281c8413726f10ea12b60b9213609365f",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 4498,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 261,
+        "prompt_tokens_details": {
+          "cached_tokens": 259
+        },
+        "total_tokens": 4759
+      }
+    },
+    {
+      "answer": "C",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/819.json",
+      "latency_s": 5.38,
+      "p_correct": 0.99,
+      "request_key": "sha256:2f30208784b22299d8f2615ec098291b4758910f28fbb370e9c209878fa85b7d",
+      "response_sha256": "eac2df28b246a3c94bab756b661e4a0de72627c299ece034362e007320ee7b71",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 397,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 223,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 620
+      }
+    },
+    {
+      "answer": "144",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "math500:test/precalculus/986.json",
+      "latency_s": 6.695,
+      "p_correct": 0.99,
+      "request_key": "sha256:92fd244bd4ff4be458f83ea29d00efa4f46548cd49230cbf70e66c36beecbf72",
+      "response_sha256": "9ed4649ce94611edabf2dbfc73e5502123cb8e6d436f2b76122ac4eb8d72a342",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 660,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 337,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 997
+      }
+    },
+    {
+      "answer": "142",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1014",
+      "latency_s": 122.379,
+      "p_correct": 0.98,
+      "request_key": "sha256:e4c2c269761081cea968b9fe17e35be9bac1f041088c8666f7c23c2e7c1a223f",
+      "response_sha256": "d506e85ac8e2db3486c7e7a14b85a58438780581fcef31bda4fa86f4adc218fe",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 7927,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 325,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8252
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:1018",
+      "latency_s": 156.917,
+      "p_correct": null,
+      "request_key": "sha256:52d56e79f3264af1a17cb6b79a275aae4bae2a8b71a5f49f32050b7ab1e2570b",
+      "response_sha256": "a74a8464674a385575018722442535eeb073baee2459c85af3ea23b0a73b1147",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 424,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 8616
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1141",
+      "latency_s": 18.544,
+      "p_correct": 0.98,
+      "request_key": "sha256:3773ef4637bd9b0bdba309a5d3dd1eb19b9c2565fa0b53a09b86415698100727",
+      "response_sha256": "5b47b291a9ecba661b53f9d59e85410144bec9cd7ce1c1eff8e9e03e92672811",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1226,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 228,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 1454
+      }
+    },
+    {
+      "answer": "-3 + 5\\sqrt{2}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1143",
+      "latency_s": 96.674,
+      "p_correct": 0.98,
+      "request_key": "sha256:b17d7b5583e22646337af6f73e93859badc8713dbeb2b4aee3d9179d5c486fd5",
+      "response_sha256": "545a6aa26dd53acec9cc7793f1711d0fe1f5ce52fab78ae8a303a4447c3efd72",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 6323,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 213,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 6536
+      }
+    },
+    {
+      "answer": "16",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1202",
+      "latency_s": 75.703,
+      "p_correct": 0.98,
+      "request_key": "sha256:11b1a852acffc88f99b1a5522bc6ab81a28e2801c40f57d0168720d96a6dfbd5",
+      "response_sha256": "a43873566f4c68b3d757e2175297a0ac6a1083a9ebaf693e09152182c8c6f9e0",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 6351,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 244,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 6595
+      }
+    },
+    {
+      "answer": "\\frac{2^{2003} - 2}{3}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1221",
+      "latency_s": 21.474,
+      "p_correct": 0.98,
+      "request_key": "sha256:57a8bd2eb49649611cc9285d41fdb6f76b547edd14e559674a14a886405d374b",
+      "response_sha256": "69c73f3e9cd9de16926a764d701849d86ad62f9d7bddeb4ea4a2c35c4ef16187",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1182,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 219,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1401
+      }
+    },
+    {
+      "answer": "\\frac{1}{6}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1222",
+      "latency_s": 68.055,
+      "p_correct": 0.98,
+      "request_key": "sha256:1e447d32c826fb4db1da05325dc1ad84866c2469e8e4b1fac6e12df2455dd891",
+      "response_sha256": "ce3479cb2f20c6e16c156ffcf436b72fd50c8af2c20b8f3f1bd72faf181bfdd3",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5551,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 227,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 5778
+      }
+    },
+    {
+      "answer": "\\binom{109}{10}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1224",
+      "latency_s": 27.606,
+      "p_correct": 0.98,
+      "request_key": "sha256:13150a9ad6f3d551d4d706019be8c4e37ef89d85e150088b2daf1fba486388b8",
+      "response_sha256": "8daa5efeca6f1d2308599f74a72c9f0840fe32f508d552ea85a72a9ddf351cad",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1633,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 304,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1937
+      }
+    },
+    {
+      "answer": "372",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1239",
+      "latency_s": 37.517,
+      "p_correct": 0.99,
+      "request_key": "sha256:f058d4e0a2a4bf72ad18a80d36d453086f485b672d3c183e6f759893f01eaf2b",
+      "response_sha256": "a75a2053c2dbff5855ecdda6e0148b627d6549757fc4dc5a24bf3e1c9df18e03",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2102,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 230,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 2332
+      }
+    },
+    {
+      "answer": "\\frac{7}{9}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1241",
+      "latency_s": 96.821,
+      "p_correct": 0.98,
+      "request_key": "sha256:2b66439640f440f699178219ecb3dbe516f1a97afad031fa29b23e619a142c6c",
+      "response_sha256": "2d6cdfed3ef2a9b631c500d9717cbb74b3e604a4b10c2ae47fc6523febfd53c5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5698,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 246,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 5944
+      }
+    },
+    {
+      "answer": "4 \\times 3^{2011}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1294",
+      "latency_s": 75.487,
+      "p_correct": 0.99,
+      "request_key": "sha256:40ce7ce7bced9ca294c19ab32de1c614e6f45259283546ff1a9117655b419c35",
+      "response_sha256": "befe3fab908499ab78e77a4023e8864d0fd9caeb47bba93e467cca8efeec4bae",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 4186,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 222,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 4408
+      }
+    },
+    {
+      "answer": "\\frac{1}{2\\ln 2 - 1}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1306",
+      "latency_s": 18.025,
+      "p_correct": 0.98,
+      "request_key": "sha256:290641a7663c3514306852855f944ac56d6b2ab5aa8b100251ec421bb5e12951",
+      "response_sha256": "7fa9e182d52fc7eb34a5412028f629eb96fb6ee47b68e46f73a7325877b57bc0",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1281,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 272,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 1553
+      }
+    },
+    {
+      "answer": "\\frac{5\\sqrt{2}}{3}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1339",
+      "latency_s": 3.797,
+      "p_correct": 0.99,
+      "request_key": "sha256:b9ce35da0dc4a54abf9799f5e2ba04a238783c9334e30e128e138dde88c2dba7",
+      "response_sha256": "f763a21ff96a06790e4f28bf30ee16404fd69752ebca97635c80a7737cb6e8e1",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 281,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 210,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 491
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:134",
+      "latency_s": 153.622,
+      "p_correct": null,
+      "request_key": "sha256:d272db1c8f00fbb423f76ca63eea80bfd28e37a8119a03f8fcf1cf28bbddbabd",
+      "response_sha256": "738abf432d716477e5ac4dd86bcecbccd3c4bbcc2b47d2d42cb3305e29acee58",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 212,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8404
+      }
+    },
+    {
+      "answer": "\\frac{1}{3}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1349",
+      "latency_s": 29.546,
+      "p_correct": 0.98,
+      "request_key": "sha256:68f7e8b04e0c0d9cb7c7d546347195f74243359f6b7aba79134ac960f093c014",
+      "response_sha256": "9aa3547e80eaf3813cb180ca23f06cbe438facc38df734b54492e044080daad3",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2072,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 194,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 2266
+      }
+    },
+    {
+      "answer": "0",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1363",
+      "latency_s": 99.629,
+      "p_correct": 0.99,
+      "request_key": "sha256:0f398b7b66be2cb6f964fcb735ca702bcc95cad10187d0266ad3ef0cab31cbcd",
+      "response_sha256": "a7d223f0ca4cfc6f40a75fc2c1ba968785cbe159f3b6585d57c4587d4a49337c",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5133,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 215,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 5348
+      }
+    },
+    {
+      "answer": "334000",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1365",
+      "latency_s": 129.926,
+      "p_correct": 0.99,
+      "request_key": "sha256:bd16da3d6da399f02c2a65f6db53c398834fb2a2f4b48abfdbd568982e6b05b2",
+      "response_sha256": "eece7da7d3f109c48f20780a4093eb59b9e09b660ac054d7c20cdbaa428635d6",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8098,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 227,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 8325
+      }
+    },
+    {
+      "answer": "24",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:140",
+      "latency_s": 126.782,
+      "p_correct": 0.65,
+      "request_key": "sha256:0d9bbeb2816158b5ab18e188e2f026b01574815598890269dc175ad03f747ec1",
+      "response_sha256": "f98692b56ac4ea072983a9e794d91bc11e849ac062b078760193b89d87afe2a5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5295,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 243,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 5538
+      }
+    },
+    {
+      "answer": "0",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1400",
+      "latency_s": 76.259,
+      "p_correct": 0.98,
+      "request_key": "sha256:07c3f3501fda637a11b78e49b2e9aed34b176b29b8940aa091ea72715d0cb2f7",
+      "response_sha256": "7b413423b4ceef269c2a1105d276d310473b4758a44d28b5b950ae1d867e3a71",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 3754,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 212,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 3966
+      }
+    },
+    {
+      "answer": "31",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1421",
+      "latency_s": 20.811,
+      "p_correct": 0.98,
+      "request_key": "sha256:1a180b7939f490ffbeb6765a9a5cdc022e7ce52ed71bd99281d330747838c0c0",
+      "response_sha256": "213d2ad13473c92a6aee4cd718b30370aee02eae58e1f557c20f048ece277eb3",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1678,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 256,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 1934
+      }
+    },
+    {
+      "answer": "8/9",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1433",
+      "latency_s": 155.998,
+      "p_correct": 0.98,
+      "request_key": "sha256:a078ddb9b02ff8db0a984a75e998f64d2f08bfc341665f4a12b96ed6b24e7e66",
+      "response_sha256": "6bd9fa181a131f04d8517af415c1cae31b7b35300efdc142c22a642a346e6ce4",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5719,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 339,
+        "prompt_tokens_details": {
+          "cached_tokens": 337
+        },
+        "total_tokens": 6058
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:147",
+      "latency_s": 191.718,
+      "p_correct": null,
+      "request_key": "sha256:fbd83165aaed351c292f6b59cf0d4b4751af2d11cdd6a2e7868db594540f591f",
+      "response_sha256": "4caf4536cb995abd06dedfcc86cfdd4be6457d0af12b7e0cb95331b2322a45c5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 312,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8504
+      }
+    },
+    {
+      "answer": "\\frac{5151}{50}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1510",
+      "latency_s": 144.948,
+      "p_correct": 0.98,
+      "request_key": "sha256:d9513423490823fc84955e8f27ea4df3da66343d09dcff142d17eeaa13d1b1de",
+      "response_sha256": "dea50886fcaa39d9d710766bb3a4cd80dadef53d55bdffe61f57688efa36706f",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 6769,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 262,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 7031
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:1517",
+      "latency_s": 185.081,
+      "p_correct": null,
+      "request_key": "sha256:ee87bbc9c7778e56e25a9416fa899d645cc908e3bc6f372ed4473d858383ea80",
+      "response_sha256": "5b3f8988e32d7cb0fef2af9ab676aa8da6a00e41a6ff5584f477e59ad5491ed5",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 237,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 8429
+      }
+    },
+    {
+      "answer": "19",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:162",
+      "latency_s": 218.538,
+      "p_correct": 0.98,
+      "request_key": "sha256:892ed198d6a94e312c90e976c004ef0d78e42952b6540b1e3511821786bd46a4",
+      "response_sha256": "c66e449c7cb85de7c0d525b57faf54bd7813cfc5fad6b61afe4117671798d060",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 7196,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 244,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 7440
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1621",
+      "latency_s": 71.888,
+      "p_correct": 0.98,
+      "request_key": "sha256:b2167e3e5aee9ef6fb92f0a0e6e8b856904b8db912a764bd3b43f550db8dc9c9",
+      "response_sha256": "3a64f3a8cb44a3ea830da8e7273e00121ef47aaa55e616b1afc2a0b1276559c6",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2524,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 238,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 2762
+      }
+    },
+    {
+      "answer": "\\frac{23}{30}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1625",
+      "latency_s": 77.584,
+      "p_correct": 0.98,
+      "request_key": "sha256:0509291d2cb293da92e7bc3cfa6ab693ad142946317dfa0cb34db2b036ae6d3d",
+      "response_sha256": "3d1f123706eb38486711c765d23b0f3326db2fa7ba665dba60d25657aba24be1",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2941,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 364,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 3305
+      }
+    },
+    {
+      "answer": "-1",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:164",
+      "latency_s": 242.734,
+      "p_correct": 0.98,
+      "request_key": "sha256:d2d61122aeb2ff1d4541092c1b04849b6401277bd809f9c24daa60044af8aa53",
+      "response_sha256": "3cf7f359d44dc5f0b329aff684de8153eb45fc1f10108fe3697289df86ca6855",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 7061,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 220,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 7281
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:1656",
+      "latency_s": 206.143,
+      "p_correct": null,
+      "request_key": "sha256:842d18c85ce68c4d9910d158eb286d8ca93e0774a7f0dc2329b7cfc1a61b6795",
+      "response_sha256": "71f15dbbff5c3309a35bee3c21fa4053d351f49679369df5eef78e54d9ca1e66",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 336,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8528
+      }
+    },
+    {
+      "answer": "\\frac{2009}{2}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1662",
+      "latency_s": 38.058,
+      "p_correct": 0.99,
+      "request_key": "sha256:206579adfaeb2a675c8bfd77104efac3a67f97f8346e5f79ab0e4e46cc94e898",
+      "response_sha256": "84aa68570b8ce6d727b513a39143e180e33f2f5aebc13eda33e02f3c88427423",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1262,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 257,
+        "prompt_tokens_details": {
+          "cached_tokens": 56
+        },
+        "total_tokens": 1519
+      }
+    },
+    {
+      "answer": "2^{20} - 2^9",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1734",
+      "latency_s": 151.936,
+      "p_correct": 0.99,
+      "request_key": "sha256:22961cf8575a10ff6de6d08511f184b7d76cca43f5a85c3188206b4cfe72d912",
+      "response_sha256": "dcf3392965210487d2dc062809a5a86c03804bd62e37c4600bc2a2081f09d062",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 5676,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 195,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 5871
+      }
+    },
+    {
+      "answer": "\\frac{5}{4}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1772",
+      "latency_s": 41.973,
+      "p_correct": 0.98,
+      "request_key": "sha256:c8db2bd0ff28bb12a48a8c57e25787257e6b81e6e3bfcbbc487e432d263828c1",
+      "response_sha256": "740f94206c42d18e3c2f57ae5f15e7230b6eb3c5543bbfc13c00f93b4e30186b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1831,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 215,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 2046
+      }
+    },
+    {
+      "answer": "113",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1788",
+      "latency_s": 245.761,
+      "p_correct": 0.99,
+      "request_key": "sha256:fc4212a44ae5e92367f2b805bc8e8fbbc9bd4466f3fe06d160aa67b7876f4721",
+      "response_sha256": "6c8f4f2b8bf47dbd88bfce938c9042a8d35fe33b3ea498046dd770637ba7a307",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 7176,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 248,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 7424
+      }
+    },
+    {
+      "answer": "5460",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1794",
+      "latency_s": 60.25,
+      "p_correct": 0.98,
+      "request_key": "sha256:43f5a81315adcc9cdc81a7916ad52257f2f822a2375c32af39fa178344fa86f6",
+      "response_sha256": "e5f4a3fee0847395f464b69ae155afaab6b937e06f00468ab57b297597613d46",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1815,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 267,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 2082
+      }
+    },
+    {
+      "answer": "\\frac{1}{2}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1799",
+      "latency_s": 47.059,
+      "p_correct": 0.99,
+      "request_key": "sha256:6748e83aafa3d5372a2b952c4fd26c771caba352439caa232e87e101d7f1fdf7",
+      "response_sha256": "d836abd34955ab6f585fa4c721b6453062922e275764b0539a0e97eadf38456f",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1111,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 202,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1313
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:180",
+      "latency_s": 204.364,
+      "p_correct": null,
+      "request_key": "sha256:15cc4f246307e970ff41332879bb9a473e39bdc02d54e748bc883b90d0d9b821",
+      "response_sha256": "f80bfbb13747995b0ba123246b57b1c1d802a38ff1bf3802c78a1df98e1ad1e9",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 280,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8472
+      }
+    },
+    {
+      "answer": "3",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1807",
+      "latency_s": 85.382,
+      "p_correct": 0.98,
+      "request_key": "sha256:003ac610ca98820680e6a99386be67a9ed4063a69d5cc013f2f5ed528811ef7b",
+      "response_sha256": "fe62d1f4166ffd7227191a0a8d974ec5f0190b5ff021b10b54d9573769df4c80",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2352,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 257,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 2609
+      }
+    },
+    {
+      "answer": "69",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1880",
+      "latency_s": 80.315,
+      "p_correct": 0.98,
+      "request_key": "sha256:124be12d0e2e55c466fecc250599d8fe5a91a1c5403e280b64884c119f3ed476",
+      "response_sha256": "52bf23b5464708aabad43524c3025f2b5bddda96c5bfab8c69839ea9dfd057f0",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 4195,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 272,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 4467
+      }
+    },
+    {
+      "answer": "1/6",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1974",
+      "latency_s": 4.655,
+      "p_correct": 0.99,
+      "request_key": "sha256:e2afe7796c7b1c64dd650ec27ac8ffb416371a12d0a4b90cf0ed8af111f10480",
+      "response_sha256": "d8a511b44e0e173bd3068681b36cdf3e0ba4ccfdc682539f33c7eacb2bce2f84",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 220,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 184,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 404
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:198",
+      "latency_s": 163.291,
+      "p_correct": null,
+      "request_key": "sha256:5aa97b03d0db7ee47185823bc15daacd95e8f759e99ce93514d28b10145df4ef",
+      "response_sha256": "0dfce5d676314a066c92526243615afef4a450fa3e00ea2e1ff7115110ed4419",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 346,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 8538
+      }
+    },
+    {
+      "answer": "85",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:1999",
+      "latency_s": 117.73,
+      "p_correct": 0.98,
+      "request_key": "sha256:0eeba2b8a0dfc68ddb922f4e22b748dc6c8efd516a7de95096b169c550d19f86",
+      "response_sha256": "a7218e09bd2637d7cd2a6dd1526af86be92cde29028427190be2b13c8aafa6ff",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 7037,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 226,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 7263
+      }
+    },
+    {
+      "answer": "1164",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2019",
+      "latency_s": 23.571,
+      "p_correct": 0.99,
+      "request_key": "sha256:0bde457904adebe52f92fc681578c53cf0b18d18acf1db7443a53dd05c5c9390",
+      "response_sha256": "7ca81a64c43d0866ab9615733b3235161c68a63658cd429abaca9a7c4d61bde4",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1103,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 248,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 1351
+      }
+    },
+    {
+      "answer": "10745",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2081",
+      "latency_s": 11.823,
+      "p_correct": 0.99,
+      "request_key": "sha256:e92e743367f8cdf5427b3d5e1bae0498882e281017ecdd25454ebb740e2faad5",
+      "response_sha256": "52ee3dcf583c48785a927a1c3bd635bd10ad0921a54f2be7923948f7294bea6b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 701,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 190,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 891
+      }
+    },
+    {
+      "answer": "7",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2087",
+      "latency_s": 10.768,
+      "p_correct": 0.98,
+      "request_key": "sha256:d160d302566578ca1d382e13f7da92567e6a3e1830f849803856d12e4abdcbe8",
+      "response_sha256": "c27a9ca4083e3fbe9ddf50e7316b4b30dc36060f04465fd054becdc8efdaa5e4",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 771,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 192,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 963
+      }
+    },
+    {
+      "answer": "3480",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2104",
+      "latency_s": 59.238,
+      "p_correct": 0.98,
+      "request_key": "sha256:328b5661320691d193c7b72c34fed4ff6f934144cd213befcc2686da7ccd41e3",
+      "response_sha256": "1a1102f8a1889703aa248ece4c87d21d1e7f2fcffa80bbca127bb5adde42b97a",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 3288,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 261,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 3549
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:2113",
+      "latency_s": 182.052,
+      "p_correct": null,
+      "request_key": "sha256:9838ab55a295add8adeb1bcfecbdc67feb1d1e9fe72ce2024eb612f0cb852c97",
+      "response_sha256": "07d4332ffc67922f47637c22ba2e6126cba3b6735a07bc44565f9df00bc65457",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 211,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8403
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:218",
+      "latency_s": 164.602,
+      "p_correct": null,
+      "request_key": "sha256:a28c00717042dcf0aebac25b6f8f2463e398f21ca1bc1dd894e4a9c25a9fcd8b",
+      "response_sha256": "9485890543d71d3f2e996c35be91c2397d46f2957c6496f966d7c3d1fe2a4c8b",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 224,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 8416
+      }
+    },
+    {
+      "answer": "31",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2216",
+      "latency_s": 6.655,
+      "p_correct": 0.99,
+      "request_key": "sha256:644e98ba2fbbbc60ed34074631cbd4efce31fc154decc01f373b828ac0f84426",
+      "response_sha256": "6827ecdf354367e82ae27b25688dc2e248078c7cffce16d709c9acc8b3920a77",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 379,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 200,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 579
+      }
+    },
+    {
+      "answer": "20",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2226",
+      "latency_s": 35.652,
+      "p_correct": 0.98,
+      "request_key": "sha256:45138e2b4fbe165ca098321815b0353727cedb1fed40067a989fd00d5e54d71d",
+      "response_sha256": "fc6ca4210b4aac736baa4373e7dfabd2a672ffd6d54a562d9af0d21231696050",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2187,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 209,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 2396
+      }
+    },
+    {
+      "answer": "\\frac{1}{2}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2235",
+      "latency_s": 148.092,
+      "p_correct": 0.98,
+      "request_key": "sha256:99b3bed23b89fa3e1e4a68fbcd87c3fc86956abd3af4ad2cc2ec00c9557e6a6a",
+      "response_sha256": "7aa85341cc9f37049d4695544234c05f6ca073fb9bd4fbc19d0430a6c4c76aab",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 6438,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 194,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 6632
+      }
+    },
+    {
+      "answer": "20",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2249",
+      "latency_s": 6.585,
+      "p_correct": 0.99,
+      "request_key": "sha256:61ce1c87042b63bc1c36f3e9359c1c8b550227c096eaf4223ffd97128f5b6c55",
+      "response_sha256": "60c680e29df3f7451744fe65f2c942b1f253f1239c7c23f8b54fae8c57d071f4",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 306,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 237,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 543
+      }
+    },
+    {
+      "answer": "4",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2256",
+      "latency_s": 30.133,
+      "p_correct": 0.98,
+      "request_key": "sha256:822e1b54ba918d3716d2218a0d522a6648fede66c594fca23392bd2493d12872",
+      "response_sha256": "80a6ae7f605fce1bee468a879973c02c747e99b6108f198a46dc09dfffca2ae1",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1666,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 205,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 1871
+      }
+    },
+    {
+      "answer": "\\frac{21}{32}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2269",
+      "latency_s": 73.005,
+      "p_correct": 0.99,
+      "request_key": "sha256:28d22777a4e2b9ecd4fb1d2f07af06a9fa9c9f35f8792553045f379c2ce53949",
+      "response_sha256": "95a3af74ec467d86cecad3e17b38fc90c843319834fb231267ebfc56b350836f",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 3237,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 217,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 3454
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:234",
+      "latency_s": 181.88,
+      "p_correct": null,
+      "request_key": "sha256:80709ed9856ab6f457c2d8e12b1366fe75e57a3cbcdf92a7c59fcc44a6b96181",
+      "response_sha256": "91c68998894afdb8659a6c30d093d645615a01b80030718d17b6a6af4600e9ae",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 227,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8419
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2342",
+      "latency_s": 13.296,
+      "p_correct": 0.99,
+      "request_key": "sha256:4d3a279bcbbcd468e11b1eaae3370f956551baf93bfdd8c02e48c481eed817a4",
+      "response_sha256": "37e4ed7fd0f41a16f0b35a0cd3415b953e23ff9a1469afe2f7493e17c784bcc1",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 864,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 253,
+        "prompt_tokens_details": {
+          "cached_tokens": 251
+        },
+        "total_tokens": 1117
+      }
+    },
+    {
+      "answer": "7",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2344",
+      "latency_s": 3.436,
+      "p_correct": 1.0,
+      "request_key": "sha256:a05cb8fd730cf8d68f81930f9ca79d38fdf34afa1e1307de656a945c929206ce",
+      "response_sha256": "5b5b0d612a25e7e1b223dcb1ea5905f220d871841c7705dc013ab0424e92971c",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 118,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 182,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 300
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:24",
+      "latency_s": 166.684,
+      "p_correct": null,
+      "request_key": "sha256:0359bfef10f5ee6e4e79e50f720c15606407d18800f7fd16f25685e913708f9c",
+      "response_sha256": "6efabef00d7ddbcc0c681f8a94d0cf0ba5a3bb4383b769633a2578da0a73c3ef",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 258,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 8450
+      }
+    },
+    {
+      "answer": "6",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2404",
+      "latency_s": 21.01,
+      "p_correct": 0.99,
+      "request_key": "sha256:753182330c59dad6dceed7661793ec4f87a0615261834d8e8c66ad00fec754a8",
+      "response_sha256": "4d68508dcffd0c76d023de62c73bc7d839949aa8b8300475f3d59b2b56e78a02",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 1153,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 208,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 1361
+      }
+    },
+    {
+      "answer": "9",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2405",
+      "latency_s": 2.272,
+      "p_correct": 0.99,
+      "request_key": "sha256:903447aa4e93e9e84e37666ed4bc80988e03dc20f336de24bff2a090712856d4",
+      "response_sha256": "253ef64c6c516dd5f99a68ce2471b7838e0f9b4a2180ed658243f01b1ab448d7",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 143,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 188,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 331
+      }
+    },
+    {
+      "answer": "2",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2460",
+      "latency_s": 9.124,
+      "p_correct": 0.98,
+      "request_key": "sha256:200457ed95e05338a1b2a104389d455d398a38bb81ae9d9f3e4d9f9e1b1a4678",
+      "response_sha256": "84d7f91183695ca452a46118e7344078427ea04584d172db47e70e91705486b4",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 491,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 222,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 713
+      }
+    },
+    {
+      "answer": "8",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2476",
+      "latency_s": 5.689,
+      "p_correct": 0.99,
+      "request_key": "sha256:729590d4df5d443dc2440a56beeb95242b1c37b7ccb48677e383c87c35a3579d",
+      "response_sha256": "8d96abcdc830b5623550d73ba20533c9c38bdc8f3df6f8e20bbcd57d974078d4",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 247,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 189,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 436
+      }
+    },
+    {
+      "answer": "15",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2496",
+      "latency_s": 5.652,
+      "p_correct": 0.99,
+      "request_key": "sha256:d8836d6395fc8c56acb55bf7838e15b8e44ff583025382df9884c355e4adf10f",
+      "response_sha256": "b97c7d5682fa864f4bf08928fdc50687c5223c36a4fab1480c84304ac9417e1a",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 286,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 214,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 500
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:25",
+      "latency_s": 188.21,
+      "p_correct": null,
+      "request_key": "sha256:45c7645339f10de3264bcb0839d0f7bb3f6e5c54d1f80756a79b5e77e85a0e31",
+      "response_sha256": "d51425378262abd646e9138c03884841d3238cb7e6b8c88bc3a5669c125b12f0",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 297,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8489
+      }
+    },
+    {
+      "answer": "\\frac{1}{2}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2536",
+      "latency_s": 53.039,
+      "p_correct": 0.98,
+      "request_key": "sha256:ed784ddc5a426c95e20797094828d4fe3e164e7f7326f4c6b6a7ccf8cdc43d5b",
+      "response_sha256": "25b0e21771450f0919b1909a5af2bcd1a289deff9dd04c96af9c53be9d4b0e45",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2391,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 217,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 2608
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:258",
+      "latency_s": 214.6,
+      "p_correct": null,
+      "request_key": "sha256:4b4b02dbe0fe7fa2b5194ff56ab8c42ff1594f38b4492263712b53f6634979b9",
+      "response_sha256": "70329da52f89be0dca14f1bbb0ea1e9278102d7e5b3d28f35d2386c00556e076",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 288,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8480
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:2636",
+      "latency_s": 161.872,
+      "p_correct": null,
+      "request_key": "sha256:aee8d460794b8a4ab44a78650dc3a2d1fa4d6a501d4592391e606b227a3e10ac",
+      "response_sha256": "0daa3f2d7cdfe94164512e4008eecaf1401b945f45d553ceeefe0cec17398361",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 242,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 8434
+      }
+    },
+    {
+      "answer": "900",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2648",
+      "latency_s": 3.936,
+      "p_correct": 0.99,
+      "request_key": "sha256:ebd8825ed6206b04ed8d06761d49bbbfbfb336b119da54efc2ad26f18a8d87d4",
+      "response_sha256": "44e99bbcaba267a1af285d8ef70706fb1967d446790477b964a2458df92b3665",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 130,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 192,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 322
+      }
+    },
+    {
+      "answer": "8",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:269",
+      "latency_s": 190.934,
+      "p_correct": 0.98,
+      "request_key": "sha256:93f2757c82213cb9c65fd4b8d82458d210231f2994147af2de1c13f7830da5ad",
+      "response_sha256": "17e07856cc53e382dd19aec87e3a7b6d02488bd7b3617a21945383a95c6004a1",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 7689,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 229,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 7918
+      }
+    },
+    {
+      "answer": "19",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2711",
+      "latency_s": 101.863,
+      "p_correct": 0.98,
+      "request_key": "sha256:17affe41455df2fd2ef229128e91305c7ff07e11c0f9753483d6390f450b51d6",
+      "response_sha256": "b84d4df66fd5a087d23471276b4f606f64dbd47b735db7e2bd8016aa2344575c",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 4383,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 183,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 4566
+      }
+    },
+    {
+      "answer": "5",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2722",
+      "latency_s": 10.499,
+      "p_correct": 0.99,
+      "request_key": "sha256:52c36b8a85cb85b39b3a952e95d6cfd7c6cc67d55e4acf8ea54a5ad467c7fd36",
+      "response_sha256": "38a301826dd352fe903a36d8b645c150289d79e05c48e48a930a1997ae22b6bd",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 463,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 217,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 680
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:2745",
+      "latency_s": 177.05,
+      "p_correct": null,
+      "request_key": "sha256:30d6b1f4d4a1b0addc60a18a2e84505ad8c8b8ad4622944c1d96f2e489bec2fb",
+      "response_sha256": "2dffc05be66d6159495c3f49bbc9e59a4d1152ee951f589b3e86419314bfa6e7",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 240,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 8432
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:2761",
+      "latency_s": 166.969,
+      "p_correct": null,
+      "request_key": "sha256:aaf9aa8f3c6d90f2bd2453c82ee3c052c5c918e27b9e6460b41c5e8cb4399c4a",
+      "response_sha256": "94197af1994c9ef0ec6cc8a43670a1180f24e18f4ce5e24fb09b90a2d198a95e",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 207,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8399
+      }
+    },
+    {
+      "answer": "1",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:2779",
+      "latency_s": 169.312,
+      "p_correct": 0.98,
+      "request_key": "sha256:77cef4015223a9aef23568ea1ccce900239200c7dcd162085ee140c1c65b6730",
+      "response_sha256": "78a5516586701855f176af8c0fbfff4ad67924777a47ed2fc2bf8f536d3b30bd",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8044,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 202,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8246
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:2801",
+      "latency_s": 170.98,
+      "p_correct": null,
+      "request_key": "sha256:fa4fc152d1a17409ec0184e0310b2cfedd2ca4cd7d1c0dc69ff0304d49216576",
+      "response_sha256": "56b715a2d74ce312772058604e0dcdce8ad1ebcbe81f42e6a91de8a57144cb82",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 238,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 8430
+      }
+    },
+    {
+      "answer": null,
+      "failure": "uncertain_request",
+      "item_id": "omnimath_rule:306",
+      "p_correct": null,
+      "status": "generator_service_failure"
+    },
+    {
+      "answer": "72072",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:318",
+      "latency_s": 50.975,
+      "p_correct": 0.98,
+      "request_key": "sha256:5933f76346f630e97e4e97bc8959072fcfea4c184bd63038268a6e89581e786b",
+      "response_sha256": "9452876e4c9ba9600924b82d4c0ccbb38c8cfaff08531d81056394002bdea340",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 3031,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 418,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 3449
+      }
+    },
+    {
+      "answer": "\\frac{45}{286}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:345",
+      "latency_s": 35.196,
+      "p_correct": 0.98,
+      "request_key": "sha256:fbb3923b85ffc5432b85a270d2720ac2e4577f577073cdb7d18f1b15bbc65969",
+      "response_sha256": "aca468280839146f917a3ab7a682136bd05b60edf4212c7278029bd63e478066",
+      "reused_cache": true,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2193,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 241,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 2434
+      }
+    },
+    {
+      "answer": null,
+      "failure": "uncertain_request",
+      "item_id": "omnimath_rule:346",
+      "p_correct": null,
+      "status": "generator_service_failure"
+    },
+    {
+      "answer": null,
+      "failure": "uncertain_request",
+      "item_id": "omnimath_rule:38",
+      "p_correct": null,
+      "status": "generator_service_failure"
+    },
+    {
+      "answer": null,
+      "failure": "uncertain_request",
+      "item_id": "omnimath_rule:393",
+      "p_correct": null,
+      "status": "generator_service_failure"
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:40",
+      "latency_s": 124.517,
+      "p_correct": null,
+      "request_key": "sha256:bef1e12ec8066bf8cca5b34d256246641c3b1414267c3c0ddd1d5ec886923439",
+      "response_sha256": "135d281f5f60ce9a79099b4c09043015659afbe522a8eb187910acb48b3607e9",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 319,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8511
+      }
+    },
+    {
+      "answer": "577",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:401",
+      "latency_s": 36.805,
+      "p_correct": 0.98,
+      "request_key": "sha256:3fb50d75388afe947447f985a7b27de9383b3080ffcba6c8b84e27687d3a90c4",
+      "response_sha256": "e10daa74d2618e4233a3b10b426ceb053c7c9a42ab2f24fd4e6fcd39c2988dbd",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 2777,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 219,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 2996
+      }
+    },
+    {
+      "answer": null,
+      "failure": "uncertain_request",
+      "item_id": "omnimath_rule:402",
+      "p_correct": null,
+      "status": "generator_service_failure"
+    },
+    {
+      "answer": null,
+      "failure": "uncertain_request",
+      "item_id": "omnimath_rule:429",
+      "p_correct": null,
+      "status": "generator_service_failure"
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:59",
+      "latency_s": 133.256,
+      "p_correct": null,
+      "request_key": "sha256:babee1a8be12254695ef3d01f8f2b82bd62b57a6054750135c0ebdeffeddb171",
+      "response_sha256": "69b641f31335930179054eb05a60a81ce9096c267bd6090611d87abfd12e5715",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 292,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8484
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:643",
+      "latency_s": 250.613,
+      "p_correct": null,
+      "request_key": "sha256:053cf885d4f70c1c33394dcd9854ab9b261c8b2a0a4b965e6b5cc931be9fb3e2",
+      "response_sha256": "a12c685a1d92ff390d18657bee0127d1f8b698984c38d87af6a1079a19dfea5b",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 206,
+        "prompt_tokens_details": {
+          "cached_tokens": 204
+        },
+        "total_tokens": 8398
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:673",
+      "latency_s": 254.706,
+      "p_correct": null,
+      "request_key": "sha256:410061d2cc5336fa47ea863455a523f5d052000b548b6a6d3cc939e63a7d8647",
+      "response_sha256": "441eaa0e56ad666f7b12382740ad2b0b15badf8029db7ff4823be31da97e7e5f",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 215,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8407
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:690",
+      "latency_s": 192.121,
+      "p_correct": null,
+      "request_key": "sha256:67a3d93b565365590286f8b972986a885ab84a1490773ded5fe4fcac854a36f4",
+      "response_sha256": "99d6a1d8d015e7add6ac78fa2b7566fbcceeccb4bf38da8903d5f241dfe51069",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 235,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 8427
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:721",
+      "latency_s": 171.818,
+      "p_correct": null,
+      "request_key": "sha256:fe9344e32b33eb649359ebd94cff23f4e2368e147610b22d9f5fec28ebd7d586",
+      "response_sha256": "f45617599ef870fc5a357c8dde059b1f452fd3df9e0660331247003a15dcd4d2",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 298,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8490
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:751",
+      "latency_s": 202.995,
+      "p_correct": null,
+      "request_key": "sha256:9b6753c749d0a078e8f42093031910dc053c3a6272e4a52db9e740a571e50d88",
+      "response_sha256": "f096804d92b136d65781acfa2c85caf1c15db5bc7926e4e56669cce3afb422d0",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 193,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8385
+      }
+    },
+    {
+      "answer": "\\text{insufficient information}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:761",
+      "latency_s": 3.906,
+      "p_correct": 0.95,
+      "request_key": "sha256:67c59aa7282c858a0d0838357e8fe3110cdf137e0001d9fae0b618e8fc17343b",
+      "response_sha256": "31a4e343037125096a9d8b3455c30eca2120261910e0356c7d9a902f61bd853c",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 164,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 188,
+        "prompt_tokens_details": {
+          "cached_tokens": 186
+        },
+        "total_tokens": 352
+      }
+    },
+    {
+      "answer": "4",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:77",
+      "latency_s": 9.585,
+      "p_correct": 0.98,
+      "request_key": "sha256:178161283d9b9f54e62e60c7c972eeac43ca54a24d91ffa213d938a93c57ba81",
+      "response_sha256": "68fc71ba92052b78343f44c7e43b446441186bef0599aeb3975f87e8f690486e",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 383,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 193,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 576
+      }
+    },
+    {
+      "answer": "\\text{Insufficient information}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:798",
+      "latency_s": 5.761,
+      "p_correct": 0.95,
+      "request_key": "sha256:2a38c66d2f36e55a6946db561df84ed7f966f38b2d738d1af10cd3042732f344",
+      "response_sha256": "3f8c4d886e87041b1dc91a86528d727ab21e40e766527b2274a8af8e3a91712f",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 121,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 190,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 311
+      }
+    },
+    {
+      "answer": "undefined",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:80",
+      "latency_s": 3.078,
+      "p_correct": 0.0,
+      "request_key": "sha256:57cdf4dbf51e50622a97f6826c41012c59c5df0e9973539c2c3783932106c0d7",
+      "response_sha256": "dfa278cc18ba62104ddc8043836b9b2d595629d1000639d7b2452896ac5d2253",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 116,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 209,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 325
+      }
+    },
+    {
+      "answer": "\\text{insufficient information}",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:803",
+      "latency_s": 4.634,
+      "p_correct": 0.95,
+      "request_key": "sha256:398b1c71f45c811fd15e9333d3cb5b902e35f3a1cdc59ded9290e400ff8eb026",
+      "response_sha256": "c6738a1ae5d07c44b93328a757f0da9cd984ad42fc7b574660ae07f1b16d0ba6",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 132,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 186,
+        "prompt_tokens_details": {
+          "cached_tokens": 55
+        },
+        "total_tokens": 318
+      }
+    },
+    {
+      "answer": "3",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:822",
+      "latency_s": 12.359,
+      "p_correct": 0.9,
+      "request_key": "sha256:8543c43f5857f14e9792e56c4f9cdbb151c164f1d4eef3c790208e43069ebba5",
+      "response_sha256": "ae3eb25c071e4c889d03dd7cd6b4260343debc50c78a138f511e29bccb73aa3b",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 605,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 192,
+        "prompt_tokens_details": {
+          "cached_tokens": 54
+        },
+        "total_tokens": 797
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:835",
+      "latency_s": 237.144,
+      "p_correct": null,
+      "request_key": "sha256:31db9165d836d7d9a007ca167dddd3a24f3e54d2f07e78065f3ebdd8dd491161",
+      "response_sha256": "44cc19daee202df87fbe20de40e69053a4036c86a463b92b749d4ddd0f8f5718",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 300,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8492
+      }
+    },
+    {
+      "answer": "Construct triangle BCD with sides S_4, S_5, S_6. On line BC, construct point H_0 such that CH_0^2 - BH_0^2 = S_2^2 - S_1^2, and draw line \\ell_1 perpendicular to BC at H_0. On line BD, construct point H_1 such that DH_1^2 - BH_1^2 = S_3^2 - S_1^2, and draw line \\ell_2 perpendicular to BD at H_1. Let H be the intersection of \\ell_1 and \\ell_2. Construct a right triangle with hypotenuse S_1 and leg BH; the other leg is the desired altitude.",
+      "confidence_status": "valid",
+      "failure": null,
+      "finish_status": "complete",
+      "item_id": "omnimath_rule:849",
+      "latency_s": 114.907,
+      "p_correct": 0.95,
+      "request_key": "sha256:52eafe4e4471913947316525fd3192d1529ffe3cfbbd56d416f8e0f6685744f1",
+      "response_sha256": "4703122b0e4aa2da6def7b98a5c6924f4c506c9f1639e08eae8c4f90d81011f8",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 4608,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 262,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 4870
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:852",
+      "latency_s": 238.875,
+      "p_correct": null,
+      "request_key": "sha256:51ce94647c54d9311ca39f20cb73312d366ab1cf31f2ecab8d4ed03e15d281c1",
+      "response_sha256": "301479aa4fa128a915e64b32ab4791cb67989a0b5edcde9162479734bfa60ab6",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 274,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8466
+      }
+    },
+    {
+      "answer": null,
+      "confidence_status": "not_applicable",
+      "failure": "truncated_output",
+      "finish_status": "truncated",
+      "item_id": "omnimath_rule:945",
+      "latency_s": 251.03,
+      "p_correct": null,
+      "request_key": "sha256:2681a7feeb90fca4f2f74ac00bf12bce304159e7a0214da4832bbeca9d53c3df",
+      "response_sha256": "02c58fbe5b1cd59909a958ae354fe34cbe9d751dc2097ce14ee3269ce514e9ef",
+      "reused_cache": false,
+      "status": "frozen",
+      "usage": {
+        "completion_tokens": 8192,
+        "extra_properties": {
+          "google": {
+            "traffic_type": "ON_DEMAND"
+          }
+        },
+        "prompt_tokens": 283,
+        "prompt_tokens_details": {
+          "cached_tokens": 53
+        },
+        "total_tokens": 8475
+      }
+    }
+  ]
+}

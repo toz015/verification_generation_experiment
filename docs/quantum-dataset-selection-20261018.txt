@@ -1,0 +1,135 @@
+四个量子代码数据集：选择建议与原始数据核查
+日期：2026-10-18
+
+结论
+近期接入首选 Qiskit QuantumKatas；QCircuitBench 是扩大规模的首选候选，
+但必须先筛选子任务、核对独立题目数量并审查验收器。
+Qiskit HumanEval 适合作为补充测试；QCoder 暂不作为主实验，可用于
+给定候选程序的验证研究或小规模约束压力测试。
+这一区分依据接入成熟度、有效样本量、标签质量和我们的固定候选协议，
+不是对四个 benchmark 的整体质量排名。
+
+范围与证据
+已阅读用户分享对话、论文、官方仓库；下载 QuantumKatas、HumanEval
+完整题目记录，以及 QCoder 完整公开提交记录和 67 份题目文件。
+QCircuitBench 只检查公开仓库清单、代表性构造脚本和验收器，未下载
+Google Drive 完整归档，不能声称已复核全部 120,290 条。
+只做静态审阅、字段统计及 QuantumKatas 参考解/测试的 Python 语法解析。
+没有运行量子程序、调用 LLM、提交 QCoder 判题或修改现有 GPQA 实验。
+原始快照与审计：tmp/quantum_four_dataset_review_20261018/
+  audit_summary.json：逐项统计和检查范围。
+  download_manifest.json：下载来源、文件长度、SHA256。
+所有结论针对以下版本：
+  QCircuitBench: bdeb8c4e7e64935e684cff604d6739415eec8329
+  QuantumKatas: 3790fb3e9892537b550c884ad54b65c73c13f1ad
+  HumanEval: 555f329651209e6eb108787cff30626a03a4cadf
+  QCoder GitHub: 5ad4d8d6a98d300ee3d2ee1a476fecd968614f30
+  QCoder Hugging Face: da10cf5c0d04298bf27ee33e4e110ad205a4eac5
+
+一、Qiskit QuantumKatas：近期首选，350 题、26 类
+官方：https://github.com/qiskit-community/Qiskit-QuantumKatas
+论文：https://arxiv.org/abs/2605.27210
+实数核对：350 条、350 个不同 task_id、350 个不同 prompt。
+每条包含 prompt、canonical_solution、test、entry_point，适合包装为：
+题目 -> 固定完整 Python 程序及 raw confidence -> LLM 概率验证 -> 测试标签。
+相比只做基础门，组合电路、算术、oracle、SAT 编码等题更值得覆盖；不能
+根据最终测试集上的模型表现再挑选有利题目。
+350 题可以支持领域实验，但分出开发/校准/测试后规模仍有限；多次生成
+增加的是候选程序数量，不会增加独立题目数量。
+
+需先解决：
+1. 不是全部测试都严格确定：14 条 test 含 shots= 调用，另有随机参数。
+   CHSHGame/2.4 使用 300 次单次测量并检查一致比例 > 0.7；
+   KeyDistribution_BB84/1.2 使用 10,000 shots 检查频率落入区间。
+   这不表示所有这些题都不可靠；需要冻结测试输入、随机种子与验收规则，
+   对阈值附近候选检查重测稳定性，区分随机测试事件与数学正确性。
+2. 维护者记录约 94 题只有固定测试值、约 49 题只覆盖单一规模。
+   这些是上游记录，并非本轮重新计算。通过测试不等于全输入语义证明。
+3. entry_point 不唯一，必须用 task_id 标识；近似题、教程/示例的同义题和
+   同题所有候选需放同一划分组，不能仅凭不同 ID 视为独立。
+4. 固定 Qiskit/Aer 版本；先确认参考解全部通过，并测执行耗时。
+   本轮 700 段参考解/测试均可做 Python 语法解析，不等于运行通过。
+5. 许可证为 CC-BY-NC-SA-4.0，仓库声明不是持续维护的 IBM 官方支持软件。
+
+二、QCircuitBench：最有规模潜力，但有条件纳入
+官方：https://github.com/EstelYang/QCircuitBench
+论文：https://arxiv.org/html/2410.07961v3
+论文规模：120,290 数据点、25 算法；oracle construction 35,872，
+algorithm design 6,534，random circuit synthesis 77,884。
+不能把这些计数直接当成十二万道独立生成题。
+
+已核对的实际接口：
+1. Simon algorithm design 的 data_util.py 只把 qubit 数量填入 prompt；
+   当前目录有 n=2..30 共 29 个顶层 QASM。隐藏 secret/key 的 trial 是
+   对同一算法候选的测试用例，不应额外计为独立生成任务。
+2. BV oracle construction 的 prompt 显式包含 n 与 secret string，改变
+   secret 确实改变模型看到的目标，但仍属于同一模板族。
+3. Random circuit synthesis 将目标状态向量填入 prompt，确实有不同
+   目标；输入长度和一般 statevector 模拟成本随 qubit 数指数增长。
+   当前 universal/data_util.py 默认每个规模只采两条，不能把脚本默认
+   导出量与论文全量混淆。
+
+验收器必须审查：
+1. 返回值包括语法标记、连续语义分数/成功率/fidelity、效率比值，
+   不是通用二元正确标签。需预先定义每类的二元验收事件。
+2. Simon 检查含有限次随机测量；不能把“每次都成功”无条件当成正确算法
+   的定义，也不能把单次随机失败归因于代码语义错误。
+3. 阅读 BV oracle checker 发现它抽样计算基输入、测目标位；这不足以证明
+   输入寄存器保持不变及相干相位正确。错误相位可能不改变这些测量结果。
+   这是源码层面的覆盖分析，没有在本轮执行反例。
+4. Random synthesis checker 主要计算 state fidelity；题目的门集合限制
+   需要另行确认验收覆盖。不能只用 fidelity 替代全部题意。
+
+建议先选择模型可见目标真正变化、规模可控的 oracle/state synthesis
+子集，完成去重、阈值和检查器审计后再决定是否用于数千题主实验。
+Clifford 子集可用于接口 pilot，但其廉价经典验收不会自动证明 LLM
+验证具有成本优势。算法设计、oracle construction、随机合成应分层报告。
+
+三、Qiskit HumanEval：补充数据集
+官方：https://github.com/qiskit-community/qiskit-human-eval
+论文：https://arxiv.org/abs/2406.14712
+普通版和 Hard 版各 151 条，task_id 集合相同，不能当成 302 道独立题。
+普通版给 imports/函数签名，Hard 主要给题意与接口要求；模型任务难度不同，
+但仍应按同一道题分组。
+当前难度标记：basic 79、intermediate 67、difficult 5。
+包含 Qiskit API、可视化、后端信息、transpiler 等任务，不全是电路合成。
+上游 CI 跳过 11 题：8 题需要 IBM Quantum 凭据，2 题依赖 Graphviz，
+1 题固定预期值对平台/版本敏感。不能把这些环境失败当成模型错误。
+建议先使用能完全在本地执行的题目子集，并固定依赖。模拟云后端会改变
+benchmark 条件，若采用必须明确标注。最终可用题数需执行审计后决定。
+其规模不解决长期顺序学习的独立任务数量问题，但适合作为外部复核。
+
+四、QCoder：有价值的补充候选库，暂不作主实验
+官方：https://github.com/QCoder-Bench/QCoder-Benchmark
+数据：https://huggingface.co/datasets/tm0012-QCB/QCoderBenchmark
+论文：https://aclanthology.org/2025.inlg-main.43/
+论文 58 题对应前四场；当前仓库第五场增加 9 题，共 67 个题目文件。
+Hugging Face 实数为 15,252 条提交、67 个 problem ID、12,098 个不同
+(problem, 原始代码文本) 组合；这些不等于独立题目或独立生成事件。
+现有标签 AC 5,266；其他包括 WA/RE/UME/DLE/UGE/TLE/QLE/TOE/MLE。
+标签、错误类型、运行时只能用于评估，不能输入盲测 verifier。
+人类提交记录没有我们需要的 LLM generator 自报 confidence，不能直接
+作为原协议中的完整样本；可另做 verifier-only 实验，或对题目重新生成。
+同题、同一人的连续修改版本强相关，不能随机按提交行分割。
+题意、门限制、深度与 global phase 规则需按题处理。
+官方 runner 调用在线 QCoder 判题，README 写明登录及每天 100 次限制；
+公开代码未提供该在线服务的完整本地替代评分器。自行复刻需重新验证一致性。
+数据连接时注意 EX/Ex 大小写差异；QPC003_A5/A6 题目文件字节完全相同，
+是否原竞赛本就相同或导出问题需要对照官方题目确认，暂按一组处理。
+
+实验上共同必须满足的条件
+1. 每个样本是一道题和一份冻结候选，而非每次测试运行。
+2. Generator 输出程序与 r；三个 verifier 看同一题目和程序，输出该程序
+   通过约定验收的概率，不看 r、其他 verifier、参考解或隐藏测试结果。
+3. 顺序策略只选择继续验证、接受或弃答；不夹入修改程序的反馈循环。
+4. 按原题/同义变体组切分；重复生成按题聚类统计。保留模板内泛化与
+   新算法族泛化的区别，各数据集重新拟合校准/likelihood。
+5. 先测直接执行 checker 的成本，加入直接检查基线。低 qubit 模拟可能
+   比调用 LLM 便宜；与三个 LLM 全查相比节省，不自动等于实际最优。
+
+建议顺序
+先用 QuantumKatas 的 20–30 个开发题组检查参考通过率、运行稳定性、
+代码解析、候选正负例比例、verifier 区分度和各项成本。
+随后决定 QuantumKatas 全量领域实验，并并行于项目日程推进
+QCircuitBench 子集审计；后者通过规模与标签质量门槛后再扩到数千实例。
+HumanEval 用作外部补充；QCoder 放到验证器诊断或后续工作。

@@ -1,0 +1,1 @@
+{"calibration": {"correct": 164, "n": 249, "accuracy_all": 0.6586345381526104, "mean_confidence": 0.8080645161290323, "raw_brier": 0.18991370967741936, "valid": 248}, "evaluation": {"correct": 132, "n": 196, "accuracy_all": 0.673469387755102, "mean_confidence": 0.7979591836734694, "raw_brier": 0.17849489795918366, "valid": 196}}
