@@ -14,7 +14,7 @@ OUT = Path('reports/offline_at_frozen_20261111/results.html')
 DS = [('gpqa', 'GPQA'), ('math500', 'MATH-500'), ('qkatas', 'QuantumKatas')]
 GEN = {'qwen3': 'Qwen3', 'gptoss': 'gpt-oss', 'sonnet55': 'Sonnet 5.5'}
 MAIN = ['AT-Frozen', 'AT+Cal-Frozen', 'Ours-Offline']
-SUPP = ['Raw-threshold', 'AT-Frozen (gamma_test=gamma_fit)', 'AT+Cal-Frozen (gamma_test=gamma_fit)', 'Ours-Offline (raw prior)']
+SUPP = ['Raw-threshold', 'AT-Frozen (calibrated confidence)', 'AT-Frozen (gamma_test=gamma_fit)', 'AT+Cal-Frozen (gamma_test=gamma_fit)', 'Ours-Offline (raw prior)']
 FRACS = ['frac:0', 'frac:0.1', 'frac:0.25', 'frac:0.5', 'frac:0.75', 'frac:1.0']
 COLORS = {'AT-Frozen': 'var(--s2)', 'AT+Cal-Frozen': 'var(--s3)', 'Ours-Offline': 'var(--s1)', 'Raw-threshold': 'var(--s4)'}
 

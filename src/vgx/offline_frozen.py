@@ -28,6 +28,7 @@ import vgx.baselines as B
 from vgx.common.storage import atomic_json, file_digest
 from vgx.gpqa import fpr_routing as R
 from vgx.gpqa.dependence_triples import all_orders
+from vgx.gpqa.reporting_trial import isotonic
 from vgx.selective_auditing import Oracle
 
 # The release-error constraint for the shared LP / Bellman machinery, set from the config, not the environment.
@@ -169,6 +170,13 @@ def at_candidates():
             if SETTINGS['gamma_fit'] <= 1-a:
                 out.append((a, eta))
     return out
+
+
+def calibrated_rows(rows, fit):
+    """A copy of rows whose confidence is Ours' isotonic map (fit on Fit labels only); for the AT-on-calibrated control."""
+    fv = [i for i in fit if rows[i]['valid']]
+    f, _ = isotonic(np.array([rows[i]['prior'] for i in fv], float), np.array([rows[i]['outcome'] for i in fv], float))
+    return [dict(r, prior=float(f(r['prior']))) if r['valid'] else r for r in rows]
 
 
 def threshold_methods(rows, fit, seed):
@@ -341,18 +349,22 @@ def run_dataset(ds, quick=False):
             fv, ft = Features(rows, val), Features(rows, test)
             ev, et = labels(rows, val), labels(rows, test)
             # --- threshold methods (AT, AT+CC, raw threshold), one frozen state per seed
+            rows_cal = calibrated_rows(rows, fit)
+            fvc, ftc = Features(rows_cal, val), Features(rows_cal, test)
             for s in seeds:
                 st = threshold_methods(rows, fit, s)
+                stc = threshold_methods(rows_cal, fit, s)
                 raw = {'tau': np.append(np.unique(fv.confidence[fv.valid]), np.inf)}
-                variants = [('AT-Frozen', 'AT', st['AT'], 0.0), ('AT+Cal-Frozen', 'AT+CC', st['AT+CC'], 0.0),
-                            ('AT-Frozen (gamma_test=gamma_fit)', 'AT', st['AT'], SETTINGS['gamma_fit']),
-                            ('AT+Cal-Frozen (gamma_test=gamma_fit)', 'AT+CC', st['AT+CC'], SETTINGS['gamma_fit'])]
+                variants = [('AT-Frozen', 'AT', st['AT'], 0.0, fv, ft), ('AT+Cal-Frozen', 'AT+CC', st['AT+CC'], 0.0, fv, ft),
+                            ('AT-Frozen (gamma_test=gamma_fit)', 'AT', st['AT'], SETTINGS['gamma_fit'], fv, ft),
+                            ('AT+Cal-Frozen (gamma_test=gamma_fit)', 'AT+CC', st['AT+CC'], SETTINGS['gamma_fit'], fv, ft),
+                            ('AT-Frozen (calibrated confidence)', 'AT', stc['AT'], 0.0, fvc, ftc)]
                 if s == seeds[0]:
-                    variants.append(('Raw-threshold', 'raw', raw, 0.0))
-                for name, kind, state, gt in variants:
+                    variants.append(('Raw-threshold', 'raw', raw, 0.0, fv, ft))
+                for name, kind, state, gt, fv_, ft_ in variants:
                     h0 = state_hash({k_: np.asarray(v_).tolist() for k_, v_ in state.items() if k_ != 'configs'})
-                    av, _ = threshold_decisions(kind, state, fv, gt, s)
-                    at_, score = threshold_decisions(kind, state, ft, gt, s)
+                    av, _ = threshold_decisions(kind, state, fv_, gt, s)
+                    at_, score = threshold_decisions(kind, state, ft_, gt, s)
                     if state_hash({k_: np.asarray(v_).tolist() for k_, v_ in state.items() if k_ != 'configs'}) != h0:
                         raise AssertionError('state changed during evaluation')
                     for a_t in SETTINGS['alpha_target']:
