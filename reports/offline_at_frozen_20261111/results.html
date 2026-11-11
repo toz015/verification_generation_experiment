@@ -48,7 +48,7 @@ code { font-family: var(--mono); font-size: 13px; }
 <section>
   <h2>结论</h2>
   <ul>
-    <li><b>有 verifier 预算时，Ours-Offline 放行更多。</b>在 B > 0 的设定里（各数据集 54 个 α × 预算格子，配对 bootstrap，QuantumKatas 按 kata 组重采样），Ours 比 AT-Frozen 显著放行更多的格子是 GPQA 44、MATH-500 25、QuantumKatas 38；比 AT+Cal-Frozen 是 50、26、39；比直接在 Validation 上选原始置信度阈值是 30、24、26，但原始阈值也有 9、6、17 格显著更多。例如 α = 5%、B = 1×c_ref 时，QuantumKatas 的 Qwen3：Ours 放行 115 题，原始阈值 29 题，AT-Frozen 12 题。</li>
+    <li><b>有 verifier 预算时，Ours-Offline 放行更多。</b>在以 c_ref 为单位的 6 档预算下（含 B = 0，各数据集 54 个 α × 预算 × generator 格子，配对 bootstrap，QuantumKatas 按 kata 组重采样），Ours 比 AT-Frozen 显著放行更多的格子是 GPQA 44、MATH-500 25、QuantumKatas 38；比 AT+Cal-Frozen 是 50、26、39；比直接在 Validation 上选原始置信度阈值是 30、24、26，但原始阈值也有 9、6、17 格显著更多。例如 α = 5%、B = 1×c_ref 时，QuantumKatas 的 Qwen3：Ours 放行 115 题，原始阈值 29 题，AT-Frozen 12 题。</li>
     <li><b>没有 verifier 预算（B = 0）时，Ours 和原始置信度阈值基本一样；AT 两种方法更差。</b>它们的阈值是按论文的漏审比例更新学出来的，没有针对放行错误率；AT+Cal-Frozen 在 207 个格子里有 75 个找不到可行工作点，只能全部弃答。</li>
     <li><b>放行错误率常常超过目标，Ours 最多。</b>测试放行错误率超过 α 的格子：Ours 103 / 207，原始阈值 81，AT-Frozen 63，AT+Cal-Frozen 24（另有 75 格全弃答）。α = 5% 时 Ours 典型为 6% 到 8%，例如 QuantumKatas Qwen3 7.2%、GPQA Qwen3 7.8%。Validation 只有 50 到 100 题，在其上挑放行最多的工作点会偏乐观。</li>
     <li><b>只有 Ours 会超预算，且只在 GPQA。</b>23 个格子测试成本超过 B，都是 GPQA（Validation 仅 50 题）；AT 类方法不调用 verifier，成本为 0。</li>
