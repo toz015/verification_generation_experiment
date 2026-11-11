@@ -1,0 +1,38 @@
+{
+  "config": "configs/quantum_katas_crossfit_3gen_20261019.json",
+  "config_sha256": "e195d1e31fe33ebc4b4ec877e5fbed9039138d03ead5098e6bf797f4812bf808",
+  "files": {
+    "gptoss": {
+      "labels": "labels_gptoss.jsonl.gz",
+      "labels_sha256": "115f49967c1e710d05066fd89d20218020d1960cdce3f15ee02057ba1a3e36a6",
+      "learner": "learner_gptoss.jsonl.gz",
+      "learner_sha256": "657d68434c4d3e181140ea9493396baf03757a04814148a8ce70b3c66d990727",
+      "run_root": "results/quantum_katas_full_gptoss_20261019",
+      "tasks": 322
+    },
+    "qwen3": {
+      "labels": "labels_qwen3.jsonl.gz",
+      "labels_sha256": "e0c31ca01080a932a7b8e575cca4cf031ee622a47d4d06f48ef203787b7816b5",
+      "learner": "learner_qwen3.jsonl.gz",
+      "learner_sha256": "2bcc013d53079aa363f5f6ce8cb27c001967485b8b819960bf4a5ac16e7ac7e3",
+      "run_root": "results/quantum_katas_full_qwen3_20261019",
+      "tasks": 322
+    },
+    "sonnet55": {
+      "labels": "labels_sonnet55.jsonl.gz",
+      "labels_sha256": "5dc0572fca51d455c0700fce55fcabf52c3649b8cfac038a66d190764dd2d975",
+      "learner": "learner_sonnet55.jsonl.gz",
+      "learner_sha256": "3348d08e86b6b3eb54b4cdb123e4b701a988c98a67e9511d4c12ba303378f6d7",
+      "run_root": "results/quantum_katas_full_sonnet55_20261019",
+      "tasks": 322
+    }
+  },
+  "split_sha256": "91e3af39709d1f299ef959abb102063fdbce7d183fa8d3f518138cd83f2fd1b3",
+  "verifiers": [
+    "gemini_flash",
+    "gemini_lite",
+    "mistral_small",
+    "mistral_medium",
+    "claude_haiku"
+  ]
+}
