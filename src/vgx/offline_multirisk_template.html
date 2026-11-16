@@ -54,7 +54,7 @@ code { font-family: var(--mono); font-size: 13px; }
 <header style="display:grid;gap:8px">
   <h1>离线多风险实验：放行错误率、FPR、FNR 三种约束下的比较</h1>
   <p class="meta">GPQA、MATH-500、QuantumKatas，三个 generator，三种风险约束，共 {{NCOND}} 个主实验条件、{{NROWS}} 个方法结果行（含两个边界参照）。所有方法在拟合部分训练、在验证部分选工作点、在测试部分冻结评估。只用缓存：{{NET}}。代码版本 <code>{{CODE}}</code>。</p>
-  <nav><a href="#s1">1 任务和数据</a><a href="#s2">2 方法</a><a href="#s3">3 怎么判断</a><a href="#s4">4 结果</a><a href="#risk-selective_error">4.1 放行错误率</a><a href="#risk-fpr">4.2 FPR</a><a href="#risk-fnr">4.3 FNR</a><a href="#appendix">附录 达标口径</a><a href="#s5">5 诊断</a><a href="#s6">6 和上一版的区别</a><a href="#s7">7 复现</a></nav>
+  <nav><a href="#s1">1 任务和数据</a><a href="#s2">2 方法</a><a href="#s3">3 怎么判断</a><a href="#s4">4 结果</a><a href="#risk-selective_error">4.1 放行错误率</a><a href="#risk-fpr">4.2 FPR</a><a href="#risk-fnr">4.3 FNR</a><a href="#appendix">附录</a><a href="#s5">5 诊断</a><a href="#s6">6 和上一版的区别</a><a href="#s7">7 复现</a></nav>
 </header>
 
 <section id="s1">
@@ -110,7 +110,7 @@ code { font-family: var(--mono); font-size: 13px; }
 {{BLOCKS}}
 
 <section id="appendix">
-  <h2>附录：按达标口径的比较</h2>
+  <h2>附录：移出正文的条件，以及按达标口径的比较</h2>
   <p class="meta">达标指测试集上实际风险 ≤ α 且平均花费 ≤ 预算；放行错误率和 FPR 下零放行不算达标。「去掉回退」指去掉任一方在任一折或种子用了回退的条件。</p>
   {{APPENDIX}}
 </section>

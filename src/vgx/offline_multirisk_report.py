@@ -18,6 +18,19 @@ RISK_NAME = {'selective_error': '放行错误率', 'fpr': 'FPR', 'fnr': 'FNR'}
 RISK_DEF = {'selective_error': '放行的答案里错的比例', 'fpr': '所有错误答案里被放行的比例', 'fnr': '所有正确答案里被拦下的比例'}
 GOAL = {'selective_error': '放行率（越高越好）', 'fpr': '放行率（越高越好）', 'fnr': '错误放行占全部题的比例 e（越低越好）'}
 COLORS = {'Ours-Offline': 's1', 'AT-Frozen': 's2', 'AT+Cal-Frozen': 's3', 'Raw-threshold': 's4', 'Fixed-1-Mix': 's5', 'Fixed-3-Mix': 's6'}
+# Dataset/generator pairs left out of a risk's main comparison (full results stay in the appendix and CSVs):
+# MATH-500 Qwen3 and gpt-oss have too few wrong answers for FPR (a handful per validation fold; gpt-oss's are mostly no-answer).
+EXCLUDE_MAIN = {'fpr': {('math500', 'qwen3'), ('math500', 'gptoss')}}
+
+
+def in_main(ds, gen, risk):
+    return (ds, gen) not in EXCLUDE_MAIN.get(risk, ())
+
+
+def excluded(ds, gen, risk):
+    return not in_main(ds, gen, risk)
+
+
 FIELDS = ['dataset', 'generator', 'risk_metric', 'alpha_target', 'budget_fraction', 'method', 'n_tasks', 'n_eligible', 'n_correct',
           'n_wrong', 'n_released', 'n_wrong_released', 'n_correct_deferred', 'coverage', 'release_error_rate', 'fpr', 'fnr',
           'fpr_eligible_subset', 'joint_wrong_release_rate', 'correct_retention_rate', 'mean_screen_cost', 'budget_usd',
@@ -172,6 +185,8 @@ def chart_alpha(I, cfg, risk, frac):
         ys = [objective(I[(ds, g, risk, a, frac, m)], risk) for g in GEN for a in alphas for m in METHODS if (ds, g, risk, a, frac, m) in I]
         ymax = 1.0 if risk != 'fnr' else max(.05, np.ceil(max(ys+[0])*20)/20)
         for gen in GEN:
+            if not in_main(ds, gen, risk):
+                continue
             series = {}
             for m in METHODS:
                 series[m] = [(i, objective(x, risk), f'α = {a:g}：'+tip(x, risk), x['empirical_feasible'])
@@ -191,6 +206,8 @@ def chart_budget(I, cfg, risk):
         ys = [objective(I[(ds, g, risk, a, f, m)], risk) for g in GEN for f in fr for m in METHODS if (ds, g, risk, a, f, m) in I]
         ymax = 1.0 if risk != 'fnr' else max(.05, np.ceil(max(ys+[0])*20)/20)
         for gen in GEN:
+            if not in_main(ds, gen, risk):
+                continue
             series = {m: [(f, objective(x, risk), f'预算 {f:g}×c_ref：'+tip(x, risk), x['empirical_feasible'])
                           for f in fr for x in [I.get((ds, gen, risk, a, f, m))] if x] for m in METHODS}
             yt = (0, .5, 1) if risk != 'fnr' else (0, ymax/2, ymax)
@@ -206,6 +223,8 @@ def chart_risk(I, cfg, risk, frac):
     for ds, dname in DS:
         figs = ''
         for gen in GEN:
+            if not in_main(ds, gen, risk):
+                continue
             series = {m: [(a, x['risk'], f'α = {a:g}：'+tip(x, risk), x['empirical_feasible'])
                           for a in alphas for x in [I.get((ds, gen, risk, a, frac, m))] if x and x['risk'] is not None] for m in METHODS}
             figs += panel(f'{dname} · {GEN[gen]}', series, (0, max(alphas)*1.05), [(a, f'{a:g}') for a in alphas], (0, top),
@@ -221,6 +240,8 @@ def chart_cost(I, cfg, risk):
     for ds, dname in DS:
         figs = ''
         for gen in GEN:
+            if not in_main(ds, gen, risk):
+                continue
             bmax = max(I[(ds, gen, risk, a, f, 'Ours-Offline')]['budget_usd'] for f in fr)*1e4
             cmax = max([I[(ds, gen, risk, a, f, m)]['mean_screen_cost']*1e4 for f in fr for m in METHODS]+[bmax])*1.05
             series = {m: [(I[(ds, gen, risk, a, f, m)]['budget_usd']*1e4, I[(ds, gen, risk, a, f, m)]['mean_screen_cost']*1e4,
@@ -275,11 +296,13 @@ def perf_table(I, rows, risk):
     return table(head, body)
 
 
-def main_alpha_table(I, cfg, risk):
+def main_alpha_table(I, cfg, risk, keep=in_main):
     a = cfg['alpha_main'][risk]
     body = ''
     for ds, dname in DS:
         for gen in GEN:
+            if not keep(ds, gen, risk):
+                continue
             for f in cfg['budget_fractions_shown']:
                 cells = [f'{dname} · {GEN[gen]} · B = {f:g}×c_ref']
                 for m in METHODS:
@@ -361,13 +384,13 @@ def over(x):
     return x['risk_excess'] is not None and x['risk_excess'] > 1e-12
 
 
-def sig_counts(I, rows, risk):
+def sig_counts(I, rows, risk, keep=in_main):
     """Previous version's comparison: over all conditions, paired-interval counts on the main objective."""
     out = {}
     for b in BASELINES:
         c = {'n': 0, 'ours': 0, 'base': 0, 'per': {}}
         for r in rows:
-            if r['risk_metric'] != risk or r['method'] != 'Ours-Offline':
+            if r['risk_metric'] != risk or r['method'] != 'Ours-Offline' or not keep(r['dataset'], r['generator'], risk):
                 continue
             lo, hi = r['paired'][b]['ci95']
             good = (lo > 0) if risk != 'fnr' else (hi < 0)
@@ -378,20 +401,20 @@ def sig_counts(I, rows, risk):
     return out
 
 
-def sig_table(I, rows, risk):
-    S = sig_counts(I, rows, risk)
+def sig_table(I, rows, risk, keep=in_main):
+    S = sig_counts(I, rows, risk, keep)
     word = '放行显著更多' if risk != 'fnr' else '错误放行显著更少'
     body = ''.join(tr([b, S[b]['n'], S[b]['ours'], S[b]['base'], S[b]['n']-S[b]['ours']-S[b]['base'],
                        ' · '.join(f'{dict(DS)[d]} {v[1]}/{v[2]}（共 {v[0]}）' for d, v in S[b]['per'].items())]) for b in BASELINES)
     return table(['对照方法', '条件数', f'我们{word}', f'对照{word}', '区间含 0', '按数据集：我们/对照'], body)
 
 
-def exceed_table(I, cfg, risk):
+def exceed_table(I, cfg, risk, keep=in_main):
     body = ''
-    keys = [k for k in I if k[2] == risk]
+    keys = [k for k in I if k[2] == risk and keep(k[0], k[1], risk)]
     for m in METHODS:
         xs = [I[k] for k in keys if k[5] == m]
-        per = ' · '.join(f'{dname} {sum(over(I[k]) for k in keys if k[5] == m and k[0] == ds)}' for ds, dname in DS)
+        per = ' · '.join(f'{dname} {sum(over(I[k]) for k in keys if k[5] == m and k[0] == ds)}' for ds, dname in DS if any(k[0] == ds for k in keys))
         body += tr([m, len(xs), sum(over(x) for x in xs), sum(not x['budget_met'] for x in xs),
                     sum(x['zero_release'] for x in xs), per])
     return table(['方法', '条件数', f'测试集{RISK_NAME[risk]}超标', '预算超标', '零放行', '按数据集：风险超标'], body)
@@ -404,11 +427,27 @@ def headline(I, rows, cfg):
         n = S[BASELINES[0]]['n']
         word = '放行显著更多' if risk != 'fnr' else '错误放行显著更少'
         parts = '；'.join(f'对 {b} {S[b]["ours"]}:{S[b]["base"]}' for b in BASELINES)
-        ex = {m: sum(over(I[k]) for k in I if k[2] == risk and k[5] == m) for m in METHODS}
+        ex = {m: sum(over(I[k]) for k in I if k[2] == risk and k[5] == m and in_main(k[0], k[1], risk)) for m in METHODS}
         exs = '，'.join(f'{m} {ex[m]}' for m in METHODS)
-        out.append(f'<li><b>{RISK_NAME[risk]}</b>（{n} 个条件）：我们{word}的条件数比对照{word}的条件数为 {parts}。'
+        note = '，不含错误答案太少的 MATH-500 Qwen3 和 gpt-oss，见附录 A.0' if EXCLUDE_MAIN.get(risk) else ''
+        out.append(f'<li><b>{RISK_NAME[risk]}</b>（{n} 个条件{note}）：我们{word}的条件数比对照{word}的条件数为 {parts}。'
                    f'测试集{RISK_NAME[risk]}超标的条件数：{exs}。</li>')
     return '<ul>'+''.join(out)+'</ul>'
+
+
+def exclusion_note(I, res, risk, appendix=False):
+    pairs = sorted(EXCLUDE_MAIN.get(risk, ()), key=lambda p: (p[0], list(GEN).index(p[1])))
+    if not pairs:
+        return ''
+    parts = []
+    for ds, gen in pairs:
+        x = next(I[k] for k in I if k[:3] == (ds, gen, risk) and k[5] == 'Ours-Offline')
+        vw = [f['validation_wrong'] for f in res[(ds, gen)]['folds']]
+        parts.append(f'{dict(DS)[ds]} · {GEN[gen]}：测试集 {x["n_tasks"]} 题里错误答案 {int(x["n_wrong"])} 道（其中没给出答案 {int(x["n_tasks"]-x["n_eligible"])} 道），'
+                     f'每个验证折 {min(vw)} 到 {max(vw)} 道')
+    lead = ('这些 generator 不进正文的比较，因为错误答案太少，FPR 的分母很小，一两道题就能让 FPR 变化很多：' if appendix else
+            '本节不含以下 generator，因为错误答案太少，FPR 的分母很小，一两道题就能让 FPR 变化很多；它们的完整结果在附录 A.0 和汇总表里：')
+    return '<p class="meta">' + lead + '；'.join(parts) + '。</p>'
 
 
 def report(cfg, out_dir, report_dir):
@@ -442,7 +481,8 @@ def report(cfg, out_dir, report_dir):
 <section id="risk-{risk}">
   <h2>4.{k} {RISK_NAME[risk]}约束（{RISK_DEF[risk]}）</h2>
   <p class="meta">α 取 {", ".join(f"{a:g}" for a in cfg["alpha_target"][risk])}；主要展示 α = {cfg["alpha_main"][risk]:g}。目标：{GOAL[risk]}。</p>
-  <h3>我们和每个对照的比较（全部 {len(cfg["alpha_target"][risk])*len(cfg["budget_fractions"])*9} 个条件，配对 bootstrap 区间）</h3>
+  {exclusion_note(I, res, risk)}
+  <h3>我们和每个对照的比较（{sig_counts(I, rows, risk)[BASELINES[0]]["n"]} 个条件，配对 bootstrap 区间）</h3>
   {s["SIG"]}
   <h3>超标情况（单独列出，不影响上表）</h3>
   {s["EXCEED"]}
@@ -460,6 +500,17 @@ def report(cfg, out_dir, report_dir):
   {s["COST"]}
 </section>'''
     appendix = ''
+    for risk in RISKS:
+        if not EXCLUDE_MAIN.get(risk):
+            continue
+        names = '、'.join(f'{dict(DS)[d]} · {GEN[g]}' for d, g in sorted(EXCLUDE_MAIN[risk], key=lambda p: list(GEN).index(p[1])))
+        appendix += f'''
+  <h3>A.0 {RISK_NAME[risk]}：移出正文的 {names}</h3>
+  {exclusion_note(I, res, risk, appendix=True)}
+  {sig_table(I, rows, risk, excluded)}
+  {exceed_table(I, cfg, risk, excluded)}
+  <h3>A.0 {RISK_NAME[risk]}：α = {cfg["alpha_main"][risk]:g} 时 {names} 的结果</h3>
+  {main_alpha_table(I, cfg, risk, excluded)}'''
     for k, risk in enumerate(RISKS, 1):
         s = sec[risk]
         appendix += f'''
