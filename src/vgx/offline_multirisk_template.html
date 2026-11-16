@@ -34,7 +34,6 @@ svg { width: 100%; height: auto; display: block; }
 .grid { stroke: var(--line); stroke-width: 1; }
 .ideal { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 5 4; }
 .tk { font: 10.5px var(--mono); fill: var(--muted); }
-.ax { font-size: 11px; fill: var(--muted); }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); position: sticky; top: 0;
   background: var(--bg); padding: 6px 0; z-index: 1; top: env(safe-area-inset-top, 0px); }
 .legend i { display: inline-block; width: 16px; height: 4px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
@@ -73,7 +72,8 @@ code { font-family: var(--mono); font-size: 13px; }
     <tr><th scope="row">FPR</th><td>e / (1 − q)</td><td>放行率 p 最大</td><td>e ≤ α (1 − q)</td><td>0.05, 0.10, 0.20, 0.30</td></tr>
     <tr><th scope="row">FNR</th><td>m / q</td><td>错误放行 e 最小</td><td>m ≤ α q</td><td>0.01, 0.02, 0.05, 0.10</td></tr>
   </tbody></table></div>
-  <p>FNR 的目标换成了最小化错误放行：如果还是最大化放行，全部放行就让 FNR 为 0，问不出筛选的问题。同一个 α 在三种风险下严格程度不同，不能横向比较。每题平均花费不超过预算 B = f × c_ref，f 取 0、0.1、0.25、0.5、0.75、1；c_ref 是该折拟合部分有答案的题问满 5 个 verifier 的平均花费（×10⁻⁴ 美元/题）：{{CREF}}。</p>
+  <p>FNR 的目标换成了最小化错误放行：如果还是最大化放行，全部放行就让 FNR 为 0，问不出筛选的问题。同一个 α 在三种风险下严格程度不同，不能横向比较。测试集上每题的平均 verifier 花费不能超过预算 B = f × c_ref，f 取 0、0.1、0.25、0.5、0.75、1。</p>
+  <p><b>c_ref（参考花费）</b>：一道题把 5 个 verifier（gemini_flash、gemini_lite、mistral_small、mistral_medium、claude_haiku）全部问一遍的花费，在拟合部分有答案的题上取平均。每个数据集 × generator × 折单独算，只用拟合部分，不看验证和测试。所以 f = 1 表示平均每题最多花掉「问满 5 个 verifier」的钱，f = 0.5 是它的一半，f = 0 是不问 verifier。单位 ×10⁻⁴ 美元/题，各数据集的范围：{{CREF}}。</p>
 </section>
 
 <section id="s2">

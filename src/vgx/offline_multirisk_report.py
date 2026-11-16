@@ -15,6 +15,9 @@ from vgx.offline_multirisk import BASELINES, METHODS, REFERENCES, RISKS
 DS = [('gpqa', 'GPQA'), ('math500', 'MATH-500'), ('qkatas', 'QuantumKatas')]
 GEN = {'qwen3': 'Qwen3', 'gptoss': 'gpt-oss', 'sonnet55': 'Sonnet 5.5'}
 RISK_NAME = {'selective_error': '放行错误率', 'fpr': 'FPR', 'fnr': 'FNR'}
+ALPHA_DEF = {'selective_error': 'α 限制放行错误率：放行的答案里错的比例不超过 α（e ≤ α p）',
+             'fpr': 'α 限制 FPR：所有错误答案里被放行的比例不超过 α（e ≤ α (1 − q)）',
+             'fnr': 'α 限制 FNR：所有正确答案里被拦下的比例不超过 α（m ≤ α q）'}
 RISK_DEF = {'selective_error': '放行的答案里错的比例', 'fpr': '所有错误答案里被放行的比例', 'fnr': '所有正确答案里被拦下的比例'}
 GOAL = {'selective_error': '放行率（越高越好）', 'fpr': '放行率（越高越好）', 'fnr': '错误放行占全部题的比例 e（越低越好）'}
 COLORS = {'Ours-Offline': 's1', 'AT-Frozen': 's2', 'AT+Cal-Frozen': 's3', 'Raw-threshold': 's4', 'Fixed-1-Mix': 's5', 'Fixed-3-Mix': 's6'}
@@ -137,8 +140,8 @@ def both_feasible_perf(I, rows, risk):
 
 # ----------------------------------------------------------------------------- charts
 
-def panel(title, series, xs, xticks, yr, yticks, yfmt, diag=None, hline=None, xlabel='', ylabel=''):
-    W, H, L, R_, T, Bm = 300, 228, 60, 10, 10, 44
+def panel(title, series, xs, xticks, yr, yticks, yfmt, diag=None, hline=None):
+    W, H, L, R_, T, Bm = 300, 210, 46, 10, 10, 28
     pw, ph = W-L-R_, H-T-Bm
     x0, x1 = xs; y0, y1 = yr
     sx = lambda v: L+(min(max(v, x0), x1)-x0)/(x1-x0 or 1)*pw
@@ -148,10 +151,6 @@ def panel(title, series, xs, xticks, yr, yticks, yfmt, diag=None, hline=None, xl
         g.append(f'<line class="grid" x1="{L}" x2="{L+pw}" y1="{sy(v):.1f}" y2="{sy(v):.1f}"/><text class="tk" x="{L-5}" y="{sy(v)+4:.1f}" text-anchor="end">{yfmt(v)}</text>')
     for v, lab in xticks:
         g.append(f'<text class="tk" x="{sx(v):.1f}" y="{T+ph+16}" text-anchor="middle">{lab}</text>')
-    if xlabel:
-        g.append(f'<text class="ax" x="{L+pw/2:.1f}" y="{H-6}" text-anchor="middle">{html.escape(xlabel)}</text>')
-    if ylabel:
-        g.append(f'<text class="ax" transform="translate(13 {T+ph/2:.1f}) rotate(-90)" text-anchor="middle">{html.escape(ylabel)}</text>')
     if diag:
         g.append(f'<polyline class="ideal" points="{" ".join(f"{sx(x):.1f},{sy(y):.1f}" for x, y in diag)}" fill="none"/>')
     if hline is not None:
@@ -177,10 +176,6 @@ def tip(x, risk):
     return s
 
 
-def ylab(risk):
-    return '放行率' if risk != 'fnr' else '错误放行（占全部题）'
-
-
 def objective(x, risk):
     return x['coverage'] if risk != 'fnr' else x['joint_wrong_release_rate']
 
@@ -200,8 +195,7 @@ def chart_alpha(I, cfg, risk, frac):
                 series[m] = [(i, objective(x, risk), f'α = {a:g}：'+tip(x, risk), x['empirical_feasible'])
                              for i, a in enumerate(alphas) for x in [I.get((ds, gen, risk, a, frac, m))] if x]
             yt = (0, .5, 1) if risk != 'fnr' else (0, ymax/2, ymax)
-            figs += panel(f'{dname} · {GEN[gen]}', series, (-.3, len(alphas)-.7), [(i, f'{a:g}') for i, a in enumerate(alphas)], (0, ymax), yt, lambda v: f'{v:.0%}' if risk != 'fnr' else f'{v:.1%}',
-                          xlabel='目标 α', ylabel=ylab(risk))
+            figs += panel(f'{dname} · {GEN[gen]}', series, (-.3, len(alphas)-.7), [(i, f'{a:g}') for i, a in enumerate(alphas)], (0, ymax), yt, lambda v: f'{v:.0%}' if risk != 'fnr' else f'{v:.1%}')
         out += f'<div class="row">{figs}</div>'
     return out
 
@@ -220,8 +214,7 @@ def chart_budget(I, cfg, risk):
             series = {m: [(f, objective(x, risk), f'预算 {f:g}×c_ref：'+tip(x, risk), x['empirical_feasible'])
                           for f in fr for x in [I.get((ds, gen, risk, a, f, m))] if x] for m in METHODS}
             yt = (0, .5, 1) if risk != 'fnr' else (0, ymax/2, ymax)
-            figs += panel(f'{dname} · {GEN[gen]}', series, (0, 1), [(f, f'{f:g}') for f in (0, .25, .5, .75, 1)], (0, ymax), yt, lambda v: f'{v:.0%}' if risk != 'fnr' else f'{v:.1%}',
-                          xlabel='预算 B（c_ref 的倍数）', ylabel=ylab(risk))
+            figs += panel(f'{dname} · {GEN[gen]}', series, (0, 1), [(f, f'{f:g}') for f in (0, .25, .5, .75, 1)], (0, ymax), yt, lambda v: f'{v:.0%}' if risk != 'fnr' else f'{v:.1%}')
         out += f'<div class="row">{figs}</div>'
     return out
 
@@ -247,8 +240,7 @@ def chart_risk(I, cfg, risk, frac):
             series = {m: [(a, x['risk'], f'α = {a:g}：'+tip(x, risk), x['empirical_feasible'])
                           for a in alphas for x in [I.get((ds, gen, risk, a, frac, m))] if x and x['risk'] is not None] for m in METHODS}
             figs += panel(f'{dname} · {GEN[gen]}', series, (0, max(alphas)*1.05), spaced(alphas, max(alphas)*1.05), (0, top),
-                          (0, max(alphas)/2, max(alphas), top), lambda v: f'{v:.0%}', diag=[(0, 0), (max(alphas)*1.05, max(alphas)*1.05)],
-                          xlabel='目标 α', ylabel=f'测试集实际 {RISK_NAME[risk]}')
+                          (0, max(alphas)/2, max(alphas), top), lambda v: f'{v:.0%}', diag=[(0, 0), (max(alphas)*1.05, max(alphas)*1.05)])
         out += f'<div class="row">{figs}</div>'
     return out
 
@@ -270,8 +262,7 @@ def chart_cost(I, cfg, risk):
             step = next(v for v in (5, 10, 20, 50, 100) if cmax/v <= 5)
             ticks = [v for v in np.arange(0, cmax, step)]
             figs += panel(f'{dname} · {GEN[gen]}', series, (0, bmax*1.05), [(v, f'{v:g}') for v in np.arange(0, bmax*1.05, step)],
-                          (0, cmax), ticks, lambda v: f'{v:g}', diag=[(0, 0), (bmax*1.05, bmax*1.05)],
-                          xlabel='预算（×10⁻⁴ 美元/题）', ylabel='实际花费（×10⁻⁴ 美元/题）')
+                          (0, cmax), ticks, lambda v: f'{v:g}', diag=[(0, 0), (bmax*1.05, bmax*1.05)])
         out += f'<div class="row">{figs}</div>'
     return out
 
@@ -498,7 +489,7 @@ def report(cfg, out_dir, report_dir):
         blocks += f'''
 <section id="risk-{risk}">
   <h2>4.{k} {RISK_NAME[risk]}约束（{RISK_DEF[risk]}）</h2>
-  <p class="meta">α 取 {", ".join(f"{a:g}" for a in cfg["alpha_target"][risk])}；主要展示 α = {cfg["alpha_main"][risk]:g}。目标：{GOAL[risk]}。</p>
+  <p>{ALPHA_DEF[risk]}，在测试集上检查。α 取 {", ".join(f"{a:g}" for a in cfg["alpha_target"][risk])}；主要展示 α = {cfg["alpha_main"][risk]:g}。目标：{GOAL[risk]}。</p>
   {exclusion_note(res, risk)}
   <h3>我们和每个对照的比较（{sig_counts(I, rows, risk)[BASELINES[0]]["n"]} 个条件，配对 bootstrap 区间）</h3>
   {s["SIG"]}
@@ -507,14 +498,18 @@ def report(cfg, out_dir, report_dir):
   <h3>α = {cfg["alpha_main"][risk]:g} 时的结果（{GOAL[risk].split("（")[0]} / 实际{RISK_NAME[risk]}，✕ 表示风险或预算未达标）</h3>
   {s["MAIN"]}
   <h3>α 和表现（固定预算）</h3>
+  <p class="meta">横轴：目标 α；纵轴：{'放行率' if risk != 'fnr' else '错误放行 e（占全部题的比例）'}。按钮切换预算。</p>
   {legend}
   <div class="seg" role="group" aria-label="预算">{btn}</div>
   {s["ALPHA"]}
-  <h3>实际{RISK_NAME[risk]}和目标 α（虚线是实际 = 目标，线上方为超标）</h3>
+  <h3>实际{RISK_NAME[risk]}和目标 α</h3>
+  <p class="meta">横轴：目标 α；纵轴：测试集上实际的 {RISK_NAME[risk]}。虚线是实际 = 目标，点在虚线上方就是超标。预算跟上面的按钮一致。</p>
   {s["RISK"]}
   <h3>预算和表现（α = {cfg["alpha_main"][risk]:g}）</h3>
+  <p class="meta">横轴：预算 B，写成 c_ref 的倍数 f；纵轴：{'放行率' if risk != 'fnr' else '错误放行 e（占全部题的比例）'}。</p>
   {s["BUDGET"]}
-  <h3>实际花费和预算（α = {cfg["alpha_main"][risk]:g}，虚线是花费 = 预算，×10⁻⁴ 美元/题）</h3>
+  <h3>实际花费和预算（α = {cfg["alpha_main"][risk]:g}）</h3>
+  <p class="meta">横轴：预算；纵轴：测试集上实际的每题平均花费；单位都是 10⁻⁴ 美元/题。虚线是花费 = 预算，点在虚线上方就是超预算。</p>
   {s["COST"]}
 </section>'''
     appendix = ''
