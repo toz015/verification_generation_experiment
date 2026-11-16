@@ -433,6 +433,7 @@ def report(cfg, out_dir, report_dir):
                      'ALPHA': ''.join(f'<div class="bud" data-b="{f:g}"{"" if f == 1 else " hidden"}>{chart_alpha(I, cfg, risk, f)}</div>' for f in cfg['budget_fractions_shown']),
                      'RISK': ''.join(f'<div class="bud" data-b="{f:g}"{"" if f == 1 else " hidden"}>{chart_risk(I, cfg, risk, f)}</div>' for f in cfg['budget_fractions_shown']),
                      'BUDGET': chart_budget(I, cfg, risk), 'COST': chart_cost(I, cfg, risk)}
+    legend = '<div class="legend">'+''.join(f'<span><i style="background:var(--{COLORS[m]})"></i>{m}</span>' for m in METHODS)+'<span>实心点 = 风险和预算都达标，空心点 = 未达标</span></div>'
     blocks = ''
     for k, risk in enumerate(RISKS, 1):
         s = sec[risk]
@@ -448,6 +449,7 @@ def report(cfg, out_dir, report_dir):
   <h3>α = {cfg["alpha_main"][risk]:g} 时的结果（{GOAL[risk].split("（")[0]} / 实际{RISK_NAME[risk]}，✕ 表示风险或预算未达标）</h3>
   {s["MAIN"]}
   <h3>α 和表现（固定预算）</h3>
+  {legend}
   <div class="seg" role="group" aria-label="预算">{btn}</div>
   {s["ALPHA"]}
   <h3>实际{RISK_NAME[risk]}和目标 α（虚线是实际 = 目标，线上方为超标）</h3>
@@ -467,7 +469,6 @@ def report(cfg, out_dir, report_dir):
   {s["METHOD"]}
   <h3>A.{k} {RISK_NAME[risk]}：双方都达标时的差值</h3>
   {s["PERF"]}'''
-    legend = '<div class="legend">'+''.join(f'<span><i style="background:var(--{COLORS[m]})"></i>{m}</span>' for m in METHODS)+'<span>实心点 = 风险和预算都达标，空心点 = 未达标</span></div>'
     cref = {ds: [f['c_ref_usd']*1e4 for g in GEN for f in res[(ds, g)]['folds']] for ds, _ in DS}
     vtxt = ('没有找到重建结果' if verify is None else
             f'从逐题日志独立重算了 {verify["checked_cells"]} 个条件×方法、{verify["checked_fields"]} 个字段，'
@@ -475,7 +476,7 @@ def report(cfg, out_dir, report_dir):
             f'混合策略逐题核对 {verify["mixture_items_checked"]} 次，不一致 {verify["mixture_mismatches"]} 次；'
             f'AT 种子平均核对 {verify["seed_mean_items_checked"]} 题次，不一致 {verify["seed_mean_mismatches"]} 次；决策日志里没有标签列。')
     net = sum(len(r.get('network_attempts', [])) for r in res.values())
-    fill = {'{{HEADLINE}}': headline(I, rows, cfg), '{{LEGEND}}': legend, '{{BLOCKS}}': blocks, '{{APPENDIX}}': appendix, '{{DENOM}}': denom, '{{SEL}}': sel,
+    fill = {'{{HEADLINE}}': headline(I, rows, cfg), '{{LEGEND}}': '', '{{BLOCKS}}': blocks, '{{APPENDIX}}': appendix, '{{DENOM}}': denom, '{{SEL}}': sel,
             '{{DUP}}': dup, '{{SEED}}': seed, '{{DRAWS}}': draws, '{{BRIER}}': brier_table(res), '{{NCOND}}': str(n_cond),
             '{{NROWS}}': str(len(rows)), '{{VERIFY}}': vtxt, '{{NET}}': f'{net} 次网络请求尝试（全部被拦截）' if net else '没有任何网络请求尝试',
             '{{CREF}}': '；'.join(f'{dict(DS)[ds]} {min(v):.0f} 到 {max(v):.0f}' for ds, v in cref.items()),
