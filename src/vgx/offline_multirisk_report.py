@@ -356,18 +356,58 @@ def brier_table(res):
     return table(['数据集 · generator', '有答案的测试题', '原始 p', '我们的校准先验', 'AT+Cal 选中校准（题×种子）', '同一批题×种子：原始 p', '同一批：我们的先验', 'AT+Cal 有选中的折×种子'], body)
 
 
+def over(x):
+    """Risk measured and above the target (zero release is counted separately, not as an overrun)."""
+    return x['risk_excess'] is not None and x['risk_excess'] > 1e-12
+
+
+def sig_counts(I, rows, risk):
+    """Previous version's comparison: over all conditions, paired-interval counts on the main objective."""
+    out = {}
+    for b in BASELINES:
+        c = {'n': 0, 'ours': 0, 'base': 0, 'per': {}}
+        for r in rows:
+            if r['risk_metric'] != risk or r['method'] != 'Ours-Offline':
+                continue
+            lo, hi = r['paired'][b]['ci95']
+            good = (lo > 0) if risk != 'fnr' else (hi < 0)
+            bad = (hi < 0) if risk != 'fnr' else (lo > 0)
+            c['n'] += 1; c['ours'] += good; c['base'] += bad
+            s = c['per'].setdefault(r['dataset'], [0, 0, 0]); s[0] += 1; s[1] += good; s[2] += bad
+        out[b] = c
+    return out
+
+
+def sig_table(I, rows, risk):
+    S = sig_counts(I, rows, risk)
+    word = '放行显著更多' if risk != 'fnr' else '错误放行显著更少'
+    body = ''.join(tr([b, S[b]['n'], S[b]['ours'], S[b]['base'], S[b]['n']-S[b]['ours']-S[b]['base'],
+                       ' · '.join(f'{dict(DS)[d]} {v[1]}/{v[2]}（共 {v[0]}）' for d, v in S[b]['per'].items())]) for b in BASELINES)
+    return table(['对照方法', '条件数', f'我们{word}', f'对照{word}', '区间含 0', '按数据集：我们/对照'], body)
+
+
+def exceed_table(I, cfg, risk):
+    body = ''
+    keys = [k for k in I if k[2] == risk]
+    for m in METHODS:
+        xs = [I[k] for k in keys if k[5] == m]
+        per = ' · '.join(f'{dname} {sum(over(I[k]) for k in keys if k[5] == m and k[0] == ds)}' for ds, dname in DS)
+        body += tr([m, len(xs), sum(over(x) for x in xs), sum(not x['budget_met'] for x in xs),
+                    sum(x['zero_release'] for x in xs), per])
+    return table(['方法', '条件数', f'测试集{RISK_NAME[risk]}超标', '预算超标', '零放行', '按数据集：风险超标'], body)
+
+
 def headline(I, rows, cfg):
     out = []
     for risk in RISKS:
-        f, _ = feasibility(I, rows, cfg, risk)
-        P = both_feasible_perf(I, rows, risk)
-        n = len([r for r in rows if r['risk_metric'] == risk and r['method'] == 'Ours-Offline'])
-        ours_ok = sum(r['empirical_feasible'] for r in rows if r['risk_metric'] == risk and r['method'] == 'Ours-Offline')
-        parts = [f'{b} {P[b]["ours_better_ci"]}:{P[b]["baseline_better_ci"]}（共 {P[b]["n"]}）' for b in BASELINES]
-        best_base = max(BASELINES, key=lambda b: sum(r['empirical_feasible'] for r in rows if r['risk_metric'] == risk and r['method'] == b))
-        bb = sum(r['empirical_feasible'] for r in rows if r['risk_metric'] == risk and r['method'] == best_base)
-        out.append(f'<li><b>{RISK_NAME[risk]}</b>：{n} 个条件里，我们的方法在测试集上风险和预算同时达标 {ours_ok} 个；达标最多的对照是 {best_base}（{bb} 个）。'
-                   f'双方都达标时，区间显示我们更好的条件数比对照更好的条件数为：{"；".join(parts)}。</li>')
+        S = sig_counts(I, rows, risk)
+        n = S[BASELINES[0]]['n']
+        word = '放行显著更多' if risk != 'fnr' else '错误放行显著更少'
+        parts = '；'.join(f'对 {b} {S[b]["ours"]}:{S[b]["base"]}' for b in BASELINES)
+        ex = {m: sum(over(I[k]) for k in I if k[2] == risk and k[5] == m) for m in METHODS}
+        exs = '，'.join(f'{m} {ex[m]}' for m in METHODS)
+        out.append(f'<li><b>{RISK_NAME[risk]}</b>（{n} 个条件）：我们{word}的条件数比对照{word}的条件数为 {parts}。'
+                   f'测试集{RISK_NAME[risk]}超标的条件数：{exs}。</li>')
     return '<ul>'+''.join(out)+'</ul>'
 
 
@@ -388,7 +428,7 @@ def report(cfg, out_dir, report_dir):
     n_cond = len({(r['dataset'], r['generator'], r['risk_metric'], r['alpha_target'], r['budget_fraction']) for r in rows})
     sec = {}
     for risk in RISKS:
-        sec[risk] = {'FEAS': feas_table(I, rows, cfg, risk), 'METHOD': method_feasible_table(I, cfg, risk), 'PERF': perf_table(I, rows, risk),
+        sec[risk] = {'SIG': sig_table(I, rows, risk), 'EXCEED': exceed_table(I, cfg, risk), 'FEAS': feas_table(I, rows, cfg, risk), 'METHOD': method_feasible_table(I, cfg, risk), 'PERF': perf_table(I, rows, risk),
                      'MAIN': main_alpha_table(I, cfg, risk),
                      'ALPHA': ''.join(f'<div class="bud" data-b="{f:g}"{"" if f == 1 else " hidden"}>{chart_alpha(I, cfg, risk, f)}</div>' for f in cfg['budget_fractions_shown']),
                      'RISK': ''.join(f'<div class="bud" data-b="{f:g}"{"" if f == 1 else " hidden"}>{chart_risk(I, cfg, risk, f)}</div>' for f in cfg['budget_fractions_shown']),
@@ -401,12 +441,10 @@ def report(cfg, out_dir, report_dir):
 <section id="risk-{risk}">
   <h2>4.{k} {RISK_NAME[risk]}约束（{RISK_DEF[risk]}）</h2>
   <p class="meta">α 取 {", ".join(f"{a:g}" for a in cfg["alpha_target"][risk])}；主要展示 α = {cfg["alpha_main"][risk]:g}。目标：{GOAL[risk]}。</p>
-  <h3>经验可行状态（全部 {len(cfg["alpha_target"][risk])*len(cfg["budget_fractions"])*9} 个条件，我们对每个对照）</h3>
-  {s["FEAS"]}
-  <h3>各方法在测试集上同时达标的条件数</h3>
-  {s["METHOD"]}
-  <h3>双方都达标时的差值</h3>
-  {s["PERF"]}
+  <h3>我们和每个对照的比较（全部 {len(cfg["alpha_target"][risk])*len(cfg["budget_fractions"])*9} 个条件，配对 bootstrap 区间）</h3>
+  {s["SIG"]}
+  <h3>超标情况（单独列出，不影响上表）</h3>
+  {s["EXCEED"]}
   <h3>α = {cfg["alpha_main"][risk]:g} 时的结果（{GOAL[risk].split("（")[0]} / 实际{RISK_NAME[risk]}，✕ 表示风险或预算未达标）</h3>
   {s["MAIN"]}
   <h3>α 和表现（固定预算）</h3>
@@ -419,6 +457,16 @@ def report(cfg, out_dir, report_dir):
   <h3>实际花费和预算（α = {cfg["alpha_main"][risk]:g}，虚线是花费 = 预算，×10⁻⁴ 美元/题）</h3>
   {s["COST"]}
 </section>'''
+    appendix = ''
+    for k, risk in enumerate(RISKS, 1):
+        s = sec[risk]
+        appendix += f'''
+  <h3>A.{k} {RISK_NAME[risk]}：经验可行状态</h3>
+  {s["FEAS"]}
+  <h3>A.{k} {RISK_NAME[risk]}：各方法同时达标的条件数</h3>
+  {s["METHOD"]}
+  <h3>A.{k} {RISK_NAME[risk]}：双方都达标时的差值</h3>
+  {s["PERF"]}'''
     legend = '<div class="legend">'+''.join(f'<span><i style="background:var(--{COLORS[m]})"></i>{m}</span>' for m in METHODS)+'<span>实心点 = 风险和预算都达标，空心点 = 未达标</span></div>'
     cref = {ds: [f['c_ref_usd']*1e4 for g in GEN for f in res[(ds, g)]['folds']] for ds, _ in DS}
     vtxt = ('没有找到重建结果' if verify is None else
@@ -427,7 +475,7 @@ def report(cfg, out_dir, report_dir):
             f'混合策略逐题核对 {verify["mixture_items_checked"]} 次，不一致 {verify["mixture_mismatches"]} 次；'
             f'AT 种子平均核对 {verify["seed_mean_items_checked"]} 题次，不一致 {verify["seed_mean_mismatches"]} 次；决策日志里没有标签列。')
     net = sum(len(r.get('network_attempts', [])) for r in res.values())
-    fill = {'{{HEADLINE}}': headline(I, rows, cfg), '{{LEGEND}}': legend, '{{BLOCKS}}': blocks, '{{DENOM}}': denom, '{{SEL}}': sel,
+    fill = {'{{HEADLINE}}': headline(I, rows, cfg), '{{LEGEND}}': legend, '{{BLOCKS}}': blocks, '{{APPENDIX}}': appendix, '{{DENOM}}': denom, '{{SEL}}': sel,
             '{{DUP}}': dup, '{{SEED}}': seed, '{{DRAWS}}': draws, '{{BRIER}}': brier_table(res), '{{NCOND}}': str(n_cond),
             '{{NROWS}}': str(len(rows)), '{{VERIFY}}': vtxt, '{{NET}}': f'{net} 次网络请求尝试（全部被拦截）' if net else '没有任何网络请求尝试',
             '{{CREF}}': '；'.join(f'{dict(DS)[ds]} {min(v):.0f} 到 {max(v):.0f}' for ds, v in cref.items()),
