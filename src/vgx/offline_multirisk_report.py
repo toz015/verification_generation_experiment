@@ -18,9 +18,9 @@ RISK_NAME = {'selective_error': '放行错误率', 'fpr': 'FPR', 'fnr': 'FNR'}
 RISK_DEF = {'selective_error': '放行的答案里错的比例', 'fpr': '所有错误答案里被放行的比例', 'fnr': '所有正确答案里被拦下的比例'}
 GOAL = {'selective_error': '放行率（越高越好）', 'fpr': '放行率（越高越好）', 'fnr': '错误放行占全部题的比例 e（越低越好）'}
 COLORS = {'Ours-Offline': 's1', 'AT-Frozen': 's2', 'AT+Cal-Frozen': 's3', 'Raw-threshold': 's4', 'Fixed-1-Mix': 's5', 'Fixed-3-Mix': 's6'}
-# Dataset/generator pairs left out of a risk's main comparison (full results stay in the appendix and CSVs):
-# MATH-500 Qwen3 and gpt-oss have too few wrong answers for FPR (a handful per validation fold; gpt-oss's are mostly no-answer).
-EXCLUDE_MAIN = {'fpr': {('math500', 'qwen3'), ('math500', 'gptoss')}}
+# Dataset/generator pairs not evaluated for a risk; the report drops them everywhere (tables, charts, CSVs).
+# FPR's denominator is the number of wrong answers, and MATH-500 has too few of them for every generator.
+EXCLUDE_MAIN = {'fpr': {('math500', g) for g in ('qwen3', 'gptoss', 'sonnet55')}}
 
 
 def in_main(ds, gen, risk):
@@ -137,8 +137,8 @@ def both_feasible_perf(I, rows, risk):
 
 # ----------------------------------------------------------------------------- charts
 
-def panel(title, series, xs, xticks, yr, yticks, yfmt, diag=None, hline=None):
-    W, H, L, R_, T, Bm = 300, 210, 46, 10, 10, 28
+def panel(title, series, xs, xticks, yr, yticks, yfmt, diag=None, hline=None, xlabel='', ylabel=''):
+    W, H, L, R_, T, Bm = 300, 228, 60, 10, 10, 44
     pw, ph = W-L-R_, H-T-Bm
     x0, x1 = xs; y0, y1 = yr
     sx = lambda v: L+(min(max(v, x0), x1)-x0)/(x1-x0 or 1)*pw
@@ -147,7 +147,11 @@ def panel(title, series, xs, xticks, yr, yticks, yfmt, diag=None, hline=None):
     for v in yticks:
         g.append(f'<line class="grid" x1="{L}" x2="{L+pw}" y1="{sy(v):.1f}" y2="{sy(v):.1f}"/><text class="tk" x="{L-5}" y="{sy(v)+4:.1f}" text-anchor="end">{yfmt(v)}</text>')
     for v, lab in xticks:
-        g.append(f'<text class="tk" x="{sx(v):.1f}" y="{H-6}" text-anchor="middle">{lab}</text>')
+        g.append(f'<text class="tk" x="{sx(v):.1f}" y="{T+ph+16}" text-anchor="middle">{lab}</text>')
+    if xlabel:
+        g.append(f'<text class="ax" x="{L+pw/2:.1f}" y="{H-6}" text-anchor="middle">{html.escape(xlabel)}</text>')
+    if ylabel:
+        g.append(f'<text class="ax" transform="translate(13 {T+ph/2:.1f}) rotate(-90)" text-anchor="middle">{html.escape(ylabel)}</text>')
     if diag:
         g.append(f'<polyline class="ideal" points="{" ".join(f"{sx(x):.1f},{sy(y):.1f}" for x, y in diag)}" fill="none"/>')
     if hline is not None:
@@ -173,6 +177,10 @@ def tip(x, risk):
     return s
 
 
+def ylab(risk):
+    return '放行率' if risk != 'fnr' else '错误放行（占全部题）'
+
+
 def objective(x, risk):
     return x['coverage'] if risk != 'fnr' else x['joint_wrong_release_rate']
 
@@ -192,7 +200,8 @@ def chart_alpha(I, cfg, risk, frac):
                 series[m] = [(i, objective(x, risk), f'α = {a:g}：'+tip(x, risk), x['empirical_feasible'])
                              for i, a in enumerate(alphas) for x in [I.get((ds, gen, risk, a, frac, m))] if x]
             yt = (0, .5, 1) if risk != 'fnr' else (0, ymax/2, ymax)
-            figs += panel(f'{dname} · {GEN[gen]}', series, (-.3, len(alphas)-.7), [(i, f'{a:g}') for i, a in enumerate(alphas)], (0, ymax), yt, lambda v: f'{v:.0%}' if risk != 'fnr' else f'{v:.1%}')
+            figs += panel(f'{dname} · {GEN[gen]}', series, (-.3, len(alphas)-.7), [(i, f'{a:g}') for i, a in enumerate(alphas)], (0, ymax), yt, lambda v: f'{v:.0%}' if risk != 'fnr' else f'{v:.1%}',
+                          xlabel='目标 α', ylabel=ylab(risk))
         out += f'<div class="row">{figs}</div>'
     return out
 
@@ -211,9 +220,19 @@ def chart_budget(I, cfg, risk):
             series = {m: [(f, objective(x, risk), f'预算 {f:g}×c_ref：'+tip(x, risk), x['empirical_feasible'])
                           for f in fr for x in [I.get((ds, gen, risk, a, f, m))] if x] for m in METHODS}
             yt = (0, .5, 1) if risk != 'fnr' else (0, ymax/2, ymax)
-            figs += panel(f'{dname} · {GEN[gen]}', series, (0, 1), [(f, f'{f:g}') for f in (0, .25, .5, .75, 1)], (0, ymax), yt, lambda v: f'{v:.0%}' if risk != 'fnr' else f'{v:.1%}')
+            figs += panel(f'{dname} · {GEN[gen]}', series, (0, 1), [(f, f'{f:g}') for f in (0, .25, .5, .75, 1)], (0, ymax), yt, lambda v: f'{v:.0%}' if risk != 'fnr' else f'{v:.1%}',
+                          xlabel='预算 B（c_ref 的倍数）', ylabel=ylab(risk))
         out += f'<div class="row">{figs}</div>'
     return out
+
+
+def spaced(vals, span, gap=.08):
+    """Tick labels at the given values, skipping any that would sit too close to the previous one."""
+    out = []
+    for v in sorted(vals, reverse=True):
+        if not out or out[-1][0]-v >= gap*span:
+            out.append((v, f'{v:g}'))
+    return out[::-1]
 
 
 def chart_risk(I, cfg, risk, frac):
@@ -227,8 +246,9 @@ def chart_risk(I, cfg, risk, frac):
                 continue
             series = {m: [(a, x['risk'], f'α = {a:g}：'+tip(x, risk), x['empirical_feasible'])
                           for a in alphas for x in [I.get((ds, gen, risk, a, frac, m))] if x and x['risk'] is not None] for m in METHODS}
-            figs += panel(f'{dname} · {GEN[gen]}', series, (0, max(alphas)*1.05), [(a, f'{a:g}') for a in alphas], (0, top),
-                          (0, max(alphas)/2, max(alphas), top), lambda v: f'{v:.0%}', diag=[(0, 0), (max(alphas)*1.05, max(alphas)*1.05)])
+            figs += panel(f'{dname} · {GEN[gen]}', series, (0, max(alphas)*1.05), spaced(alphas, max(alphas)*1.05), (0, top),
+                          (0, max(alphas)/2, max(alphas), top), lambda v: f'{v:.0%}', diag=[(0, 0), (max(alphas)*1.05, max(alphas)*1.05)],
+                          xlabel='目标 α', ylabel=f'测试集实际 {RISK_NAME[risk]}')
         out += f'<div class="row">{figs}</div>'
     return out
 
@@ -250,7 +270,8 @@ def chart_cost(I, cfg, risk):
             step = next(v for v in (5, 10, 20, 50, 100) if cmax/v <= 5)
             ticks = [v for v in np.arange(0, cmax, step)]
             figs += panel(f'{dname} · {GEN[gen]}', series, (0, bmax*1.05), [(v, f'{v:g}') for v in np.arange(0, bmax*1.05, step)],
-                          (0, cmax), ticks, lambda v: f'{v:g}', diag=[(0, 0), (bmax*1.05, bmax*1.05)])
+                          (0, cmax), ticks, lambda v: f'{v:g}', diag=[(0, 0), (bmax*1.05, bmax*1.05)],
+                          xlabel='预算（×10⁻⁴ 美元/题）', ylabel='实际花费（×10⁻⁴ 美元/题）')
         out += f'<div class="row">{figs}</div>'
     return out
 
@@ -278,6 +299,8 @@ def method_feasible_table(I, cfg, risk):
     tot = len(cfg['alpha_target'][risk])*len(cfg['budget_fractions'])
     for ds, dname in DS:
         for gen in GEN:
+            if not in_main(ds, gen, risk):
+                continue
             cells = [f'{dname} · {GEN[gen]}']
             for m in METHODS:
                 xs = [I[(ds, gen, risk, a, f, m)] for a in cfg['alpha_target'][risk] for f in cfg['budget_fractions']]
@@ -429,25 +452,20 @@ def headline(I, rows, cfg):
         parts = '；'.join(f'对 {b} {S[b]["ours"]}:{S[b]["base"]}' for b in BASELINES)
         ex = {m: sum(over(I[k]) for k in I if k[2] == risk and k[5] == m and in_main(k[0], k[1], risk)) for m in METHODS}
         exs = '，'.join(f'{m} {ex[m]}' for m in METHODS)
-        note = '，不含错误答案太少的 MATH-500 Qwen3 和 gpt-oss，见附录 A.0' if EXCLUDE_MAIN.get(risk) else ''
+        note = '，不含错误答案太少的 MATH-500' if EXCLUDE_MAIN.get(risk) else ''
         out.append(f'<li><b>{RISK_NAME[risk]}</b>（{n} 个条件{note}）：我们{word}的条件数比对照{word}的条件数为 {parts}。'
                    f'测试集{RISK_NAME[risk]}超标的条件数：{exs}。</li>')
     return '<ul>'+''.join(out)+'</ul>'
 
 
-def exclusion_note(I, res, risk, appendix=False):
+def exclusion_note(res, risk):
     pairs = sorted(EXCLUDE_MAIN.get(risk, ()), key=lambda p: (p[0], list(GEN).index(p[1])))
     if not pairs:
         return ''
-    parts = []
-    for ds, gen in pairs:
-        x = next(I[k] for k in I if k[:3] == (ds, gen, risk) and k[5] == 'Ours-Offline')
-        vw = [f['validation_wrong'] for f in res[(ds, gen)]['folds']]
-        parts.append(f'{dict(DS)[ds]} · {GEN[gen]}：测试集 {x["n_tasks"]} 题里错误答案 {int(x["n_wrong"])} 道（其中没给出答案 {int(x["n_tasks"]-x["n_eligible"])} 道），'
-                     f'每个验证折 {min(vw)} 到 {max(vw)} 道')
-    lead = ('这些 generator 不进正文的比较，因为错误答案太少，FPR 的分母很小，一两道题就能让 FPR 变化很多：' if appendix else
-            '本节不含以下 generator，因为错误答案太少，FPR 的分母很小，一两道题就能让 FPR 变化很多；它们的完整结果在附录 A.0 和汇总表里：')
-    return '<p class="meta">' + lead + '；'.join(parts) + '。</p>'
+    ds = pairs[0][0]
+    counts = '、'.join(f'{GEN[g]} {sum(f["test_wrong"] for f in res[(d, g)]["folds"])} 道' for d, g in pairs)
+    return (f'<p class="meta">FPR 不测 {dict(DS)[ds]}：FPR 的分母是错误答案的数量，而 {dict(DS)[ds]} 的错误答案太少'
+            f'（{len(res[pairs[0]]["folds"])} 折测试合计：{counts}，没给答案的也算在内），一两道题就能让 FPR 变化很多。</p>')
 
 
 def report(cfg, out_dir, report_dir):
@@ -455,7 +473,7 @@ def report(cfg, out_dir, report_dir):
     missing = [f'{ds}:{g}' for ds, _ in DS for g in GEN if (ds, g) not in res]
     if missing:
         raise SystemExit(f'missing results: {missing}')
-    rows = rows_of(res)
+    rows = [r for r in rows_of(res) if in_main(r['dataset'], r['generator'], r['risk_metric'])]
     I = index(rows)
     report_dir = Path(report_dir); report_dir.mkdir(parents=True, exist_ok=True)
     write_csv(rows, report_dir/'all_conditions.csv')
@@ -481,7 +499,7 @@ def report(cfg, out_dir, report_dir):
 <section id="risk-{risk}">
   <h2>4.{k} {RISK_NAME[risk]}约束（{RISK_DEF[risk]}）</h2>
   <p class="meta">α 取 {", ".join(f"{a:g}" for a in cfg["alpha_target"][risk])}；主要展示 α = {cfg["alpha_main"][risk]:g}。目标：{GOAL[risk]}。</p>
-  {exclusion_note(I, res, risk)}
+  {exclusion_note(res, risk)}
   <h3>我们和每个对照的比较（{sig_counts(I, rows, risk)[BASELINES[0]]["n"]} 个条件，配对 bootstrap 区间）</h3>
   {s["SIG"]}
   <h3>超标情况（单独列出，不影响上表）</h3>
@@ -500,17 +518,6 @@ def report(cfg, out_dir, report_dir):
   {s["COST"]}
 </section>'''
     appendix = ''
-    for risk in RISKS:
-        if not EXCLUDE_MAIN.get(risk):
-            continue
-        names = '、'.join(f'{dict(DS)[d]} · {GEN[g]}' for d, g in sorted(EXCLUDE_MAIN[risk], key=lambda p: list(GEN).index(p[1])))
-        appendix += f'''
-  <h3>A.0 {RISK_NAME[risk]}：移出正文的 {names}</h3>
-  {exclusion_note(I, res, risk, appendix=True)}
-  {sig_table(I, rows, risk, excluded)}
-  {exceed_table(I, cfg, risk, excluded)}
-  <h3>A.0 {RISK_NAME[risk]}：α = {cfg["alpha_main"][risk]:g} 时 {names} 的结果</h3>
-  {main_alpha_table(I, cfg, risk, excluded)}'''
     for k, risk in enumerate(RISKS, 1):
         s = sec[risk]
         appendix += f'''

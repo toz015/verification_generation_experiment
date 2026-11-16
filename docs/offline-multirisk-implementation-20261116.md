@@ -77,3 +77,10 @@ status other than optimal is recorded and the candidate dropped, never read as a
 
 The old offline pipeline (`python -m vgx.offline_frozen run --out DIR`) keeps its entry point and now accepts an output
 directory, so the historical `results/offline_at_frozen_20261111/` is not overwritten. It was not re-run for this round.
+
+## Report scope
+
+The report and its CSVs leave out FPR on MATH-500 (all three generators; `EXCLUDE_MAIN` in
+`offline_multirisk_report.py`). FPR's denominator is the number of wrong answers, which on MATH-500 is 16 (Qwen3),
+101 (gpt-oss, 84 of them no-answer) and 63 (Sonnet 5.5) over the five test folds. The runner still computes these
+cells, so `results/offline_multirisk_20261116/math500_*.json` contains them.
