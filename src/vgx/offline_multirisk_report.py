@@ -480,7 +480,7 @@ def report(cfg, out_dir, report_dir):
                      'MAIN': main_alpha_table(I, cfg, risk),
                      'ALPHA': ''.join(f'<div class="bud" data-b="{f:g}"{"" if f == 1 else " hidden"}>{chart_alpha(I, cfg, risk, f)}</div>' for f in cfg['budget_fractions_shown']),
                      'RISK': ''.join(f'<div class="bud" data-b="{f:g}"{"" if f == 1 else " hidden"}>{chart_risk(I, cfg, risk, f)}</div>' for f in cfg['budget_fractions_shown']),
-                     'BUDGET': chart_budget(I, cfg, risk), 'COST': chart_cost(I, cfg, risk)}
+                     'COST': chart_cost(I, cfg, risk)}
     legend = '<div class="legend">'+''.join(f'<span><i style="background:var(--{COLORS[m]})"></i>{m}</span>' for m in METHODS)+'<span>实心点 = 风险和预算都达标，空心点 = 未达标</span></div>'
     blocks = ''
     for k, risk in enumerate(RISKS, 1):
@@ -505,9 +505,6 @@ def report(cfg, out_dir, report_dir):
   <h3>实际{RISK_NAME[risk]}和目标 α</h3>
   <p class="meta">横轴：目标 α；纵轴：测试集上实际的 {RISK_NAME[risk]}。虚线是实际 = 目标，点在虚线上方就是超标。预算跟上面的按钮一致。</p>
   {s["RISK"]}
-  <h3>预算和表现（α = {cfg["alpha_main"][risk]:g}）</h3>
-  <p class="meta">横轴：预算 B，写成 c_ref 的倍数 f；纵轴：{'放行率' if risk != 'fnr' else '错误放行 e（占全部题的比例）'}。</p>
-  {s["BUDGET"]}
   <h3>实际花费和预算（α = {cfg["alpha_main"][risk]:g}）</h3>
   <p class="meta">横轴：预算；纵轴：测试集上实际的每题平均花费；单位都是 10⁻⁴ 美元/题。虚线是花费 = 预算，点在虚线上方就是超预算。</p>
   {s["COST"]}
