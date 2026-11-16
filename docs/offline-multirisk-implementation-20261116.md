@@ -84,3 +84,13 @@ The report and its CSVs leave out FPR on MATH-500 (all three generators; `EXCLUD
 `offline_multirisk_report.py`). FPR's denominator is the number of wrong answers, which on MATH-500 is 16 (Qwen3),
 101 (gpt-oss, 84 of them no-answer) and 63 (Sonnet 5.5) over the five test folds. The runner still computes these
 cells, so `results/offline_multirisk_20261116/math500_*.json` contains them.
+
+## p_correct input (2026-11-16, later)
+
+`confidence_input` in the config picks what every method reads (`fold_rows` in `offline_multirisk.py`):
+`mixed` is the original run (only Ours and Fixed calibrate); `calibrated` gives every method the Fit-calibrated
+p_correct (isotonic PAV fit on Fit, applied to all items; AT, AT+Cal and the threshold method included, so
+Raw-threshold becomes Cal-threshold); `raw` gives every method the raw p_correct (Ours and Fixed plan with it as the
+prior; likelihoods unchanged). Configs `configs/offline_multirisk_20261116_{calibrated,raw}.json`, results
+`results/offline_multirisk_20261116_{calibrated,raw}/`. The calibrated report (main) includes the raw run as its
+section 5. In the calibrated run Ours and Fixed match the mixed run exactly (2106 cells checked).

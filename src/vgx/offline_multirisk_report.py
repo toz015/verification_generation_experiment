@@ -393,6 +393,61 @@ def brier_table(res):
     return table(['数据集 · generator', '有答案的测试题', '原始 p', '我们的校准先验', 'AT+Cal 选中校准（题×种子）', '同一批题×种子：原始 p', '同一批：我们的先验', 'AT+Cal 有选中的折×种子'], body)
 
 
+def threshold_example(b, n_inel, risk, alpha):
+    """Lowest calibrated p that still gets released when the calibrated p is read as the chance the answer is right,
+    no verifier is asked and questions are released from the highest p down: (threshold, share of all questions released)."""
+    b = np.sort(np.asarray(b, float))[::-1]
+    n = len(b)+n_inel
+    if risk == 'fnr':
+        q = b.sum()
+        blocked = np.cumsum(b[::-1])  # block from the lowest p up; questions with no answer are blocked anyway
+        j = int(np.sum(blocked <= alpha*q+1e-12))
+        k = len(b)-j
+    else:
+        wrong = np.cumsum(1-b)
+        cap = alpha*np.arange(1, len(b)+1) if risk == 'selective_error' else alpha*(float((1-b).sum())+n_inel)
+        ok = np.nonzero(wrong <= cap+1e-12)[0]
+        k = int(ok[-1])+1 if len(ok) else 0
+    return (float(b[k-1]) if k else None), k/n
+
+
+def alpha_examples(res, cfg):
+    """Rows: dataset x generator; columns: each risk at its main alpha."""
+    body = ''
+    for ds, dname in DS:
+        for g in GEN:
+            fo = res[(ds, g)]['folds']
+            b = [x for f in fo for x in f['test_prior_eligible']]
+            n_inel = sum(f['n_test']-f['test_eligible'] for f in fo)
+            cells = [f'{dname} · {GEN[g]}']
+            for risk in RISKS:
+                a = cfg['alpha_main'][risk]
+                if excluded(ds, g, risk):
+                    cells.append('不测'); continue
+                t, sh = threshold_example(b, n_inel, risk, a)
+                if t is None:
+                    cells.append('一道都不放行')
+                elif sh*(len(b)+n_inel) >= len(b):
+                    cells.append(f'有答案的全放行（{100*sh:.0f}%）')
+                else:
+                    cells.append(f'p ≥ {t:.2f}，放行 {100*sh:.0f}%')
+            body += tr(cells, num_from=9)
+    head = ['数据集 · generator']+[f'{RISK_NAME[r]} α = {cfg["alpha_main"][r]:g}' for r in RISKS]
+    return table(head, body, num_from=9)
+
+
+def input_compare(I_cal, I_raw, cfg):
+    """Each method under the two inputs: mean objective and overrun count over the same conditions."""
+    body = ''
+    for risk in RISKS:
+        for m in METHODS:
+            ks = [k for k in I_cal if k[2] == risk and k[5] == m and k in I_raw]
+            oc = np.mean([objective(I_cal[k], risk) for k in ks]); orw = np.mean([objective(I_raw[k], risk) for k in ks])
+            name = 'Cal-threshold / Raw-threshold' if m == 'Raw-threshold' else m
+            body += tr([f'{RISK_NAME[risk]} · {name}', len(ks), pct(oc), pct(orw), sum(over(I_cal[k]) for k in ks), sum(over(I_raw[k]) for k in ks)])
+    return table(['风险 · 方法', '条件数', '校准 p：平均放行率（FNR 为平均 e）', '原始 p：同左', '校准 p：风险超标条件数', '原始 p：风险超标条件数'], body)
+
+
 def over(x):
     """Risk measured and above the target (zero release is counted separately, not as an overrun)."""
     return x['risk_excess'] is not None and x['risk_excess'] > 1e-12
@@ -470,6 +525,22 @@ def report(cfg, out_dir, report_dir):
     write_csv(rows, report_dir/'all_conditions.csv')
     write_csv(rows, Path(out_dir)/'summary.csv')
     tpl = Path(__file__).with_name('offline_multirisk_template.html').read_text()
+    mode = cfg.get('confidence_input', 'mixed')
+    ren = (lambda h: h.replace('Raw-threshold', 'Cal-threshold')) if mode == 'calibrated' else (lambda h: h)
+    raw_dir = Path(str(out_dir).replace('_calibrated', '_raw'))
+    rawp = ''
+    if mode == 'calibrated' and raw_dir != Path(out_dir) and all((raw_dir/f'{ds}_{g}.json').exists() for ds, _ in DS for g in GEN):
+        res_r = load(cfg, raw_dir)
+        rows_r = [r for r in rows_of(res_r) if in_main(r['dataset'], r['generator'], r['risk_metric'])]
+        I_r = index(rows_r)
+        rawp = ('<section id="rawp">\n  <h2>5. 对照：所有方法都用原始 p_correct</h2>\n'
+                '  <p>同样的数据、划分、α 和预算，只是所有方法都读原始 p_correct：Ours 和 Fixed 不做 isotonic 校准，直接把原始 p 当先验'
+                '（verifier 的 likelihood 不变）；AT、AT+Cal 和阈值方法也用原始 p。下表先把每个方法两种输入的结果放在一起，再给出原始 p 下的比较。</p>\n'
+                '  <h3>同一方法：校准 p 和原始 p</h3>\n  ' + input_compare(I, I_r, cfg))
+        for k, risk in enumerate(RISKS, 1):
+            rawp += (f'\n  <h3>5.{k} {RISK_NAME[risk]}：我们和每个对照的比较（原始 p，{sig_counts(I_r, rows_r, risk)[BASELINES[0]]["n"]} 个条件）</h3>\n  '
+                     + sig_table(I_r, rows_r, risk) + f'\n  <h3>5.{k} {RISK_NAME[risk]}：超标情况（原始 p）</h3>\n  ' + exceed_table(I_r, cfg, risk))
+        rawp += '\n</section>'
     denom, sel, dup, seed, draws = diagnostics(res, I, cfg)
     verify = json.loads((Path(out_dir)/'verify.json').read_text()) if (Path(out_dir)/'verify.json').exists() else None
     pre = json.loads((Path(out_dir)/'preflight.json').read_text()) if (Path(out_dir)/'preflight.json').exists() else {}
@@ -526,8 +597,8 @@ def report(cfg, out_dir, report_dir):
             f'混合策略逐题核对 {verify["mixture_items_checked"]} 次，不一致 {verify["mixture_mismatches"]} 次；'
             f'AT 种子平均核对 {verify["seed_mean_items_checked"]} 题次，不一致 {verify["seed_mean_mismatches"]} 次；决策日志里没有标签列。')
     net = sum(len(r.get('network_attempts', [])) for r in res.values())
-    fill = {'{{HEADLINE}}': headline(I, rows, cfg), '{{LEGEND}}': '', '{{BLOCKS}}': blocks, '{{APPENDIX}}': appendix, '{{DENOM}}': denom, '{{SEL}}': sel,
-            '{{DUP}}': dup, '{{SEED}}': seed, '{{DRAWS}}': draws, '{{BRIER}}': brier_table(res), '{{NCOND}}': str(n_cond),
+    fill = {'{{HEADLINE}}': ren(headline(I, rows, cfg)), '{{LEGEND}}': '', '{{BLOCKS}}': ren(blocks), '{{APPENDIX}}': ren(appendix), '{{DENOM}}': denom, '{{SEL}}': ren(sel),
+            '{{DUP}}': ren(dup), '{{SEED}}': seed, '{{DRAWS}}': draws, '{{RAWP}}': rawp, '{{EXAMPLES}}': alpha_examples(res, cfg), '{{BRIER}}': brier_table(res), '{{NCOND}}': str(n_cond),
             '{{NROWS}}': str(len(rows)), '{{VERIFY}}': vtxt, '{{NET}}': f'{net} 次网络请求尝试（全部被拦截）' if net else '没有任何网络请求尝试',
             '{{CREF}}': '；'.join(f'{dict(DS)[ds]} {min(v):.0f} 到 {max(v):.0f}' for ds, v in cref.items()),
             '{{CODE}}': next(iter(res.values()))['code_hash'], '{{PRE}}': '通过' if not pre.get('problems') else '；'.join(pre['problems'][:5])}

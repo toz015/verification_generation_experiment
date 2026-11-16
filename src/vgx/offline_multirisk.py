@@ -433,6 +433,25 @@ def splits(ds, rows):
 
 # ----------------------------------------------------------------------------- one generator
 
+CONFIDENCE_INPUTS = ('mixed', 'calibrated', 'raw')
+
+
+def fold_rows(rows, fit, mode):
+    """Rows every method of one outer fold reads, and whether the planning model still calibrates.
+    mixed: the original setup (Ours and Fixed calibrate on Fit; AT, AT+Cal and the threshold read raw p_correct).
+    calibrated: every method reads the Fit-calibrated p_correct (isotonic PAV fit on Fit, applied to all items).
+    raw: every method reads raw p_correct (Ours and Fixed plan with the raw value as their prior)."""
+    if mode not in CONFIDENCE_INPUTS:
+        raise ValueError(f'unknown confidence_input {mode}')
+    if mode == 'mixed':
+        return rows, True
+    if mode == 'raw':
+        return rows, False
+    fv = [i for i in fit if rows[i]['valid']]
+    f = R.isotonic(np.array([rows[i]['prior'] for i in fv], float), np.array([rows[i]['outcome'] for i in fv], float))[0]
+    return [dict(r, prior=float(f(r['prior']))) if r['valid'] else r for r in rows], False
+
+
 def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
     t0 = time.perf_counter()
     seeds = cfg['at']['seeds'][:2] if quick else cfg['at']['seeds']
@@ -442,13 +461,16 @@ def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
     sp = splits(ds, rows)
     folds, cells, configs, traj = [], {}, {}, {}
     brier = {'raw': [], 'ours_prior': [], 'at_cal': {}}
+    mode = cfg.get('confidence_input', 'mixed')
+    raw_rows = rows
     for k, fit, val, test in sp:
         tf = time.perf_counter()
+        rows, cal = fold_rows(raw_rows, fit, mode)
         cref = O.c_ref(rows, fit)
         bplans = [(f, f*cref) for f in fracs]
         yv, yt = truth(rows, val), truth(rows, test)
         ev, et = eligible(rows, val), eligible(rows, test)
-        mv, mt = R.Model(rows, fit, val, {}, True), R.Model(rows, fit, test, {}, True)
+        mv, mt = R.Model(rows, fit, val, {}, cal), R.Model(rows, fit, test, {}, cal)
         vc = ValueCache(mv)
         rv, rt = Runs(mv), Runs(mt)
         fv, ft = O.Features(rows, val), O.Features(rows, test)
@@ -459,8 +481,10 @@ def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
                       'budget_usd': {str(f): f*cref for f in fracs},
                       'validation_correct': int(yv.sum()), 'validation_wrong': int(len(yv)-yv.sum()),
                       'test_correct': int(yt.sum()), 'test_wrong': int(len(yt)-yt.sum()),
-                      'test_eligible': int(et.sum()), 'test_ids': [rows[i]['item_id'] for i in test]})
-        brier['raw'].append([float(np.sum((ft.confidence[et]-yt[et])**2)), int(et.sum())])
+                      'test_eligible': int(et.sum()), 'test_ids': [rows[i]['item_id'] for i in test],
+                      'confidence_input': mode, 'test_prior_eligible': [float(x) for x in mt.prior[et]]})
+        raw_conf = O.Features(raw_rows, test).confidence
+        brier['raw'].append([float(np.sum((raw_conf[et]-yt[et])**2)), int(et.sum())])
         brier['ours_prior'].append([float(np.sum((mt.prior[et]-yt[et])**2)), int(et.sum())])
         brier.setdefault('ours_map', {}).update({rows[i]['item_id']: float(mt.prior[j]) for j, i in enumerate(test) if et[j]})
         # --- threshold methods: frozen states per seed (risk independent)
@@ -545,6 +569,7 @@ def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
                         rec.update(a=a[None], cost=np.zeros((1, len(test))), calls=np.zeros((1, len(test))), qprob=np.zeros((1, len(test))))
                         cells.setdefault(key, {}).setdefault(mname, []).append(rec)
         folds[-1]['seconds'] = time.perf_counter()-tf
+    rows = raw_rows
     out = summarise(ds, gen, rows, sp, folds, cells, cfg, groups)
     out.update({'folds': folds, 'brier': brier_summary(brier, rows, sp), 'seconds': time.perf_counter()-t0})
     return out, cells, configs, traj
@@ -749,8 +774,8 @@ def write_logs(out_dir, ds, gen, rows, sp, folds, cells, configs, traj, groups, 
     out_dir = Path(out_dir)
     prior_t = {}
     for k, fit, val, test in sp:
-        m = R.Model(rows, fit, test, {}, True)
-        prior_t[k] = m.prior
+        rk, cal = fold_rows(rows, fit, cfg.get('confidence_input', 'mixed'))
+        prior_t[k] = R.Model(rk, fit, test, {}, cal).prior
     dpath = out_dir/f'decisions_{ds}_{gen}.csv.gz'
     with gzip.open(dpath, 'wt', newline='') as fh:
         w = csv.writer(fh)

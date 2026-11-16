@@ -317,3 +317,30 @@ def test_risk_order_in_one_process_does_not_matter(gpqa):
     _, _, _, _, c_fnr_again, _ = plan(cfg, rows, 'fnr')
     assert [c['rules'] for c in c_fnr_first] == [c['rules'] for c in c_fnr_again]
     assert [c['weights'] for c in c_fnr_first] == [c['weights'] for c in c_fnr_again]
+
+
+def test_confidence_inputs_give_the_same_prior_as_the_model(gpqa):
+    """calibrated: every method reads the Fit-calibrated p, equal to the model's own calibration; raw: the raw p;
+    calibration uses Fit labels only."""
+    from vgx.gpqa import fpr_routing as R
+    cfg, rows = gpqa
+    k, fit, val, test = M.splits('gpqa', rows)[0]
+    rc, cal = M.fold_rows(rows, fit, 'calibrated')
+    assert cal is False
+    np.testing.assert_allclose(R.Model(rc, fit, test, {}, False).prior, R.Model(rows, fit, test, {}, True).prior, atol=1e-12)
+    rr, cal = M.fold_rows(rows, fit, 'raw')
+    assert rr is rows and cal is False
+    flipped = [dict(r, outcome=1-r['outcome']) if i in set(test) | set(val) else r for i, r in enumerate(rows)]
+    rf, _ = M.fold_rows(flipped, fit, 'calibrated')
+    assert [r['prior'] for r in rf] == [r['prior'] for r in rc]
+
+
+def test_threshold_example():
+    from vgx.offline_multirisk_report import threshold_example
+    b = [0.99, 0.95, 0.9, 0.5, 0.2]
+    t, share = threshold_example(b, 0, 'selective_error', 0.05)   # wrong mass .01,.06,.16 over 1,2,3 released
+    assert t == 0.95 and share == 0.4
+    t, share = threshold_example(b, 0, 'fnr', 0.1)                # q = 3.54; blocking .2 (<= .354) but not .2+.5
+    assert t == 0.5 and share == 0.8
+    t, share = threshold_example(b, 1, 'fpr', 0.3)                # wrong total 1.46+1; cap .738: .01+.05+.1+.5 = .66
+    assert t == 0.5 and share == 4/6
