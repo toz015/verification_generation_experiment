@@ -167,7 +167,8 @@ def at_candidates():
     out = []
     for a in SETTINGS['alpha_at']:
         for eta in SETTINGS['eta']:
-            if SETTINGS['gamma_fit'] <= 1-a:
+            # Tolerance: 1 - 0.9 is 0.09999999999999998 in floating point, which wrongly dropped alpha_at = 0.9.
+            if SETTINGS['gamma_fit'] <= 1-a+1e-12:
                 out.append((a, eta))
     return out
 
@@ -281,7 +282,9 @@ def ours_apply(rows, fit, items, cand, calibrate, draws=None):
     w = np.array(cand['weights'])/np.sum(cand['weights'])
     a = sum(wi*p[0] for wi, p in zip(w, per)); c = sum(wi*p[1] for wi, p in zip(w, per))
     calls = sum(wi*p[2].sum(axis=1) for wi, p in zip(w, per))
-    out = {'a': a, 'cost': c, 'calls': calls, 'per_rule': per, 'model': model}
+    # P(at least one verifier call) = sum_r w_r 1{N_ir > 0}; not 1{sum_r w_r N_ir > 0}.
+    qprob = sum(wi*(p[2].sum(axis=1) > 0) for wi, p in zip(w, per))
+    out = {'a': a, 'cost': c, 'calls': calls, 'qprob': qprob, 'per_rule': per, 'model': model}
     if draws:
         out['draws'] = []
         for s in draws:
@@ -310,7 +313,7 @@ def select(A, C, err_val, alpha, budget, simple=None):
     return int(idx[order[0]])
 
 
-def evaluate(a, cost, err, valid, calls=None, external=0):
+def evaluate(a, cost, err, valid, calls=None, external=0, qprob=None):
     """Evaluator: every count from the frozen decisions and the private labels."""
     a = np.asarray(a, float); d = 1-a; e = np.asarray(err, float)
     ev = valid.astype(float)
@@ -320,7 +323,10 @@ def evaluate(a, cost, err, valid, calls=None, external=0):
            'release_error_rate': None if rel < 1e-9 else float((a*e).sum()/rel), 'coverage': float(rel/n),
            'defer_rate': float(d.sum()/n), 'mean_screen_cost': float(np.mean(cost)),
            'weak_verifier_calls_per_task': None if calls is None else float(np.mean(calls)),
-           'verifier_query_rate': None if calls is None else float(np.mean(np.asarray(calls) > 0)),
+           # With qprob (mixtures) the rate is the mean probability of at least one call; for deterministic
+           # decisions the indicator of a call.
+           'verifier_query_rate': (float(np.mean(qprob)) if qprob is not None else
+                                   None if calls is None else float(np.mean(np.asarray(calls) > 0))),
            'external_labels_acquired': external}
     E = (e*ev).sum(); C = ((1-e)*ev).sum(); D = (d*ev).sum()
     out['error_capture_rate'] = None if E == 0 else float((d*e*ev).sum()/E)
@@ -331,7 +337,7 @@ def evaluate(a, cost, err, valid, calls=None, external=0):
 
 # ----------------------------------------------------------------------------- one dataset
 
-def run_dataset(ds, quick=False):
+def run_dataset(ds, quick=False, out=None):
     data, _ = B.load(ds)
     groups = qk_groups() if ds == 'qkatas' else None
     seeds = SETTINGS['seeds'][:2] if quick else SETTINGS['seeds']
@@ -373,13 +379,16 @@ def run_dataset(ds, quick=False):
                             arr = np.zeros(len(test)) if j is None else at_[j]
                             key = (name, a_t, f'{bk}:{bv}')
                             pooled.setdefault(key, {}).setdefault(s, []).append(
-                                {'a': arr, 'cost': np.zeros(len(test)), 'calls': np.zeros(len(test)), 'err': et, 'valid': ft.valid,
+                                {'a': arr, 'cost': np.zeros(len(test)), 'calls': np.zeros(len(test)), 'qprob': np.zeros(len(test)), 'err': et, 'valid': ft.valid,
                                  'idx': test, 'feasible': j is not None, 'config': None if j is None else (float(state['tau'][j]) if kind == 'raw' else list(state['configs'][j])),
-                                 'brier': None if kind == 'raw' else float(np.mean((np.clip(score[0 if j is None else j][ft.valid], 0, 1)-(1-et[ft.valid]))**2)),
+                                 # Sum and count, pooled later; AT+Cal without a selected candidate has no calibrator (not candidate 0).
+                                 'brier': None if kind == 'raw' or (kind == 'AT+CC' and j is None) else
+                                          [float(np.sum((np.clip(score[0 if kind == 'AT' else j][ft.valid], 0, 1)-(1-et[ft.valid]))**2)), int(ft.valid.sum())],
                                  'hash': h0, 'fit_reveals': state.get('fit_reveals', 0)})
             # --- Ours-Offline (calibrated prior) and the raw-prior variant
             for name, calibrate in (('Ours-Offline', True), ('Ours-Offline (raw prior)', False)):
                 cands = ours_candidates(rows, fit, val, cref, calibrate)
+                prior_t = R.Model(rows, fit, test, {}, calibrate).prior
                 h0 = state_hash(cands)
                 vals = [ours_apply(rows, fit, val, c, calibrate) for c in cands]
                 applied = {}
@@ -389,16 +398,16 @@ def run_dataset(ds, quick=False):
                                    [len(c['rules']) for c in cands])
                         key = (name, a_t, f'{bk}:{bv}')
                         if j is None:
-                            item = {'a': np.zeros(len(test)), 'cost': np.zeros(len(test)), 'calls': np.zeros(len(test)), 'draws': None}
+                            item = {'a': np.zeros(len(test)), 'cost': np.zeros(len(test)), 'calls': np.zeros(len(test)), 'qprob': np.zeros(len(test)), 'draws': None}
                         else:
                             if j not in applied:
                                 applied[j] = ours_apply(rows, fit, test, cands[j], calibrate, draws=range(SETTINGS['mixture_draws']))
                             item = applied[j]
                         pooled.setdefault(key, {}).setdefault(0, []).append(
-                            {'a': item['a'], 'cost': item['cost'], 'calls': item['calls'], 'err': et, 'valid': ft.valid, 'idx': test,
+                            {'a': item['a'], 'cost': item['cost'], 'calls': item['calls'], 'qprob': item['qprob'], 'err': et, 'valid': ft.valid, 'idx': test,
                              'feasible': j is not None, 'config': None if j is None else {k_: cands[j][k_] for k_ in ('order', 'alpha_plan', 'budget_plan_fraction', 'weights')},
                              'draws': item.get('draws'), 'hash': h0,
-                             'brier': None if j is None else float(np.mean((applied[j]['model'].prior[ft.valid]-(1-et[ft.valid]))**2))})
+                             'brier': [float(np.sum((prior_t[ft.valid]-(1-et[ft.valid]))**2)), int(ft.valid.sum())]})
                 if state_hash(cands) != h0:
                     raise AssertionError('Ours state changed during evaluation')
             fold_info.append({'fold': k, 'c_ref': cref})
@@ -410,9 +419,14 @@ def run_dataset(ds, quick=False):
                 a = np.concatenate([p['a'] for p in parts]); c = np.concatenate([p['cost'] for p in parts])
                 calls = np.concatenate([p['calls'] for p in parts]); e = np.concatenate([p['err'] for p in parts])
                 valid = np.concatenate([p['valid'] for p in parts]); idx = [i for p in parts for i in p['idx']]
-                m = evaluate(a, c, e, valid, calls)
+                qp = np.concatenate([p['qprob'] for p in parts])
+                m = evaluate(a, c, e, valid, calls, qprob=qp)
                 m.update({'seed': s, 'infeasible_folds': sum(not p['feasible'] for p in parts),
-                          'configs': [p['config'] for p in parts], 'brier': [p['brier'] for p in parts], 'hashes': [p['hash'] for p in parts]})
+                          'configs': [p['config'] for p in parts], 'brier_parts': [p['brier'] for p in parts], 'hashes': [p['hash'] for p in parts]})
+                # Sample-weighted Brier over the folds that have a score; folds without one are reported, not skipped silently.
+                bp = [p['brier'] for p in parts if p['brier'] is not None]
+                m['brier'] = None if not bp else float(sum(s for s, _ in bp)/sum(n for _, n in bp))
+                m['brier_folds_missing'] = sum(p['brier'] is None for p in parts)
                 if parts[0].get('draws') is not None or any(p.get('draws') for p in parts):
                     sampled = []
                     for dnum in range(SETTINGS['mixture_draws']):
@@ -439,16 +453,25 @@ def run_dataset(ds, quick=False):
                 gn = np.bincount(inv, minlength=len(keys)).astype(float)
                 gs = lambda v: np.bincount(inv, weights=v, minlength=len(keys))
                 cov = lambda a: (Wt@gs(a))/(Wt@gn)
-                rer = lambda a: (Wt@gs(a*e))/np.maximum(Wt@gs(a), 1e-9)
+                def rer(a):
+                    den = Wt@gs(a)
+                    return np.where(den > 1e-9, (Wt@gs(a*e))/np.where(den > 1e-9, den, 1.0), np.nan)
+                point_cov = lambda a: float(a.sum()/len(a))
+                point_rer = lambda a: float((a*e).sum()/a.sum()) if a.sum() > 1e-9 else None
                 cell['paired_vs_ours'] = {}
                 for name, other in cell.items():
                     if name in ('Ours-Offline', 'paired_vs_ours') or '_items' not in other:
                         continue
                     ab = other['_items'][0]
                     dc, dr = cov(ao)-cov(ab), rer(ao)-rer(ab)
-                    cell['paired_vs_ours'][name] = {'coverage_diff': [float(np.mean(dc)), *np.percentile(dc, [2.5, 97.5]).tolist()],
-                                                    'release_error_diff': [float(np.mean(dr)), *np.percentile(dr, [2.5, 97.5]).tolist()],
-                                                    'unit': 'merged kata group' if groups else 'question'}
+                    ok = ~np.isnan(dr)
+                    ro, rb = point_rer(ao), point_rer(ab)
+                    cell['paired_vs_ours'][name] = {
+                        'coverage_diff': [point_cov(ao)-point_cov(ab), *np.percentile(dc, [2.5, 97.5]).tolist()],
+                        'release_error_diff': [None if ro is None or rb is None else ro-rb,
+                                               *(np.percentile(dr[ok], [2.5, 97.5]).tolist() if ok.any() else [None, None])],
+                        'release_error_valid_replicates': int(ok.sum()),
+                        'unit': 'merged kata group' if groups else 'question'}
         # --- decision log for the main seed
         for a_t, row in G['cells'].items():
             for bkey, cell in row.items():
@@ -465,9 +488,10 @@ def run_dataset(ds, quick=False):
         G['seconds'] = time.perf_counter()-t0
         res['generators'][gen] = G
         print(ds, gen, 'done', round(G['seconds'], 1), 's', flush=True)
-    OUT.mkdir(parents=True, exist_ok=True)
-    atomic_json(OUT/f'{ds}{"_quick" if quick else ""}.json', res)
-    with gzip.open(OUT/f'{ds}{"_quick" if quick else ""}_decisions.jsonl.gz', 'wt') as f:
+    out = Path(out) if out else OUT
+    out.mkdir(parents=True, exist_ok=True)
+    atomic_json(out/f'{ds}{"_quick" if quick else ""}.json', res)
+    with gzip.open(out/f'{ds}{"_quick" if quick else ""}_decisions.jsonl.gz', 'wt') as f:
         for r in logs:
             f.write(json.dumps(r)+'\n')
     return res
@@ -490,8 +514,13 @@ def main():
     if cmd == 'config':
         write_config()
     elif cmd == 'run':
-        for ds in (sys.argv[2:] or DATASETS):
-            run_dataset(ds)
+        # --out DIR writes elsewhere, so fixes can be checked without overwriting the historical results.
+        args = sys.argv[2:]
+        out = None
+        if '--out' in args:
+            i = args.index('--out'); out = args[i+1]; args = args[:i]+args[i+2:]
+        for ds in (args or DATASETS):
+            run_dataset(ds, out=out)
     elif cmd == 'quick':
         run_dataset(sys.argv[2], quick=True)
 

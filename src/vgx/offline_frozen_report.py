@@ -46,7 +46,8 @@ def summarize(runs, alpha, budget):
            'budget_exceeded': float(np.mean([r['mean_screen_cost'] > budget*(1+1e-9)+1e-12 for r in runs])),
            'infeasible_folds': float(np.mean([r['infeasible_folds'] for r in runs])),
            'no_release': float(np.mean(rel < 1e-9))}
-    br = [b for r in runs for b in r['brier'] if b is not None]
+    # Each run's Brier is already sample-weighted over its folds (old results stored a per-fold list).
+    br = [x for r in runs for x in (r['brier'] if isinstance(r['brier'], list) else [r['brier']]) if x is not None]
     out['brier'] = None if not br else float(np.mean(br))
     if 'sampled_runs' in runs[0]:
         s = runs[0]['sampled_runs']
