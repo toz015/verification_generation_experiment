@@ -4,7 +4,9 @@ const path = require('path');
 const fs = require('fs');
 const SK = process.env.PPTX_SKILL;
 const { applyTheme } = require(path.join(SK, 'scripts/apply_theme.js'));
-const D = JSON.parse(fs.readFileSync(path.join(__dirname, 'data.json'), 'utf8'));
+const D = JSON.parse(fs.readFileSync(process.env.DATA || path.join(__dirname, 'data.json'), 'utf8'));
+const POOL = D.variant === 'pool';
+const VNAME = POOL ? '加固定 panel 版' : '原版本';
 const OUT = process.argv[2];
 
 const THEME = {
@@ -24,7 +26,7 @@ const GRAY = '9AA5AB';
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE'; // 13.333 x 7.5 in
 pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFace };
-pres.title = '离线多风险实验';
+pres.title = `离线多风险实验（${VNAME}）`;
 pres.author = 'tony';
 const C = pres.SchemeColor;
 const W = 13.333, M = 0.6;
@@ -43,7 +45,7 @@ pres.defineSlideMaster({
   margin: [0.4, 0.6, 0.6, 0.6],
   objects: [
     { placeholder: { options: { name: 'title', type: 'title', x: M, y: 0.35, w: W - 2 * M, h: 0.8, fontSize: 30, bold: true, color: C.text1, valign: 'middle', align: 'left', margin: 0 }, text: '' } },
-    { text: { text: '离线多风险实验 · 2026-11-16', options: { x: M, y: 7.0, w: 6, h: 0.3, fontSize: 10, color: C.text2, margin: 0 } } },
+    { text: { text: `离线多风险实验 · ${VNAME}`, options: { x: M, y: 7.0, w: 6, h: 0.3, fontSize: 10, color: C.text2, margin: 0 } } },
   ],
   slideNumber: { x: W - M - 0.6, y: 7.0, w: 0.6, h: 0.3, fontSize: 10, color: C.text2, align: 'right' },
 });
@@ -100,6 +102,7 @@ pres.addSection({ title: '概览' });
   s.addText('离线多风险实验', { placeholder: 'title' });
   s.addText([
     { text: '放行错误率、FPR、FNR 三种约束下的按需验证比较', options: { breakLine: true } },
+    { text: POOL ? '加固定 panel 版：Ours 的候选池里加入「每题问同一组 verifier」的固定策略' : '原版本：Ours 只在自适应策略里挑选', options: { breakLine: true, fontSize: 18, color: 'FFFFFF', bold: true } },
     { text: 'GPQA · MATH-500 · QuantumKatas ｜ Qwen3 · gpt-oss · Sonnet 5.5 ｜ 只用缓存', options: { fontSize: 16, color: '9FB4C2' } },
   ], { placeholder: 'body' });
   text(s, '2026-11-16', { x: 0.8, y: 6.4, w: 4, h: 0.4, fontSize: 14, color: '9FB4C2' });
@@ -108,12 +111,12 @@ pres.addSection({ title: '概览' });
 
 // ---------------------------------------------------------------- 2. summary
 {
-  const s = slide('结论：前两种约束领先，FNR 输给固定面板', '概览',
+  const s = slide(POOL ? '结论：三种约束都领先，但约一半 FPR / FNR 条件选中固定策略' : '结论：前两种约束领先，FNR 输给固定面板', '概览',
     '每个数字是条件数：配对 bootstrap 95% 区间显示我们更好 : 显示对照更好。区间含 0 的条件不计。');
   const cards = [
     ['selective_error', '放行率越高越好', '放行错误率', ['Cal-threshold', 'Fixed-1'], '多数条件下放行更多'],
-    ['fpr', '放行率越高越好', 'FPR', ['Cal-threshold', 'Fixed-1'], '领先阈值方法；预算多时不如 Fixed'],
-    ['fnr', '错误放行越少越好', 'FNR', ['Cal-threshold', 'Fixed-1'], '输给 Fixed：问 verifier 太少'],
+    ['fpr', '放行率越高越好', 'FPR', ['Cal-threshold', 'Fixed-1'], POOL ? '领先阈值方法和 Fixed-1' : '领先阈值方法；预算多时不如 Fixed'],
+    ['fnr', '错误放行越少越好', 'FNR', ['Cal-threshold', 'Fixed-1'], POOL ? '错误放行少于 Fixed；超标变多' : '输给 Fixed：问 verifier 太少'],
   ];
   const cw = (W - 2 * M - 2 * 0.3) / 3;
   cards.forEach(([risk, goal, label, bs, take], i) => {
@@ -244,13 +247,13 @@ pres.addSection({ title: '方法' });
     '所有方法读同一个校准后的 p_correct：isotonic 只在拟合部分拟合，再用到验证和测试部分。');
   table(s, [
     [TH('方法'), TH('测试时问 verifier'), TH('怎么决定放行')],
-    [TD('Ours-Offline', { bold: true, color: C.accent1 }), TD('按需，最多 3 个'), TD('校准先验 + verifier likelihood；每步决定放行、拦下或再问（Bellman 规则 + 该风险的 LP 混合）；108 个候选')],
+    [TD('Ours-Offline', { bold: true, color: C.accent1 }), TD('按需，最多 3 个'), TD(POOL ? '自适应：校准先验 + likelihood，每步决定放行、拦下或再问（Bellman + LP），108 个候选；另加固定 panel 候选（短名单里的单个和三个一组），验证一起挑' : '校准先验 + verifier likelihood；每步决定放行、拦下或再问（Bellman 规则 + 该风险的 LP 混合）；108 个候选')],
     [TD('AT-Frozen', { bold: true }), TD('不问'), TD('selective auditing 论文的阈值更新；拟合部分学好后冻结；40 个配置 × 20 个种子')],
     [TD('AT+Cal-Frozen', { bold: true }), TD('不问'), TD('论文 Algorithm 1：阈值 + 21 点校准权重，同样冻结；160 个配置 × 20 个种子')],
     [TD('Cal-threshold', { bold: true }), TD('不问'), TD('直接对校准后的 p 取阈值，验证部分选')],
     [TD('Fixed-1', { bold: true }), TD('每题固定 1 个'), TD('和我们同样的校准和 likelihood，后验过阈值就放行；5 种 verifier 可选；预算不够时随机抽一部分题去问')],
     [TD('Fixed-3', { bold: true }), TD('每题固定 3 个'), TD('同上，10 种组合，不按置信度提前停')],
-  ], { y: 1.45, colW: [2.3, 2.1, 7.733], fontSize: 14, rowH: 0.62 });
+  ], { y: 1.45, colW: [2.3, 2.1, 7.733], fontSize: 14, rowH: POOL ? 0.6 : 0.62 });
   text(s, '所有方法都读同一个校准后的 p_correct（isotonic 只在拟合部分拟合）。Fixed 和我们用同样的校准、likelihood 和花费模型，只是不按需决定问谁、问几个，用来看「按需」本身的价值。',
     { x: M, y: 6.05, w: W - 2 * M, h: 0.75, fontSize: 14, color: C.text2 });
 }
@@ -281,6 +284,7 @@ pres.addSection({ title: '方法' });
   });
 }
 
+const BB = (risk, b, fs) => { const c = D.by_budget[risk][b]; let o = 0, x = 0; fs.forEach((f) => { o += c[f][1]; x += c[f][2]; }); return `${o}:${x}`; };
 // ---------------------------------------------------------------- 9. main comparison chart
 pres.addSection({ title: '结果' });
 {
@@ -299,7 +303,7 @@ pres.addSection({ title: '结果' });
 }
 
 {
-  const s = slide('按预算拆开：和 Fixed 比，优势在低预算', '结果',
+  const s = slide(POOL ? '按预算拆开：低预算优势更大，FNR 各预算都不输 Fixed' : '按预算拆开：和 Fixed 比，优势在低预算', '结果',
     'f = 0 时 Fixed 不能问 verifier，只能在全放行和全拦下之间混合，所以我们大比分领先。预算一多，Fixed-3 能把 3 个 verifier 问满，前两种约束下追平或反超。');
   const fs = ['0.0', '0.1', '0.25', '0.5', '0.75', '1.0'];
   const head = [TH('预算 f')];
@@ -316,12 +320,11 @@ pres.addSection({ title: '结果' });
   table(s, rows, { y: 1.5, colW: [1.333, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8], fontSize: 15, rowH: 0.5 });
   text(s, [
     { text: '每格是「我们显著更好 : 对照显著更好」的条件数（FNR 下更好指错误放行更少）。', options: { breakLine: true } },
-    { text: '放行错误率和 FPR：低预算时我们几乎全胜，预算 ≥ 0.5 或 0.75 后 Fixed-3 追平或反超。FNR：f > 0 时各预算都是 Fixed 更好。' },
+    { text: POOL ? `放行错误率和 FPR：低预算时几乎全胜；f = 1 时对 Fixed-3 是 ${BB('selective_error', 'Fixed-3', ['1.0'])}（放行错误率）和 ${BB('fpr', 'Fixed-3', ['1.0'])}（FPR）。FNR：f > 0 时对 Fixed-1 是 ${BB('fnr', 'Fixed-1', ['0.1', '0.25', '0.5', '0.75', '1.0'])}，对 Fixed-3 是 ${BB('fnr', 'Fixed-3', ['0.1', '0.25', '0.5', '0.75', '1.0'])}。` : '放行错误率和 FPR：低预算时我们几乎全胜，预算 ≥ 0.5 或 0.75 后 Fixed-3 追平或反超。FNR：f > 0 时各预算都是 Fixed 更好。' },
   ], { x: M, y: 5.5, w: W - 2 * M, h: 1.2, fontSize: 15 });
 }
 
 // ---------------------------------------------------------------- 10-12. per-risk curves
-const BB = (risk, b, fs) => { const c = D.by_budget[risk][b]; let o = 0, x = 0; fs.forEach((f) => { o += c[f][1]; x += c[f][2]; }); return `${o}:${x}`; };
 function curveSlide(risk, title, notes, side) {
   const s = slide(title, '结果', notes);
   const alphas = D.alpha[risk].map(String);
@@ -356,15 +359,43 @@ function sidePanel(s, risk, head, lines) {
 curveSlide('selective_error', '放行错误率：放行率领先，预算最多时 Fixed-3 追平', '图里是预算最多的 B = 1 × c_ref，这是 Fixed-3 最强的情况；预算少时 Fixed-3 问不起 3 个 verifier。',
   (s) => sidePanel(s, 'selective_error', `α = ${D.alpha_main.selective_error} 时的平均放行率`,
     `显著更好的条件数，对 Fixed-3：f ≤ 0.5 时 ${BB('selective_error', 'Fixed-3', ['0.0', '0.1', '0.25', '0.5'])}，f = 1 时 ${BB('selective_error', 'Fixed-3', ['1.0'])}。对 Cal-threshold 全部条件 ${S.selective_error.ours[2]}:${S.selective_error.base[2]}。`));
-curveSlide('fpr', 'FPR：领先不问 verifier 的方法，预算多时不如 Fixed', `不测 MATH-500：FPR 的分母是错误答案数，5 折测试合计 Qwen3 ${D.fpr_excl['Qwen3']} 道、gpt-oss ${D.fpr_excl['gpt-oss']} 道、Sonnet 5.5 ${D.fpr_excl['Sonnet 5.5']} 道（含没给答案的），一两道题就让 FPR 变化很多。`,
+curveSlide('fpr', POOL ? 'FPR：领先阈值方法和 Fixed-1，预算多时与 Fixed-3 互有胜负' : 'FPR：领先不问 verifier 的方法，预算多时不如 Fixed', `不测 MATH-500：FPR 的分母是错误答案数，5 折测试合计 Qwen3 ${D.fpr_excl['Qwen3']} 道、gpt-oss ${D.fpr_excl['gpt-oss']} 道、Sonnet 5.5 ${D.fpr_excl['Sonnet 5.5']} 道（含没给答案的），一两道题就让 FPR 变化很多。`,
   (s) => sidePanel(s, 'fpr', `α = ${D.alpha_main.fpr} 时的平均放行率`,
     `对 Fixed-3：f ≤ 0.25 时 ${BB('fpr', 'Fixed-3', ['0.0', '0.1', '0.25'])}，f ≥ 0.5 时 ${BB('fpr', 'Fixed-3', ['0.5', '0.75', '1.0'])}。对 Cal-threshold ${S.fpr.ours[2]}:${S.fpr.base[2]}。不测 MATH-500：错误答案太少（${D.fpr_excl['Qwen3']} / ${D.fpr_excl['gpt-oss']} / ${D.fpr_excl['Sonnet 5.5']} 道）。`));
-curveSlide('fnr', 'FNR：比不问 verifier 的方法好，比 Fixed 差', '纵轴越低越好。三个不问 verifier 的方法几乎重合。',
+curveSlide('fnr', POOL ? 'FNR：错误放行显著更少的条件多于 Fixed' : 'FNR：比不问 verifier 的方法好，比 Fixed 差', '纵轴越低越好。三个不问 verifier 的方法几乎重合。',
   (s) => sidePanel(s, 'fnr', `α = ${D.alpha_main.fnr} 时的平均错误放行 e`,
     `错误放行显著更少的条件数：对 Cal-threshold ${S.fnr.ours[2]}:${S.fnr.base[2]}，对 Fixed-1 ${S.fnr.ours[3]}:${S.fnr.base[3]}，对 Fixed-3 ${S.fnr.ours[4]}:${S.fnr.base[4]}。`));
 
-// ---------------------------------------------------------------- 13. why FNR loses to Fixed
-{
+// ---------------------------------------------------------------- 13. why FNR loses to Fixed / pool share
+if (POOL) {
+  const s = slide('FPR 和 FNR 下，约一半条件挑中了固定策略', '结果',
+    '条件 × 折，f > 0。固定 panel 候选只用 Ours 短名单里的 verifier，是 Fixed-1 / Fixed-3 候选的子集；挑中时 Ours 执行的就是一个 Fixed 也能选的策略。');
+  const PS = D.pool_share;
+  legendRow(s, [['单个 verifier', SERIES[0]], ['3 个一组', '8FB8EA']], M, 1.3);
+  const cats = [];
+  const one = [], three = [];
+  RISKS.forEach((r) => ['lo', 'hi'].forEach((g) => {
+    const [a, b, , t] = PS[r][g];
+    cats.push(`${r === 'selective_error' ? '错误率' : RN[r]}·${g === 'lo' ? '低' : '高'}`);
+    one.push(+(100 * a / t).toFixed(0)); three.push(+(100 * b / t).toFixed(0));
+  }));
+  text(s, '低 = 预算 f ≤ 0.25，高 = f ≥ 0.5；错误率 = 放行错误率。纵轴是挑中该类固定 panel 的比例。', { x: M, y: 6.45, w: 7.6, h: 0.4, fontSize: 12, color: C.text2 });
+  CHARTS.push({ slide: SN, kind: 'col', x: M, y: 1.8, w: 7.6, h: 4.6, categories: cats, max: 70, gap: 60,
+    series: [{ name: '单个 verifier', values: one, color: SERIES[0] }, { name: '3 个一组', values: three, color: '8FB8EA' }], labelFmt: '0"%"' });
+  const x0 = 8.6, w = W - M - x0;
+  const tot = (r) => { const a = PS[r].lo, b = PS[r].hi; return pct((a[0] + a[1] + b[0] + b[1]) / (a[3] + b[3])); };
+  const facts = [
+    [tot('fnr'), 'FNR 下挑中固定 panel 的比例；FPR 是 ' + tot('fpr') + '，放行错误率是 ' + tot('selective_error')],
+    [`${S.fnr.ours[3]} : ${S.fnr.base[3]}`, `FNR 对 Fixed-1 错误放行显著更少 : 显著更多（原版本 25 : 75）`],
+    [`${S.fnr.overrun['Ours-Offline']}`, `FNR 风险超标的条件数（原版本 70；Fixed-1 ${S.fnr.overrun['Fixed-1']}、Fixed-3 ${S.fnr.overrun['Fixed-3']}）`],
+  ];
+  facts.forEach(([big, d], i) => {
+    const y = 1.5 + i * 1.75;
+    card(s, x0, y, w, 1.55);
+    text(s, big, { x: x0 + 0.25, y: y + 0.15, w: w - 0.5, h: 0.65, fontSize: 30, bold: true, color: C.accent1, fontFace: 'Arial' });
+    text(s, d, { x: x0 + 0.25, y: y + 0.8, w: w - 0.5, h: 0.65, fontSize: 13, color: C.text2 });
+  });
+} else {
   const s = slide('FNR 为什么输给 Fixed：我们问得太少', '结果',
     'FNR 下大部分题本来就要放行，差距只能靠 verifier 把个别错答案的 p 拉到门槛以下。我们的方法在这里花钱太省。平均值取 f > 0 的条件。');
   const sp = D.spend.fnr, ms = ['Ours-Offline', 'Fixed-1', 'Fixed-3'];
@@ -405,8 +436,8 @@ curveSlide('fnr', 'FNR：比不问 verifier 的方法好，比 Fixed 差', '纵�
   });
   table(s, rows, { y: 1.5, colW: [2.3, 1.75, 1.55, 1.75, 1.55, 1.75, 1.483], fontSize: 14, rowH: 0.5 });
   text(s, [
-    { text: '我们的风险超标次数和 Fixed 相近，比三个阈值方法多；', options: { bold: true } },
-    { text: '验证部分选出的工作点放到测试集上常常略微超出 α。超预算只发生在会问 verifier 的三个方法上，Fixed-3 最多。' },
+    { text: POOL ? 'FPR 和 FNR 的超标比原版本多（原版本 58 和 70），FNR 已多于 Fixed；' : '我们的风险超标次数和 Fixed 相近，比三个阈值方法多；', options: { bold: true } },
+    { text: POOL ? '候选池变大后，验证部分更容易挑到碰巧在验证部分达标的候选（推测）。超预算只发生在会问 verifier 的三个方法上。' : '验证部分选出的工作点放到测试集上常常略微超出 α。超预算只发生在会问 verifier 的三个方法上，Fixed-3 最多。' },
   ], { x: M, y: 5.35, w: W - 2 * M, h: 0.9, fontSize: 15 });
 }
 
@@ -486,13 +517,13 @@ RISKS.forEach(mainTable);
   ], { x: M, y: 1.5, w: W - 2 * M, h: 1.6, fontSize: 16, paraSpaceAfter: 6 });
   card(s, M, 3.4, W - 2 * M, 2.3);
   text(s, [
-    { text: 'python -m vgx.offline_multirisk run --config configs/offline_multirisk_20261116_calibrated.json', options: { breakLine: true } },
-    { text: 'python -m vgx.offline_multirisk run --config configs/offline_multirisk_20261116_raw.json', options: { breakLine: true } },
-    { text: 'python -m vgx.offline_multirisk verify --config configs/offline_multirisk_20261116_calibrated.json', options: { breakLine: true } },
-    { text: 'python -m vgx.offline_multirisk report --config configs/offline_multirisk_20261116_calibrated.json', options: { breakLine: true } },
+    { text: `python -m vgx.offline_multirisk run --config ${D.cfg_path}`, options: { breakLine: true } },
+    { text: `python -m vgx.offline_multirisk run --config ${D.cfg_path.replace('_calibrated', '_raw')}`, options: { breakLine: true } },
+    { text: `python -m vgx.offline_multirisk verify --config ${D.cfg_path}`, options: { breakLine: true } },
+    { text: `python -m vgx.offline_multirisk report --config ${D.cfg_path}`, options: { breakLine: true } },
     { text: ' ', options: { breakLine: true } },
-    { text: '结果：results/offline_multirisk_20261116_calibrated/ 和 _raw/', options: { breakLine: true } },
-    { text: '网页报告：reports/offline_multirisk_20261116_calibrated/results.html' },
+    { text: `结果：${D.out_dir}/ 和 _raw/`, options: { breakLine: true } },
+    { text: `网页报告：${D.report_dir}/results.html` },
   ], { x: M + 0.3, y: 3.6, w: W - 2 * M - 0.6, h: 1.9, fontSize: 13, fontFace: 'Courier New' });
 }
 

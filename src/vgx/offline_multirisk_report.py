@@ -514,6 +514,41 @@ def exclusion_note(res, risk):
             f'（{len(res[pairs[0]]["folds"])} 折测试合计：{counts}，没给答案的也算在内），一两道题就能让 FPR 变化很多。</p>')
 
 
+def variant_fill(cfg, res, out_dir):
+    """Title and method note for the two Ours versions: adaptive candidates only, or with fixed-panel candidates."""
+    if not cfg['ours'].get('fixed_panels_in_pool'):
+        return {'{{TITLE}}': '离线多风险实验（原版本）', '{{VARIANT}}': '（原版本）',
+                '{{POOLNOTE}}': '<p><strong>这是原版本：</strong>Ours 的候选池只有上面的自适应策略。另一版把「每题都问同一组 verifier」的固定 panel 策略也放进 Ours 的候选池，见加固定 panel 版报告。</p>'}
+    share = {}
+    for (ds, g), r in res.items():
+        p = Path(out_dir)/f'selected_configs_{ds}_{g}.json'
+        confs = json.loads(p.read_text())
+        confs = confs.get('configs', confs)
+        for key, cell in r['cells'].items():
+            risk, _, f = key.split('|')
+            if float(f) == 0 or not in_main(ds, g, risk):
+                continue
+            grp = 'f ≤ 0.25' if float(f) <= 0.25 else 'f ≥ 0.5'
+            for ids in cell['Ours-Offline']['config_ids']:
+                for cid in ids:
+                    x = share.setdefault((risk, grp), [0, 0, 0, 0])
+                    x[3] += 1
+                    if cid is None or str(cid).startswith('fallback'):
+                        continue
+                    c = confs[cid]
+                    if c.get('pool') == 'fixed_panel':
+                        x[0 if len(c['order']) == 1 else 1] += 1
+                    else:
+                        x[2] += 1
+    rows = ''.join(f'<tr><th scope="row">{RISK_NAME[r]}</th><td>{grp}</td><td class="n">{100*(a+b)/t:.0f}%</td><td class="n">{a}</td><td class="n">{b}</td><td class="n">{t-a-b-c}</td></tr>'
+                   for (r, grp), (a, b, c, t) in sorted(share.items(), key=lambda kv: (RISKS.index(kv[0][0]), kv[0][1])))
+    note = ('<p><strong>这是加固定 panel 版：</strong>Ours 的规划、Bellman 规则、LP 和验证挑选规则都不变；验证部分挑选时，候选池里除了上面的 108 个自适应候选，'
+            '还有固定 panel 混合：Ours 短名单里出现过的每个单 verifier，和短名单里的每组 3 个 verifier，每道被验证的题问满整组、后验过阈值就放行，规则和 LP 与 Fixed-1 / Fixed-3 相同。'
+            '下表是验证部分挑中固定 panel 的比例（条件 × 折，f &gt; 0）。</p>\n  <div class="scroll"><table><thead><tr><th>风险</th><th>预算</th><th>选中固定 panel</th>'
+            '<th>其中单个 verifier</th><th>其中 3 个一组</th><th>回退</th></tr></thead><tbody>' + rows + '</tbody></table></div>')
+    return {'{{TITLE}}': '离线多风险实验（加固定 panel 版）', '{{VARIANT}}': '（加固定 panel 版）', '{{POOLNOTE}}': note}
+
+
 def report(cfg, out_dir, report_dir):
     res = load(cfg, out_dir)
     missing = [f'{ds}:{g}' for ds, _ in DS for g in GEN if (ds, g) not in res]
@@ -602,6 +637,7 @@ def report(cfg, out_dir, report_dir):
             '{{NROWS}}': str(len(rows)), '{{VERIFY}}': vtxt, '{{NET}}': f'{net} 次网络请求尝试（全部被拦截）' if net else '没有任何网络请求尝试',
             '{{CREF}}': '；'.join(f'{dict(DS)[ds]} {min(v):.0f} 到 {max(v):.0f}' for ds, v in cref.items()),
             '{{CODE}}': next(iter(res.values()))['code_hash'], '{{PRE}}': '通过' if not pre.get('problems') else '；'.join(pre['problems'][:5])}
+    fill.update(variant_fill(cfg, res, out_dir))
     for k, v in fill.items():
         tpl = tpl.replace(k, v)
     # display names: no '-Mix' suffix on the Fixed baselines (2026-11-17); result files and CSVs keep the code names

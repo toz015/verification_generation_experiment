@@ -1,4 +1,4 @@
-<title>离线多风险实验</title>
+<title>离线多风险实验（原版本）</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -52,7 +52,7 @@ code { font-family: var(--mono); font-size: 13px; }
 </style>
 <main>
 <header style="display:grid;gap:8px">
-  <h1>离线多风险实验：放行错误率、FPR、FNR 三种约束下的比较</h1>
+  <h1>离线多风险实验：放行错误率、FPR、FNR 三种约束下的比较（原版本）</h1>
   <p class="meta">GPQA、MATH-500、QuantumKatas，三个 generator，三种风险约束，共 630 个主实验条件、5040 个方法结果行（含两个边界参照）。所有方法在拟合部分训练、在验证部分选工作点、在测试部分冻结评估。只用缓存：没有任何网络请求尝试。代码版本 <code>bb695a86e8b4a0e5</code>。</p>
   <nav><a href="#s1">1 任务和数据</a><a href="#examples">α 的直观例子</a><a href="#s2">2 方法</a><a href="#s3">3 怎么判断</a><a href="#s4">4 结果</a><a href="#risk-selective_error">4.1 放行错误率</a><a href="#risk-fpr">4.2 FPR</a><a href="#risk-fnr">4.3 FNR</a><a href="#appendix">附录 达标口径</a><a href="#rawp">5 原始 p 对照</a><a href="#s5">6 诊断</a><a href="#s6">7 和上一版的区别</a><a href="#s7">8 复现</a></nav>
 </header>
@@ -92,6 +92,7 @@ code { font-family: var(--mono); font-size: 13px; }
     <tr><th scope="row">Release-eligible / Abstain-all</th><td class="wrap">边界参照：放行所有有答案的题 / 全部拦下，不问 verifier</td></tr>
   </tbody></table></div>
   <p>所有方法读同一个校准后的 p_correct：isotonic 只在拟合部分拟合，再用到验证和测试部分。第 5 节把所有方法换成原始 p_correct 再跑一遍，作为对照。</p>
+  <p><strong>这是原版本：</strong>Ours 的候选池只有上面的自适应策略。另一版把「每题都问同一组 verifier」的固定 panel 策略也放进 Ours 的候选池，见加固定 panel 版报告。</p>
   <p class="meta">各风险的立即放行价值：放行错误率 1 − λ((1 − b) − α)，FPR 1 − λ(1 − b)，FNR λb − (1 − b)；FNR 的放行边界是 b ≥ 1 / (1 + λ)。代码统一写成 b − κ(1 − b) 的正倍数形式，推导和测试见 <code>docs/offline-multirisk-implementation-20261116.md</code>。</p>
 </section>
 

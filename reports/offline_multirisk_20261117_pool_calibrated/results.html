@@ -1,4 +1,4 @@
-<title>离线多风险实验</title>
+<title>离线多风险实验（加固定 panel 版）</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -52,7 +52,7 @@ code { font-family: var(--mono); font-size: 13px; }
 </style>
 <main>
 <header style="display:grid;gap:8px">
-  <h1>离线多风险实验：放行错误率、FPR、FNR 三种约束下的比较</h1>
+  <h1>离线多风险实验：放行错误率、FPR、FNR 三种约束下的比较（加固定 panel 版）</h1>
   <p class="meta">GPQA、MATH-500、QuantumKatas，三个 generator，三种风险约束，共 630 个主实验条件、5040 个方法结果行（含两个边界参照）。所有方法在拟合部分训练、在验证部分选工作点、在测试部分冻结评估。只用缓存：没有任何网络请求尝试。代码版本 <code>6518a029f3df7cc6</code>。</p>
   <nav><a href="#s1">1 任务和数据</a><a href="#examples">α 的直观例子</a><a href="#s2">2 方法</a><a href="#s3">3 怎么判断</a><a href="#s4">4 结果</a><a href="#risk-selective_error">4.1 放行错误率</a><a href="#risk-fpr">4.2 FPR</a><a href="#risk-fnr">4.3 FNR</a><a href="#appendix">附录 达标口径</a><a href="#rawp">5 原始 p 对照</a><a href="#s5">6 诊断</a><a href="#s6">7 和上一版的区别</a><a href="#s7">8 复现</a></nav>
 </header>
@@ -92,6 +92,8 @@ code { font-family: var(--mono); font-size: 13px; }
     <tr><th scope="row">Release-eligible / Abstain-all</th><td class="wrap">边界参照：放行所有有答案的题 / 全部拦下，不问 verifier</td></tr>
   </tbody></table></div>
   <p>所有方法读同一个校准后的 p_correct：isotonic 只在拟合部分拟合，再用到验证和测试部分。第 5 节把所有方法换成原始 p_correct 再跑一遍，作为对照。</p>
+  <p><strong>这是加固定 panel 版：</strong>Ours 的规划、Bellman 规则、LP 和验证挑选规则都不变；验证部分挑选时，候选池里除了上面的 108 个自适应候选，还有固定 panel 混合：Ours 短名单里出现过的每个单 verifier，和短名单里的每组 3 个 verifier，每道被验证的题问满整组、后验过阈值就放行，规则和 LP 与 Fixed-1 / Fixed-3 相同。下表是验证部分挑中固定 panel 的比例（条件 × 折，f &gt; 0）。</p>
+  <div class="scroll"><table><thead><tr><th>风险</th><th>预算</th><th>选中固定 panel</th><th>其中单个 verifier</th><th>其中 3 个一组</th><th>回退</th></tr></thead><tbody><tr><th scope="row">放行错误率</th><td>f ≤ 0.25</td><td class="n">8%</td><td class="n">27</td><td class="n">1</td><td class="n">39</td></tr><tr><th scope="row">放行错误率</th><td>f ≥ 0.5</td><td class="n">24%</td><td class="n">84</td><td class="n">33</td><td class="n">54</td></tr><tr><th scope="row">FPR</th><td>f ≤ 0.25</td><td class="n">33%</td><td class="n">46</td><td class="n">2</td><td class="n">0</td></tr><tr><th scope="row">FPR</th><td>f ≥ 0.5</td><td class="n">53%</td><td class="n">93</td><td class="n">21</td><td class="n">0</td></tr><tr><th scope="row">FNR</th><td>f ≤ 0.25</td><td class="n">54%</td><td class="n">130</td><td class="n">13</td><td class="n">0</td></tr><tr><th scope="row">FNR</th><td>f ≥ 0.5</td><td class="n">57%</td><td class="n">190</td><td class="n">35</td><td class="n">0</td></tr></tbody></table></div>
   <p class="meta">各风险的立即放行价值：放行错误率 1 − λ((1 − b) − α)，FPR 1 − λ(1 − b)，FNR λb − (1 − b)；FNR 的放行边界是 b ≥ 1 / (1 + λ)。代码统一写成 b − κ(1 − b) 的正倍数形式，推导和测试见 <code>docs/offline-multirisk-implementation-20261116.md</code>。</p>
 </section>
 

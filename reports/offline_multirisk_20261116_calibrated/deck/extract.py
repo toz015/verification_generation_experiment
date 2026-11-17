@@ -1,5 +1,6 @@
 """Numbers for the PPT deck, all from the calibrated and raw result files (no API calls)."""
 import json
+import os
 import sys
 
 import numpy as np
@@ -7,7 +8,8 @@ import numpy as np
 from vgx.offline_multirisk import BASELINES, METHODS, RISKS
 from vgx import offline_multirisk_report as R
 
-cfg = json.load(open('configs/offline_multirisk_20261116_calibrated.json'))
+CFG = os.environ.get('CFG', 'configs/offline_multirisk_20261116_calibrated.json')
+cfg = json.load(open(CFG))
 res = R.load(cfg, cfg['output_dir'])
 res_r = R.load(cfg, cfg['output_dir'].replace('_calibrated', '_raw'))
 
@@ -146,5 +148,30 @@ for risk in RISKS:
             x = c.setdefault(str(r['budget_fraction']), [0, 0, 0]); x[0] += 1; x[1] += good; x[2] += bad
         bb[risk][name(b)] = c
 out['by_budget'] = bb
+out['variant'] = 'pool' if cfg['ours'].get('fixed_panels_in_pool') else 'orig'
+out['cfg_path'] = CFG
+out['out_dir'] = cfg['output_dir']
+out['report_dir'] = cfg['report_dir']
+if out['variant'] == 'pool':
+    share = {}
+    for (ds, g), r in res.items():
+        confs = json.load(open(f"{cfg['output_dir']}/selected_configs_{ds}_{g}.json")); confs = confs.get('configs', confs)
+        for key, cell in r['cells'].items():
+            risk, _, f = key.split('|')
+            if float(f) == 0 or not R.in_main(ds, g, risk):
+                continue
+            grp = 'lo' if float(f) <= 0.25 else 'hi'
+            for ids in cell['Ours-Offline']['config_ids']:
+                for cid in ids:
+                    x = share.setdefault(risk, {}).setdefault(grp, [0, 0, 0, 0])
+                    x[3] += 1
+                    if cid is None or str(cid).startswith('fallback'):
+                        continue
+                    c = confs[cid]
+                    if c.get('pool') == 'fixed_panel':
+                        x[0 if len(c['order']) == 1 else 1] += 1
+                    else:
+                        x[2] += 1
+    out['pool_share'] = share
 json.dump(out, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(json.dumps({k: out[k] for k in ('sig_cal', 'spend', 'fnr_both', 'cref', 'n_cond', 'verify')}, ensure_ascii=False)[:6000])
