@@ -19,7 +19,7 @@ def rows_I(res):
 
 rows, I = rows_I(res)
 rows_r, I_r = rows_I(res_r)
-name = lambda m: 'Cal-threshold' if m == 'Raw-threshold' else m
+name = lambda m: 'Cal-threshold' if m == 'Raw-threshold' else m.replace('-Mix', '')
 out = {'methods': [name(m) for m in METHODS], 'baselines': [name(b) for b in BASELINES], 'alpha': cfg['alpha_target'],
        'alpha_main': cfg['alpha_main'], 'risk_name': R.RISK_NAME}
 
@@ -144,7 +144,7 @@ for risk in RISKS:
             good = (lo > 0) if risk != 'fnr' else (hi < 0)
             bad = (hi < 0) if risk != 'fnr' else (lo > 0)
             x = c.setdefault(str(r['budget_fraction']), [0, 0, 0]); x[0] += 1; x[1] += good; x[2] += bad
-        bb[risk][b] = c
+        bb[risk][name(b)] = c
 out['by_budget'] = bb
 json.dump(out, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(json.dumps({k: out[k] for k in ('sig_cal', 'spend', 'fnr_both', 'cref', 'n_cond', 'verify')}, ensure_ascii=False)[:6000])

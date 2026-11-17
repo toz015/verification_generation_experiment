@@ -87,7 +87,7 @@ code { font-family: var(--mono); font-size: 13px; }
     <tr><th scope="row">AT-Frozen</th><td class="wrap">selective auditing 论文的阈值更新，输入是校准后的 p_correct；在拟合部分跑一遍（γ_fit = 0.1）后冻结，测试时不随机送审；40 个配置 × 20 个种子</td></tr>
     <tr><th scope="row">AT+Cal-Frozen</th><td class="wrap">论文 Algorithm 1，输入是校准后的 p_correct，在线学阈值和 21 点校准权重，同样冻结；160 个配置 × 20 个种子</td></tr>
     <tr><th scope="row">Cal-threshold</th><td class="wrap">直接对校准后的 p_correct 取阈值，候选是验证部分出现过的分数，加上全放行和全拦下。isotonic 校准不改变题目的排序，所以它能分出的放行集合和对原始 p 取阈值基本相同，只是校准把一些分数并成了同一档</td></tr>
-    <tr><th scope="row">Fixed-1-Mix</th><td class="wrap">和我们同样的校准和 likelihood，固定问 1 个 verifier（5 种），后验过阈值就放行；用同一风险 LP 和「全放行 / 全拦下」混合</td></tr>
+    <tr><th scope="row">Fixed-1-Mix</th><td class="wrap">和我们同样的校准和 likelihood，固定问 1 个 verifier（5 种），后验过阈值就放行；用同一风险 LP 和「全放行 / 全拦下」按权重随机混合，所以预算不够时只随机抽一部分题去问</td></tr>
     <tr><th scope="row">Fixed-3-Mix</th><td class="wrap">同上，固定问满 3 个（10 种组合），不按置信度提前停</td></tr>
     <tr><th scope="row">Release-eligible / Abstain-all</th><td class="wrap">边界参照：放行所有有答案的题 / 全部拦下，不问 verifier</td></tr>
   </tbody></table></div>

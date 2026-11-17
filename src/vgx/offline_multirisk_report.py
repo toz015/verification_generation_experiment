@@ -604,5 +604,7 @@ def report(cfg, out_dir, report_dir):
             '{{CODE}}': next(iter(res.values()))['code_hash'], '{{PRE}}': '通过' if not pre.get('problems') else '；'.join(pre['problems'][:5])}
     for k, v in fill.items():
         tpl = tpl.replace(k, v)
+    # display names: no '-Mix' suffix on the Fixed baselines (2026-11-17); result files and CSVs keep the code names
+    tpl = tpl.replace('Fixed-1-Mix', 'Fixed-1').replace('Fixed-3-Mix', 'Fixed-3')
     (report_dir/'results.html').write_text(tpl)
     print('wrote', report_dir/'results.html', file_digest(report_dir/'results.html'))

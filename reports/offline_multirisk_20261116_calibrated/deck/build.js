@@ -111,9 +111,9 @@ pres.addSection({ title: '概览' });
   const s = slide('结论：前两种约束领先，FNR 输给固定面板', '概览',
     '每个数字是条件数：配对 bootstrap 95% 区间显示我们更好 : 显示对照更好。区间含 0 的条件不计。');
   const cards = [
-    ['selective_error', '放行率越高越好', '放行错误率', ['Cal-threshold', 'Fixed-1-Mix'], '多数条件下放行更多'],
-    ['fpr', '放行率越高越好', 'FPR', ['Cal-threshold', 'Fixed-1-Mix'], '领先阈值方法；预算多时不如 Fixed'],
-    ['fnr', '错误放行越少越好', 'FNR', ['Cal-threshold', 'Fixed-1-Mix'], '输给 Fixed：问 verifier 太少'],
+    ['selective_error', '放行率越高越好', '放行错误率', ['Cal-threshold', 'Fixed-1'], '多数条件下放行更多'],
+    ['fpr', '放行率越高越好', 'FPR', ['Cal-threshold', 'Fixed-1'], '领先阈值方法；预算多时不如 Fixed'],
+    ['fnr', '错误放行越少越好', 'FNR', ['Cal-threshold', 'Fixed-1'], '输给 Fixed：问 verifier 太少'],
   ];
   const cw = (W - 2 * M - 2 * 0.3) / 3;
   cards.forEach(([risk, goal, label, bs, take], i) => {
@@ -248,8 +248,8 @@ pres.addSection({ title: '方法' });
     [TD('AT-Frozen', { bold: true }), TD('不问'), TD('selective auditing 论文的阈值更新；拟合部分学好后冻结；40 个配置 × 20 个种子')],
     [TD('AT+Cal-Frozen', { bold: true }), TD('不问'), TD('论文 Algorithm 1：阈值 + 21 点校准权重，同样冻结；160 个配置 × 20 个种子')],
     [TD('Cal-threshold', { bold: true }), TD('不问'), TD('直接对校准后的 p 取阈值，验证部分选')],
-    [TD('Fixed-1-Mix', { bold: true }), TD('每题固定 1 个'), TD('和我们同样的校准和 likelihood，后验过阈值就放行；5 种 verifier 可选')],
-    [TD('Fixed-3-Mix', { bold: true }), TD('每题固定 3 个'), TD('同上，10 种组合，不按置信度提前停')],
+    [TD('Fixed-1', { bold: true }), TD('每题固定 1 个'), TD('和我们同样的校准和 likelihood，后验过阈值就放行；5 种 verifier 可选；预算不够时随机抽一部分题去问')],
+    [TD('Fixed-3', { bold: true }), TD('每题固定 3 个'), TD('同上，10 种组合，不按置信度提前停')],
   ], { y: 1.45, colW: [2.3, 2.1, 7.733], fontSize: 14, rowH: 0.62 });
   text(s, '所有方法都读同一个校准后的 p_correct（isotonic 只在拟合部分拟合）。Fixed 和我们用同样的校准、likelihood 和花费模型，只是不按需决定问谁、问几个，用来看「按需」本身的价值。',
     { x: M, y: 6.05, w: W - 2 * M, h: 0.75, fontSize: 14, color: C.text2 });
@@ -307,7 +307,7 @@ pres.addSection({ title: '结果' });
   const rows = [head];
   fs.forEach((f) => {
     const r = [TD(String(+f), { bold: true })];
-    RISKS.forEach((risk) => ['Fixed-1-Mix', 'Fixed-3-Mix'].forEach((b) => {
+    RISKS.forEach((risk) => ['Fixed-1', 'Fixed-3'].forEach((b) => {
       const c = D.by_budget[risk][b][f];
       r.push(TD(`${c[1]} : ${c[2]}`, { align: 'right', fontFace: 'Arial' }));
     }));
@@ -355,10 +355,10 @@ function sidePanel(s, risk, head, lines) {
 }
 curveSlide('selective_error', '放行错误率：放行率领先，预算最多时 Fixed-3 追平', '图里是预算最多的 B = 1 × c_ref，这是 Fixed-3 最强的情况；预算少时 Fixed-3 问不起 3 个 verifier。',
   (s) => sidePanel(s, 'selective_error', `α = ${D.alpha_main.selective_error} 时的平均放行率`,
-    `显著更好的条件数，对 Fixed-3：f ≤ 0.5 时 ${BB('selective_error', 'Fixed-3-Mix', ['0.0', '0.1', '0.25', '0.5'])}，f = 1 时 ${BB('selective_error', 'Fixed-3-Mix', ['1.0'])}。对 Cal-threshold 全部条件 ${S.selective_error.ours[2]}:${S.selective_error.base[2]}。`));
+    `显著更好的条件数，对 Fixed-3：f ≤ 0.5 时 ${BB('selective_error', 'Fixed-3', ['0.0', '0.1', '0.25', '0.5'])}，f = 1 时 ${BB('selective_error', 'Fixed-3', ['1.0'])}。对 Cal-threshold 全部条件 ${S.selective_error.ours[2]}:${S.selective_error.base[2]}。`));
 curveSlide('fpr', 'FPR：领先不问 verifier 的方法，预算多时不如 Fixed', `不测 MATH-500：FPR 的分母是错误答案数，5 折测试合计 Qwen3 ${D.fpr_excl['Qwen3']} 道、gpt-oss ${D.fpr_excl['gpt-oss']} 道、Sonnet 5.5 ${D.fpr_excl['Sonnet 5.5']} 道（含没给答案的），一两道题就让 FPR 变化很多。`,
   (s) => sidePanel(s, 'fpr', `α = ${D.alpha_main.fpr} 时的平均放行率`,
-    `对 Fixed-3：f ≤ 0.25 时 ${BB('fpr', 'Fixed-3-Mix', ['0.0', '0.1', '0.25'])}，f ≥ 0.5 时 ${BB('fpr', 'Fixed-3-Mix', ['0.5', '0.75', '1.0'])}。对 Cal-threshold ${S.fpr.ours[2]}:${S.fpr.base[2]}。不测 MATH-500：错误答案太少（${D.fpr_excl['Qwen3']} / ${D.fpr_excl['gpt-oss']} / ${D.fpr_excl['Sonnet 5.5']} 道）。`));
+    `对 Fixed-3：f ≤ 0.25 时 ${BB('fpr', 'Fixed-3', ['0.0', '0.1', '0.25'])}，f ≥ 0.5 时 ${BB('fpr', 'Fixed-3', ['0.5', '0.75', '1.0'])}。对 Cal-threshold ${S.fpr.ours[2]}:${S.fpr.base[2]}。不测 MATH-500：错误答案太少（${D.fpr_excl['Qwen3']} / ${D.fpr_excl['gpt-oss']} / ${D.fpr_excl['Sonnet 5.5']} 道）。`));
 curveSlide('fnr', 'FNR：比不问 verifier 的方法好，比 Fixed 差', '纵轴越低越好。三个不问 verifier 的方法几乎重合。',
   (s) => sidePanel(s, 'fnr', `α = ${D.alpha_main.fnr} 时的平均错误放行 e`,
     `错误放行显著更少的条件数：对 Cal-threshold ${S.fnr.ours[2]}:${S.fnr.base[2]}，对 Fixed-1 ${S.fnr.ours[3]}:${S.fnr.base[3]}，对 Fixed-3 ${S.fnr.ours[4]}:${S.fnr.base[4]}。`));
@@ -367,13 +367,13 @@ curveSlide('fnr', 'FNR：比不问 verifier 的方法好，比 Fixed 差', '纵�
 {
   const s = slide('FNR 为什么输给 Fixed：我们问得太少', '结果',
     'FNR 下大部分题本来就要放行，差距只能靠 verifier 把个别错答案的 p 拉到门槛以下。我们的方法在这里花钱太省。平均值取 f > 0 的条件。');
-  const sp = D.spend.fnr, ms = ['Ours-Offline', 'Fixed-1-Mix', 'Fixed-3-Mix'];
+  const sp = D.spend.fnr, ms = ['Ours-Offline', 'Fixed-1', 'Fixed-3'];
   legendRow(s, [['用掉的预算比例', SERIES[0]], ['问了 verifier 的题', '8FB8EA']], M, 1.3);
   CHARTS.push({ slide: SN, kind: 'col', x: M, y: 1.8, w: 6.9, h: 4.9, categories: ms, max: 100, gap: 70,
     series: [{ name: '用掉的预算比例', values: ms.map((m) => +(100 * sp[m].budget_use).toFixed(0)), color: SERIES[0] },
              { name: '问了 verifier 的题', values: ms.map((m) => +(100 * sp[m].query_rate).toFixed(0)), color: '8FB8EA' }],
     labelFmt: '0"%"' });
-  const fb = D.fnr_both['Fixed-1-Mix'];
+  const fb = D.fnr_both['Fixed-1'];
   const x0 = 8.0, w = W - M - x0;
   const facts = [
     [pct(sp['Ours-Offline'].fallback), '的折 × 种子在验证部分没有可行候选，回退到放行所有有答案的题'],
