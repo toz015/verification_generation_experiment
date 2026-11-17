@@ -344,3 +344,18 @@ def test_threshold_example():
     assert t == 0.5 and share == 0.8
     t, share = threshold_example(b, 1, 'fpr', 0.3)                # wrong total 1.46+1; cap .738: .01+.05+.1+.5 = .66
     assert t == 0.5 and share == 4/6
+
+
+def test_shrunk_isotonic_and_gamma():
+    rng = np.random.default_rng(3)
+    p = rng.choice([.5, .6, .7, .8, .9, .95, .99], 300)
+    y = (rng.random(300) < p*.8).astype(float)
+    from vgx.gpqa.reporting_trial import isotonic
+    q = np.linspace(.4, 1, 61)
+    assert np.allclose(isotonic(p, y)[0](q), M.shrunk_isotonic(p, y, 0)(q))
+    f = M.shrunk_isotonic(p, y, 20)(q)
+    assert np.all(np.diff(f) >= -1e-12) and f.max() < isotonic(p, y)[0](q).max() + 1e-12
+    grid = np.linspace(0, 1, 11); p1 = np.array([.1, .9]); p0 = np.array([.6, .4])
+    mass = np.outer(grid, p1)+np.outer(1-grid, p0)
+    full, half = M.posterior_grid(grid, p1, p0, 1.0, mass), M.posterior_grid(grid, p1, p0, .5, mass)
+    assert np.all(np.abs(half-grid[:, None]) <= np.abs(full-grid[:, None]) + 1e-12)

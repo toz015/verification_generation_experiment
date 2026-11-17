@@ -47,7 +47,8 @@ import vgx.baselines as B
 import vgx.offline_frozen as O
 from vgx.common.storage import atomic_json, file_digest
 from vgx.gpqa import fpr_routing as R
-from vgx.gpqa.dependence_triples import all_orders
+from vgx.gpqa.dependence_triples import all_orders, bin_of
+from vgx.quantum_katas import crossfit
 
 CONFIG = Path('configs/offline_multirisk_20261116.json')
 RISKS = ('selective_error', 'fpr', 'fnr')
@@ -221,15 +222,30 @@ def threshold(kappa):
     return np.inf if not np.isfinite(kappa) else kappa/(1+kappa)
 
 
+def stage_gamma(m, k):
+    """Likelihood-ratio exponent for the k-th verifier asked (0-based): 1 for the first, gamma after it."""
+    return 1.0 if k == 0 else float(m.fitted.get('gamma', 1.0))
+
+
+def posterior_grid(grid, p1, p0, g, mass):
+    """Posterior on the belief grid for each bin; g < 1 tempers the likelihood ratio (correlated verifiers).
+    The predictive bin probabilities (mass) keep the fitted likelihoods."""
+    if g == 1.0:
+        return np.outer(grid, p1)/np.maximum(mass, 1e-300)
+    a, c = np.outer(grid, p1**g), np.outer(1-grid, p0**g)
+    return a/np.maximum(a+c, 1e-300)
+
+
 def margins(m, order, kappa, mu):
     """Q_k - G_k on GRID for each stage; positive means ask the next verifier."""
     stop = np.maximum(0., GRID-kappa*(1-GRID))
     value, out = stop, []
-    for v in reversed(order):
+    for idx in range(len(order)-1, -1, -1):
+        v = order[idx]
         lk = m.fitted['likelihoods'][v]
         p1, p0 = np.array(lk['p_bin_if_correct']), np.array(lk['p_bin_if_incorrect'])
         mass = np.outer(GRID, p1)+np.outer(1-GRID, p0)
-        post = np.outer(GRID, p1)/np.maximum(mass, 1e-300)
+        post = posterior_grid(GRID, p1, p0, stage_gamma(m, idx), mass)
         q = -mu*m.fitted['expected_cost_usd'][v]+(mass*np.interp(post.ravel(), GRID, value).reshape(post.shape)).sum(1)
         out.append(q-stop)
         value = np.maximum(stop, q)
@@ -253,7 +269,7 @@ def model_value(m, order, rule):
         lk = m.fitted['likelihoods'][order[k]]
         p1, p0 = np.array(lk['p_bin_if_correct']), np.array(lk['p_bin_if_incorrect'])
         mass = np.outer(GRID, p1)+np.outer(1-GRID, p0)
-        post = (np.outer(GRID, p1)/np.maximum(mass, 1e-300)).ravel()
+        post = posterior_grid(GRID, p1, p0, stage_gamma(m, k), mass).ravel()
         nxt = [(mass*np.interp(post, GRID, x).reshape(mass.shape)).sum(1) for x in (rel, wr, cost)]
         ask = np.ones_like(GRID, bool) if kind == 'fixed' else mg[k] > 0
         stop = (GRID >= t).astype(float)
@@ -288,6 +304,9 @@ def run_rule(m, order, rule):
         step = ask & (x >= 0)
         lk = m.fitted['likelihoods'][v]
         p1, p0 = np.array(lk['p_bin_if_correct'])[x[step]], np.array(lk['p_bin_if_incorrect'])[x[step]]
+        g = stage_gamma(m, k)
+        if g != 1.0:
+            p1, p0 = p1**g, p0**g
         b[step] = b[step]*p1/(b[step]*p1+(1-b[step])*p0)
         alive = ask & ~failed
     return (m.valid & ~failed & (b >= t)).astype(float), cost, asked, b
@@ -444,7 +463,95 @@ def splits(ds, rows):
 CONFIDENCE_INPUTS = ('mixed', 'calibrated', 'raw')
 
 
-def fold_rows(rows, fit, mode):
+def pav(lo, hi, y, w):
+    """Weighted pool-adjacent-violators over blocks sorted by x; returns blocks [lo, hi, value, weight]."""
+    out = []
+    for a, b, yi, wi in zip(lo, hi, y, w):
+        out.append([a, b, yi, wi])
+        while len(out) > 1 and out[-2][2] >= out[-1][2]:
+            b2 = out.pop(); b1 = out.pop()
+            ww = b1[3]+b2[3]
+            out.append([b1[0], b2[1], (b1[2]*b1[3]+b2[2]*b2[3])/ww, ww])
+    return out
+
+
+def shrunk_isotonic(p, y, a):
+    """Isotonic fit whose block values are shrunk toward the overall rate, (s + a*ybar) / (n + a), then made
+    monotone again by weighted PAV (weights n + a). Linear interpolation between knots, end values outside;
+    a = 0 gives the same map as R.isotonic."""
+    p, y = np.asarray(p, float), np.asarray(y, float)
+    xs = np.unique(p)
+    s = np.array([y[p == x].sum() for x in xs]); n = np.array([(p == x).sum() for x in xs], float)
+    blocks = pav(xs, xs, s/n, n)
+    if a > 0:
+        ybar = float(y.mean())
+        blocks = pav([b[0] for b in blocks], [b[1] for b in blocks],
+                     [(b[2]*b[3]+a*ybar)/(b[3]+a) for b in blocks], [b[3]+a for b in blocks])
+    kx, ky = [], []
+    for lo, hi, v, _ in blocks:
+        kx += [lo, hi] if hi > lo else [lo]
+        ky += [v]*(2 if hi > lo else 1)
+    return lambda q: np.interp(q, kx, ky)
+
+
+def inner_parts(idx, k=5, seed=0):
+    rng = np.random.default_rng(seed)
+    perm = rng.permutation(len(idx))
+    return [[idx[j] for j in perm[i::k]] for i in range(k)]
+
+
+def choose_shrink(rows, fit, grid):
+    """Shrinkage strength by 5-fold cross-validated Brier score inside Fit (ties to the smaller a)."""
+    fv = [i for i in fit if rows[i]['valid']]
+    parts = inner_parts(fv)
+    best = None
+    for a in grid:
+        err = 0.
+        for h in range(len(parts)):
+            tr = [i for j, p_ in enumerate(parts) if j != h for i in p_]
+            f = shrunk_isotonic([rows[i]['prior'] for i in tr], [rows[i]['outcome'] for i in tr], a)
+            err += sum((f(rows[i]['prior'])-rows[i]['outcome'])**2 for i in parts[h])
+        if best is None or err < best[1]-1e-12:
+            best = (float(a), err)
+    return best[0]
+
+
+def choose_gamma(rows, fit, a, grid, calibrate=True):
+    """Exponent on the 2nd and 3rd verifiers' likelihood ratios, by cross-fitted log-likelihood inside Fit,
+    averaged over all 60 three-verifier orders. Priors and likelihoods are fitted on the other inner parts."""
+    fv = [i for i in fit if rows[i]['valid']]
+    parts = inner_parts(fv)
+    b0s, llrs = [], []
+    for h in range(len(parts)):
+        tr = [i for j, p_ in enumerate(parts) if j != h for i in p_]
+        f = shrunk_isotonic([rows[i]['prior'] for i in tr], [rows[i]['outcome'] for i in tr], a) if calibrate else (lambda q: q)
+        fitted = crossfit.fit_fold([rows[i] for i in tr], B.VERIFIERS, {'probability_bins': R.LEVELS, 'laplace': 1.0})
+        for i in parts[h]:
+            b0s.append(min(max(float(f(rows[i]['prior'])), 1e-4), 1-1e-4))
+            d = {}
+            for v in B.VERIFIERS:
+                sc = rows[i]['signals'][v]['score']
+                if sc is None:
+                    d[v] = 0.
+                else:
+                    lk = fitted['likelihoods'][v]; kb = bin_of(sc, R.EDGES)
+                    d[v] = float(np.log(lk['p_bin_if_correct'][kb]/lk['p_bin_if_incorrect'][kb]))
+            llrs.append(d)
+    y = np.array([rows[i]['outcome'] for p_ in parts for i in p_], float)
+    base = np.log(np.array(b0s)/(1-np.array(b0s)))
+    orders = all_orders(B.VERIFIERS)
+    first = np.array([[d[o[0]] for o in orders] for d in llrs])
+    rest = np.array([[d[o[1]]+d[o[2]] for o in orders] for d in llrs])
+    best = None
+    for g in grid:
+        z = base[:, None]+first+g*rest
+        ll = float(np.mean(y[:, None]*-np.logaddexp(0, -z)+(1-y[:, None])*-np.logaddexp(0, z)))
+        if best is None or ll > best[1]+1e-12:
+            best = (float(g), ll)
+    return best[0]
+
+
+def fold_rows(rows, fit, mode, shrink=0.0):
     """Rows every method of one outer fold reads, and whether the planning model still calibrates.
     mixed: the original setup (Ours and Fixed calibrate on Fit; AT, AT+Cal and the threshold read raw p_correct).
     calibrated: every method reads the Fit-calibrated p_correct (isotonic PAV fit on Fit, applied to all items).
@@ -456,7 +563,10 @@ def fold_rows(rows, fit, mode):
     if mode == 'raw':
         return rows, False
     fv = [i for i in fit if rows[i]['valid']]
-    f = R.isotonic(np.array([rows[i]['prior'] for i in fv], float), np.array([rows[i]['outcome'] for i in fv], float))[0]
+    if shrink > 0:
+        f = shrunk_isotonic([rows[i]['prior'] for i in fv], [rows[i]['outcome'] for i in fv], shrink)
+    else:
+        f = R.isotonic(np.array([rows[i]['prior'] for i in fv], float), np.array([rows[i]['outcome'] for i in fv], float))[0]
     return [dict(r, prior=float(f(r['prior']))) if r['valid'] else r for r in rows], False
 
 
@@ -473,12 +583,16 @@ def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
     raw_rows = rows
     for k, fit, val, test in sp:
         tf = time.perf_counter()
-        rows, cal = fold_rows(raw_rows, fit, mode)
+        ccfg = cfg.get('calibration', {})
+        shrink = choose_shrink(raw_rows, fit, ccfg['shrink_grid']) if ccfg.get('shrink') and mode == 'calibrated' else 0.0
+        gamma = choose_gamma(raw_rows, fit, shrink, ccfg['gamma_grid'], mode == 'calibrated') if ccfg.get('verifier_gamma') else 1.0
+        rows, cal = fold_rows(raw_rows, fit, mode, shrink)
         cref = O.c_ref(rows, fit)
         bplans = [(f, f*cref) for f in fracs]
         yv, yt = truth(rows, val), truth(rows, test)
         ev, et = eligible(rows, val), eligible(rows, test)
         mv, mt = R.Model(rows, fit, val, {}, cal), R.Model(rows, fit, test, {}, cal)
+        mv.fitted['gamma'] = mt.fitted['gamma'] = gamma
         vc = ValueCache(mv)
         rv, rt = Runs(mv), Runs(mt)
         fv, ft = O.Features(rows, val), O.Features(rows, test)
@@ -490,7 +604,7 @@ def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
                       'validation_correct': int(yv.sum()), 'validation_wrong': int(len(yv)-yv.sum()),
                       'test_correct': int(yt.sum()), 'test_wrong': int(len(yt)-yt.sum()),
                       'test_eligible': int(et.sum()), 'test_ids': [rows[i]['item_id'] for i in test],
-                      'confidence_input': mode, 'test_prior_eligible': [float(x) for x in mt.prior[et]]})
+                      'confidence_input': mode, 'calibration': {'shrink_a': shrink, 'gamma': gamma}, 'test_prior_eligible': [float(x) for x in mt.prior[et]]})
         raw_conf = O.Features(raw_rows, test).confidence
         brier['raw'].append([float(np.sum((raw_conf[et]-yt[et])**2)), int(et.sum())])
         brier['ours_prior'].append([float(np.sum((mt.prior[et]-yt[et])**2)), int(et.sum())])

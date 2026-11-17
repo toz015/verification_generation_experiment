@@ -106,3 +106,14 @@ candidates failed Validation at small alpha. Adding the columns to Ours' LP alon
 the model the Bellman rule dominates ask-all. Configs `configs/offline_multirisk_20261117_pool_{calibrated,raw}.json`,
 results `results/offline_multirisk_20261117_pool_{calibrated,raw}/`, reports under `reports/`. Other methods'
 cells are identical to the 2026-11-16 runs.
+
+## Prior shrinkage and verifier tempering (2026-11-17)
+
+`calibration.shrink`: isotonic block values become (s + a*ybar) / (n + a), then weighted PAV restores monotonicity;
+a is picked from `shrink_grid` by 5-fold cross-validated Brier score inside Fit (`choose_shrink`).
+`calibration.verifier_gamma`: the 2nd and 3rd verifier's likelihood ratios are raised to gamma in every posterior
+update (planning grid, Bellman margins, execution; the predictive bin probabilities keep the fitted likelihoods);
+gamma is picked from `gamma_grid` by cross-fitted log-likelihood inside Fit, averaged over the 60 orders
+(`choose_gamma`). Both apply to every method reading the calibrated p (shrinkage) or the model (gamma: Ours and
+Fixed-3). Defaults off; chosen values are stored per fold under `calibration`. Runs:
+`configs/offline_multirisk_20261117_{shrink,gamma,shrinkgamma}_calibrated.json`.

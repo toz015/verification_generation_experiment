@@ -1,0 +1,7593 @@
+{
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed0|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 7549,
+    "method": "AT+Cal-Frozen",
+    "seed": 0,
+    "state_hash": "87f908817cce7b0b",
+    "threshold": 0.5086299999999999
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed0|c139": {
+    "config": [
+      0.8,
+      0.1,
+      1.0
+    ],
+    "fit_reveals": 7549,
+    "method": "AT+Cal-Frozen",
+    "seed": 0,
+    "state_hash": "87f908817cce7b0b",
+    "threshold": -0.02000000000000013
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed10|c21": {
+    "config": [
+      0.05,
+      0.001,
+      0.01
+    ],
+    "fit_reveals": 17060,
+    "method": "AT+Cal-Frozen",
+    "seed": 10,
+    "state_hash": "b177494dcf8acac6",
+    "threshold": 0.5493999999999999
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed10|c59": {
+    "config": [
+      0.1,
+      0.1,
+      1.0
+    ],
+    "fit_reveals": 17060,
+    "method": "AT+Cal-Frozen",
+    "seed": 10,
+    "state_hash": "b177494dcf8acac6",
+    "threshold": 0.6999999999999997
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed11|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 9783,
+    "method": "AT+Cal-Frozen",
+    "seed": 11,
+    "state_hash": "afddae7f12501bee",
+    "threshold": 0.5086300000000007
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed11|c2": {
+    "config": [
+      0.01,
+      0.001,
+      0.1
+    ],
+    "fit_reveals": 9783,
+    "method": "AT+Cal-Frozen",
+    "seed": 11,
+    "state_hash": "afddae7f12501bee",
+    "threshold": 0.5176600000000006
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed12|c23": {
+    "config": [
+      0.05,
+      0.001,
+      1.0
+    ],
+    "fit_reveals": 19103,
+    "method": "AT+Cal-Frozen",
+    "seed": 12,
+    "state_hash": "eb235792f222b258",
+    "threshold": 0.5576499999999999
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed12|c3": {
+    "config": [
+      0.01,
+      0.001,
+      1.0
+    ],
+    "fit_reveals": 19103,
+    "method": "AT+Cal-Frozen",
+    "seed": 12,
+    "state_hash": "eb235792f222b258",
+    "threshold": 0.5618200000000023
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed13|c117": {
+    "config": [
+      0.6,
+      0.1,
+      0.01
+    ],
+    "fit_reveals": 18559,
+    "method": "AT+Cal-Frozen",
+    "seed": 13,
+    "state_hash": "aa8ed055c07681b0",
+    "threshold": 0.37999999999999895
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed13|c3": {
+    "config": [
+      0.01,
+      0.001,
+      1.0
+    ],
+    "fit_reveals": 18559,
+    "method": "AT+Cal-Frozen",
+    "seed": 13,
+    "state_hash": "aa8ed055c07681b0",
+    "threshold": 0.5619300000000018
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed14|c148": {
+    "config": [
+      0.9,
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 11620,
+    "method": "AT+Cal-Frozen",
+    "seed": 14,
+    "state_hash": "57b865ad71b50044",
+    "threshold": 0.44599999999999995
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed14|c20": {
+    "config": [
+      0.05,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 11620,
+    "method": "AT+Cal-Frozen",
+    "seed": 14,
+    "state_hash": "57b865ad71b50044",
+    "threshold": 0.5411499999999999
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed15|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 15292,
+    "method": "AT+Cal-Frozen",
+    "seed": 15,
+    "state_hash": "ebb6d66c2e4eb3e2",
+    "threshold": 0.5442300000000012
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed15|c96": {
+    "config": [
+      0.4,
+      0.1,
+      0.001
+    ],
+    "fit_reveals": 15292,
+    "method": "AT+Cal-Frozen",
+    "seed": 15,
+    "state_hash": "ebb6d66c2e4eb3e2",
+    "threshold": 0.41999999999999815
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed16|c124": {
+    "config": [
+      0.8,
+      0.003,
+      0.001
+    ],
+    "fit_reveals": 15287,
+    "method": "AT+Cal-Frozen",
+    "seed": 16,
+    "state_hash": "013468104af7d6ff",
+    "threshold": 0.45319999999999966
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed16|c40": {
+    "config": [
+      0.1,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 15287,
+    "method": "AT+Cal-Frozen",
+    "seed": 16,
+    "state_hash": "013468104af7d6ff",
+    "threshold": 0.5453000000000003
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed17|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 10621,
+    "method": "AT+Cal-Frozen",
+    "seed": 17,
+    "state_hash": "0d49c4cf9720fb65",
+    "threshold": 0.5175300000000008
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed17|c144": {
+    "config": [
+      0.9,
+      0.003,
+      0.001
+    ],
+    "fit_reveals": 10621,
+    "method": "AT+Cal-Frozen",
+    "seed": 17,
+    "state_hash": "0d49c4cf9720fb65",
+    "threshold": 0.45140000000000036
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed18|c128": {
+    "config": [
+      0.8,
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 16881,
+    "method": "AT+Cal-Frozen",
+    "seed": 18,
+    "state_hash": "0b329d89b886b192",
+    "threshold": 0.45199999999999996
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed18|c80": {
+    "config": [
+      0.4,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 16881,
+    "method": "AT+Cal-Frozen",
+    "seed": 18,
+    "state_hash": "0b329d89b886b192",
+    "threshold": 0.5292000000000011
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed19|c3": {
+    "config": [
+      0.01,
+      0.001,
+      1.0
+    ],
+    "fit_reveals": 16098,
+    "method": "AT+Cal-Frozen",
+    "seed": 19,
+    "state_hash": "642ffa8d14069dee",
+    "threshold": 0.5352700000000015
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed19|c80": {
+    "config": [
+      0.4,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 16098,
+    "method": "AT+Cal-Frozen",
+    "seed": 19,
+    "state_hash": "642ffa8d14069dee",
+    "threshold": 0.5242000000000011
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed1|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 15025,
+    "method": "AT+Cal-Frozen",
+    "seed": 1,
+    "state_hash": "70fbc10d34cc965f",
+    "threshold": 0.5442300000000011
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed1|c3": {
+    "config": [
+      0.01,
+      0.001,
+      1.0
+    ],
+    "fit_reveals": 15025,
+    "method": "AT+Cal-Frozen",
+    "seed": 1,
+    "state_hash": "70fbc10d34cc965f",
+    "threshold": 0.5441400000000017
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed2|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 12849,
+    "method": "AT+Cal-Frozen",
+    "seed": 2,
+    "state_hash": "7359c126f4d768c8",
+    "threshold": 0.5353300000000009
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed2|c76": {
+    "config": [
+      0.2,
+      0.1,
+      0.001
+    ],
+    "fit_reveals": 12849,
+    "method": "AT+Cal-Frozen",
+    "seed": 2,
+    "state_hash": "7359c126f4d768c8",
+    "threshold": 0.43999999999999906
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed3|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 12902,
+    "method": "AT+Cal-Frozen",
+    "seed": 3,
+    "state_hash": "e7679d8b51c84af8",
+    "threshold": 0.5353300000000009
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed3|c2": {
+    "config": [
+      0.01,
+      0.001,
+      0.1
+    ],
+    "fit_reveals": 12902,
+    "method": "AT+Cal-Frozen",
+    "seed": 3,
+    "state_hash": "e7679d8b51c84af8",
+    "threshold": 0.5264800000000006
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed4|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 13642,
+    "method": "AT+Cal-Frozen",
+    "seed": 4,
+    "state_hash": "0dd906a86bd73529",
+    "threshold": 0.535330000000001
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed4|c3": {
+    "config": [
+      0.01,
+      0.001,
+      1.0
+    ],
+    "fit_reveals": 13642,
+    "method": "AT+Cal-Frozen",
+    "seed": 4,
+    "state_hash": "0dd906a86bd73529",
+    "threshold": 0.5353600000000011
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed5|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 12502,
+    "method": "AT+Cal-Frozen",
+    "seed": 5,
+    "state_hash": "541a204d4a9cff34",
+    "threshold": 0.526430000000001
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed5|c22": {
+    "config": [
+      0.05,
+      0.001,
+      0.1
+    ],
+    "fit_reveals": 12502,
+    "method": "AT+Cal-Frozen",
+    "seed": 5,
+    "state_hash": "541a204d4a9cff34",
+    "threshold": 0.5249499999999999
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed6|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 12446,
+    "method": "AT+Cal-Frozen",
+    "seed": 6,
+    "state_hash": "f4f5b7a1ef4bbf9f",
+    "threshold": 0.5353300000000006
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed6|c96": {
+    "config": [
+      0.4,
+      0.1,
+      0.001
+    ],
+    "fit_reveals": 12446,
+    "method": "AT+Cal-Frozen",
+    "seed": 6,
+    "state_hash": "f4f5b7a1ef4bbf9f",
+    "threshold": 0.41999999999999904
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed7|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 14563,
+    "method": "AT+Cal-Frozen",
+    "seed": 7,
+    "state_hash": "c31f8087f6045b24",
+    "threshold": 0.5353300000000012
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed7|c96": {
+    "config": [
+      0.4,
+      0.1,
+      0.001
+    ],
+    "fit_reveals": 14563,
+    "method": "AT+Cal-Frozen",
+    "seed": 7,
+    "state_hash": "c31f8087f6045b24",
+    "threshold": 0.41999999999999904
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed8|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 13369,
+    "method": "AT+Cal-Frozen",
+    "seed": 8,
+    "state_hash": "e8ade95a3f60c337",
+    "threshold": 0.5175300000000012
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed8|c76": {
+    "config": [
+      0.2,
+      0.1,
+      0.001
+    ],
+    "fit_reveals": 13369,
+    "method": "AT+Cal-Frozen",
+    "seed": 8,
+    "state_hash": "e8ade95a3f60c337",
+    "threshold": 0.43999999999999906
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed9|c0": {
+    "config": [
+      0.01,
+      0.001,
+      0.001
+    ],
+    "fit_reveals": 14555,
+    "method": "AT+Cal-Frozen",
+    "seed": 9,
+    "state_hash": "524f990d258847fd",
+    "threshold": 0.5442300000000011
+  },
+  "gpqa|qwen3|f0|AT+Cal-Frozen|seed9|c3": {
+    "config": [
+      0.01,
+      0.001,
+      1.0
+    ],
+    "fit_reveals": 14555,
+    "method": "AT+Cal-Frozen",
+    "seed": 9,
+    "state_hash": "524f990d258847fd",
+    "threshold": 0.5443400000000007
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed0|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 2196,
+    "method": "AT-Frozen",
+    "seed": 0,
+    "state_hash": "6044cb7321c84c49",
+    "threshold": 0.5086299999999999
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed0|c36": {
+    "config": [
+      0.9,
+      0.003
+    ],
+    "fit_reveals": 2196,
+    "method": "AT-Frozen",
+    "seed": 0,
+    "state_hash": "6044cb7321c84c49",
+    "threshold": 0.4622000000000003
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed0|c8": {
+    "config": [
+      0.05,
+      0.03
+    ],
+    "fit_reveals": 2196,
+    "method": "AT-Frozen",
+    "seed": 0,
+    "state_hash": "6044cb7321c84c49",
+    "threshold": 0.7100000000000002
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed10|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3693,
+    "method": "AT-Frozen",
+    "seed": 10,
+    "state_hash": "3143654fd2246213",
+    "threshold": 0.5531300000000013
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed10|c36": {
+    "config": [
+      0.9,
+      0.003
+    ],
+    "fit_reveals": 3693,
+    "method": "AT-Frozen",
+    "seed": 10,
+    "state_hash": "3143654fd2246213",
+    "threshold": 0.4622000000000003
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed10|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3693,
+    "method": "AT-Frozen",
+    "seed": 10,
+    "state_hash": "3143654fd2246213",
+    "threshold": 0.7280000000000029
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed11|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 2469,
+    "method": "AT-Frozen",
+    "seed": 11,
+    "state_hash": "3da9406385fe9deb",
+    "threshold": 0.5086300000000007
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed11|c19": {
+    "config": [
+      0.2,
+      0.1
+    ],
+    "fit_reveals": 2469,
+    "method": "AT-Frozen",
+    "seed": 11,
+    "state_hash": "3da9406385fe9deb",
+    "threshold": 0.4599999999999991
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed12|c1": {
+    "config": [
+      0.01,
+      0.003
+    ],
+    "fit_reveals": 4039,
+    "method": "AT-Frozen",
+    "seed": 12,
+    "state_hash": "f6edd29a2686efc8",
+    "threshold": 0.7123100000000007
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed12|c10": {
+    "config": [
+      0.1,
+      0.001
+    ],
+    "fit_reveals": 4039,
+    "method": "AT-Frozen",
+    "seed": 12,
+    "state_hash": "f6edd29a2686efc8",
+    "threshold": 0.5773000000000004
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed12|c32": {
+    "config": [
+      0.8,
+      0.01
+    ],
+    "fit_reveals": 4039,
+    "method": "AT-Frozen",
+    "seed": 12,
+    "state_hash": "f6edd29a2686efc8",
+    "threshold": 0.45799999999999996
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed13|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3898,
+    "method": "AT-Frozen",
+    "seed": 13,
+    "state_hash": "e8fd4bc01f1a02ff",
+    "threshold": 0.5798300000000013
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed13|c29": {
+    "config": [
+      0.6,
+      0.1
+    ],
+    "fit_reveals": 3898,
+    "method": "AT-Frozen",
+    "seed": 13,
+    "state_hash": "e8fd4bc01f1a02ff",
+    "threshold": 0.4399999999999987
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed13|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3898,
+    "method": "AT-Frozen",
+    "seed": 13,
+    "state_hash": "e8fd4bc01f1a02ff",
+    "threshold": 0.725500000000003
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed14|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 2668,
+    "method": "AT-Frozen",
+    "seed": 14,
+    "state_hash": "d2f6f6710c3c9d24",
+    "threshold": 0.5442300000000009
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed14|c36": {
+    "config": [
+      0.9,
+      0.003
+    ],
+    "fit_reveals": 2668,
+    "method": "AT-Frozen",
+    "seed": 14,
+    "state_hash": "d2f6f6710c3c9d24",
+    "threshold": 0.4622000000000003
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed14|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 2668,
+    "method": "AT-Frozen",
+    "seed": 14,
+    "state_hash": "d2f6f6710c3c9d24",
+    "threshold": 0.7355000000000017
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed15|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3488,
+    "method": "AT-Frozen",
+    "seed": 15,
+    "state_hash": "10866108ab822c14",
+    "threshold": 0.5442300000000012
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed15|c24": {
+    "config": [
+      0.4,
+      0.1
+    ],
+    "fit_reveals": 3488,
+    "method": "AT-Frozen",
+    "seed": 15,
+    "state_hash": "10866108ab822c14",
+    "threshold": 0.4599999999999982
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed15|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3488,
+    "method": "AT-Frozen",
+    "seed": 15,
+    "state_hash": "10866108ab822c14",
+    "threshold": 0.7315000000000024
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed16|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3680,
+    "method": "AT-Frozen",
+    "seed": 16,
+    "state_hash": "85124ed777c6e5f9",
+    "threshold": 0.5531300000000011
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed16|c31": {
+    "config": [
+      0.8,
+      0.003
+    ],
+    "fit_reveals": 3680,
+    "method": "AT-Frozen",
+    "seed": 16,
+    "state_hash": "85124ed777c6e5f9",
+    "threshold": 0.4633999999999997
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed16|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3680,
+    "method": "AT-Frozen",
+    "seed": 16,
+    "state_hash": "85124ed777c6e5f9",
+    "threshold": 0.7285000000000026
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed17|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 2611,
+    "method": "AT-Frozen",
+    "seed": 17,
+    "state_hash": "761758f9c2a29339",
+    "threshold": 0.5175300000000008
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed17|c18": {
+    "config": [
+      0.2,
+      0.03
+    ],
+    "fit_reveals": 2611,
+    "method": "AT-Frozen",
+    "seed": 17,
+    "state_hash": "761758f9c2a29339",
+    "threshold": 0.7039999999999997
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed17|c36": {
+    "config": [
+      0.9,
+      0.003
+    ],
+    "fit_reveals": 2611,
+    "method": "AT-Frozen",
+    "seed": 17,
+    "state_hash": "761758f9c2a29339",
+    "threshold": 0.4622000000000003
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed18|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3938,
+    "method": "AT-Frozen",
+    "seed": 18,
+    "state_hash": "d892dafba3c32709",
+    "threshold": 0.5709300000000013
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed18|c31": {
+    "config": [
+      0.8,
+      0.003
+    ],
+    "fit_reveals": 3938,
+    "method": "AT-Frozen",
+    "seed": 18,
+    "state_hash": "d892dafba3c32709",
+    "threshold": 0.4615999999999997
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed18|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3938,
+    "method": "AT-Frozen",
+    "seed": 18,
+    "state_hash": "d892dafba3c32709",
+    "threshold": 0.7215000000000036
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed19|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3429,
+    "method": "AT-Frozen",
+    "seed": 19,
+    "state_hash": "f65bb95c82267b35",
+    "threshold": 0.5620300000000013
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed19|c29": {
+    "config": [
+      0.6,
+      0.1
+    ],
+    "fit_reveals": 3429,
+    "method": "AT-Frozen",
+    "seed": 19,
+    "state_hash": "f65bb95c82267b35",
+    "threshold": 0.4399999999999996
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed1|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3579,
+    "method": "AT-Frozen",
+    "seed": 1,
+    "state_hash": "42839583bd04697d",
+    "threshold": 0.5442300000000011
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed1|c31": {
+    "config": [
+      0.8,
+      0.003
+    ],
+    "fit_reveals": 3579,
+    "method": "AT-Frozen",
+    "seed": 1,
+    "state_hash": "42839583bd04697d",
+    "threshold": 0.4627999999999997
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed2|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3093,
+    "method": "AT-Frozen",
+    "seed": 2,
+    "state_hash": "752053a9ffb2f6e7",
+    "threshold": 0.5353300000000009
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed2|c19": {
+    "config": [
+      0.2,
+      0.1
+    ],
+    "fit_reveals": 3093,
+    "method": "AT-Frozen",
+    "seed": 2,
+    "state_hash": "752053a9ffb2f6e7",
+    "threshold": 0.4599999999999991
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed2|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3093,
+    "method": "AT-Frozen",
+    "seed": 2,
+    "state_hash": "752053a9ffb2f6e7",
+    "threshold": 0.7310000000000021
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed3|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3136,
+    "method": "AT-Frozen",
+    "seed": 3,
+    "state_hash": "aec72e12e89f6499",
+    "threshold": 0.5353300000000009
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed3|c24": {
+    "config": [
+      0.4,
+      0.1
+    ],
+    "fit_reveals": 3136,
+    "method": "AT-Frozen",
+    "seed": 3,
+    "state_hash": "aec72e12e89f6499",
+    "threshold": 0.4399999999999986
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed3|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3136,
+    "method": "AT-Frozen",
+    "seed": 3,
+    "state_hash": "aec72e12e89f6499",
+    "threshold": 0.7310000000000021
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed4|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3108,
+    "method": "AT-Frozen",
+    "seed": 4,
+    "state_hash": "26816282cb9a0fab",
+    "threshold": 0.535330000000001
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed4|c24": {
+    "config": [
+      0.4,
+      0.1
+    ],
+    "fit_reveals": 3108,
+    "method": "AT-Frozen",
+    "seed": 4,
+    "state_hash": "26816282cb9a0fab",
+    "threshold": 0.4599999999999991
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed4|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3108,
+    "method": "AT-Frozen",
+    "seed": 4,
+    "state_hash": "26816282cb9a0fab",
+    "threshold": 0.7320000000000021
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed5|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3046,
+    "method": "AT-Frozen",
+    "seed": 5,
+    "state_hash": "5e578be0da9dafaa",
+    "threshold": 0.526430000000001
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed5|c19": {
+    "config": [
+      0.2,
+      0.1
+    ],
+    "fit_reveals": 3046,
+    "method": "AT-Frozen",
+    "seed": 5,
+    "state_hash": "5e578be0da9dafaa",
+    "threshold": 0.4599999999999991
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed6|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3069,
+    "method": "AT-Frozen",
+    "seed": 6,
+    "state_hash": "debdf6fd0e12a81e",
+    "threshold": 0.5353300000000006
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed6|c24": {
+    "config": [
+      0.4,
+      0.1
+    ],
+    "fit_reveals": 3069,
+    "method": "AT-Frozen",
+    "seed": 6,
+    "state_hash": "debdf6fd0e12a81e",
+    "threshold": 0.4599999999999991
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed6|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3069,
+    "method": "AT-Frozen",
+    "seed": 6,
+    "state_hash": "debdf6fd0e12a81e",
+    "threshold": 0.7330000000000018
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed7|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3186,
+    "method": "AT-Frozen",
+    "seed": 7,
+    "state_hash": "9d4a3746791b340b",
+    "threshold": 0.5353300000000012
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed7|c24": {
+    "config": [
+      0.4,
+      0.1
+    ],
+    "fit_reveals": 3186,
+    "method": "AT-Frozen",
+    "seed": 7,
+    "state_hash": "9d4a3746791b340b",
+    "threshold": 0.4599999999999991
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed7|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3186,
+    "method": "AT-Frozen",
+    "seed": 7,
+    "state_hash": "9d4a3746791b340b",
+    "threshold": 0.7320000000000023
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed8|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3035,
+    "method": "AT-Frozen",
+    "seed": 8,
+    "state_hash": "ba708c21081ac99b",
+    "threshold": 0.5175300000000012
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed8|c19": {
+    "config": [
+      0.2,
+      0.1
+    ],
+    "fit_reveals": 3035,
+    "method": "AT-Frozen",
+    "seed": 8,
+    "state_hash": "ba708c21081ac99b",
+    "threshold": 0.4599999999999991
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed9|c0": {
+    "config": [
+      0.01,
+      0.001
+    ],
+    "fit_reveals": 3407,
+    "method": "AT-Frozen",
+    "seed": 9,
+    "state_hash": "5a6b1c03f7770d12",
+    "threshold": 0.5442300000000011
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed9|c29": {
+    "config": [
+      0.6,
+      0.1
+    ],
+    "fit_reveals": 3407,
+    "method": "AT-Frozen",
+    "seed": 9,
+    "state_hash": "5a6b1c03f7770d12",
+    "threshold": 0.4399999999999994
+  },
+  "gpqa|qwen3|f0|AT-Frozen|seed9|c7": {
+    "config": [
+      0.05,
+      0.01
+    ],
+    "fit_reveals": 3407,
+    "method": "AT-Frozen",
+    "seed": 9,
+    "state_hash": "5a6b1c03f7770d12",
+    "threshold": 0.7285000000000027
+  },
+  "gpqa|qwen3|f0|Raw-threshold|seed0|c0": {
+    "config": [
+      "-inf"
+    ],
+    "fit_reveals": 0,
+    "method": "Raw-threshold",
+    "seed": 0,
+    "state_hash": null,
+    "threshold": "-inf"
+  },
+  "gpqa|qwen3|f0|Raw-threshold|seed0|c2": {
+    "config": [
+      0.581633658488521
+    ],
+    "fit_reveals": 0,
+    "method": "Raw-threshold",
+    "seed": 0,
+    "state_hash": null,
+    "threshold": 0.581633658488521
+  },
+  "gpqa|qwen3|f0|Raw-threshold|seed0|c4": {
+    "config": [
+      0.739333028780265
+    ],
+    "fit_reveals": 0,
+    "method": "Raw-threshold",
+    "seed": 0,
+    "state_hash": null,
+    "threshold": 0.739333028780265
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c104": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c104",
+    "lp_multipliers": [
+      0.8908031744334157,
+      37.71077653394427
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.2013794214038349,
+      "m": 0.12528200799024458,
+      "p": 0.7025074533648141,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.8546119620170604,
+        0.270282702756201,
+        0.0017454311557788948
+      ],
+      [
+        0.6115629613656667,
+        0.15577643142628944,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.07919343912376539,
+      0.24761602337531968,
+      0.673190537500915
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c12": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c12",
+    "lp_multipliers": [
+      0.5963984231125448,
+      42.43903140867306
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.36611816084780047,
+      "m": 0.012528200799024503,
+      "p": 0.9799999999999998,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.02000000000000024,
+      0.9799999999999998
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c175": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c175",
+    "lp_multipliers": [
+      1.0305950453643125,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0006075129396984927
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 3.536884422110552e-05,
+      "e": 0.21936763972287973,
+      "m": 0.12528200799024466,
+      "p": 0.7204956716838589,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.9436193354110125,
+        0.3326103775428579,
+        3.536884422110552e-05
+      ],
+      [
+        0.6418086109057631,
+        0.17943131900875295,
+        3.536884422110552e-05
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.2607165829083293,
+      0.7392834170916707
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c18": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c18",
+    "lp_multipliers": [
+      0.5963984231125448,
+      42.43903140867306
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.35491046204633725,
+      "m": 0.0313205019975612,
+      "p": 0.9499999999999998,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.050000000000000155,
+      0.9499999999999998
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c24": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c24",
+    "lp_multipliers": [
+      0.5963984231125448,
+      42.43903140867306
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.3362309640438984,
+      "m": 0.0626410039951224,
+      "p": 0.8999999999999998,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.1000000000000002,
+      0.8999999999999998
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c38": {
+    "alpha_plan": 0.005,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c38",
+    "lp_multipliers": [
+      25.19902353612576,
+      35.850242898895644
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_flash"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.23704668307680843,
+      "m": 0.0031320501997561534,
+      "p": 0.8603246728282761,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.8618794255465546,
+        0.23806331629313143,
+        0.0019570891959798994
+      ],
+      [
+        0.8035968663343362,
+        0.18200536515196786,
+        0.0019570891959798994
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.03528735020846752,
+        0.0
+      ],
+      [
+        "fixed",
+        0.06449466771037624,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.17877812462488168,
+      0.3708694827218757,
+      0.4503523926532426
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c39": {
+    "alpha_plan": 0.005,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c39",
+    "lp_multipliers": [
+      25.199023536125893,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0012573197236180915
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_flash"
+    ],
+    "planned": {
+      "c": 0.0019570891959798994,
+      "e": 0.22450323029810693,
+      "m": 0.0031320501997560424,
+      "p": 0.8477812200495747,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.8618794255465546,
+        0.23806331629313143,
+        0.0019570891959798994
+      ],
+      [
+        0.8035968663343362,
+        0.18200536515196786,
+        0.0019570891959798994
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.03528735020846752,
+        0.0
+      ],
+      [
+        "fixed",
+        0.06449466771037624,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.7581059293287784,
+      0.2418940706712216
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c6": {
+    "alpha_plan": 0.01,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c6",
+    "lp_multipliers": [
+      0.5963984231125448,
+      42.43903140867306
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.3698540604482883,
+      "m": 0.006264100399512196,
+      "p": 0.9899999999999999,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.01000000000000012,
+      0.9899999999999999
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c63": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c63",
+    "lp_multipliers": [
+      0.32648315852607096,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0012573197236180915
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_flash"
+    ],
+    "planned": {
+      "c": 0.0019570891959798994,
+      "e": 0.08956971002367027,
+      "m": 0.06264100399512236,
+      "p": 0.6533387459797717,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.6980807196589148,
+        0.10058191232082433,
+        0.0019570891959798994
+      ],
+      [
+        0.5217136556447449,
+        0.057173237473193986,
+        0.0019570891959798994
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ],
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.7463133270985991,
+      0.2536866729014009
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c85": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c85",
+    "lp_multipliers": [
+      1.6962611892300465,
+      18.291905750221964
+    ],
+    "lp_residual": [
+      -1.1102230246251565e-16,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.34057932626251797,
+      "m": 0.012528200799024392,
+      "p": 0.9544611654147174,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.9350972273048025,
+        0.3209172749400136,
+        0.0017454311557788948
+      ],
+      [
+        0.8546119620170604,
+        0.270282702756201,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.3937658923564388,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6316773756495062,
+      0.09953212038406396,
+      0.2687905039664299
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c91": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c91",
+    "lp_multipliers": [
+      0.8908031744334157,
+      37.71077653394427
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.32144598615336495,
+      "m": 0.03132050199756131,
+      "p": 0.9165355241070274,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.8546119620170604,
+        0.270282702756201,
+        0.0017454311557788948
+      ],
+      [
+        0.6115629613656667,
+        0.15577643142628944,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6316773756495061,
+      0.24524138511991686,
+      0.12308123923057698
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c92": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c92",
+    "lp_multipliers": [
+      1.6962611892300465,
+      18.291905750221964
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.29106337558313106,
+      "m": 0.031320501997561145,
+      "p": 0.8861529135367937,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.9350972273048025,
+        0.3209172749400136,
+        0.0017454311557788948
+      ],
+      [
+        0.8546119620170604,
+        0.270282702756201,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.3937658923564388,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.07919343912376536,
+      0.24883030096016703,
+      0.6719762599160676
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c93": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c93",
+    "lp_multipliers": [
+      1.696261189230044,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0014689777638190963
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0017454311557788945,
+      "e": 0.2885349458881022,
+      "m": 0.031320501997561145,
+      "p": 0.8836244838417648,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.9350972273048025,
+        0.3209172749400136,
+        0.0017454311557788948
+      ],
+      [
+        0.8546119620170604,
+        0.270282702756201,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.3937658923564388,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.36046997821256027,
+      0.6395300217874397
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c97": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c97",
+    "lp_multipliers": [
+      0.8908031744334157,
+      37.71077653394427
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.29354558354908933,
+      "m": 0.06264100399512229,
+      "p": 0.8573146195051908,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.8546119620170604,
+        0.270282702756201,
+        0.0017454311557788948
+      ],
+      [
+        0.6115629613656667,
+        0.15577643142628944,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6316773756495062,
+      0.0015830921702672603,
+      0.3667395321802266
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c98": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c98",
+    "lp_multipliers": [
+      0.8908031744334157,
+      37.71077653394427
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.25718022661238615,
+      "m": 0.0626410039951224,
+      "p": 0.8209492625684875,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.8546119620170604,
+        0.270282702756201,
+        0.0017454311557788948
+      ],
+      [
+        0.6115629613656667,
+        0.15577643142628944,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.07919343912376535,
+      0.7349326092746182,
+      0.1858739516016164
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c99": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-1-Mix|c99",
+    "lp_multipliers": [
+      0.8908031744334154,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.001468977763819096
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0017454311557788948,
+      "e": 0.2519675905692627,
+      "m": 0.06264100399512235,
+      "p": 0.8157366265253642,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.8546119620170604,
+        0.270282702756201,
+        0.0017454311557788948
+      ],
+      [
+        0.6115629613656667,
+        0.15577643142628944,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.8400514489361951,
+      0.1599485510638049
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c12": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c12",
+    "lp_multipliers": [
+      0.5963984231125448,
+      39.379133609758775
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.36611816084780047,
+      "m": 0.012528200799024503,
+      "p": 0.9799999999999998,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.02000000000000024,
+      0.9799999999999998
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c17": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 1.0,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c17",
+    "lp_multipliers": [
+      11.867851061323766,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.00018292060301507672
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.006245897236180905,
+      "e": 0.21582964339292135,
+      "m": 0.01252820079902453,
+      "p": 0.8297114825451206,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.8354556908409569,
+        0.22112745172123696,
+        0.006245897236180905
+      ],
+      [
+        0.7873390929032472,
+        0.17675014154093152,
+        0.006245897236180905
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.06449466771037624,
+        0.0
+      ],
+      [
+        "fixed",
+        0.11787686347935879,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.8806189850896645,
+      0.1193810149103355
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c18": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c18",
+    "lp_multipliers": [
+      0.5963984231125448,
+      39.379133609758775
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.35491046204633725,
+      "m": 0.0313205019975612,
+      "p": 0.9499999999999998,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.050000000000000155,
+      0.9499999999999998
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c24": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c24",
+    "lp_multipliers": [
+      0.5963984231125448,
+      39.379133609758775
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.3362309640438984,
+      "m": 0.0626410039951224,
+      "p": 0.8999999999999998,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.1000000000000002,
+      0.8999999999999998
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c255": {
+    "alpha_plan": 0.005,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c255",
+    "lp_multipliers": [
+      18.916116212329044,
+      33.48394157651226
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.003214408919597991,
+      "e": 0.20671265402049932,
+      "m": 0.0031320501997560424,
+      "p": 0.8299906437719671,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.8438816155061797,
+        0.2190260513727354,
+        0.0037378891959798997
+      ],
+      [
+        0.7845132181268228,
+        0.16263857641552243,
+        0.0037378891959798997
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.03528735020846752,
+        0.0
+      ],
+      [
+        "fixed",
+        0.06449466771037624,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.14004702893411392,
+      0.25769841775368374,
+      0.6022545533122023
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c256": {
+    "alpha_plan": 0.005,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c256",
+    "lp_multipliers": [
+      18.916116212329257,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.001083724183417087
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0037378891959798997,
+      "e": 0.18918447102967065,
+      "m": 0.003132050199756181,
+      "p": 0.8124624607811383,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.8438816155061797,
+        0.2190260513727354,
+        0.0037378891959798997
+      ],
+      [
+        0.7845132181268228,
+        0.16263857641552243,
+        0.0037378891959798997
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.03528735020846752,
+        0.0
+      ],
+      [
+        "fixed",
+        0.06449466771037624,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.47077643810600395,
+      0.529223561893996
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c280": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c280",
+    "lp_multipliers": [
+      0.262751197463482,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0010837241834170865
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0037378891959799,
+      "e": 0.07583276355251575,
+      "m": 0.06264100399512237,
+      "p": 0.6396017995086172,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.6502820094464516,
+        0.07805508411413103,
+        0.0037378891959798997
+      ],
+      [
+        0.48121612396317226,
+        0.04287613203696203,
+        0.0037378891959798997
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ],
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.9368281193612485,
+      0.06317188063875145
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c295": {
+    "alpha_plan": 0.01,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c295",
+    "lp_multipliers": [
+      1.0042462822781286,
+      117.00280603519731
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.2920802878432425,
+      "m": 0.00626410039951214,
+      "p": 0.9122262273949542,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.7163815381881866,
+        0.10655195078933583,
+        0.0021400097989949757
+      ],
+      [
+        0.6969809406885085,
+        0.09683110056983044,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6995893270107837,
+      0.1678498268588172,
+      0.13256084613039912
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c301": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c301",
+    "lp_multipliers": [
+      0.5963984231125448,
+      122.1049134489802
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.28761913626437197,
+      "m": 0.012528200799024503,
+      "p": 0.9015009754165713,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.6724829728991252,
+        0.08754836593256286,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.00010941405662756587,
+      0.6994799129541561,
+      0.3004106729892163
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c302": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c302",
+    "lp_multipliers": [
+      1.0042462822781286,
+      117.00280603519731
+    ],
+    "lp_residual": [
+      -1.1102230246251565e-16,
+      2.168404344971009e-19
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989956,
+      "e": 0.17296112930395582,
+      "m": 0.01252820079902453,
+      "p": 0.7868429684561551,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.7163815381881866,
+        0.10655195078933583,
+        0.0021400097989949757
+      ],
+      [
+        0.6969809406885085,
+        0.09683110056983044,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.24897331752695923,
+      0.7431919195893494,
+      0.007834762883691462
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c308": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c308",
+    "lp_multipliers": [
+      0.5963984231125448,
+      122.1049134489802
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.1586629005877659,
+      "m": 0.0313205019975612,
+      "p": 0.7537524385414285,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.6724829728991252,
+        0.08754836593256286,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.00027353514156849834,
+      0.24869978238539067,
+      0.7510266824730408
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c309": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c309",
+    "lp_multipliers": [
+      0.6100948006818278,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0010743991206030152
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0021400097989949757,
+      "e": 0.09374383652907553,
+      "m": 0.031320501997561145,
+      "p": 0.6888333744827382,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.6969809406885085,
+        0.09683110056983044,
+        0.0021400097989949757
+      ],
+      [
+        0.6724829728991252,
+        0.08754836593256286,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6674186905698677,
+      0.3325813094301323
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c337": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c337",
+    "lp_multipliers": [
+      1.8049432502677445,
+      23.506490983121488
+    ],
+    "lp_residual": [
+      0.0,
+      1.0842021724855044e-19
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0006428817839195983,
+      "e": 0.3358653737216586,
+      "m": 0.012528200799024392,
+      "p": 0.949747212873858,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.9062859793716287,
+        0.2971259274169091,
+        0.00192835175879397
+      ],
+      [
+        0.8237143753502946,
+        0.24399221095834558,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.3937658923564388,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6666159164230133,
+      0.10315936569787072,
+      0.23022471787911603
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c338": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c338",
+    "lp_multipliers": [
+      2.9808644042450823,
+      12.98733870790017
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.3153717835454716,
+      "m": 0.012528200799024503,
+      "p": 0.9292536226976709,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.9483392429013859,
+        0.32861533866249587,
+        0.00192835175879397
+      ],
+      [
+        0.9062859793716287,
+        0.2971259274169091,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.21544346900318845,
+        0.0
+      ],
+      [
+        "fixed",
+        0.3937658923564388,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.16653979105753322,
+      0.1750287443499725,
+      0.6584314645924942
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c339": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c339",
+    "lp_multipliers": [
+      2.980864404245076,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0012860571608040209
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.00192835175879397,
+      "e": 0.3112009347982966,
+      "m": 0.012528200799024503,
+      "p": 0.9250827739504959,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.9483392429013859,
+        0.32861533866249587,
+        0.00192835175879397
+      ],
+      [
+        0.9062859793716287,
+        0.2971259274169091,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.21544346900318845,
+        0.0
+      ],
+      [
+        "fixed",
+        0.3937658923564388,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.446975882515432,
+      0.5530241174845679
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c344": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c344",
+    "lp_multipliers": [
+      1.8049432502677445,
+      23.506490983121488
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.2792784942309827,
+      "m": 0.03132050199756131,
+      "p": 0.8743680321846452,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.9062859793716287,
+        0.2971259274169091,
+        0.00192835175879397
+      ],
+      [
+        0.8237143753502946,
+        0.24399221095834558,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        0.3937658923564388,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.16653979105753322,
+      0.25789841424468396,
+      0.5755617946977828
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c345": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c345",
+    "lp_multipliers": [
+      1.804943250267745,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0012860571608040209
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.00192835175879397,
+      "e": 0.2717294481429035,
+      "m": 0.031320501997561256,
+      "p": 0.866818986096566,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.9062859793716287,
+        0.2971259274169091,
+        0.00192835175879397
+      ],
+      [
+        0.8237143753502946,
+        0.24399221095834558,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.3937658923564388,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.5220270486102528,
+      0.47797295138974716
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c349": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c349",
+    "lp_multipliers": [
+      0.5963984231125448,
+      69.91701149540826
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.29128259096740333,
+      "m": 0.06264100399512246,
+      "p": 0.8550516269235047,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.63612066303667,
+        0.15319281497457773,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.023636793790373978,
+      0.6429791226326393,
+      0.3333840835769867
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c6": {
+    "alpha_plan": 0.01,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Fixed-3-Mix|c6",
+    "lp_multipliers": [
+      0.5963984231125448,
+      39.379133609758775
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.3698540604482883,
+      "m": 0.006264100399512196,
+      "p": 0.9899999999999999,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.01000000000000012,
+      0.9899999999999999
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Ours-Offline|c0": {
+    "alpha_plan": 0.005,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Ours-Offline|c0",
+    "lp_multipliers": [
+      1.2349806184349876,
+      193.29579904691138
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_small",
+      "claude_haiku"
+    ],
+    "order_score": -0.18607752772184002,
+    "planned": {
+      "c": 0.0,
+      "e": 0.3697219387561117,
+      "m": 0.0031320501997562644,
+      "p": 0.9929999285075792,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.9760576264215578,
+        0.3603601507677404,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "bellman",
+        0.8638957997951128,
+        162.97892149826694
+      ]
+    ],
+    "weights": [
+      0.7076283406285341,
+      0.2923716593714659
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Ours-Offline|c1": {
+    "alpha_plan": 0.005,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Ours-Offline|c1",
+    "lp_multipliers": [
+      11.575310942214099,
+      90.98786657607454
+    ],
+    "lp_residual": [
+      -1.1102230246251565e-16,
+      1.0842021724855044e-19
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_small",
+      "claude_haiku"
+    ],
+    "order_score": -0.18607752772184002,
+    "planned": {
+      "c": 0.0006428817839195981,
+      "e": 0.2574425447160936,
+      "m": 0.0031320501997562644,
+      "p": 0.8807205344675612,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.8789672653293062,
+        0.2557338532069279,
+        0.0006559900327034462
+      ],
+      [
+        0.888207408797187,
+        0.26468509695321407,
+        0.0005943648968615976
+      ],
+      [
+        0.8866187534149597,
+        0.263229551606289,
+        0.0005934280169847975
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        0.08899301260026565,
+        8.037668774012374
+      ],
+      [
+        "bellman",
+        0.08531538546541878,
+        8.458382391688726
+      ],
+      [
+        "bellman",
+        0.0885739569774784,
+        8.17762671026419
+      ]
+    ],
+    "weights": [
+      0.7891562264178175,
+      0.08812516441450075,
+      0.12271860916768165
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Ours-Offline|c103": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fnr|Ours-Offline|c103",
+    "lp_multipliers": [
+      0.7663991266062952,
+      100.03173936523432
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "gemini_lite",
+      "claude_haiku"
+    ],
+    "order_score": -0.18742115297099526,
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.1499390441665059,
+      "m": 0.12528200799024466,
+      "p": 0.651067076127485,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.6667426120042141,
+        0.18206383157458014,
+        0.00019570891959798996
+      ],
+      [
+        0.7636986160439608,
+        0.1613023902303001,
+        0.0013051566746521532
+      ],
+      [
+        0.6015158192038066,
+        0.12153070716661298,
+        0.0007648872765146668
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        1.3406376954100268,
+        135.64303073535157
+      ],
+      [
+        "bellman",
+        1.269790737954189,
+        124.90005290764371
+      ],
+      [
+        "bellman",
+        1.305161266586267,
+        130.52843074887642
+      ]
+    ],
+    "weights": [
+      0.36501656463430787,
+      0.15872458482098636,
+      0.4762588505447058
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Ours-Offline|c12": {
+    "alpha_plan": 0.02,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fnr|Ours-Offline|c12",
+    "lp_multipliers": [
+      1.1510833214289646,
+      187.19125812158467
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_small",
+      "claude_haiku"
+    ],
+    "order_score": -0.18607752772184002,
+    "planned": {
+      "c": 0.0,
+      "e": 0.3582702018729502,
+      "m": 0.012528200799024503,
+      "p": 0.9721520410251495,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.7,
+        0.21263675653118821,
+        0.0
+      ],
+      [
+        0.9760576264215578,
+        0.3603601507677404,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        1.3153690504363764,
+        316.22776601683796
+      ],
+      [
+        "bellman",
+        0.8638957997951128,
+        162.97892149826694
+      ]
+    ],
+    "weights": [
+      0.014147717804558101,
+      0.985852282195442
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Ours-Offline|c20": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Ours-Offline|c20",
+    "lp_multipliers": [
+      0.7341842209282011,
+      85.29227449481641
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_small",
+      "claude_haiku"
+    ],
+    "order_score": -0.18607752772184002,
+    "planned": {
+      "c": 0.0016072044597989956,
+      "e": 0.12699111861928639,
+      "m": 0.03132050199756123,
+      "p": 0.722080656572949,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.7000297539189861,
+        0.10011253746525962,
+        0.001963895458048045
+      ],
+      [
+        0.7328033042183044,
+        0.1297989522177001,
+        0.0016424139556673965
+      ],
+      [
+        0.7199936158119837,
+        0.12670439619298604,
+        0.0015950692119844792
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        1.3153690504363764,
+        100.0
+      ],
+      [
+        "bellman",
+        1.3479012248230917,
+        116.18993089655632
+      ],
+      [
+        "bellman",
+        1.3635897819849698,
+        116.31448775874819
+      ]
+    ],
+    "weights": [
+      0.009989594083535298,
+      0.17849549224693204,
+      0.8115149136695327
+    ]
+  },
+  "gpqa|qwen3|f0|fnr|Ours-Offline|c56": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fnr|Ours-Offline|c56",
+    "lp_multipliers": [
+      0.7015537927214059,
+      85.33945886328327
+    ],
+    "lp_residual": [
+      0.0,
+      2.168404344971009e-19
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": -0.18716834638069246,
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.12731665970851816,
+      "m": 0.03132050199756112,
+      "p": 0.7224061976621808,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.5633628861093664,
+        0.08966801387038059,
+        0.0010504134636636223
+      ],
+      [
+        0.7255456829495205,
+        0.1294396969340677,
+        0.0015906828618011087
+      ],
+      [
+        0.6914408573803408,
+        0.09922969422172917,
+        0.0019126625805753234
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        1.3953400083955454,
+        123.85690070021019
+      ],
+      [
+        "bellman",
+        1.3710871976901768,
+        121.81794232952232
+      ],
+      [
+        "bellman",
+        1.4371190744275961,
+        120.78135398471603
+      ]
+    ],
+    "weights": [
+      0.006332819891323255,
+      0.9317284130800929,
+      0.06193876702858384
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c104": {
+    "alpha_plan": 0.4,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c104",
+    "lp_multipliers": [
+      2.6767314621341525,
+      111.48608506480937
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.1494359840195105,
+      "m": 0.19666509084904235,
+      "p": 0.5791809331216919,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.6115629613656667,
+        0.15577643142628944,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.0631436932164785,
+      0.01604974590728692,
+      0.9208065608762346
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c105": {
+    "alpha_plan": 0.4,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c105",
+    "lp_multipliers": [
+      2.7554082808174063,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.001468977763819096
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0017454311557788948,
+      "e": 0.1494359840195105,
+      "m": 0.18175358389379356,
+      "p": 0.5940924400769407,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.6115629613656667,
+        0.15577643142628944,
+        0.0017454311557788948
+      ],
+      [
+        0.5123833424498454,
+        0.11978190400678153,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.8238496832342737,
+      0.17615031676572632
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c12": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c12",
+    "lp_multipliers": [
+      2.6767314621341525,
+      71.15885918542158
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.037358996004877625,
+      "m": 0.5637690359561013,
+      "p": 0.10000000000000005,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.8999999999999999,
+      0.10000000000000005
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c163": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c163",
+    "lp_multipliers": [
+      3.918850458530376,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0006230973945601079
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 1.9784389359490263e-05,
+      "e": 0.07471799200975525,
+      "m": 0.40831939471308076,
+      "p": 0.2928086372478983,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.5234583129778203,
+        0.1335744546818264,
+        3.536884422110552e-05
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.4406266363749485,
+      0.5593733636250515
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c175": {
+    "alpha_plan": 0.4,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c175",
+    "lp_multipliers": [
+      2.580863294188414,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0006075129396984927
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 3.536884422110553e-05,
+      "e": 0.1494359840195105,
+      "m": 0.21145127213559242,
+      "p": 0.5643947518351419,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.6418086109057631,
+        0.17943131900875295,
+        3.536884422110552e-05
+      ],
+      [
+        0.5234583129778203,
+        0.1335744546818264,
+        3.536884422110552e-05
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.34589214876540103,
+      0.654107851234599
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c18": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c18",
+    "lp_multipliers": [
+      2.6767314621341525,
+      71.15885918542158
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.07471799200975525,
+      "m": 0.501128031960979,
+      "p": 0.2000000000000001,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.7999999999999999,
+      0.2000000000000001
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c24": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c24",
+    "lp_multipliers": [
+      2.6767314621341525,
+      71.15885918542158
+    ],
+    "lp_residual": [
+      -1.3877787807814457e-17,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.11207698801463284,
+      "m": 0.4384870279658566,
+      "p": 0.30000000000000004,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.7,
+      0.30000000000000004
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c33": {
+    "alpha_plan": 0.4,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c33",
+    "lp_multipliers": [
+      2.850693285649082,
+      0.0
+    ],
+    "lp_residual": [
+      2.7755575615628914e-17,
+      -0.0006710320351758807
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.00254337688442211,
+      "e": 0.14943598401951053,
+      "m": 0.20366575476846283,
+      "p": 0.5721802692022715,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.7164427212298264,
+        0.20004207789632245,
+        0.0025433768844221106
+      ],
+      [
+        0.3335138471769427,
+        0.06571374591454855,
+        0.0025433768844221106
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6232656720275637,
+      0.3767343279724363
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c37": {
+    "alpha_plan": 0.025,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c37",
+    "lp_multipliers": [
+      9.915649578178591,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.00024115600973323323
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_flash"
+    ],
+    "planned": {
+      "c": 0.00040172577418636494,
+      "e": 0.009339749001219406,
+      "m": 0.543140110708208,
+      "p": 0.09260967824423512,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.45116697105644404,
+        0.045500495706234816,
+        0.0019570891959798994
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.7947330274922784,
+      0.20526697250772158
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c43": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c43",
+    "lp_multipliers": [
+      6.043711580083963,
+      90.01894171149546
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_flash"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.018679498002438812,
+      "m": 0.47432450173212737,
+      "p": 0.17076503622153522,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.5217136556447449,
+        0.057173237473193986,
+        0.0019570891959798994
+      ],
+      [
+        0.45116697105644404,
+        0.045500495706234816,
+        0.0019570891959798994
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6715112498499527,
+      0.31981321194451817,
+      0.008675538205529158
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c44": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c44",
+    "lp_multipliers": [
+      9.915649578178591,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0008037529114262655
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_flash"
+    ],
+    "planned": {
+      "c": 0.0008034515483727299,
+      "e": 0.018679498002438812,
+      "m": 0.4598701814651924,
+      "p": 0.18521935648847024,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.45116697105644404,
+        0.045500495706234816,
+        0.0019570891959798994
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.5894660549845568,
+      0.41053394501544316
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c50": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c50",
+    "lp_multipliers": [
+      9.915649578178591,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -3.013630535356627e-07
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_flash"
+    ],
+    "planned": {
+      "c": 0.0016069030967454598,
+      "e": 0.037358996004877625,
+      "m": 0.29333032297916095,
+      "p": 0.3704387129769405,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.45116697105644404,
+        0.045500495706234816,
+        0.0019570891959798994
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.17893210996911368,
+      0.8210678900308863
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c6": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c6",
+    "lp_multipliers": [
+      2.6767314621341525,
+      71.15885918542158
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.018679498002438812,
+      "m": 0.5950895379536626,
+      "p": 0.050000000000000024,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.95,
+      0.050000000000000024
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c99": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-1-Mix|c99",
+    "lp_multipliers": [
+      4.277635647040946,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0015812518217151366
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0016331570978828543,
+      "e": 0.11207698801463285,
+      "m": 0.2590625088214823,
+      "p": 0.47942451914437434,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.5123833424498454,
+        0.11978190400678153,
+        0.0017454311557788948
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.06432454097333817,
+      0.9356754590266618
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c100": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c100",
+    "lp_multipliers": [
+      1.950147655047859,
+      0.0
+    ],
+    "lp_residual": [
+      1.3877787807814457e-17,
+      -0.0002857784547738709
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.004535834924623116,
+      "e": 0.11207698801463287,
+      "m": 0.03862314071584952,
+      "p": 0.6998638872500071,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.7050639815542783,
+        0.11474350113265804,
+        0.004535834924623116
+      ],
+      [
+        0.6853520532248882,
+        0.10463558531491639,
+        0.004535834924623116
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.73619555543341,
+      0.2638044445665901
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c12": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c12",
+    "lp_multipliers": [
+      2.6767314621341525,
+      66.02823227506696
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.037358996004877625,
+      "m": 0.5637690359561013,
+      "p": 0.10000000000000005,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.8999999999999999,
+      0.10000000000000005
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c171": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c171",
+    "lp_multipliers": [
+      2.8886298197383633,
+      47.28193969649337
+    ],
+    "lp_residual": [
+      0.0,
+      4.336808689942018e-19
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0032144089195979913,
+      "e": 0.11207698801463285,
+      "m": 0.26275460958402647,
+      "p": 0.47573241838183017,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.656314137879558,
+        0.15642664356150285,
+        0.004324176884422111
+      ],
+      [
+        0.4766337600914504,
+        0.09422401151764269,
+        0.004324176884422111
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.25664259221727714,
+      0.6757731896674251,
+      0.06758421811529779
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c178": {
+    "alpha_plan": 0.4,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c178",
+    "lp_multipliers": [
+      2.8886298197383633,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0004974364949748757
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.004324176884422111,
+      "e": 0.1494359840195105,
+      "m": 0.139725313703814,
+      "p": 0.6361207102669203,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.656314137879558,
+        0.15642664356150285,
+        0.004324176884422111
+      ],
+      [
+        0.4766337600914504,
+        0.09422401151764269,
+        0.004324176884422111
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.8876147308836849,
+      0.11238526911631506
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c18": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c18",
+    "lp_multipliers": [
+      2.6767314621341525,
+      66.02823227506696
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.07471799200975525,
+      "m": 0.501128031960979,
+      "p": 0.2000000000000001,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.7999999999999999,
+      0.2000000000000001
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c213": {
+    "alpha_plan": 0.4,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c213",
+    "lp_multipliers": [
+      2.7609142672911635,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0004881114321608044
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0027262974874371865,
+      "e": 0.1494359840195105,
+      "m": 0.1604109954329078,
+      "p": 0.6154350285378265,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.6855724742908955,
+        0.1748396869102502,
+        0.0027262974874371865
+      ],
+      [
+        0.4173481213197722,
+        0.07768913205644509,
+        0.0027262974874371865
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.7385120143784262,
+      0.2614879856215739
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c24": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c24",
+    "lp_multipliers": [
+      2.6767314621341525,
+      66.02823227506696
+    ],
+    "lp_residual": [
+      -1.3877787807814457e-17,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.11207698801463284,
+      "m": 0.4384870279658566,
+      "p": 0.30000000000000004,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.7,
+      0.30000000000000004
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c274": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c274",
+    "lp_multipliers": [
+      4.805881798650916,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.001083724183417087
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0037378891959798997,
+      "e": 0.07471799200975525,
+      "m": 0.06688369271936866,
+      "p": 0.6342443392416104,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.6502820094464516,
+        0.07805508411413103,
+        0.0037378891959798997
+      ],
+      [
+        0.48121612396317226,
+        0.04287613203696203,
+        0.0037378891959798997
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ],
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.9051395249905256,
+      0.0948604750094744
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c29": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 1.0,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c29",
+    "lp_multipliers": [
+      1.5796717866745702,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.00018292060301507759
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.006245897236180904,
+      "e": 0.11207698801463285,
+      "m": 0.03626918950884796,
+      "p": 0.7022178384570087,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.7304174602126978,
+        0.1299285581911524,
+        0.006245897236180905
+      ],
+      [
+        0.6956700873247327,
+        0.10793198068620548,
+        0.006245897236180905
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.3937658923564388,
+        0.0
+      ],
+      [
+        "fixed",
+        0.7196856730011522,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.18843873904907169,
+      0.8115612609509283
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c295": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c295",
+    "lp_multipliers": [
+      4.035801131408171,
+      149.13725103755974
+    ],
+    "lp_residual": [
+      3.469446951953614e-18,
+      1.0842021724855044e-19
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0006428817839195983,
+      "e": 0.018679498002438816,
+      "m": 0.47382517678539204,
+      "p": 0.1712643611682706,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.6724829728991252,
+        0.08754836593256286,
+        0.0021400097989949757
+      ],
+      [
+        0.5360032857417084,
+        0.053731118076795426,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ],
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6995893270107837,
+      0.07505331809823154,
+      0.22535735489098482
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c296": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c296",
+    "lp_multipliers": [
+      10.705290191435079,
+      23.723296607967715
+    ],
+    "lp_residual": [
+      3.469446951953614e-18,
+      -6.505213034913027e-19
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989948,
+      "e": 0.018679498002438816,
+      "m": 0.40699190309776323,
+      "p": 0.23809763485589944,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.36473646326285786,
+        0.029328338647796545,
+        0.0021400097989949757
+      ],
+      [
+        0.1265549167978413,
+        0.007079381150541859,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ],
+      [
+        "fixed",
+        14.677992676220706,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.24897331752695948,
+      0.6005986511787806,
+      0.15042803129425988
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c302": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c302",
+    "lp_multipliers": [
+      7.018332603347909,
+      74.25219641686878
+    ],
+    "lp_residual": [
+      0.0,
+      2.168404344971009e-19
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989956,
+      "e": 0.037358996004877625,
+      "m": 0.282232715035662,
+      "p": 0.38153632092043943,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.5360032857417084,
+        0.053731118076795426,
+        0.0021400097989949757
+      ],
+      [
+        0.36473646326285786,
+        0.029328338647796545,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.24897331752695914,
+      0.6283149496305608,
+      0.12271173284248008
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c303": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c303",
+    "lp_multipliers": [
+      7.01833260334791,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0010743991206030147
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.002140009798994976,
+      "e": 0.037358996004877625,
+      "m": 0.24267074833772567,
+      "p": 0.42109828761837576,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.5360032857417084,
+        0.053731118076795426,
+        0.0021400097989949757
+      ],
+      [
+        0.36473646326285786,
+        0.029328338647796545,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.3290878147895686,
+      0.6709121852104315
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c343": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c343",
+    "lp_multipliers": [
+      2.6767314621341525,
+      117.2320529127462
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.07471799200975525,
+      "m": 0.425761680651876,
+      "p": 0.2753663513091031,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.63612066303667,
+        0.15319281497457773,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6033220694047756,
+      0.0632938470182377,
+      0.3333840835769867
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c349": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c349",
+    "lp_multipliers": [
+      2.6767314621341525,
+      117.2320529127462
+    ],
+    "lp_residual": [
+      -1.3877787807814457e-17,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.11207698801463284,
+      "m": 0.36312067665675357,
+      "p": 0.37536635130910306,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.63612066303667,
+        0.15319281497457773,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.5033220694047756,
+      0.16329384701823768,
+      0.3333840835769867
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c350": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c350",
+    "lp_multipliers": [
+      2.8562168050286694,
+      102.97331365560734
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.11207698801463285,
+      "m": 0.25287168239389257,
+      "p": 0.48561534557196406,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.63612066303667,
+        0.15319281497457773,
+        0.00192835175879397
+      ],
+      [
+        0.47662826859712376,
+        0.09735237801659082,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.1665397910575332,
+      0.5540367586155505,
+      0.27942345032691634
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c356": {
+    "alpha_plan": 0.4,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c356",
+    "lp_multipliers": [
+      2.6767314621341525,
+      117.2320529127462
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.1494359840195105,
+      "m": 0.18743014569797653,
+      "p": 0.5884158782727578,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ],
+      [
+        0.63612066303667,
+        0.15319281497457773,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.10830517351193905,
+      0.0582346175455942,
+      0.8334602089424668
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c357": {
+    "alpha_plan": 0.4,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c357",
+    "lp_multipliers": [
+      2.8562168050286694,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0012860571608040209
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_lite",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.00192835175879397,
+      "e": 0.1494359840195105,
+      "m": 0.15045568464157918,
+      "p": 0.6253903393291551,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.63612066303667,
+        0.15319281497457773,
+        0.00192835175879397
+      ],
+      [
+        0.47662826859712376,
+        0.09735237801659082,
+        0.00192835175879397
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.9327220351464336,
+      0.0672779648535664
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c58": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c58",
+    "lp_multipliers": [
+      4.556015199221038,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.00017359554020100407
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "mistral_medium"
+    ],
+    "planned": {
+      "c": 0.004648017839195983,
+      "e": 0.07471799200975525,
+      "m": 0.09855402528313971,
+      "p": 0.6025740066778393,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.6082813342063961,
+        0.07597069360950683,
+        0.004648017839195982
+      ],
+      [
+        0.4749591613725617,
+        0.04670780334157509,
+        0.004648017839195982
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ],
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.9571914603006808,
+      0.0428085396993192
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c6": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Fixed-3-Mix|c6",
+    "lp_multipliers": [
+      2.6767314621341525,
+      66.02823227506696
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_flash",
+      "gemini_lite"
+    ],
+    "planned": {
+      "c": 0.0,
+      "e": 0.018679498002438812,
+      "m": 0.5950895379536626,
+      "p": 0.050000000000000024,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.3735899600487761,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "release",
+        0.0,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.95,
+      0.050000000000000024
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c13": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c13",
+    "lp_multipliers": [
+      3.6009432866203652,
+      233.27844135157594
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.3945319894073405,
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.037358996004877625,
+      "m": 0.3634117897764005,
+      "p": 0.30035724617970094,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.23782968111926542,
+        0.022443988841100552,
+        0.0006050751606712631
+      ],
+      [
+        0.4919771248600592,
+        0.07696538762997018,
+        0.0008529290920498704
+      ],
+      [
+        0.27443150514719844,
+        0.053424728137982956,
+        0.00028375073513319356
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.7087140818557054,
+        233.93859170769483
+      ],
+      [
+        "bellman",
+        2.3901550607199322,
+        223.41839254495633
+      ],
+      [
+        "bellman",
+        2.565508712760485,
+        241.07312316913828
+      ]
+    ],
+    "weights": [
+      0.6984133557520059,
+      0.23668113311799194,
+      0.0649055111300021
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c18": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c18",
+    "lp_multipliers": [
+      3.4957090178433887,
+      249.74379586605778
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.3945319894073405,
+    "planned": {
+      "c": 0.0,
+      "e": 0.07471799200975525,
+      "m": 0.42217884988667753,
+      "p": 0.2789491820743015,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.3091709677382929,
+        0.08336338712408776,
+        0.0
+      ],
+      [
+        0.2,
+        0.05213339424394701,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.4040991835099716,
+        316.22776601683796
+      ],
+      [
+        "bellman",
+        2.5389488480746296,
+        250.96646924017037
+      ]
+    ],
+    "weights": [
+      0.7231701221478616,
+      0.2768298778521385
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c19": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c19",
+    "lp_multipliers": [
+      3.505550408582062,
+      237.2237973767509
+    ],
+    "lp_residual": [
+      1.3877787807814457e-17,
+      -1.0842021724855044e-19
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.3945319894073405,
+    "planned": {
+      "c": 0.0006428817839195981,
+      "e": 0.07471799200975526,
+      "m": 0.26685748579903745,
+      "p": 0.4342705461619416,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.5002973938145208,
+        0.08408212874212596,
+        0.0007828356783919601
+      ],
+      [
+        0.27443150514719844,
+        0.053424728137982956,
+        0.00028375073513319356
+      ],
+      [
+        0.4919771248600592,
+        0.07696538762997018,
+        0.0008529290920498704
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.326165271500207,
+        221.30517244347237
+      ],
+      [
+        "bellman",
+        2.563536059743775,
+        240.87451505793143
+      ],
+      [
+        "bellman",
+        2.5735098592306715,
+        233.049237251238
+      ]
+    ],
+    "weights": [
+      0.6429837328460568,
+      0.2898535781688863,
+      0.0671626889850569
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c22": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c22",
+    "lp_multipliers": [
+      3.168139326999544,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0009713268968103068
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.3945319894073405,
+    "planned": {
+      "c": 0.00385028648258668,
+      "e": 0.07471799200975525,
+      "m": 0.06203735614558213,
+      "p": 0.6390906758153969,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.65356950805491,
+        0.07928812947691824,
+        0.00385562455954781
+      ],
+      [
+        0.6324553582682043,
+        0.0726236025709307,
+        0.0038478401640478278
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.02414259842275,
+        0.0
+      ],
+      [
+        "bellman",
+        2.2349883760859544,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.3142592817718105,
+      0.6857407182281895
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c24": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c24",
+    "lp_multipliers": [
+      3.326165271500207,
+      244.64299098917695
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.3945319894073405,
+    "planned": {
+      "c": 0.0,
+      "e": 0.11207698801463285,
+      "m": 0.3338098781257153,
+      "p": 0.40467714984014136,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.3091709677382929,
+        0.08336338712408776,
+        0.0
+      ],
+      [
+        0.6,
+        0.1708001223800403,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.4040991835099716,
+        316.22776601683796
+      ],
+      [
+        "bellman",
+        2.0232756680993607,
+        212.89486781108067
+      ]
+    ],
+    "weights": [
+      0.6716071247800813,
+      0.32839287521991867
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c25": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c25",
+    "lp_multipliers": [
+      2.7880127600001496,
+      184.53814087633785
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.3945319894073405,
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.11207698801463285,
+      "m": 0.18357166667602975,
+      "p": 0.5549153612898269,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.6,
+        0.1708001223800403,
+        0.0
+      ],
+      [
+        0.5296569953940111,
+        0.10781709158090946,
+        0.0005703671253304931
+      ],
+      [
+        0.5756012259420734,
+        0.11542828393599876,
+        0.0007043455485759391
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.0232756680993607,
+        212.89486781108067
+      ],
+      [
+        "bellman",
+        1.8352937045562685,
+        186.7165476516062
+      ],
+      [
+        "bellman",
+        1.7699220766466088,
+        181.61162666648246
+      ]
+    ],
+    "weights": [
+      0.0014719771393341074,
+      0.4510202661509479,
+      0.547507756709718
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c26": {
+    "alpha_plan": 0.3,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c26",
+    "lp_multipliers": [
+      2.425407446121685,
+      121.64350011171905
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.3945319894073405,
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.11207698801463285,
+      "m": 0.05304324350647517,
+      "p": 0.6854437844593815,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.5633628861093664,
+        0.08966801387038059,
+        0.0010504134636636223
+      ],
+      [
+        0.7255456829495205,
+        0.1294396969340677,
+        0.0015906828618011087
+      ],
+      [
+        0.6914408573803408,
+        0.09922969422172917,
+        0.0019126625805753234
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        1.3953400083955434,
+        123.8569007002102
+      ],
+      [
+        "bellman",
+        1.3710871976901764,
+        121.81794232952231
+      ],
+      [
+        "bellman",
+        1.4296972397596739,
+        120.26823128868848
+      ]
+    ],
+    "weights": [
+      0.1747960647910223,
+      0.4805904199796471,
+      0.34461351522933065
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c30": {
+    "alpha_plan": 0.4,
+    "budget_plan_fraction": 0.0,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c30",
+    "lp_multipliers": [
+      3.326165271500207,
+      244.64299098917695
+    ],
+    "lp_residual": [
+      2.7755575615628914e-17,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.3945319894073405,
+    "planned": {
+      "c": 0.0,
+      "e": 0.14943598401951053,
+      "m": 0.2469066790410539,
+      "p": 0.5289393449296804,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.3091709677382929,
+        0.08336338712408776,
+        0.0
+      ],
+      [
+        0.6,
+        0.1708001223800403,
+        0.0
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.4040991835099716,
+        316.22776601683796
+      ],
+      [
+        "bellman",
+        2.0232756680993607,
+        212.89486781108067
+      ]
+    ],
+    "weights": [
+      0.24433824408002897,
+      0.7556617559199711
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c52": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c52",
+    "lp_multipliers": [
+      7.2285635017448575,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -7.419586563434197e-05
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "gemini_lite",
+      "claude_haiku"
+    ],
+    "order_score": 0.39452139098516514,
+    "planned": {
+      "c": 0.004747417513762645,
+      "e": 0.037358996004877625,
+      "m": 0.1951624070931154,
+      "p": 0.46860662886298604,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.48807221548892465,
+        0.040051866672921134,
+        0.004773336236108028
+      ],
+      [
+        0.4660857647774306,
+        0.0370102594841364,
+        0.004744060945190655
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        6.15458475462383,
+        0.0
+      ],
+      [
+        "bellman",
+        6.498229660585638,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.11465534472272165,
+      0.8853446552772783
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c86": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c86",
+    "lp_multipliers": [
+      7.228563501744785,
+      43.78842964552035
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "claude_haiku",
+      "mistral_medium"
+    ],
+    "order_score": 0.3937323230660566,
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.037358996004877625,
+      "m": 0.25167457096884666,
+      "p": 0.41209446498725477,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.4010879382014744,
+        0.03489537659508192,
+        0.001762540072816457
+      ],
+      [
+        0.38387324003149,
+        0.03251389399956633,
+        0.001762540072816457
+      ],
+      [
+        0.45399347009181396,
+        0.045709560949100066,
+        0.0011855500634284342
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        5.834687706361915,
+        33.40650278332594
+      ],
+      [
+        "bellman",
+        6.880399345271299,
+        56.265992854804
+      ],
+      [
+        "bellman",
+        6.228563501744773,
+        43.97880945209972
+      ]
+    ],
+    "weights": [
+      0.542771967598158,
+      0.1880108700765942,
+      0.2692171623252478
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c92": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c92",
+    "lp_multipliers": [
+      2.755605954162203,
+      97.33608892914485
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "claude_haiku",
+      "mistral_medium"
+    ],
+    "order_score": 0.3937323230660566,
+    "planned": {
+      "c": 0.0016072044597989956,
+      "e": 0.07471799200975526,
+      "m": 0.10777847971785481,
+      "p": 0.5933495522431242,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.5221179128363403,
+        0.05724835752762759,
+        0.0013699624371859298
+      ],
+      [
+        0.6843007096764946,
+        0.09702004059131474,
+        0.0019102318353234158
+      ],
+      [
+        0.5254076331706908,
+        0.058442185814063644,
+        0.0013699624371859298
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.4040991835099716,
+        100.0
+      ],
+      [
+        "bellman",
+        1.964375325602795,
+        81.07462859754364
+      ],
+      [
+        "bellman",
+        1.7110895657538578,
+        100.61314237140952
+      ]
+    ],
+    "weights": [
+      0.5565495523420325,
+      0.43911800933187983,
+      0.004332438326087773
+    ]
+  },
+  "gpqa|qwen3|f0|fpr|Ours-Offline|c93": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|fpr|Ours-Offline|c93",
+    "lp_multipliers": [
+      3.3260060374673794,
+      5.928142564143644
+    ],
+    "lp_residual": [
+      0.0,
+      -4.336808689942018e-19
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "claude_haiku",
+      "mistral_medium"
+    ],
+    "order_score": 0.3937323230660566,
+    "planned": {
+      "c": 0.0032144089195979904,
+      "e": 0.07471799200975525,
+      "m": 0.06454424351717546,
+      "p": 0.6365837884438036,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.6463779184694157,
+        0.07864620613040939,
+        0.0026626114854516503
+      ],
+      [
+        0.6236464885607225,
+        0.07078108445060248,
+        0.0032408722554429824
+      ],
+      [
+        0.6382531968228061,
+        0.0751725362686894,
+        0.003240992529520699
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.238318008816969,
+        5.663335673235111
+      ],
+      [
+        "bellman",
+        2.329129264159477,
+        5.703470843864033
+      ],
+      [
+        "bellman",
+        2.294996825190216,
+        5.5063757066781704
+      ]
+    ],
+    "weights": [
+      0.04593302473097018,
+      0.13983995453860826,
+      0.8142270207304215
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-1-Mix|c139": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-1-Mix|c139",
+    "lp_multipliers": [
+      6.916928128839513,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0004953300251256283
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "mistral_medium"
+    ],
+    "planned": {
+      "c": 0.00014755175879396982,
+      "e": 0.053411111743443394,
+      "m": 0.41276559297745025,
+      "p": 0.2670555587172169,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.7141545963489097,
+        0.2074693005430459,
+        0.00014755175879396982
+      ],
+      [
+        0.26503222377416724,
+        0.05271392545936563,
+        0.00014755175879396982
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.004505086066967133,
+      0.9954949139330329
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-1-Mix|c31": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-1-Mix|c31",
+    "lp_multipliers": [
+      6.631657702958374,
+      133.7091308449936
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.017191832912793692,
+      "m": 0.557642708300049,
+      "p": 0.08595916456396847,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.7164427212298264,
+        0.20004207789632245,
+        0.0025433768844221106
+      ],
+      [
+        0.3335138471769427,
+        0.06571374591454855,
+        0.0025433768844221106
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.7472329846759342,
+      0.004329432842865551,
+      0.24843758248120015
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-1-Mix|c33": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-1-Mix|c33",
+    "lp_multipliers": [
+      6.631657702958373,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0006710320351758802
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "claude_haiku"
+    ],
+    "planned": {
+      "c": 0.0025433768844221106,
+      "e": 0.06801454252546565,
+      "m": 0.3543518698493612,
+      "p": 0.34007271262732824,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.7164427212298264,
+        0.20004207789632245,
+        0.0025433768844221106
+      ],
+      [
+        0.3335138471769427,
+        0.06571374591454855,
+        0.0025433768844221106
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.017128155892155876,
+      0.9828718441078441
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-1-Mix|c69": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-1-Mix|c69",
+    "lp_multipliers": [
+      1.3724405137261144,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0012573197236180915
+    ],
+    "lp_status": 0,
+    "method": "Fixed-1-Mix",
+    "order": [
+      "gemini_flash"
+    ],
+    "planned": {
+      "c": 0.0019570891959798994,
+      "e": 0.15487662173927585,
+      "m": 0.006903552994120377,
+      "p": 0.7743831086963793,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.8035968663343362,
+        0.18200536515196786,
+        0.0019570891959798994
+      ],
+      [
+        0.7700665257411374,
+        0.1508681174974181,
+        0.0019570891959798994
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.06449466771037624,
+        0.0
+      ],
+      [
+        "fixed",
+        0.11787686347935879,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.12873662715246584,
+      0.8712633728475342
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c175": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c175",
+    "lp_multipliers": [
+      6.840652214242193,
+      111.96980079219048
+    ],
+    "lp_residual": [
+      0.0,
+      1.0842021724855044e-19
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0006428817839195983,
+      "e": 0.014396669055681094,
+      "m": 0.5688233637284994,
+      "p": 0.07198334527840547,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.656314137879558,
+        0.15642664356150285,
+        0.004324176884422111
+      ],
+      [
+        0.4766337600914504,
+        0.09422401151764269,
+        0.004324176884422111
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.8513285184434555,
+      0.006241627603129033,
+      0.14242985395341554
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c176": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c176",
+    "lp_multipliers": [
+      6.840652214242193,
+      111.96980079219048
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.035991672639202735,
+      "m": 0.48244334939441286,
+      "p": 0.17995836319601363,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.656314137879558,
+        0.15642664356150285,
+        0.004324176884422111
+      ],
+      [
+        0.4766337600914504,
+        0.09422401151764269,
+        0.004324176884422111
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6283212961086386,
+      0.015604069007822581,
+      0.3560746348835388
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c177": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c177",
+    "lp_multipliers": [
+      6.840652214242193,
+      111.96980079219048
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.003214408919597991,
+      "e": 0.07198334527840547,
+      "m": 0.33847665883760203,
+      "p": 0.35991672639202726,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.656314137879558,
+        0.15642664356150285,
+        0.004324176884422111
+      ],
+      [
+        0.4766337600914504,
+        0.09422401151764269,
+        0.004324176884422111
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.25664259221727725,
+      0.031208138015645162,
+      0.7121492697670776
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c178": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c178",
+    "lp_multipliers": [
+      6.8406522142422235,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0004974364949748757
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "claude_haiku",
+      "gemini_lite",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.004324176884422111,
+      "e": 0.09683544486778775,
+      "m": 0.23906826048007282,
+      "p": 0.4841772243389387,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.656314137879558,
+        0.15642664356150285,
+        0.004324176884422111
+      ],
+      [
+        0.4766337600914504,
+        0.09422401151764269,
+        0.004324176884422111
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        1.3153690504363764,
+        0.0
+      ],
+      [
+        "fixed",
+        2.4040991835099716,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.04198268247400993,
+      0.9580173175259901
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c313": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c313",
+    "lp_multipliers": [
+      23.538281336235954,
+      249.0291053262396
+    ],
+    "lp_residual": [
+      0.0,
+      -1.0842021724855044e-19
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0006428817839195981,
+      "e": 0.016009627548003443,
+      "m": 0.48232339201919283,
+      "p": 0.1600962754800344,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.5360032857417084,
+        0.053731118076795426,
+        0.0021400097989949757
+      ],
+      [
+        0.36473646326285786,
+        0.029328338647796545,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6995893270107838,
+      0.29501072277890855,
+      0.0053999502103077145
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c314": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c314",
+    "lp_multipliers": [
+      23.538281336235954,
+      249.0291053262396
+    ],
+    "lp_residual": [
+      0.0,
+      -2.168404344971009e-19
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0016072044597989952,
+      "e": 0.04002406887000861,
+      "m": 0.26619342012114633,
+      "p": 0.40024068870008606,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.5360032857417084,
+        0.053731118076795426,
+        0.0021400097989949757
+      ],
+      [
+        0.36473646326285786,
+        0.029328338647796545,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "abstain",
+        0.0,
+        0.0
+      ],
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.24897331752695925,
+      0.7375268069472715,
+      0.013499875525769287
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c315": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c315",
+    "lp_multipliers": [
+      23.538281336235965,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0010743991206030156
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0021400097989949757,
+      "e": 0.05329247256331047,
+      "m": 0.1467777868814296,
+      "p": 0.5329247256331047,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.5360032857417084,
+        0.053731118076795426,
+        0.0021400097989949757
+      ],
+      [
+        0.36473646326285786,
+        0.029328338647796545,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        4.393970560760795,
+        0.0
+      ],
+      [
+        "fixed",
+        8.030857221391521,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.9820247724337625,
+      0.017975227566237487
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c321": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|selective_error|Fixed-3-Mix|c321",
+    "lp_multipliers": [
+      1.3744968331455367,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0010743991206030152
+    ],
+    "lp_status": 0,
+    "method": "Fixed-3-Mix",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "mistral_small"
+    ],
+    "planned": {
+      "c": 0.0021400097989949757,
+      "e": 0.15522911772771109,
+      "m": 0.0054935690403794535,
+      "p": 0.7761455886385554,
+      "q_model": 0.6264100399512238
+    },
+    "rule_values": [
+      [
+        0.7986205713960743,
+        0.17607553991770458,
+        0.0021400097989949757
+      ],
+      [
+        0.7670185835905237,
+        0.14676346493437048,
+        0.0021400097989949757
+      ]
+    ],
+    "rules": [
+      [
+        "fixed",
+        0.06449466771037624,
+        0.0
+      ],
+      [
+        "fixed",
+        0.11787686347935879,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.2888111059402621,
+      0.711188894059738
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Ours-Offline|c103": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|selective_error|Ours-Offline|c103",
+    "lp_multipliers": [
+      6.635999111778469,
+      421.06436316558245
+    ],
+    "lp_residual": [
+      -1.0842021724855044e-19,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "claude_haiku",
+      "mistral_medium"
+    ],
+    "order_score": 0.15989814520210602,
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.1094786953824861,
+      "m": 0.18849525842127945,
+      "p": 0.5473934769124305,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.5002973938145208,
+        0.08408212874212596,
+        0.0007828356783919601
+      ],
+      [
+        0.5267165874511537,
+        0.106904046616075,
+        0.0005691783569166768
+      ],
+      [
+        0.5726608179992162,
+        0.1145152389711643,
+        0.0007031567801621229
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.224897997761334,
+        219.62248297583798
+      ],
+      [
+        "bellman",
+        1.806266978177081,
+        183.5011353461139
+      ],
+      [
+        "bellman",
+        1.8118641983898633,
+        179.1977159296175
+      ]
+    ],
+    "weights": [
+      0.0461211245503008,
+      0.47731474279749314,
+      0.4765641326522061
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Ours-Offline|c19": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|selective_error|Ours-Offline|c19",
+    "lp_multipliers": [
+      42.376531242045694,
+      88.02589986012487
+    ],
+    "lp_residual": [
+      -1.0164395367051604e-20,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.16331780374985794,
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.0031887510104704124,
+      "m": 0.565823770752286,
+      "p": 0.06377502020940824,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.051683960808106756,
+        0.0024247633146368187,
+        0.0005822772485251075
+      ],
+      [
+        0.07810271182451023,
+        0.004164610098695911,
+        0.000680734984489691
+      ],
+      [
+        0.0694427318906106,
+        0.00352697905962058,
+        0.0006808669479592303
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        12.928826585632446,
+        24.586138112242622
+      ],
+      [
+        "bellman",
+        12.343112645205874,
+        27.542374328675617
+      ],
+      [
+        "bellman",
+        12.76529126892411,
+        25.07932206990195
+      ]
+    ],
+    "weights": [
+      0.3851042869945188,
+      0.13525056678702138,
+      0.47964514621845983
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Ours-Offline|c20": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|selective_error|Ours-Offline|c20",
+    "lp_multipliers": [
+      37.786894795953565,
+      69.02345067650094
+    ],
+    "lp_residual": [
+      8.470329472543003e-22,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.16331780374985794,
+    "planned": {
+      "c": 0.0016072044597989954,
+      "e": 0.006749985166913657,
+      "m": 0.4981603217798643,
+      "p": 0.13499970333827316,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.14726977606054625,
+        0.007279358872888278,
+        0.0018310281224848046
+      ],
+      [
+        0.10107348173656414,
+        0.005272661632878683,
+        0.0009958023848182706
+      ],
+      [
+        0.1648787595696917,
+        0.008446927246326291,
+        0.0019289606441842732
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        12.440987717411126,
+        22.20930102988866
+      ],
+      [
+        "bellman",
+        12.060730528146207,
+        25.055812374711554
+      ],
+      [
+        "bellman",
+        11.844896107535927,
+        24.44905111979764
+      ]
+    ],
+    "weights": [
+      0.721976615542697,
+      0.2690338871218913,
+      0.008989497335411713
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Ours-Offline|c21": {
+    "alpha_plan": 0.05,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|selective_error|Ours-Offline|c21",
+    "lp_multipliers": [
+      52.78541476001991,
+      0.0
+    ],
+    "lp_residual": [
+      -2.710505431213761e-20,
+      -0.0009735577314829158
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.16331780374985794,
+    "planned": {
+      "c": 0.002240851188115075,
+      "e": 0.007916836097207119,
+      "m": 0.4759901541042885,
+      "p": 0.1583367219441424,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.1683991229989994,
+        0.008610584585865536,
+        0.00227742400646802
+      ],
+      [
+        0.13696668855875982,
+        0.0064434871139112315,
+        0.0021631796318991054
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        13.329345149056982,
+        0.0
+      ],
+      [
+        "bellman",
+        13.96058574338796,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.6798720419193748,
+      0.3201279580806252
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Ours-Offline|c25": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.1,
+    "id": "gpqa|qwen3|f0|selective_error|Ours-Offline|c25",
+    "lp_multipliers": [
+      5.627303285328346,
+      364.55129529297636
+    ],
+    "lp_residual": [
+      0.0,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.16331780374985794,
+    "planned": {
+      "c": 0.0006428817839195982,
+      "e": 0.02591469770448052,
+      "m": 0.39317776061089915,
+      "p": 0.25914697704480516,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.23782968111926542,
+        0.022443988841100552,
+        0.0006050751606712631
+      ],
+      [
+        0.4919771248600592,
+        0.07696538762997018,
+        0.0008529290920498704
+      ],
+      [
+        0.4553753008321263,
+        0.045984648333087776,
+        0.00117425351758794
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        2.7087140818557054,
+        233.93859170769477
+      ],
+      [
+        "bellman",
+        2.3901550607199336,
+        223.4183925449564
+      ],
+      [
+        "bellman",
+        2.6912466864058615,
+        213.41404927068132
+      ]
+    ],
+    "weights": [
+      0.909257763073897,
+      0.04307762799242317,
+      0.04766460893367976
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Ours-Offline|c27": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.5,
+    "id": "gpqa|qwen3|f0|selective_error|Ours-Offline|c27",
+    "lp_multipliers": [
+      9.581253524867023,
+      22.34998060331541
+    ],
+    "lp_residual": [
+      5.421010862427522e-20,
+      0.0
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_medium",
+      "claude_haiku"
+    ],
+    "order_score": 0.16331780374985794,
+    "planned": {
+      "c": 0.003214408919597991,
+      "e": 0.05611043672068096,
+      "m": 0.12141610946509519,
+      "p": 0.5611043672068096,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.5545138962552957,
+        0.054820807025219104,
+        0.003189858598982141
+      ],
+      [
+        0.5762060648793746,
+        0.059199046672352686,
+        0.0032134363054136294
+      ],
+      [
+        0.5745366148036309,
+        0.05862777572502587,
+        0.0033120717046487224
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        3.9922266381433973,
+        9.956842191053944
+      ],
+      [
+        "bellman",
+        3.8904838466414797,
+        11.460979948590937
+      ],
+      [
+        "bellman",
+        3.8932909965712166,
+        11.373794084182412
+      ]
+    ],
+    "weights": [
+      0.6828607624941069,
+      0.14404818795949953,
+      0.1730910495463936
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Ours-Offline|c62": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|selective_error|Ours-Offline|c62",
+    "lp_multipliers": [
+      9.421571749106443,
+      41.756278676804826
+    ],
+    "lp_residual": [
+      0.0,
+      -2.168404344971009e-19
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_small",
+      "claude_haiku"
+    ],
+    "order_score": 0.1608261752786727,
+    "planned": {
+      "c": 0.0016072044597989952,
+      "e": 0.05025330594930461,
+      "m": 0.17413028640748224,
+      "p": 0.5025330594930462,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.4981437568982025,
+        0.049193763231836656,
+        0.0016421175855045212
+      ],
+      [
+        0.5660200786812243,
+        0.05951219965618498,
+        0.0024709892508829206
+      ],
+      [
+        0.4996561485137429,
+        0.049855919523932084,
+        0.0015630575999810341
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        3.876791480632579,
+        21.235791349485456
+      ],
+      [
+        "bellman",
+        3.845704219523342,
+        21.557187444982183
+      ],
+      [
+        "bellman",
+        3.8461206700637773,
+        21.561762201256403
+      ]
+    ],
+    "weights": [
+      0.047994919477671635,
+      0.04444429505103372,
+      0.9075607854712947
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Ours-Offline|c64": {
+    "alpha_plan": 0.1,
+    "budget_plan_fraction": 0.75,
+    "id": "gpqa|qwen3|f0|selective_error|Ours-Offline|c64",
+    "lp_multipliers": [
+      7.564803401958856,
+      0.0
+    ],
+    "lp_residual": [
+      0.0,
+      -0.0010946917388567276
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_small",
+      "claude_haiku"
+    ],
+    "order_score": 0.1608261752786727,
+    "planned": {
+      "c": 0.003726921640540259,
+      "e": 0.05612959440973086,
+      "m": 0.12124369026364601,
+      "p": 0.5612959440973087,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.5567792767532312,
+        0.055080864261499614,
+        0.0037165103932849004
+      ],
+      [
+        0.5645888748629284,
+        0.056894183764417815,
+        0.003734512085836302
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        3.399722647009524,
+        0.0
+      ],
+      [
+        "bellman",
+        3.126219104919026,
+        0.0
+      ]
+    ],
+    "weights": [
+      0.4216517571539321,
+      0.5783482428460679
+    ]
+  },
+  "gpqa|qwen3|f0|selective_error|Ours-Offline|c68": {
+    "alpha_plan": 0.2,
+    "budget_plan_fraction": 0.25,
+    "id": "gpqa|qwen3|f0|selective_error|Ours-Offline|c68",
+    "lp_multipliers": [
+      1.6313919013785694,
+      18.837233727764122
+    ],
+    "lp_residual": [
+      0.0,
+      2.168404344971009e-19
+    ],
+    "lp_status": 0,
+    "method": "Ours-Offline",
+    "order": [
+      "gemini_flash",
+      "mistral_small",
+      "claude_haiku"
+    ],
+    "order_score": 0.1608261752786727,
+    "planned": {
+      "c": 0.0016072044597989956,
+      "e": 0.15421587014089758,
+      "m": 0.00954655938763363,
+      "p": 0.7710793507044877,
+      "q_model": 0.6264100399512238
+    },
+    "pool": "adaptive",
+    "rule_values": [
+      [
+        0.771395381859392,
+        0.15471641249395016,
+        0.0015861060618830591
+      ],
+      [
+        0.7692885733757379,
+        0.15186635071916638,
+        0.0016845999905231357
+      ],
+      [
+        0.7749010827281415,
+        0.15725073792430203,
+        0.0016134485737850663
+      ]
+    ],
+    "rules": [
+      [
+        "bellman",
+        0.23145794891749766,
+        14.854054004167732
+      ],
+      [
+        "bellman",
+        0.22370139104051348,
+        13.061923410784788
+      ],
+      [
+        "bellman",
+        0.22823329837936931,
+        14.15043860892546
+      ]
+    ],
+    "weights": [
+      0.7619014195054764,
+      0.20503013592290797,
+      0.033068444571615625
+    ]
+  }
+}
