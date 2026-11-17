@@ -1,0 +1,150 @@
+"""Numbers for the PPT deck, all from the calibrated and raw result files (no API calls)."""
+import json
+import sys
+
+import numpy as np
+
+from vgx.offline_multirisk import BASELINES, METHODS, RISKS
+from vgx import offline_multirisk_report as R
+
+cfg = json.load(open('configs/offline_multirisk_20261116_calibrated.json'))
+res = R.load(cfg, cfg['output_dir'])
+res_r = R.load(cfg, cfg['output_dir'].replace('_calibrated', '_raw'))
+
+
+def rows_I(res):
+    rows = [r for r in R.rows_of(res) if R.in_main(r['dataset'], r['generator'], r['risk_metric'])]
+    return rows, R.index(rows)
+
+
+rows, I = rows_I(res)
+rows_r, I_r = rows_I(res_r)
+name = lambda m: 'Cal-threshold' if m == 'Raw-threshold' else m
+out = {'methods': [name(m) for m in METHODS], 'baselines': [name(b) for b in BASELINES], 'alpha': cfg['alpha_target'],
+       'alpha_main': cfg['alpha_main'], 'risk_name': R.RISK_NAME}
+
+
+def sig(I, rows):
+    d = {}
+    for risk in RISKS:
+        S = R.sig_counts(I, rows, risk)
+        ex = {name(m): sum(R.over(I[k]) for k in I if k[2] == risk and k[5] == m) for m in METHODS}
+        nc = {name(m): sum(1 for k in I if k[2] == risk and k[5] == m) for m in METHODS}
+        bud = {name(m): sum(not I[k]['budget_met'] for k in I if k[2] == risk and k[5] == m) for m in METHODS}
+        d[risk] = {'n': S[BASELINES[0]]['n'], 'ours': [S[b]['ours'] for b in BASELINES], 'base': [S[b]['base'] for b in BASELINES],
+                   'per': {name(b): S[b]['per'] for b in BASELINES}, 'overrun': ex, 'budget_over': bud, 'n_cond': nc}
+    return d
+
+
+out['sig_cal'] = sig(I, rows)
+out['sig_raw'] = sig(I_r, rows_r)
+
+# mean objective vs alpha at f = 1, over the dataset x generator pairs in the main comparison; also per dataset
+curves = {}
+for risk in RISKS:
+    c = {}
+    for m in METHODS:
+        c[name(m)] = [float(np.mean([R.objective(I[k], risk) for k in I if k[2] == risk and k[5] == m and k[3] == a and k[4] == 1.0]))
+                      for a in cfg['alpha_target'][risk]]
+    curves[risk] = c
+out['curves_f1'] = curves
+perds = {}
+for risk in RISKS:
+    perds[risk] = {}
+    for ds, dn in R.DS:
+        ks = [k for k in I if k[0] == ds and k[2] == risk]
+        if not ks:
+            continue
+        perds[risk][dn] = {name(m): [float(np.mean([R.objective(I[k], risk) for k in ks if k[5] == m and k[3] == a and k[4] == 1.0]))
+                                     for a in cfg['alpha_target'][risk]] for m in METHODS}
+out['curves_f1_ds'] = perds
+
+# main alpha table at f = 1 per dataset x generator
+main = {}
+for risk in RISKS:
+    a = cfg['alpha_main'][risk]
+    tab = []
+    for ds, dn in R.DS:
+        for g, gn in R.GEN.items():
+            if not R.in_main(ds, g, risk):
+                continue
+            cells = []
+            for m in METHODS:
+                x = I[(ds, g, risk, a, 1.0, m)]
+                cells.append([R.objective(x, risk), x['risk'], bool(x['empirical_feasible'])])
+            tab.append([f'{dn} · {gn}', cells])
+    main[risk] = tab
+out['main_f1'] = main
+
+# alpha examples (calibrated p, no verifier)
+ex = []
+for ds, dn in R.DS:
+    for g, gn in R.GEN.items():
+        fo = res[(ds, g)]['folds']
+        b = [x for f in fo for x in f['test_prior_eligible']]
+        n_inel = sum(f['n_test'] - f['test_eligible'] for f in fo)
+        cells = []
+        for risk in RISKS:
+            if R.excluded(ds, g, risk):
+                cells.append('不测'); continue
+            t, sh = R.threshold_example(b, n_inel, risk, cfg['alpha_main'][risk])
+            if t is None:
+                cells.append('一道都不放行')
+            elif sh * (len(b) + n_inel) >= len(b):
+                cells.append(f'有答案的全放行（{100*sh:.0f}%）')
+            else:
+                cells.append(f'p ≥ {t:.2f}，放行 {100*sh:.0f}%')
+        ex.append([f'{dn} · {gn}', cells])
+out['examples'] = ex
+
+# input compare
+ic = {}
+for risk in RISKS:
+    ic[risk] = {}
+    for m in METHODS:
+        ks = [k for k in I if k[2] == risk and k[5] == m and k in I_r]
+        ic[risk][name(m)] = [float(np.mean([R.objective(I[k], risk) for k in ks])), float(np.mean([R.objective(I_r[k], risk) for k in ks])),
+                             sum(R.over(I[k]) for k in ks), sum(R.over(I_r[k]) for k in ks), len(ks)]
+out['input_compare'] = ic
+
+# spending diagnostics per risk (f > 0)
+sp = {}
+for risk in RISKS:
+    sp[risk] = {}
+    for m in METHODS:
+        ks = [k for k in I if k[2] == risk and k[5] == m and k[4] > 0]
+        sp[risk][name(m)] = {'budget_use': float(np.mean([I[k]['mean_screen_cost'] / I[k]['budget_usd'] for k in ks])),
+                             'query_rate': float(np.mean([I[k].get('verifier_query_rate') or 0 for k in ks])),
+                             'fallback': float(np.mean([I[k]['fallback_share'] for k in ks])),
+                             'coverage': float(np.mean([I[k]['coverage'] for k in ks])),
+                             'e': float(np.mean([I[k]['joint_wrong_release_rate'] for k in ks]))}
+out['spend'] = sp
+
+# FNR: both-feasible comparison against Fixed-1
+P = R.both_feasible_perf(I, rows, 'fnr')
+out['fnr_both'] = {name(b): {k: P[b][k] for k in ('n', 'median', 'ours_better_ci', 'baseline_better_ci')} for b in BASELINES}
+out['cref'] = {dn: [min(f['c_ref_usd'] * 1e4 for g in R.GEN for f in res[(ds, g)]['folds']),
+                    max(f['c_ref_usd'] * 1e4 for g in R.GEN for f in res[(ds, g)]['folds'])] for ds, dn in R.DS}
+out['fpr_excl'] = {gn: int(sum(f['test_wrong'] for f in res[('math500', g)]['folds'])) for g, gn in R.GEN.items()}
+out['n_cond'] = len({(r['dataset'], r['generator'], r['risk_metric'], r['alpha_target'], r['budget_fraction']) for r in rows})
+v = json.load(open(cfg['output_dir'] + '/verify.json'))
+out['verify'] = {'cells': v['checked_cells'], 'ok': v['ok'], 'fields': v['checked_fields']}
+vr = json.load(open(cfg['output_dir'].replace('_calibrated', '_raw') + '/verify.json'))
+out['verify_raw'] = {'cells': vr['checked_cells'], 'ok': vr['ok']}
+out['code'] = next(iter(res.values()))['code_hash']
+bb = {}
+for risk in RISKS:
+    bb[risk] = {}
+    for b in ('Fixed-1-Mix', 'Fixed-3-Mix'):
+        c = {}
+        for r in rows:
+            if r['risk_metric'] != risk or r['method'] != 'Ours-Offline':
+                continue
+            lo, hi = r['paired'][b]['ci95']
+            good = (lo > 0) if risk != 'fnr' else (hi < 0)
+            bad = (hi < 0) if risk != 'fnr' else (lo > 0)
+            x = c.setdefault(str(r['budget_fraction']), [0, 0, 0]); x[0] += 1; x[1] += good; x[2] += bad
+        bb[risk][b] = c
+out['by_budget'] = bb
+json.dump(out, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
+print(json.dumps({k: out[k] for k in ('sig_cal', 'spend', 'fnr_both', 'cref', 'n_cond', 'verify')}, ensure_ascii=False)[:6000])

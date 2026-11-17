@@ -1,0 +1,504 @@
+// Offline multi-risk deck. Every number comes from data.json (extract.py, calibrated + raw result files).
+const pptxgen = require('pptxgenjs');
+const path = require('path');
+const fs = require('fs');
+const SK = process.env.PPTX_SKILL;
+const { applyTheme } = require(path.join(SK, 'scripts/apply_theme.js'));
+const D = JSON.parse(fs.readFileSync(path.join(__dirname, 'data.json'), 'utf8'));
+const OUT = process.argv[2];
+
+const THEME = {
+  name: 'Multi-risk',
+  headFontFace: 'Microsoft YaHei',
+  bodyFontFace: 'Microsoft YaHei',
+  colors: {
+    dk1: '1B2A34', lt1: 'FFFFFF', dk2: '55646D', lt2: 'EEF2F4',
+    accent1: '2A78D6', accent2: 'EB6834', accent3: '1BAF7A', accent4: 'EDA100', accent5: 'E87BA4', accent6: '008300',
+    hlink: '2A78D6', folHlink: '6B5BA8',
+  },
+};
+const HEX = THEME.colors;
+const SERIES = ['2A78D6', 'EB6834', '1BAF7A', 'EDA100', 'E87BA4', '008300'];
+const GRAY = '9AA5AB';
+
+const pres = new pptxgen();
+pres.layout = 'LAYOUT_WIDE'; // 13.333 x 7.5 in
+pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFace };
+pres.title = '离线多风险实验';
+pres.author = 'tony';
+const C = pres.SchemeColor;
+const W = 13.333, M = 0.6;
+
+pres.defineSlideMaster({
+  title: 'TITLE',
+  background: { color: HEX.dk1 },
+  objects: [
+    { placeholder: { options: { name: 'title', type: 'title', x: 0.8, y: 2.1, w: 11.7, h: 1.3, fontSize: 44, bold: true, color: C.background1, valign: 'bottom', align: 'left', margin: 0 }, text: '' } },
+    { placeholder: { options: { name: 'body', type: 'body', x: 0.8, y: 3.6, w: 11.7, h: 1.4, fontSize: 20, color: 'CADBE6', valign: 'top', align: 'left', margin: 0 }, text: '' } },
+  ],
+});
+pres.defineSlideMaster({
+  title: 'CONTENT',
+  background: { color: HEX.lt1 },
+  margin: [0.4, 0.6, 0.6, 0.6],
+  objects: [
+    { placeholder: { options: { name: 'title', type: 'title', x: M, y: 0.35, w: W - 2 * M, h: 0.8, fontSize: 30, bold: true, color: C.text1, valign: 'middle', align: 'left', margin: 0 }, text: '' } },
+    { text: { text: '离线多风险实验 · 2026-11-16', options: { x: M, y: 7.0, w: 6, h: 0.3, fontSize: 10, color: C.text2, margin: 0 } } },
+  ],
+  slideNumber: { x: W - M - 0.6, y: 7.0, w: 0.6, h: 0.3, fontSize: 10, color: C.text2, align: 'right' },
+});
+
+const pct = (v, d = 0) => `${(100 * v).toFixed(d)}%`;
+const RN = { selective_error: '放行错误率', fpr: 'FPR', fnr: 'FNR' };
+const RISKS = ['selective_error', 'fpr', 'fnr'];
+const S = D.sig_cal, SR = D.sig_raw;
+const BI = (b) => D.baselines.indexOf(b);
+let nShape = 0;
+let SN = 0;
+const CHARTS = [];
+const nm = (s) => `${s}-${++nShape}`;
+
+function slide(title, section, notes) {
+  const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: section });
+  SN += 1;
+  s.addText(title, { placeholder: 'title' });
+  if (notes) s.addNotes(notes);
+  return s;
+}
+function text(s, t, o) { s.addText(t, Object.assign({ isTextBox: true, objectName: nm('text'), fontSize: 16, color: C.text1, margin: 0, valign: 'top' }, o)); }
+function card(s, x, y, w, h, fill) { s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.12, fill: { color: fill || C.background2 }, line: { type: 'none' }, objectName: nm('card') }); }
+function pill(s, label, x, y, w) {
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h: 0.36, rectRadius: 0.18, fill: { color: C.accent1, transparency: 86 }, line: { type: 'none' }, objectName: nm('pill') });
+  text(s, label, { x, y, w, h: 0.36, fontSize: 13, bold: true, color: C.accent1, align: 'center', valign: 'middle' });
+}
+function legendRow(s, items, x, y) {
+  let cx = x;
+  for (const [label, col] of items) {
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx, y: y + 0.08, w: 0.32, h: 0.16, rectRadius: 0.05, fill: { color: col }, line: { type: 'none' }, objectName: nm('legend') });
+    const w = 0.22 * label.length + 0.5;
+    text(s, label, { x: cx + 0.42, y, w, h: 0.32, fontSize: 13, color: C.text2, valign: 'middle' });
+    cx += 0.42 + w + 0.2;
+  }
+}
+const TH = (t, o) => ({ text: t, options: Object.assign({ bold: true, color: C.text2, fill: { color: C.background2 } }, o) });
+const TD = (t, o) => ({ text: t, options: Object.assign({}, o) });
+function table(s, rows, o) {
+  s.addTable(rows, Object.assign({ x: M, y: 1.45, w: W - 2 * M, fontSize: 14, color: C.text1, border: { type: 'solid', pt: 0.75, color: 'D5DCE0' }, margin: [0.05, 0.1, 0.05, 0.1], valign: 'middle', objectName: nm('table') }, o));
+}
+const AXIS = {
+  catAxisLabelColor: HEX.dk2, valAxisLabelColor: HEX.dk2, catAxisLabelFontSize: 12, valAxisLabelFontSize: 12,
+  catAxisLabelFontFace: '+mn-lt', valAxisLabelFontFace: '+mn-lt', legendFontFace: '+mn-lt', titleFontFace: '+mn-lt', dataLabelFontFace: '+mn-lt',
+  valGridLine: { color: 'E1E6E9', size: 0.75 }, catGridLine: { style: 'none' }, catAxisLineShow: true, valAxisLineShow: false,
+  catAxisTitleFontFace: '+mn-lt', valAxisTitleFontFace: '+mn-lt', catAxisTitleColor: HEX.dk2, valAxisTitleColor: HEX.dk2, catAxisTitleFontSize: 12, valAxisTitleFontSize: 12,
+};
+
+// ---------------------------------------------------------------- 1. cover
+pres.addSection({ title: '概览' });
+{
+  const s = pres.addSlide({ masterName: 'TITLE', sectionTitle: '概览' });
+  SN += 1;
+  s.addText('离线多风险实验', { placeholder: 'title' });
+  s.addText([
+    { text: '放行错误率、FPR、FNR 三种约束下的按需验证比较', options: { breakLine: true } },
+    { text: 'GPQA · MATH-500 · QuantumKatas ｜ Qwen3 · gpt-oss · Sonnet 5.5 ｜ 只用缓存', options: { fontSize: 16, color: '9FB4C2' } },
+  ], { placeholder: 'body' });
+  text(s, '2026-11-16', { x: 0.8, y: 6.4, w: 4, h: 0.4, fontSize: 14, color: '9FB4C2' });
+  s.addNotes('主比较里所有方法都读校准后的 p_correct；第「原始 p 对照」页是全部读原始 p 的重跑。');
+}
+
+// ---------------------------------------------------------------- 2. summary
+{
+  const s = slide('结论：前两种约束领先，FNR 输给固定面板', '概览',
+    '每个数字是条件数：配对 bootstrap 95% 区间显示我们更好 : 显示对照更好。区间含 0 的条件不计。');
+  const cards = [
+    ['selective_error', '放行率越高越好', '放行错误率', ['Cal-threshold', 'Fixed-1-Mix'], '多数条件下放行更多'],
+    ['fpr', '放行率越高越好', 'FPR', ['Cal-threshold', 'Fixed-1-Mix'], '领先阈值方法；预算多时不如 Fixed'],
+    ['fnr', '错误放行越少越好', 'FNR', ['Cal-threshold', 'Fixed-1-Mix'], '输给 Fixed：问 verifier 太少'],
+  ];
+  const cw = (W - 2 * M - 2 * 0.3) / 3;
+  cards.forEach(([risk, goal, label, bs, take], i) => {
+    const x = M + i * (cw + 0.3), y = 1.5;
+    card(s, x, y, cw, 4.7);
+    pill(s, label, x + 0.3, y + 0.3, 1.6);
+    text(s, `${S[risk].n} 个条件`, { x: x + 2.05, y: y + 0.3, w: cw - 2.3, h: 0.36, fontSize: 13, color: C.text2, valign: 'middle' });
+    text(s, `目标：${goal}`, { x: x + 0.3, y: y + 3.35, w: cw - 0.6, h: 0.36, fontSize: 13, color: C.text2 });
+    bs.forEach((b, j) => {
+      const yy = y + 0.95 + j * 1.35;
+      text(s, `对 ${b}`, { x: x + 0.3, y: yy, w: cw - 0.6, h: 0.35, fontSize: 14, color: C.text2 });
+      text(s, [
+        { text: String(S[risk].ours[BI(b)]), options: { color: C.accent1, bold: true } },
+        { text: ' : ', options: { color: C.text2 } },
+        { text: String(S[risk].base[BI(b)]), options: { color: C.text1, bold: true } },
+      ], { x: x + 0.3, y: yy + 0.35, w: cw - 0.6, h: 0.8, fontSize: 40, fontFace: 'Arial' });
+    });
+    text(s, take, { x: x + 0.3, y: y + 3.8, w: cw - 0.6, h: 0.7, fontSize: 16, bold: true });
+  });
+  text(s, [
+    { text: '蓝色', options: { color: C.accent1, bold: true } },
+    { text: ' = 我们显著更好的条件数，黑色 = 对照显著更好的条件数（配对 bootstrap 95% 区间）。所有方法都读校准后的 p_correct；只用缓存，没有新的 API 调用。' },
+  ], { x: M, y: 6.4, w: W - 2 * M, h: 0.45, fontSize: 13, color: C.text2 });
+}
+
+// ---------------------------------------------------------------- 3. task and data
+pres.addSection({ title: '设定' });
+{
+  const s = slide('任务：每道题决定放行还是拦下', '设定',
+    '策略不生成也不修改答案。测试部分只评估，标签只给评估器用。');
+  const steps = [
+    ['1', 'generator 给出答案和 p_correct', '一个固定答案，加上它自报的正确概率'],
+    ['2', '可以花钱问 verifier', '缓存里 5 个 verifier 的打分，每问一个花一次钱'],
+    ['3', '放行，或者拦下', '不改答案；没给答案的题按官方规则算错，直接拦下'],
+  ];
+  steps.forEach(([n, h, d], i) => {
+    const y = 1.6 + i * 1.5;
+    s.addShape(pres.shapes.OVAL, { x: M, y, w: 0.7, h: 0.7, fill: { color: C.accent1 }, line: { type: 'none' }, objectName: nm('step') });
+    text(s, n, { x: M, y, w: 0.7, h: 0.7, fontSize: 22, bold: true, color: C.background1, align: 'center', valign: 'middle', fontFace: 'Arial' });
+    text(s, h, { x: M + 0.95, y: y - 0.02, w: 4.6, h: 0.42, fontSize: 18, bold: true });
+    text(s, d, { x: M + 0.95, y: y + 0.42, w: 4.6, h: 0.7, fontSize: 14, color: C.text2 });
+  });
+  const x0 = 6.6;
+  text(s, '数据和划分（所有方法：拟合部分训练，验证部分选工作点，测试部分冻结评估）', { x: x0, y: 1.5, w: W - M - x0, h: 0.6, fontSize: 14, color: C.text2 });
+  table(s, [
+    [TH('数据集'), TH('拟合 / 验证 / 测试')],
+    [TD('GPQA', { bold: true }), TD('249 道 calibration 题分成拟合 199、验证 50；196 道 Diamond 题测试')],
+    [TD('MATH-500', { bold: true }), TD('5 折：一折测试，下一折验证，其余 3 折拟合；5 次测试合起来是全部 500 题')],
+    [TD('QuantumKatas', { bold: true }), TD('322 题，5 折，同上；按合并后的 kata 组划分，同组不跨部分')],
+  ], { x: x0, y: 2.2, w: W - M - x0, colW: [1.7, W - M - x0 - 1.7] });
+  text(s, 'Generator：Qwen3、gpt-oss、Sonnet 5.5。Verifier：gemini_flash、gemini_lite、mistral_small、mistral_medium、claude_haiku。',
+    { x: x0, y: 5.4, w: W - M - x0, h: 0.8, fontSize: 14, color: C.text2 });
+}
+
+// ---------------------------------------------------------------- 4. three risks
+{
+  const s = slide('三种风险约束：α 限制的东西不一样', '设定',
+    'FNR 的目标换成最小化错误放行：如果还最大化放行，全部放行就让 FNR = 0，问不出筛选的问题。');
+  const a = D.alpha, am = D.alpha_main;
+  const rng = (r) => `${a[r][0]} 到 ${a[r][a[r].length - 1]}（主要展示 ${am[r]}）`;
+  table(s, [
+    [TH('风险'), TH('定义'), TH('α 限制什么'), TH('优化目标'), TH('α 取值')],
+    [TD('放行错误率', { bold: true }), TD('e / p'), TD('放行的答案里，错的比例 ≤ α'), TD('放行率 p 越高越好'), TD(rng('selective_error'))],
+    [TD('FPR', { bold: true }), TD('e / (1 − q)'), TD('所有错误答案里，被放行的比例 ≤ α'), TD('放行率 p 越高越好'), TD(rng('fpr'))],
+    [TD('FNR', { bold: true }), TD('m / q'), TD('所有正确答案里，被拦下的比例 ≤ α'), TD('错误放行 e 越低越好'), TD(rng('fnr'))],
+  ], { y: 1.5, colW: [1.5, 1.3, 3.75, 2.3, 3.283], fontSize: 15, rowH: 0.55 });
+  const defs = [['p', '放行的题占全部题的比例'], ['e', '放行了但答案错的题，占全部题的比例'], ['m', '拦下了但答案对的题，占全部题的比例'], ['q', '答案正确的题占全部题的比例']];
+  card(s, M, 4.1, W - 2 * M, 2.55);
+  text(s, '记号', { x: M + 0.3, y: 4.3, w: 3, h: 0.35, fontSize: 14, bold: true, color: C.text2 });
+  defs.forEach(([k, v], i) => {
+    const x = M + 0.3 + (i % 2) * 6.0, y = 4.75 + Math.floor(i / 2) * 0.5;
+    text(s, [{ text: k, options: { bold: true, italic: true, fontFace: 'Cambria' } }, { text: `  ${v}` }], { x, y, w: 5.8, h: 0.4, fontSize: 15 });
+  });
+  text(s, '同一个 α 在三种风险下严格程度不同，不能横向比较。FNR 如果也最大化放行，全部放行就让 FNR = 0，所以它的目标是错误放行最少。',
+    { x: M + 0.3, y: 5.85, w: W - 2 * M - 0.6, h: 0.65, fontSize: 14, color: C.text2 });
+}
+
+// ---------------------------------------------------------------- 5. budget
+{
+  const s = slide('预算 B = f × c_ref：c_ref 是问满 5 个 verifier 的花费', '设定',
+    'c_ref 只用拟合部分算，不看验证和测试。f = 0 就是不问 verifier。');
+  text(s, 'c_ref：一道题把 5 个 verifier 全部问一遍的花费，在拟合部分有答案的题上取平均；每个数据集 × generator × 折单独算。测试集上每题平均 verifier 花费不能超过 B。',
+    { x: M, y: 1.45, w: W - 2 * M, h: 0.85, fontSize: 16 });
+  const cw = (W - 2 * M - 2 * 0.3) / 3;
+  Object.entries(D.cref).forEach(([ds, [lo, hi]], i) => {
+    const x = M + i * (cw + 0.3), y = 2.6;
+    card(s, x, y, cw, 2.2);
+    text(s, ds, { x: x + 0.3, y: y + 0.25, w: cw - 0.6, h: 0.4, fontSize: 16, bold: true, color: C.text2 });
+    text(s, `${lo.toFixed(0)}–${hi.toFixed(0)}`, { x: x + 0.3, y: y + 0.7, w: cw - 0.6, h: 0.9, fontSize: 48, bold: true, color: C.accent1, fontFace: 'Arial' });
+    text(s, '×10⁻⁴ 美元 / 题（c_ref 范围）', { x: x + 0.3, y: y + 1.6, w: cw - 0.6, h: 0.4, fontSize: 13, color: C.text2 });
+  });
+  text(s, '预算比例 f', { x: M, y: 5.2, w: 3, h: 0.4, fontSize: 16, bold: true });
+  ['0', '0.1', '0.25', '0.5', '0.75', '1'].forEach((f, i) => {
+    const x = M + i * 1.15;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 5.7, w: 0.95, h: 0.5, rectRadius: 0.25, fill: { color: C.background2 }, line: { type: 'none' }, objectName: nm('f') });
+    text(s, f, { x, y: 5.7, w: 0.95, h: 0.5, fontSize: 16, bold: true, align: 'center', valign: 'middle', fontFace: 'Arial' });
+  });
+  text(s, 'f = 1：平均每题最多花掉「问满 5 个」的钱；f = 0.5 是一半；f = 0 是不问 verifier。',
+    { x: M + 7.2, y: 5.6, w: W - 2 * M - 7.2, h: 0.75, fontSize: 14, color: C.text2 });
+}
+
+// ---------------------------------------------------------------- 6. alpha examples
+{
+  const s = slide('直观例子：只看校准 p，多高才能放行', '设定',
+    '不问 verifier，把校准后的 p_correct 当作答对的概率，从 p 最高的题往下放行，直到再放一道就违反约束。测试题各折合起来。实际方法会问 verifier 更新 p，所以门槛只是参考。');
+  const am = D.alpha_main;
+  const rows = [[TH('数据集 · generator'), TH(`放行错误率 α = ${am.selective_error}`), TH(`FPR α = ${am.fpr}`), TH(`FNR α = ${am.fnr}`)]];
+  D.examples.forEach(([lab, cells]) => rows.push([TD(lab, { bold: true }), ...cells.map((c) => TD(c, { color: c === '不测' ? C.text2 : C.text1 }))]));
+  table(s, rows, { y: 1.45, w: 8.6, colW: [2.6, 2.1, 1.8, 2.1], fontSize: 13, rowH: 0.42 });
+  const x0 = 9.6;
+  card(s, x0, 1.45, W - M - x0, 4.25);
+  text(s, '怎么读', { x: x0 + 0.25, y: 1.65, w: W - M - x0 - 0.5, h: 0.35, fontSize: 15, bold: true, color: C.text2 });
+  text(s, [
+    { text: '放行错误率和 FPR：α 越小门槛越高，放行越少。', options: { breakLine: true } },
+    { text: ' ', options: { breakLine: true, fontSize: 8 } },
+    { text: 'FNR 相反：只能拦下 p 最低的一小部分，表里放行比例 75% 到 94%。', options: { breakLine: true } },
+    { text: ' ', options: { breakLine: true, fontSize: 8 } },
+    { text: '所以 FNR 下各方法能拉开差距的空间很小。' },
+  ], { x: x0 + 0.25, y: 2.1, w: W - M - x0 - 0.5, h: 3.8, fontSize: 15 });
+  text(s, '「有答案的全放行」：约束允许放行所有有答案的题，括号里是占全部题的比例。MATH-500 不测 FPR（错误答案太少）。',
+    { x: M, y: 6.3, w: W - 2 * M, h: 0.5, fontSize: 12, color: C.text2 });
+}
+
+// ---------------------------------------------------------------- 7. methods
+pres.addSection({ title: '方法' });
+{
+  const s = slide('六个方法：只有三个会在测试时问 verifier', '方法',
+    '所有方法读同一个校准后的 p_correct：isotonic 只在拟合部分拟合，再用到验证和测试部分。');
+  table(s, [
+    [TH('方法'), TH('测试时问 verifier'), TH('怎么决定放行')],
+    [TD('Ours-Offline', { bold: true, color: C.accent1 }), TD('按需，最多 3 个'), TD('校准先验 + verifier likelihood；每步决定放行、拦下或再问（Bellman 规则 + 该风险的 LP 混合）；108 个候选')],
+    [TD('AT-Frozen', { bold: true }), TD('不问'), TD('selective auditing 论文的阈值更新；拟合部分学好后冻结；40 个配置 × 20 个种子')],
+    [TD('AT+Cal-Frozen', { bold: true }), TD('不问'), TD('论文 Algorithm 1：阈值 + 21 点校准权重，同样冻结；160 个配置 × 20 个种子')],
+    [TD('Cal-threshold', { bold: true }), TD('不问'), TD('直接对校准后的 p 取阈值，验证部分选')],
+    [TD('Fixed-1-Mix', { bold: true }), TD('每题固定 1 个'), TD('和我们同样的校准和 likelihood，后验过阈值就放行；5 种 verifier 可选')],
+    [TD('Fixed-3-Mix', { bold: true }), TD('每题固定 3 个'), TD('同上，10 种组合，不按置信度提前停')],
+  ], { y: 1.45, colW: [2.3, 2.1, 7.733], fontSize: 14, rowH: 0.62 });
+  text(s, '所有方法都读同一个校准后的 p_correct（isotonic 只在拟合部分拟合）。Fixed 和我们用同样的校准、likelihood 和花费模型，只是不按需决定问谁、问几个，用来看「按需」本身的价值。',
+    { x: M, y: 6.05, w: W - 2 * M, h: 0.75, fontSize: 14, color: C.text2 });
+}
+
+// ---------------------------------------------------------------- 8. evaluation
+{
+  const s = slide('怎么比较：验证部分选工作点，测试部分数显著条件', '方法',
+    '区间没有做多重比较校正；相邻 α 和预算常选到同一策略，条件之间不独立，条件数只是描述。');
+  const boxes = [['拟合', '校准 p_correct，学 likelihood 和阈值'], ['验证', '用标签和回放花费，选满足约束、目标最好的工作点'], ['测试', '冻结策略，只评估']];
+  const bw = 3.5;
+  boxes.forEach(([h, d], i) => {
+    const x = M + i * (bw + 0.8);
+    card(s, x, 1.5, bw, 1.6);
+    text(s, h, { x: x + 0.25, y: 1.65, w: bw - 0.5, h: 0.45, fontSize: 20, bold: true, color: C.accent1 });
+    text(s, d, { x: x + 0.25, y: 2.15, w: bw - 0.5, h: 0.85, fontSize: 14 });
+    if (i < 2) s.addShape(pres.shapes.CHEVRON, { x: x + bw + 0.25, y: 2.1, w: 0.3, h: 0.4, fill: { color: GRAY }, line: { type: 'none' }, objectName: nm('arrow') });
+  });
+  const items = [
+    ['主比较', `每个条件（数据集 × generator × α × 预算）比较我们和对照的目标：放行率，FNR 下是错误放行 e。共 ${D.n_cond} 个条件。`],
+    ['显著', '2000 次配对 bootstrap，按测试折分层，QuantumKatas 按 kata 组重抽；95% 区间不含 0 才算一方显著更好。'],
+    ['超标', '测试集风险超过 α、或花费超过预算的情况单独列出，不影响主比较。'],
+    ['回退', '验证部分没有可行候选时：放行错误率和 FPR 全拦下，FNR 放行所有有答案的题。'],
+  ];
+  items.forEach(([h, d], i) => {
+    const y = 3.5 + i * 0.8;
+    text(s, h, { x: M, y, w: 1.3, h: 0.6, fontSize: 16, bold: true });
+    text(s, d, { x: M + 1.4, y, w: W - 2 * M - 1.4, h: 0.7, fontSize: 15, color: C.text1 });
+  });
+}
+
+// ---------------------------------------------------------------- 9. main comparison chart
+pres.addSection({ title: '结果' });
+{
+  const s = slide('主比较：显著更好的条件数', '结果',
+    '每个条形是条件数。FNR 下「更好」指错误放行更少。区间含 0 的条件不计入任何一边。');
+  legendRow(s, [['我们显著更好', SERIES[0]], ['对照显著更好', GRAY]], M, 1.3);
+  const cw = (W - 2 * M - 2 * 0.25) / 3;
+  RISKS.forEach((risk, i) => {
+    const x = M + i * (cw + 0.25);
+    text(s, `${RN[risk]}`, { x, y: 1.85, w: cw, h: 0.4, fontSize: 16, bold: true, align: 'center' });
+    text(s, `${S[risk].n} 个条件`, { x, y: 2.25, w: cw, h: 0.3, fontSize: 13, color: C.text2, align: 'center' });
+    CHARTS.push({ slide: SN, kind: 'hbar', x, y: 2.6, w: cw, h: 4.1, categories: D.baselines, max: 230, gap: 60,
+      series: [{ name: '我们显著更好', values: S[risk].ours, color: SERIES[0] }, { name: '对照显著更好', values: S[risk].base, color: GRAY }],
+      labelFmt: '0' });
+  });
+}
+
+{
+  const s = slide('按预算拆开：和 Fixed 比，优势在低预算', '结果',
+    'f = 0 时 Fixed 不能问 verifier，只能在全放行和全拦下之间混合，所以我们大比分领先。预算一多，Fixed-3 能把 3 个 verifier 问满，前两种约束下追平或反超。');
+  const fs = ['0.0', '0.1', '0.25', '0.5', '0.75', '1.0'];
+  const head = [TH('预算 f')];
+  RISKS.forEach((r) => ['Fixed-1', 'Fixed-3'].forEach((b) => head.push(TH(`${RN[r]} 对 ${b}`, { align: 'right' }))));
+  const rows = [head];
+  fs.forEach((f) => {
+    const r = [TD(String(+f), { bold: true })];
+    RISKS.forEach((risk) => ['Fixed-1-Mix', 'Fixed-3-Mix'].forEach((b) => {
+      const c = D.by_budget[risk][b][f];
+      r.push(TD(`${c[1]} : ${c[2]}`, { align: 'right', fontFace: 'Arial' }));
+    }));
+    rows.push(r);
+  });
+  table(s, rows, { y: 1.5, colW: [1.333, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8], fontSize: 15, rowH: 0.5 });
+  text(s, [
+    { text: '每格是「我们显著更好 : 对照显著更好」的条件数（FNR 下更好指错误放行更少）。', options: { breakLine: true } },
+    { text: '放行错误率和 FPR：低预算时我们几乎全胜，预算 ≥ 0.5 或 0.75 后 Fixed-3 追平或反超。FNR：f > 0 时各预算都是 Fixed 更好。' },
+  ], { x: M, y: 5.5, w: W - 2 * M, h: 1.2, fontSize: 15 });
+}
+
+// ---------------------------------------------------------------- 10-12. per-risk curves
+const BB = (risk, b, fs) => { const c = D.by_budget[risk][b]; let o = 0, x = 0; fs.forEach((f) => { o += c[f][1]; x += c[f][2]; }); return `${o}:${x}`; };
+function curveSlide(risk, title, notes, side) {
+  const s = slide(title, '结果', notes);
+  const alphas = D.alpha[risk].map(String);
+  const cur = D.curves_f1[risk];
+  const isFnr = risk === 'fnr';
+  const npairs = risk === 'fpr' ? 6 : 9;
+  pill(s, RN[risk], M, 1.35, 1.6);
+  text(s, `B = 1 × c_ref；${npairs} 个数据集 · generator 的平均`, { x: M + 1.8, y: 1.35, w: 6, h: 0.36, fontSize: 13, color: C.text2, valign: 'middle' });
+  const vals = D.methods.flatMap((m) => cur[m].map((v) => 100 * v));
+  const top = isFnr ? Math.ceil(Math.max(...vals) / 5) * 5 : 100;
+  CHARTS.push({ slide: SN, kind: 'line', x: M, y: 1.85, w: 7.9, h: 4.95, categories: alphas, min: 0, max: top, unit: isFnr ? 5 : 20,
+    series: D.methods.map((m, i) => ({ name: m, values: cur[m].map((v) => +(100 * v).toFixed(1)), color: SERIES[i], bold: m === 'Ours-Offline' })),
+    catTitle: '目标 α', valTitle: isFnr ? '错误放行 e（占全部题，越低越好）' : '放行率（越高越好）', valFmt: '0"%"', legend: true });
+  side(s);
+}
+function sidePanel(s, risk, head, lines) {
+  const x0 = 8.85, w = W - M - x0;
+  card(s, x0, 1.35, w, 5.45);
+  text(s, head, { x: x0 + 0.25, y: 1.55, w: w - 0.5, h: 0.4, fontSize: 15, bold: true, color: C.text2 });
+  const am = D.alpha_main[risk];
+  const k = D.alpha[risk].indexOf(am);
+  const cur = D.curves_f1[risk];
+  const order = D.methods.slice().sort((a, b) => risk === 'fnr' ? cur[a][k] - cur[b][k] : cur[b][k] - cur[a][k]);
+  order.forEach((m, i) => {
+    const y = 2.05 + i * 0.42;
+    s.addShape(pres.shapes.OVAL, { x: x0 + 0.25, y: y + 0.12, w: 0.14, h: 0.14, fill: { color: SERIES[D.methods.indexOf(m)] }, line: { type: 'none' }, objectName: nm('dot') });
+    text(s, m, { x: x0 + 0.5, y, w: 2.1, h: 0.38, fontSize: 14, bold: m === 'Ours-Offline', valign: 'middle' });
+    text(s, pct(cur[m][k], 1), { x: x0 + 2.6, y, w: w - 2.85, h: 0.38, fontSize: 14, bold: m === 'Ours-Offline', align: 'right', valign: 'middle', fontFace: 'Arial' });
+  });
+  text(s, lines, { x: x0 + 0.25, y: 4.75, w: w - 0.5, h: 1.95, fontSize: 14 });
+}
+curveSlide('selective_error', '放行错误率：放行率领先，预算最多时 Fixed-3 追平', '图里是预算最多的 B = 1 × c_ref，这是 Fixed-3 最强的情况；预算少时 Fixed-3 问不起 3 个 verifier。',
+  (s) => sidePanel(s, 'selective_error', `α = ${D.alpha_main.selective_error} 时的平均放行率`,
+    `显著更好的条件数，对 Fixed-3：f ≤ 0.5 时 ${BB('selective_error', 'Fixed-3-Mix', ['0.0', '0.1', '0.25', '0.5'])}，f = 1 时 ${BB('selective_error', 'Fixed-3-Mix', ['1.0'])}。对 Cal-threshold 全部条件 ${S.selective_error.ours[2]}:${S.selective_error.base[2]}。`));
+curveSlide('fpr', 'FPR：领先不问 verifier 的方法，预算多时不如 Fixed', `不测 MATH-500：FPR 的分母是错误答案数，5 折测试合计 Qwen3 ${D.fpr_excl['Qwen3']} 道、gpt-oss ${D.fpr_excl['gpt-oss']} 道、Sonnet 5.5 ${D.fpr_excl['Sonnet 5.5']} 道（含没给答案的），一两道题就让 FPR 变化很多。`,
+  (s) => sidePanel(s, 'fpr', `α = ${D.alpha_main.fpr} 时的平均放行率`,
+    `对 Fixed-3：f ≤ 0.25 时 ${BB('fpr', 'Fixed-3-Mix', ['0.0', '0.1', '0.25'])}，f ≥ 0.5 时 ${BB('fpr', 'Fixed-3-Mix', ['0.5', '0.75', '1.0'])}。对 Cal-threshold ${S.fpr.ours[2]}:${S.fpr.base[2]}。不测 MATH-500：错误答案太少（${D.fpr_excl['Qwen3']} / ${D.fpr_excl['gpt-oss']} / ${D.fpr_excl['Sonnet 5.5']} 道）。`));
+curveSlide('fnr', 'FNR：比不问 verifier 的方法好，比 Fixed 差', '纵轴越低越好。三个不问 verifier 的方法几乎重合。',
+  (s) => sidePanel(s, 'fnr', `α = ${D.alpha_main.fnr} 时的平均错误放行 e`,
+    `错误放行显著更少的条件数：对 Cal-threshold ${S.fnr.ours[2]}:${S.fnr.base[2]}，对 Fixed-1 ${S.fnr.ours[3]}:${S.fnr.base[3]}，对 Fixed-3 ${S.fnr.ours[4]}:${S.fnr.base[4]}。`));
+
+// ---------------------------------------------------------------- 13. why FNR loses to Fixed
+{
+  const s = slide('FNR 为什么输给 Fixed：我们问得太少', '结果',
+    'FNR 下大部分题本来就要放行，差距只能靠 verifier 把个别错答案的 p 拉到门槛以下。我们的方法在这里花钱太省。平均值取 f > 0 的条件。');
+  const sp = D.spend.fnr, ms = ['Ours-Offline', 'Fixed-1-Mix', 'Fixed-3-Mix'];
+  legendRow(s, [['用掉的预算比例', SERIES[0]], ['问了 verifier 的题', '8FB8EA']], M, 1.3);
+  CHARTS.push({ slide: SN, kind: 'col', x: M, y: 1.8, w: 6.9, h: 4.9, categories: ms, max: 100, gap: 70,
+    series: [{ name: '用掉的预算比例', values: ms.map((m) => +(100 * sp[m].budget_use).toFixed(0)), color: SERIES[0] },
+             { name: '问了 verifier 的题', values: ms.map((m) => +(100 * sp[m].query_rate).toFixed(0)), color: '8FB8EA' }],
+    labelFmt: '0"%"' });
+  const fb = D.fnr_both['Fixed-1-Mix'];
+  const x0 = 8.0, w = W - M - x0;
+  const facts = [
+    [pct(sp['Ours-Offline'].fallback), '的折 × 种子在验证部分没有可行候选，回退到放行所有有答案的题'],
+    [`${S.fnr.ours[3]} : ${S.fnr.base[3]}`, `${S.fnr.n} 个条件里，对 Fixed-1 错误放行显著更少 : 显著更多`],
+    [`+${(100 * fb.median).toFixed(2)} 个百分点`, `双方都达标的 ${fb.n} 个条件里，我们减 Fixed-1 的 e 中位数，差距很小`],
+  ];
+  facts.forEach(([big, d], i) => {
+    const y = 1.5 + i * 1.75;
+    card(s, x0, y, w, 1.55);
+    text(s, big, { x: x0 + 0.25, y: y + 0.15, w: w - 0.5, h: 0.65, fontSize: 30, bold: true, color: C.accent1, fontFace: 'Arial' });
+    text(s, d, { x: x0 + 0.25, y: y + 0.8, w: w - 0.5, h: 0.65, fontSize: 13, color: C.text2 });
+  });
+}
+
+// ---------------------------------------------------------------- 14. overruns
+{
+  const s = slide('超标情况：单独列出，不影响主比较', '结果',
+    '风险超标是测试集上实际风险 > α，任何超出都算，包括很小的超出。阈值方法不问 verifier，所以不会超预算。');
+  const head = [TH('方法')];
+  RISKS.forEach((r) => { head.push(TH(`${RN[r]}：风险超标`)); head.push(TH(`${RN[r]}：超预算`)); });
+  const rows = [head];
+  D.methods.forEach((m) => {
+    const r = [TD(m, { bold: true, color: m === 'Ours-Offline' ? C.accent1 : C.text1 })];
+    RISKS.forEach((risk) => {
+      r.push(TD(`${S[risk].overrun[m]} / ${S[risk].n_cond[m]}`, { align: 'right', fontFace: 'Arial' }));
+      r.push(TD(`${S[risk].budget_over[m]}`, { align: 'right', fontFace: 'Arial' }));
+    });
+    rows.push(r);
+  });
+  table(s, rows, { y: 1.5, colW: [2.3, 1.75, 1.55, 1.75, 1.55, 1.75, 1.483], fontSize: 14, rowH: 0.5 });
+  text(s, [
+    { text: '我们的风险超标次数和 Fixed 相近，比三个阈值方法多；', options: { bold: true } },
+    { text: '验证部分选出的工作点放到测试集上常常略微超出 α。超预算只发生在会问 verifier 的三个方法上，Fixed-3 最多。' },
+  ], { x: M, y: 5.35, w: W - 2 * M, h: 0.9, fontSize: 15 });
+}
+
+// ---------------------------------------------------------------- 15. raw vs calibrated
+pres.addSection({ title: '对照与下一步' });
+{
+  const s = slide('对照：所有方法改读原始 p，结论方向不变', '对照与下一步',
+    '同样的数据、划分、α 和预算，只是所有方法都读原始 p_correct：Ours 和 Fixed 不做 isotonic 校准，直接把原始 p 当先验（verifier 的 likelihood 不变）。');
+  const head = [TH('对照方法')];
+  RISKS.forEach((r) => { head.push(TH(`${RN[r]} 校准 p`)); head.push(TH(`${RN[r]} 原始 p`)); });
+  const rows = [head];
+  D.baselines.forEach((b, i) => {
+    const name = b === 'Cal-threshold' ? '阈值方法' : b;
+    const r = [TD(name, { bold: true })];
+    RISKS.forEach((risk) => {
+      r.push(TD(`${S[risk].ours[i]} : ${S[risk].base[i]}`, { align: 'right', fontFace: 'Arial' }));
+      r.push(TD(`${SR[risk].ours[i]} : ${SR[risk].base[i]}`, { align: 'right', fontFace: 'Arial', color: C.text2 }));
+    });
+    rows.push(r);
+  });
+  table(s, rows, { y: 1.5, colW: [2.2, 1.65, 1.65, 1.65, 1.65, 1.65, 1.683], fontSize: 14, rowH: 0.5 });
+  const ic = D.input_compare.selective_error['Ours-Offline'];
+  text(s, [
+    { text: '数字是「我们显著更好 : 对照显著更好」的条件数。', options: { breakLine: true } },
+    { text: `我们自己变化很小：放行错误率下平均放行率 ${pct(ic[0], 1)}（校准）对 ${pct(ic[1], 1)}（原始）。isotonic 校准不改变题目排序，所以阈值方法用校准 p 还是原始 p，分出的放行集合几乎一样。` },
+  ], { x: M, y: 4.85, w: W - 2 * M, h: 1.4, fontSize: 15 });
+}
+
+// ---------------------------------------------------------------- 16. open items
+{
+  const s = slide('待定和没做的部分', '对照与下一步', '');
+  const cw = (W - 2 * M - 0.3) / 2;
+  card(s, M, 1.5, cw, 3.4);
+  text(s, '待你决定', { x: M + 0.3, y: 1.7, w: cw - 0.6, h: 0.4, fontSize: 18, bold: true, color: C.accent1 });
+  text(s, [
+    { text: '要不要加 Weaver、SSV、Self-consistency', options: { bold: true, breakLine: true } },
+    { text: '它们来自之前的效用实验，不在这次手册的方法里。要加的话，各自做成「打分 + 每种风险在验证部分选阈值」，只用缓存。', options: { breakLine: true } },
+    { text: ' ', options: { breakLine: true, fontSize: 8 } },
+    { text: 'Self-consistency 在 QuantumKatas 上没有定义；SSV 需要先冻结一个版本。' },
+  ], { x: M + 0.3, y: 2.2, w: cw - 0.6, h: 4.0, fontSize: 15 });
+  const x1 = M + cw + 0.3;
+  card(s, x1, 1.5, cw, 3.4);
+  text(s, '手册里可选、这次没跑', { x: x1 + 0.3, y: 1.7, w: cw - 0.6, h: 0.4, fontSize: 18, bold: true, color: C.text2 });
+  text(s, [
+    { text: 'GPQA 固定美元预算的附录', options: { bullet: true, breakLine: true } },
+    { text: 'Ours 的消融：原始先验、不问 verifier、单一规则', options: { bullet: true, breakLine: true } },
+    { text: 'AT 的 γ_test = γ_fit 敏感性', options: { bullet: true, breakLine: true } },
+    { text: '外部审计花费场景', options: { bullet: true } },
+  ], { x: x1 + 0.3, y: 2.2, w: cw - 0.6, h: 4.0, fontSize: 15, paraSpaceAfter: 8 });
+}
+
+// ---------------------------------------------------------------- appendix
+pres.addSection({ title: '附录' });
+function mainTable(risk) {
+  const am = D.alpha_main[risk];
+  const goal = risk === 'fnr' ? '错误放行 e' : '放行率';
+  const s = slide(`附录：${RN[risk]} α = ${am}，B = 1 × c_ref`, '附录',
+    `每格是「${goal} / 测试集实际 ${RN[risk]}」；✕ 表示风险或预算未达标。`);
+  const rows = [[TH('数据集 · generator'), ...D.methods.map((m) => TH(m, { align: 'right' }))]];
+  D.main_f1[risk].forEach(([lab, cells]) => {
+    rows.push([TD(lab, { bold: true }), ...cells.map(([o, r, ok]) => TD(`${pct(o, 0)} / ${r == null ? '—' : pct(r, 1)}${ok ? '' : ' ✕'}`,
+      { align: 'right', fontFace: 'Arial', color: ok ? C.text1 : C.text2 }))]);
+  });
+  table(s, rows, { y: 1.45, colW: [2.65, 1.58, 1.58, 1.58, 1.58, 1.58, 1.573], fontSize: 13, rowH: 0.48 });
+  text(s, `每格：${goal} / 测试集实际 ${RN[risk]}；✕ 表示风险或预算未达标（灰色）。`, { x: M, y: 6.45, w: W - 2 * M, h: 0.4, fontSize: 12, color: C.text2 });
+}
+RISKS.forEach(mainTable);
+{
+  const s = slide('附录：复现和核对', '附录', '');
+  text(s, [
+    { text: '只用缓存：', options: { bold: true } },
+    { text: '所有命令都拦截网络连接，这次没有任何 generator、verifier 或评分调用。', options: { breakLine: true } },
+    { text: '独立重算：', options: { bold: true } },
+    { text: `从逐题日志重算 ${D.verify.cells} 个条件 × 方法（校准 p 和原始 p 两套），全部一致。`, options: { breakLine: true } },
+    { text: '代码哈希：', options: { bold: true } },
+    { text: `${D.code}，分支 claude/project-thread-m8td13。` },
+  ], { x: M, y: 1.5, w: W - 2 * M, h: 1.6, fontSize: 16, paraSpaceAfter: 6 });
+  card(s, M, 3.4, W - 2 * M, 2.3);
+  text(s, [
+    { text: 'python -m vgx.offline_multirisk run --config configs/offline_multirisk_20261116_calibrated.json', options: { breakLine: true } },
+    { text: 'python -m vgx.offline_multirisk run --config configs/offline_multirisk_20261116_raw.json', options: { breakLine: true } },
+    { text: 'python -m vgx.offline_multirisk verify --config configs/offline_multirisk_20261116_calibrated.json', options: { breakLine: true } },
+    { text: 'python -m vgx.offline_multirisk report --config configs/offline_multirisk_20261116_calibrated.json', options: { breakLine: true } },
+    { text: ' ', options: { breakLine: true } },
+    { text: '结果：results/offline_multirisk_20261116_calibrated/ 和 _raw/', options: { breakLine: true } },
+    { text: '网页报告：reports/offline_multirisk_20261116_calibrated/results.html' },
+  ], { x: M + 0.3, y: 3.6, w: W - 2 * M - 0.6, h: 1.9, fontSize: 13, fontFace: 'Courier New' });
+}
+
+(async () => {
+  await pres.writeFile({ fileName: OUT });
+  await applyTheme(OUT, THEME);
+  fs.writeFileSync(path.join(__dirname, 'charts.json'), JSON.stringify(CHARTS));
+  console.log('wrote', OUT);
+})();
