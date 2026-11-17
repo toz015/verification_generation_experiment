@@ -173,5 +173,35 @@ if out['variant'] == 'pool':
                     else:
                         x[2] += 1
     out['pool_share'] = share
+# FNR spending per dataset (f > 0)
+sd = {}
+for ds, dn in R.DS:
+    sd[dn] = {}
+    for m in ('Ours-Offline', 'Fixed-1-Mix', 'Fixed-3-Mix'):
+        ks = [k for k in I if k[0] == ds and k[2] == 'fnr' and k[5] == m and k[4] > 0]
+        sd[dn][name(m)] = {'ask': float(np.mean([I[k].get('verifier_query_rate') or 0 for k in ks])),
+                           'spend': float(np.mean([I[k]['mean_screen_cost']/I[k]['budget_usd'] for k in ks])),
+                           'fnr': float(np.mean([I[k]['fnr'] for k in ks])),
+                           'fallback': float(np.mean([I[k]['fallback_share'] for k in ks]))}
+out['fnr_spend_ds'] = sd
+# the variants tried on top of the original version
+var = {}
+for tag, label in (('20261116_calibrated', '原版本'), ('20261117_pool_calibrated', '加固定 panel'), ('20261117_shrink_calibrated', '收缩校准'),
+                   ('20261117_gamma_calibrated', 'verifier 打折'), ('20261117_shrinkgamma_calibrated', '收缩 + 打折')):
+    c2 = json.load(open(f'configs/offline_multirisk_{tag}.json'))
+    r2 = R.load(c2, c2['output_dir'])
+    rw, Iv = rows_I(r2)
+    d = {}
+    for risk in RISKS:
+        Sv = R.sig_counts(Iv, rw, risk)
+        d[risk] = {'f1': [Sv['Fixed-1-Mix']['ours'], Sv['Fixed-1-Mix']['base']], 'f3': [Sv['Fixed-3-Mix']['ours'], Sv['Fixed-3-Mix']['base']],
+                   'over': sum(R.over(Iv[k]) for k in Iv if k[2] == risk and k[5] == 'Ours-Offline')}
+    good = bad = 0
+    for r in rw:
+        if r['risk_metric'] == 'selective_error' and r['method'] == 'Ours-Offline' and r['budget_fraction'] == 1.0:
+            lo, hi = r['paired']['Fixed-3-Mix']['ci95']; good += lo > 0; bad += hi < 0
+    d['sel_f1_vs_f3'] = [good, bad]
+    var[label] = d
+out['variants'] = var
 json.dump(out, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(json.dumps({k: out[k] for k in ('sig_cal', 'spend', 'fnr_both', 'cref', 'n_cond', 'verify')}, ensure_ascii=False)[:6000])

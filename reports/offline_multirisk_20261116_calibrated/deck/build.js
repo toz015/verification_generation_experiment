@@ -419,6 +419,29 @@ if (POOL) {
   });
 }
 
+// ---------------------------------------------------------------- 13b. FNR by dataset (original version)
+if (!POOL) {
+  const s = slide('FNR 输在哪：问得少、风险额度没用完、还会回退', '结果',
+    'f > 0 的条件平均。实际 FNR 是测试集上被拦下的正确答案比例，越接近 α 说明额度用得越满。');
+  const SD = D.fnr_spend_ds, MS = ['Ours-Offline', 'Fixed-1', 'Fixed-3'];
+  const trip = (ds, k, f) => MS.map((m) => f(SD[ds][m][k])).join(' / ');
+  const rows = [[TH('数据集'), TH('问了 verifier 的题', { align: 'right' }), TH('用掉的预算', { align: 'right' }), TH('实际 FNR', { align: 'right' }), TH('Ours 回退', { align: 'right' })]];
+  Object.keys(SD).forEach((ds) => rows.push([TD(ds, { bold: true }), TD(trip(ds, 'ask', (v) => pct(v)), { align: 'right', fontFace: 'Arial' }),
+    TD(trip(ds, 'spend', (v) => pct(v)), { align: 'right', fontFace: 'Arial' }), TD(trip(ds, 'fnr', (v) => v.toFixed(3)), { align: 'right', fontFace: 'Arial' }),
+    TD(pct(SD[ds]['Ours-Offline'].fallback), { align: 'right', fontFace: 'Arial' })]));
+  table(s, rows, { y: 1.45, colW: [2.2, 2.9, 2.9, 2.6, 1.533], fontSize: 14, rowH: 0.5 });
+  text(s, '每格依次是 Ours / Fixed-1 / Fixed-3。', { x: M, y: 3.55, w: W - 2 * M, h: 0.35, fontSize: 12, color: C.text2 });
+  const cw = (W - 2 * M - 2 * 0.3) / 3;
+  [['问得少，钱没花完', 'GPQA 和 QuantumKatas 上 Ours 只问约四分之一的题，也只用掉约四分之一预算。FNR 的收益全靠 verifier 从「本来要放行」的题里挑出错答案。'],
+   ['风险额度没用完', 'Ours 的实际 FNR 低于 Fixed，本可以多拦一些、少放一些错答案。花钱更多的候选常在验证部分 FNR 超标被淘汰，最后选中的多是按小预算规划的候选。'],
+   ['回退到全放行', 'GPQA 和 QuantumKatas 有 15% 到 17% 的折 × 条件在验证部分找不到可行候选，只能放行所有有答案的题。']].forEach(([h, d], i) => {
+    const x = M + i * (cw + 0.3);
+    card(s, x, 4.0, cw, 2.75);
+    text(s, h, { x: x + 0.25, y: 4.15, w: cw - 0.5, h: 0.4, fontSize: 16, bold: true, color: C.accent1 });
+    text(s, d, { x: x + 0.25, y: 4.6, w: cw - 0.5, h: 2.05, fontSize: 13 });
+  });
+}
+
 // ---------------------------------------------------------------- 14. overruns
 {
   const s = slide('超标情况：单独列出，不影响主比较', '结果',
@@ -464,6 +487,56 @@ pres.addSection({ title: '对照与下一步' });
     { text: '数字是「我们显著更好 : 对照显著更好」的条件数。', options: { breakLine: true } },
     { text: `我们自己变化很小：放行错误率下平均放行率 ${pct(ic[0], 1)}（校准）对 ${pct(ic[1], 1)}（原始）。isotonic 校准不改变题目排序，所以阈值方法用校准 p 还是原始 p，分出的放行集合几乎一样。` },
   ], { x: M, y: 4.85, w: W - 2 * M, h: 1.4, fontSize: 15 });
+}
+
+// ---------------------------------------------------------------- 15b. variants tried (original version)
+if (!POOL) {
+  const s = slide('试过的改进：没有一种让 FNR 追上 Fixed，但都让超标更少', '对照与下一步',
+    '都只用缓存，参数只在拟合部分定。收缩：isotonic 每块往总体正确率拉，(s + a·ȳ)/(n + a)。打折：第 2、3 个 verifier 的似然比取 γ 次方。加固定 panel：验证部分也可以挑「每题都问同一组 verifier」的策略。');
+  const VR = D.variants, labs = Object.keys(VR);
+  const pair = (x) => `${x[0]} : ${x[1]}`;
+  const rows = [[TH('版本'), TH('放行错误率 对 Fixed-3（f = 1）', { align: 'right' }), TH('FPR 对 Fixed-1', { align: 'right' }), TH('FPR 对 Fixed-3', { align: 'right' }),
+    TH('FNR 对 Fixed-1', { align: 'right' }), TH('FNR 对 Fixed-3', { align: 'right' }), TH('FNR 超标', { align: 'right' })]];
+  labs.forEach((l) => {
+    const v = VR[l];
+    rows.push([TD(l, { bold: true, color: l === '原版本' ? C.accent1 : C.text1 }), TD(pair(v.sel_f1_vs_f3), { align: 'right', fontFace: 'Arial' }),
+      TD(pair(v.fpr.f1), { align: 'right', fontFace: 'Arial' }), TD(pair(v.fpr.f3), { align: 'right', fontFace: 'Arial' }),
+      TD(pair(v.fnr.f1), { align: 'right', fontFace: 'Arial' }), TD(pair(v.fnr.f3), { align: 'right', fontFace: 'Arial' }), TD(String(v.fnr.over), { align: 'right', fontFace: 'Arial' })]);
+  });
+  table(s, rows, { y: 1.45, colW: [2.0, 2.4, 1.6, 1.6, 1.6, 1.6, 1.333], fontSize: 14, rowH: 0.5 });
+  text(s, [
+    { text: '加固定 panel：', options: { bold: true } }, { text: 'FNR 变成赢，但约一半 FPR / FNR 条件实际执行的是固定策略，只作诊断。', options: { breakLine: true } },
+    { text: '收缩：', options: { bold: true } }, { text: '更保守、超标更少，但 FNR 对 Fixed 更差。', options: { breakLine: true } },
+    { text: '打折：', options: { bold: true } }, { text: 'γ 多在 0.05 到 0.9，verifier 之间确实相关；放行错误率高预算对 Fixed-3 从 8:11 变成 17:6。', options: { breakLine: true } },
+    { text: '收缩 + 打折：', options: { bold: true } }, { text: 'FNR 超标从 70 降到 33（Fixed 是 74 和 72），FNR 对 Fixed 仍然输。' },
+  ], { x: M, y: 4.65, w: W - 2 * M, h: 2.1, fontSize: 14, paraSpaceAfter: 4 });
+}
+
+// ---------------------------------------------------------------- 15c. overruns and directions (original version)
+if (!POOL) {
+  const s = slide('风险超标是所有方法的共同弱点；改进方向', '对照与下一步',
+    '超标：测试集风险 > α，很小的超出也算。原因在选择方式：验证部分只有 50 到 100 题，点估计 ≤ α 就算达标，挑出的工作点压在 α 边上。');
+  const cw = (W - 2 * M - 0.3) / 2;
+  card(s, M, 1.45, cw, 5.3);
+  text(s, '风险超标条件数', { x: M + 0.3, y: 1.6, w: cw - 0.6, h: 0.4, fontSize: 16, bold: true, color: C.accent1 });
+  const ms = ['Ours-Offline', 'Fixed-1', 'Fixed-3', 'Cal-threshold'];
+  const rows = [[TH('方法'), TH('放行错误率', { align: 'right' }), TH('FPR', { align: 'right' }), TH('FNR', { align: 'right' })]];
+  ms.forEach((m) => rows.push([TD(m, { bold: m === 'Ours-Offline' }), ...RISKS.map((r) => TD(`${S[r].overrun[m]} / ${S[r].n_cond[m]}`, { align: 'right', fontFace: 'Arial' }))]));
+  table(s, rows, { x: M + 0.3, y: 2.1, w: cw - 0.6, colW: [1.8, 1.3, 1.1, 1.12], fontSize: 13, rowH: 0.42 });
+  text(s, '会问 verifier 的方法超标都多；FPR 和 FNR 下我们比 Fixed 少。修法：验证部分用风险的上置信界判断达标（如 Clopper–Pearson 上界 ≤ α，或 Learn-then-Test），对所有方法都生效，代价是放行变少。',
+    { x: M + 0.3, y: 4.45, w: cw - 0.6, h: 2.2, fontSize: 13 });
+  const x1 = M + cw + 0.3;
+  card(s, x1, 1.45, cw, 5.3);
+  text(s, '改进方向', { x: x1 + 0.3, y: 1.6, w: cw - 0.6, h: 0.4, fontSize: 16, bold: true, color: C.accent1 });
+  text(s, [
+    { text: 'FNR 多问：', options: { bold: true } }, { text: 'LP 里加「至少用掉 x% 预算」的下限，钱花在离门槛最近的题上。', options: { breakLine: true } },
+    { text: ' ', options: { breakLine: true, fontSize: 6 } },
+    { text: 'LP 用真实估计：', options: { bold: true } }, { text: '规则的放行率、风险、花费改用拟合部分交叉拟合的估计，不全靠模型。', options: { breakLine: true } },
+    { text: ' ', options: { breakLine: true, fontSize: 6 } },
+    { text: '收缩 + 打折：', options: { bold: true } }, { text: '已验证能明显减少超标，可作为默认校准。', options: { breakLine: true } },
+    { text: ' ', options: { breakLine: true, fontSize: 6 } },
+    { text: '上置信界选择：', options: { bold: true } }, { text: '让「满足约束」这句话站得住。' },
+  ], { x: x1 + 0.3, y: 2.15, w: cw - 0.6, h: 4.4, fontSize: 14 });
 }
 
 // ---------------------------------------------------------------- 16. open items
