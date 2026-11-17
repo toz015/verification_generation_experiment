@@ -94,3 +94,15 @@ Raw-threshold becomes Cal-threshold); `raw` gives every method the raw p_correct
 prior; likelihoods unchanged). Configs `configs/offline_multirisk_20261116_{calibrated,raw}.json`, results
 `results/offline_multirisk_20261116_{calibrated,raw}/`. The calibrated report (main) includes the raw run as its
 section 5. In the calibrated run Ours and Fixed match the mixed run exactly (2106 cells checked).
+
+## Fixed panels in Ours' candidate pool (2026-11-17)
+
+`ours.fixed_panels_in_pool` (default off) adds fixed-panel mixtures to the pool Validation selects Ours from: each
+single verifier that appears in Ours' shortlisted orders and each shortlisted triple, with the same rules and risk LP
+as the Fixed baselines. The adaptive Bellman/LP candidates are unchanged; each candidate records `pool`
+(`adaptive` or `fixed_panel`). Reason: the planning model is over-confident at both ends of p_correct, so the Bellman
+rules rarely verify the items where FPR (high-p wrong answers) and FNR (low-p correct answers) risk sits, and their
+candidates failed Validation at small alpha. Adding the columns to Ours' LP alone would change nothing, since under
+the model the Bellman rule dominates ask-all. Configs `configs/offline_multirisk_20261117_pool_{calibrated,raw}.json`,
+results `results/offline_multirisk_20261117_pool_{calibrated,raw}/`, reports under `reports/`. Other methods'
+cells are identical to the 2026-11-16 runs.

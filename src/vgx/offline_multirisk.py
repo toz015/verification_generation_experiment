@@ -385,16 +385,24 @@ def ours_candidates(vc, risk, alpha_plans, bplans, cfg):
                                 'budget_plan_fraction': bf, 'invalid': True})
                     continue
                 out.append(candidate('Ours-Offline', order, rules, values, sol, q, alpha_plan=ap, budget_plan_fraction=bf,
-                                     order_score=score))
+                                     order_score=score, pool='adaptive'))
+    if cfg['ours'].get('fixed_panels_in_pool'):
+        # Fixed-panel mixtures over Ours' own shortlist (each single verifier in it, and each shortlisted triple),
+        # added to the pool Validation selects from; the adaptive LP above is unchanged.
+        short = [tuple(sorted(o)) for _, o in scored[:cfg['ours']['orders_shortlist']]]
+        panels = sorted({(v,) for p in short for v in p}) + sorted(set(short))
+        fx, bad = fixed_candidates(vc, risk, None, alpha_plans, bplans, 'Ours-Offline', panels=panels)
+        out += [dict(c, pool='fixed_panel') for c in fx]
+        out += [dict(b, method='Ours-Offline', invalid=True, pool='fixed_panel') for b in bad]
     ranking = [{'order': list(o), 'score': s} for s, o in scored]
     return [c for c in out if not c.get('invalid')], ranking, [c for c in out if c.get('invalid')]
 
 
-def fixed_candidates(vc, risk, k, alpha_plans, bplans, method):
+def fixed_candidates(vc, risk, k, alpha_plans, bplans, method, panels=None):
     rules = list(BASE_RULES)+[('fixed', kap, 0.) for kap in KAPPAS]
     q = float(vc.m.prior.mean())
     out, bad = [], []
-    for panel in combinations(sorted(B.VERIFIERS), k):
+    for panel in (panels if panels is not None else combinations(sorted(B.VERIFIERS), k)):
         vals = [vc.get(panel, r) for r in rules]
         for ap in alpha_plans:
             for bf, bp in bplans:
