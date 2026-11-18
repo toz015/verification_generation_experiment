@@ -406,8 +406,9 @@ if (D.typ) {
     const top = isFnr ? Math.ceil(Math.max(...allv) * 1.3 / 5) * 5 : 115;
     dss.forEach((ds, i) => {
       const x = M + i * (cw + gap), ms = D.methods.filter((m) => D.typ[risk][ds][m] != null);
-      text(s, ds, { x, y: 1.35, w: cw, h: 0.4, fontSize: 16, bold: true, align: 'center' });
-      CHARTS.push({ slide: SN, kind: 'hbar', x, y: 1.8, w: cw, h: 4.6, categories: ms.map(short), max: top, gap: 40,
+      text(s, ds, { x, y: 1.3, w: cw, h: 0.35, fontSize: 16, bold: true, align: 'center' });
+      text(s, isFnr ? '条形 = 错误放行 e（占全部题，越低越好）' : '条形 = 放行率（占全部题，越高越好）', { x, y: 1.62, w: cw, h: 0.28, fontSize: 11, color: C.text2, align: 'center' });
+      CHARTS.push({ slide: SN, kind: 'hbar', x, y: 1.95, w: cw, h: 4.45, categories: ms.map(short), max: top, gap: 40,
         series: [{ name: isFnr ? '错误放行 e' : '放行率', values: ms.map((m) => +(100 * D.typ[risk][ds][m]).toFixed(1)), color: SERIES[0] }],
         pointColors: ms.map((m) => m === 'Ours-Offline' ? SERIES[0] : 'A9B4BA'), labelFmt: isFnr ? '0.0"%"' : '0"%"' });
     });
