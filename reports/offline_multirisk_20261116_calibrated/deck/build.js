@@ -78,14 +78,16 @@ function legendGrid(s, items, x, y, perRow, w) {
   const cw = w / perRow;
   items.forEach(([label, col], i) => {
     const cx = x + (i % perRow) * cw, cy = y + Math.floor(i / perRow) * 0.34;
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx, y: cy + 0.08, w: 0.32, h: 0.16, rectRadius: 0.05, fill: { color: col }, line: { type: 'none' }, objectName: nm('legend') });
+    if (label.startsWith('虚线')) s.addShape(pres.shapes.LINE, { x: cx, y: cy + 0.16, w: 0.32, h: 0, line: { color: col, width: 1.5, dashType: 'dash' }, objectName: nm('legend') });
+    else s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx, y: cy + 0.08, w: 0.32, h: 0.16, rectRadius: 0.05, fill: { color: col }, line: { type: 'none' }, objectName: nm('legend') });
     text(s, label, { x: cx + 0.42, y: cy, w: cw - 0.5, h: 0.32, fontSize: 13, color: C.text2, valign: 'middle' });
   });
 }
 function legendRow(s, items, x, y) {
   let cx = x;
   for (const [label, col] of items) {
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx, y: y + 0.08, w: 0.32, h: 0.16, rectRadius: 0.05, fill: { color: col }, line: { type: 'none' }, objectName: nm('legend') });
+    if (label.startsWith('虚线')) s.addShape(pres.shapes.LINE, { x: cx, y: y + 0.16, w: 0.32, h: 0, line: { color: col, width: 1.5, dashType: 'dash' }, objectName: nm('legend') });
+    else s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx, y: y + 0.08, w: 0.32, h: 0.16, rectRadius: 0.05, fill: { color: col }, line: { type: 'none' }, objectName: nm('legend') });
     const w = 0.22 * label.length + 0.5;
     text(s, label, { x: cx + 0.42, y, w, h: 0.32, fontSize: 13, color: C.text2, valign: 'middle' });
     cx += 0.42 + w + 0.2;
@@ -419,24 +421,25 @@ if (D.typ) {
     const s = slide('实际花费对预算：我们多数时候只用掉一部分预算', '结果',
       `α 取各风险的主要展示值，9 组数据集 · generator 的平均。纵轴是测试集上每题平均 verifier 花费占 c_ref 的比例，虚线是预算上限 f。`);
     const spend = ['Ours-Offline', 'Fixed-1', 'Fixed-3', 'Weaver', 'SSV'].filter((m) => D.methods.includes(m));
-    legendRow(s, [...spend.map((m) => [m, MCOL(m)]), ['预算上限', '9AA5AB']], M, 1.3);
+    legendGrid(s, [...spend.map((m) => [m, MCOL(m)]), ['虚线 = 预算上限 f', '9AA5AB']], M, 1.3, 6, W - 2 * M);
     const cw = (W - 2 * M - 2 * 0.3) / 3;
     RISKS.forEach((risk, i) => {
       const x = M + i * (cw + 0.3), cc = D.cost_curve[risk];
       const ms = spend.filter((m) => cc[m]);
       text(s, `${RN[risk]}（α = ${D.alpha_main[risk]}）`, { x, y: 1.8, w: cw, h: 0.35, fontSize: 15, bold: true, align: 'center' });
-      CHARTS.push({ slide: SN, kind: 'line', x, y: 2.15, w: cw, h: 4.6, categories: D.budget_fractions.map(String), min: 0, max: 100, unit: 25, legend: false,
+      CHARTS.push({ slide: SN, kind: 'line', x, y: 2.15, w: cw, h: 4.35, categories: D.budget_fractions.map(String), min: 0, max: 100, unit: 25, legend: false,
         series: [...ms.map((m) => ({ name: m, values: cc[m].map((v) => v == null ? null : +(100 * v).toFixed(1)), color: MCOL(m), bold: m === 'Ours-Offline' })),
           { name: '预算上限', values: D.budget_fractions.map((f) => 100 * f), color: '9AA5AB', dash: true }],
         catTitle: '预算 f', valTitle: '实际花费 / c_ref', valFmt: '0"%"' });
     });
+    text(s, '灰色虚线是预算上限：横轴取 f 时，平均每题花费不能超过 f × c_ref。实线在虚线下方就是没用完预算。', { x: M, y: 6.6, w: W - 2 * M, h: 0.3, fontSize: 11, color: C.text2 });
   }
   // actual risk vs target
   {
     const s = slide('实际风险对目标 α：放行错误率贴着目标，FPR 偏高，FNR 偏低', '结果',
       `预算 B = ${D.typ_f} × c_ref，9 组数据集 · generator 的平均（FPR 6 组）。纵轴是测试集上的实际风险，虚线是目标 α。平均值会掩盖单个条件的超标，超标次数见后面的表。`);
     const ms0 = D.methods;
-    legendGrid(s, [...ms0.map((m) => [m, MCOL(m)]), ['目标 α', '9AA5AB']], M, 1.25, 5, W - 2 * M);
+    legendGrid(s, [...ms0.map((m) => [m, MCOL(m)]), ['虚线 = 目标 α', '9AA5AB']], M, 1.25, 5, W - 2 * M);
     const cw = (W - 2 * M - 2 * 0.3) / 3;
     RISKS.forEach((risk, i) => {
       const x = M + i * (cw + 0.3), rc = D.risk_curve[risk], al = D.alpha[risk];
@@ -444,11 +447,12 @@ if (D.typ) {
       const raw = Math.max(...ms.flatMap((m) => rc[m].filter((v) => v != null).map((v) => 100 * v)), ...al.map((a) => 100 * a)) * 1.1;
       const unit = raw <= 20 ? 5 : 10, top = Math.ceil(raw / unit) * unit;
       text(s, RN[risk], { x, y: 2.05, w: cw, h: 0.35, fontSize: 15, bold: true, align: 'center' });
-      CHARTS.push({ slide: SN, kind: 'line', x, y: 2.4, w: cw, h: 4.4, categories: al.map(String), min: 0, max: top, unit, legend: false,
+      CHARTS.push({ slide: SN, kind: 'line', x, y: 2.4, w: cw, h: 4.1, categories: al.map(String), min: 0, max: top, unit, legend: false,
         series: [...ms.map((m) => ({ name: m, values: rc[m].map((v) => v == null ? null : +(100 * v).toFixed(1)), color: MCOL(m), bold: m === 'Ours-Offline' })),
           { name: '目标 α', values: al.map((a) => 100 * a), color: '9AA5AB', dash: true }],
         catTitle: '目标 α', valTitle: `实际${RN[risk]}`, valFmt: '0"%"' });
     });
+    text(s, '灰色虚线是目标 α：实线在虚线上方说明平均超标，在下方说明更保守。', { x: M, y: 6.6, w: W - 2 * M, h: 0.3, fontSize: 11, color: C.text2 });
   }
 } else {
 curveSlide('selective_error', '放行错误率：放行率领先，预算最多时 Fixed-3 追平', '图里是预算最多的 B = 1 × c_ref，这是 Fixed-3 最强的情况；预算少时 Fixed-3 问不起 3 个 verifier。',
