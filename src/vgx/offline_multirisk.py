@@ -57,7 +57,9 @@ KAPPAS = tuple((10**np.linspace(-2.5, 3, 22)).tolist())
 MUS = (0., *np.logspace(-1, 3.5, 10).tolist())
 ROUNDS, CG_TOL = 15, 1e-6
 TOL_COUNT, TOL_USD = 1e-9, 1e-12
-METHODS = ('Ours-Offline', 'AT-Frozen', 'AT+Cal-Frozen', 'Raw-threshold', 'Fixed-1-Mix', 'Fixed-3-Mix')
+EXTRA_BASELINES = ('Weaver', 'Self-consistency', 'SSV-Frozen')
+METHODS = ('Ours-Offline', 'AT-Frozen', 'AT+Cal-Frozen', 'Raw-threshold', 'Fixed-1-Mix', 'Fixed-3-Mix')+EXTRA_BASELINES
+WGRID = tuple(round(0.1*i, 1) for i in range(1, 11))
 REFERENCES = ('Release-eligible', 'Abstain-all')
 BASELINES = METHODS[1:]
 BASE_RULES = (('abstain', 0., 0.), ('release', 0., 0.))
@@ -570,6 +572,84 @@ def fold_rows(rows, fit, mode, shrink=0.0):
     return [dict(r, prior=float(f(r['prior']))) if r['valid'] else r for r in rows], False
 
 
+def mix_candidates(rules, ev, et):
+    """Empirical candidates: each costly rule mixed with release-all or abstain-all at weights WGRID (the budget limits
+    the mean), plus the two zero-cost rules. Release probabilities, costs and calls are expectations over the draw."""
+    zv, zt = np.zeros(len(ev)), np.zeros(len(et))
+    base = {'release': (ev.astype(float), et.astype(float)), 'abstain': (zv, zt)}
+    out = {k: [] for k in ('Av', 'Cv', 'At', 'Ct', 'Nt', 'Qt', 'desc')}
+
+    def add(av, cv, at, ct, nt, qt, d):
+        for k, v in zip(('Av', 'Cv', 'At', 'Ct', 'Nt', 'Qt', 'desc'), (av, cv, at, ct, nt, qt, d)):
+            out[k].append(v)
+    for bname, (bv, bt) in base.items():
+        add(bv, zv, bt, zt, zt, zt, {'base': bname, 'w': 0.0})
+    for r in rules:
+        for w in WGRID:
+            for bname, (bv, bt) in base.items():
+                if w == 1.0 and bname == 'abstain':
+                    continue
+                add(w*r['av']+(1-w)*bv, w*r['cv'], w*r['at']+(1-w)*bt, w*r['ct'], w*r['nt'], w*r['qt'],
+                    dict(r['desc'], w=w, base=bname if w < 1.0 else None))
+    return {k: (np.stack(v) if k != 'desc' else v) for k, v in out.items()}
+
+
+def weaver_rules(rows, fit, val, test):
+    """Weaver's binned label model over all five verifiers, prior = each item's p_correct as read by every method,
+    accuracies by EM on the fold's items without labels; rule: ask all five, release iff posterior >= tau."""
+    pool = B.VERIFIERS
+    items = [i for i in list(fit)+list(val)+list(test) if rows[i]['valid']]
+    bins = [[-1 if rows[i]['signals'][v]['score'] is None else bin_of(rows[i]['signals'][v]['score'], R.EDGES) for v in pool] for i in items]
+    q, *_ = B.weaver_binned_posterior(bins, [rows[i]['prior'] for i in items], len(R.EDGES)-1)
+    post = dict(zip(items, q))
+    s = lambda idx: np.array([post.get(i, -np.inf) for i in idx])
+    usd = lambda idx: np.array([sum(rows[i]['signals'][v]['estimated_usd'] for v in pool) if rows[i]['valid'] else 0. for i in idx])
+    el = lambda idx: np.array([bool(rows[i]['valid']) for i in idx])
+    sv, st_, uv, ut, ev, et = s(val), s(test), usd(val), usd(test), el(val), el(test)
+    taus = np.unique(sv[ev]).tolist()+[np.inf]
+    return [{'av': ((sv >= t) & ev).astype(float), 'cv': uv, 'at': ((st_ >= t) & et).astype(float), 'ct': ut,
+             'nt': et*float(len(pool)), 'qt': et.astype(float), 'desc': {'threshold': float(t), 'pool': list(pool)}} for t in taus]
+
+
+def ssv_rules(rows, fit, val, test, alphas, betas, seed=0):
+    """SSV (Kiyani et al.) frozen: weak = cheapest verifier on Fit, strong = highest Fit AUROC among the others;
+    thresholds learned online on the Fit stream with strong-verifier feedback, then frozen. Frozen rule: weak score
+    above tau_A releases, at or below tau_R abstains, otherwise (or no weak score) the strong verifier decides at 0.5."""
+    fv = [i for i in fit if rows[i]['valid']]
+    weak = min(B.VERIFIERS, key=lambda v: (np.mean([rows[i]['signals'][v]['estimated_usd'] for i in fv]), v))
+    strong = max((v for v in B.VERIFIERS if v != weak), key=lambda v: (B.auroc(rows, fit, v), v))
+    sv = lambda i: (rows[i]['signals'][strong]['score'] or 0.0) >= 0.5
+    order = list(np.random.default_rng(seed).permutation(fv))
+    out = []
+    for a_ in alphas:
+        for b_ in betas:
+            run = B.SSV(alpha=a_, beta=b_, seed=seed)
+            for i in order:
+                run.step(rows[i]['signals'][weak]['score'], lambda i=i: sv(i))
+            tA, tR = run.tau_A, run.tau_R
+
+            def apply(idx):
+                a, c, n_, q = (np.zeros(len(idx)) for _ in range(4))
+                for j, i in enumerate(idx):
+                    r = rows[i]
+                    if not r['valid']:
+                        continue
+                    w = r['signals'][weak]['score']
+                    c[j] = r['signals'][weak]['estimated_usd']; n_[j] = 1; q[j] = 1
+                    if w is not None and w > tA:
+                        a[j] = 1
+                    elif w is not None and w <= tR:
+                        a[j] = 0
+                    else:
+                        c[j] += r['signals'][strong]['estimated_usd']; n_[j] = 2
+                        a[j] = float(r['signals'][strong]['score'] is not None and sv(i))
+                return a, c, n_, q
+            av, cv, _, _ = apply(val); at, ct, nt, qt = apply(test)
+            out.append({'av': av, 'cv': cv, 'at': at, 'ct': ct, 'nt': nt, 'qt': qt,
+                        'desc': {'weak': weak, 'strong': strong, 'alpha': a_, 'beta': b_, 'tau_A': tA, 'tau_R': tR}})
+    return out
+
+
 def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
     t0 = time.perf_counter()
     seeds = cfg['at']['seeds'][:2] if quick else cfg['at']['seeds']
@@ -581,6 +661,10 @@ def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
     brier = {'raw': [], 'ours_prior': [], 'at_cal': {}}
     mode = cfg.get('confidence_input', 'mixed')
     raw_rows = rows
+    extra = set(cfg.get('extra_baselines', []))
+    sc_scores = None
+    if 'Self-consistency' in extra and ds in ('gpqa', 'math500'):
+        sc_scores = np.array([np.nan if s is None else s for s in B.self_consistency_scores(ds, gen, rows, B._raw_samples(ds))[0]], float)
     for k, fit, val, test in sp:
         tf = time.perf_counter()
         ccfg = cfg.get('calibration', {})
@@ -623,6 +707,17 @@ def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
         raw_av = ((np.nan_to_num(fv.confidence, nan=-np.inf)[None, :] >= rawtau[:, None]) & fv.valid[None, :]).astype(float)
         raw_at = ((np.nan_to_num(ft.confidence, nan=-np.inf)[None, :] >= rawtau[:, None]) & ft.valid[None, :]).astype(float)
         thr['Raw-threshold'] = [{'seed': 0, 'av': raw_av, 'at': raw_at, 'configs': [[float(x)] for x in rawtau], 'tau': rawtau}]
+        if sc_scores is not None:
+            scv, sct = np.nan_to_num(sc_scores[val], nan=-np.inf), np.nan_to_num(sc_scores[test], nan=-np.inf)
+            sctau = np.r_[-np.inf, np.unique(scv[ev & np.isfinite(scv)]), np.inf]
+            thr['Self-consistency'] = [{'seed': 0, 'configs': [[float(x)] for x in sctau], 'tau': sctau,
+                                        'av': ((scv[None, :] >= sctau[:, None]) & ev[None, :]).astype(float),
+                                        'at': ((sct[None, :] >= sctau[:, None]) & et[None, :]).astype(float)}]
+        emp = {}
+        if 'Weaver' in extra:
+            emp['Weaver'] = mix_candidates(weaver_rules(rows, fit, val, test), ev, et)
+        if 'SSV-Frozen' in extra:
+            emp['SSV-Frozen'] = mix_candidates(ssv_rules(rows, fit, val, test, cfg['ssv']['alpha_grid'], cfg['ssv']['beta_grid']), ev, et)
         # --- model-planned methods per risk
         for rname, risk in risks.items():
             aps = cfg['alpha_plan'][rname]
@@ -657,6 +752,19 @@ def run_generator(ds, gen, rows, cfg, groups=None, quick=False):
                             configs[c['id']] = c
                             for r_ in c['rules']:
                                 traj[(k, tuple(c['order']), tuple(r_))] = (rt.get(c['order'], r_), test)
+                        cells.setdefault(key, {}).setdefault(mname, []).append(rec)
+                    for mname, cd in emp.items():
+                        if mname == 'SSV-Frozen' and rname != 'selective_error':
+                            continue
+                        j, status = risk.select(cd['Av'], cd['Cv'], yv, alpha, budget, np.zeros(len(cd['Av'])))
+                        rec = fold_record(rname, status, j is None)
+                        if j is None:
+                            fill_fallback(rec, rname, et)
+                        else:
+                            cid = f'{ds}|{gen}|f{k}|{rname}|{mname}|c{j}'
+                            rec.update(a=cd['At'][j][None], cost=cd['Ct'][j][None], calls=cd['Nt'][j][None], qprob=cd['Qt'][j][None],
+                                       config_id=[cid])
+                            configs[cid] = dict(cd['desc'][j], method=mname)
                         cells.setdefault(key, {}).setdefault(mname, []).append(rec)
                     for mname, states in thr.items():
                         rec = fold_record(rname, None, None)
@@ -839,7 +947,7 @@ def bootstrap(out, rows, sp, idx, y, cfg, groups):
             return P/n, E/n, r
         po, eo, ro = stats(ao)
         row['Ours-Offline']['paired'] = {}
-        for b in BASELINES:
+        for b in [m for m in BASELINES if m in row]:
             ab = row[b]['_items'][0]
             pb, eb, rb = stats(ab)
             main = (po-pb) if rname != 'fnr' else (eo-eb)

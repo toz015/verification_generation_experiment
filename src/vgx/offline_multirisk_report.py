@@ -20,7 +20,8 @@ ALPHA_DEF = {'selective_error': 'α 限制放行错误率：放行的答案里�
              'fnr': 'α 限制 FNR：所有正确答案里被拦下的比例不超过 α（m ≤ α q）'}
 RISK_DEF = {'selective_error': '放行的答案里错的比例', 'fpr': '所有错误答案里被放行的比例', 'fnr': '所有正确答案里被拦下的比例'}
 GOAL = {'selective_error': '放行率（越高越好）', 'fpr': '放行率（越高越好）', 'fnr': '错误放行占全部题的比例 e（越低越好）'}
-COLORS = {'Ours-Offline': 's1', 'AT-Frozen': 's2', 'AT+Cal-Frozen': 's3', 'Raw-threshold': 's4', 'Fixed-1-Mix': 's5', 'Fixed-3-Mix': 's6'}
+COLORS = {'Ours-Offline': 's1', 'AT-Frozen': 's2', 'AT+Cal-Frozen': 's3', 'Raw-threshold': 's4', 'Fixed-1-Mix': 's5', 'Fixed-3-Mix': 's6',
+          'Weaver': 's7', 'Self-consistency': 's8', 'SSV-Frozen': 's9'}
 # Dataset/generator pairs not evaluated for a risk; the report drops them everywhere (tables, charts, CSVs).
 # FPR's denominator is the number of wrong answers, and MATH-500 has too few of them for every generator.
 EXCLUDE_MAIN = {'fpr': {('math500', g) for g in ('qwen3', 'gptoss', 'sonnet55')}}
@@ -105,7 +106,9 @@ def feasibility(I, rows, cfg, risk, exclude_fallback=False):
         if r['risk_metric'] != risk or r['method'] != 'Ours-Offline':
             continue
         for b in BASELINES:
-            x = I[(r['dataset'], r['generator'], risk, r['alpha_target'], r['budget_fraction'], b)]
+            x = I.get((r['dataset'], r['generator'], risk, r['alpha_target'], r['budget_fraction'], b))
+            if x is None:
+                continue
             if exclude_fallback and (r['fallback_used'] or x['fallback_used']):
                 excluded[b] += 1
                 continue
@@ -121,8 +124,8 @@ def both_feasible_perf(I, rows, risk):
         for r in rows:
             if r['risk_metric'] != risk or r['method'] != 'Ours-Offline':
                 continue
-            x = I[(r['dataset'], r['generator'], risk, r['alpha_target'], r['budget_fraction'], b)]
-            if pair_status(r, x, risk) != 'both':
+            x = I.get((r['dataset'], r['generator'], risk, r['alpha_target'], r['budget_fraction'], b))
+            if x is None or pair_status(r, x, risk) != 'both':
                 continue
             p = r['paired'][b]
             n += 1
@@ -255,10 +258,9 @@ def chart_cost(I, cfg, risk):
             if not in_main(ds, gen, risk):
                 continue
             bmax = max(I[(ds, gen, risk, a, f, 'Ours-Offline')]['budget_usd'] for f in fr)*1e4
-            cmax = max([I[(ds, gen, risk, a, f, m)]['mean_screen_cost']*1e4 for f in fr for m in METHODS]+[bmax])*1.05
-            series = {m: [(I[(ds, gen, risk, a, f, m)]['budget_usd']*1e4, I[(ds, gen, risk, a, f, m)]['mean_screen_cost']*1e4,
-                           f'预算 {f:g}×c_ref：'+tip(I[(ds, gen, risk, a, f, m)], risk), I[(ds, gen, risk, a, f, m)]['empirical_feasible'])
-                          for f in fr] for m in METHODS}
+            cmax = max([I[(ds, gen, risk, a, f, m)]['mean_screen_cost']*1e4 for f in fr for m in METHODS if (ds, gen, risk, a, f, m) in I]+[bmax])*1.05
+            series = {m: [(x['budget_usd']*1e4, x['mean_screen_cost']*1e4, f'预算 {f:g}×c_ref：'+tip(x, risk), x['empirical_feasible'])
+                          for f in fr for x in [I.get((ds, gen, risk, a, f, m))] if x] for m in METHODS}
             step = next(v for v in (5, 10, 20, 50, 100) if cmax/v <= 5)
             ticks = [v for v in np.arange(0, cmax, step)]
             figs += panel(f'{dname} · {GEN[gen]}', series, (0, bmax*1.05), [(v, f'{v:g}') for v in np.arange(0, bmax*1.05, step)],
@@ -294,8 +296,8 @@ def method_feasible_table(I, cfg, risk):
                 continue
             cells = [f'{dname} · {GEN[gen]}']
             for m in METHODS:
-                xs = [I[(ds, gen, risk, a, f, m)] for a in cfg['alpha_target'][risk] for f in cfg['budget_fractions']]
-                cells.append(f'{sum(x["empirical_feasible"] for x in xs)} / {tot}')
+                xs = [x for a in cfg['alpha_target'][risk] for f in cfg['budget_fractions'] for x in [I.get((ds, gen, risk, a, f, m))] if x]
+                cells.append(f'{sum(x["empirical_feasible"] for x in xs)} / {tot}' if xs else '—')
             body += tr(cells)
     return table(['数据集 · generator']+list(METHODS), body)
 
@@ -320,7 +322,9 @@ def main_alpha_table(I, cfg, risk, keep=in_main):
             for f in cfg['budget_fractions_shown']:
                 cells = [f'{dname} · {GEN[gen]} · B = {f:g}×c_ref']
                 for m in METHODS:
-                    x = I[(ds, gen, risk, a, f, m)]
+                    x = I.get((ds, gen, risk, a, f, m))
+                    if x is None:
+                        cells.append('—'); continue
                     mark = '' if x['empirical_feasible'] else ' ✕'
                     cells.append(f'{pct(objective(x, risk))} / {pct(x["risk"])}{mark}')
                 body += tr(cells)
@@ -442,6 +446,8 @@ def input_compare(I_cal, I_raw, cfg):
     for risk in RISKS:
         for m in METHODS:
             ks = [k for k in I_cal if k[2] == risk and k[5] == m and k in I_raw]
+            if not ks:
+                continue
             oc = np.mean([objective(I_cal[k], risk) for k in ks]); orw = np.mean([objective(I_raw[k], risk) for k in ks])
             name = 'Cal-threshold / Raw-threshold' if m == 'Raw-threshold' else m
             body += tr([f'{RISK_NAME[risk]} · {name}', len(ks), pct(oc), pct(orw), sum(over(I_cal[k]) for k in ks), sum(over(I_raw[k]) for k in ks)])
@@ -461,6 +467,8 @@ def sig_counts(I, rows, risk, keep=in_main):
         for r in rows:
             if r['risk_metric'] != risk or r['method'] != 'Ours-Offline' or not keep(r['dataset'], r['generator'], risk):
                 continue
+            if b not in r['paired']:
+                continue
             lo, hi = r['paired'][b]['ci95']
             good = (lo > 0) if risk != 'fnr' else (hi < 0)
             bad = (hi < 0) if risk != 'fnr' else (lo > 0)
@@ -474,7 +482,7 @@ def sig_table(I, rows, risk, keep=in_main):
     S = sig_counts(I, rows, risk, keep)
     word = '放行显著更多' if risk != 'fnr' else '错误放行显著更少'
     body = ''.join(tr([b, S[b]['n'], S[b]['ours'], S[b]['base'], S[b]['n']-S[b]['ours']-S[b]['base'],
-                       ' · '.join(f'{dict(DS)[d]} {v[1]}/{v[2]}（共 {v[0]}）' for d, v in S[b]['per'].items())]) for b in BASELINES)
+                       ' · '.join(f'{dict(DS)[d]} {v[1]}/{v[2]}（共 {v[0]}）' for d, v in S[b]['per'].items())]) for b in BASELINES if S[b]['n'])
     return table(['对照方法', '条件数', f'我们{word}', f'对照{word}', '区间含 0', '按数据集：我们/对照'], body)
 
 
@@ -483,6 +491,8 @@ def exceed_table(I, cfg, risk, keep=in_main):
     keys = [k for k in I if k[2] == risk and keep(k[0], k[1], risk)]
     for m in METHODS:
         xs = [I[k] for k in keys if k[5] == m]
+        if not xs:
+            continue
         per = ' · '.join(f'{dname} {sum(over(I[k]) for k in keys if k[5] == m and k[0] == ds)}' for ds, dname in DS if any(k[0] == ds for k in keys))
         body += tr([m, len(xs), sum(over(x) for x in xs), sum(not x['budget_met'] for x in xs),
                     sum(x['zero_release'] for x in xs), per])
@@ -495,9 +505,10 @@ def headline(I, rows, cfg):
         S = sig_counts(I, rows, risk)
         n = S[BASELINES[0]]['n']
         word = '放行显著更多' if risk != 'fnr' else '错误放行显著更少'
-        parts = '；'.join(f'对 {b} {S[b]["ours"]}:{S[b]["base"]}' for b in BASELINES)
-        ex = {m: sum(over(I[k]) for k in I if k[2] == risk and k[5] == m and in_main(k[0], k[1], risk)) for m in METHODS}
-        exs = '，'.join(f'{m} {ex[m]}' for m in METHODS)
+        parts = '；'.join(f'对 {b} {S[b]["ours"]}:{S[b]["base"]}' for b in BASELINES if S[b]['n'])
+        ex = {m: sum(over(I[k]) for k in I if k[2] == risk and k[5] == m and in_main(k[0], k[1], risk)) for m in METHODS
+              if any(k[2] == risk and k[5] == m for k in I)}
+        exs = '，'.join(f'{m} {v}' for m, v in ex.items())
         note = '，不含错误答案太少的 MATH-500' if EXCLUDE_MAIN.get(risk) else ''
         out.append(f'<li><b>{RISK_NAME[risk]}</b>（{n} 个条件{note}）：我们{word}的条件数比对照{word}的条件数为 {parts}。'
                    f'测试集{RISK_NAME[risk]}超标的条件数：{exs}。</li>')
@@ -512,6 +523,18 @@ def exclusion_note(res, risk):
     counts = '、'.join(f'{GEN[g]} {sum(f["test_wrong"] for f in res[(d, g)]["folds"])} 道' for d, g in pairs)
     return (f'<p class="meta">FPR 不测 {dict(DS)[ds]}：FPR 的分母是错误答案的数量，而 {dict(DS)[ds]} 的错误答案太少'
             f'（{len(res[pairs[0]]["folds"])} 折测试合计：{counts}，没给答案的也算在内），一两道题就能让 FPR 变化很多。</p>')
+
+
+EXTRA_DESC = {
+    'Weaver': 'Weaver 的弱监督标签模型：5 个 verifier 的分数各分 5 档，按「答案对错给定时相互独立」建模，先验是每个方法都读的同一个 p_correct，'
+              '各档的准确率用 EM 在本折所有题上估（不用标签）；每题问满 5 个 verifier，后验过阈值就放行。阈值在验证部分挑；'
+              '因为每题都问满 5 个，和 Fixed 一样与「全放行 / 全拦下」按权重随机混合以满足预算',
+    'Self-consistency': 'generator 自己的 10 个样本里和最终答案一致的比例作为分数，过阈值就放行，阈值在验证部分挑。只有 GPQA 和 MATH-500 有'
+                        '（QuantumKatas 是代码题，没有可比的答案）；10 个样本的生成花费不计入 verifier 预算',
+    'SSV-Frozen': 'SSV（Kiyani 等）：弱 verifier 取拟合部分最便宜的一个，强 verifier 取拟合部分 AUROC 最高的另一个；弱分数高于 τ_A 放行、'
+                  '低于 τ_R 拦下，中间交给强 verifier。τ_A、τ_R 在拟合部分按 SSV 的在线规则学好后冻结，参数网格在验证部分挑，'
+                  '再与「全放行 / 全拦下」混合以满足预算。SSV 只针对放行错误率设计，所以只放进放行错误率的比较',
+}
 
 
 def variant_fill(cfg, res, out_dir):
@@ -556,6 +579,10 @@ def report(cfg, out_dir, report_dir):
         raise SystemExit(f'missing results: {missing}')
     rows = [r for r in rows_of(res) if in_main(r['dataset'], r['generator'], r['risk_metric'])]
     I = index(rows)
+    global METHODS, BASELINES
+    present = {k[5] for k in I}
+    METHODS = tuple(m for m in METHODS if m in present)
+    BASELINES = tuple(m for m in BASELINES if m in present)
     report_dir = Path(report_dir); report_dir.mkdir(parents=True, exist_ok=True)
     write_csv(rows, report_dir/'all_conditions.csv')
     write_csv(rows, Path(out_dir)/'summary.csv')
@@ -638,6 +665,7 @@ def report(cfg, out_dir, report_dir):
             '{{CREF}}': '；'.join(f'{dict(DS)[ds]} {min(v):.0f} 到 {max(v):.0f}' for ds, v in cref.items()),
             '{{CODE}}': next(iter(res.values()))['code_hash'], '{{PRE}}': '通过' if not pre.get('problems') else '；'.join(pre['problems'][:5])}
     fill.update(variant_fill(cfg, res, out_dir))
+    fill['{{EXTRAMETHODS}}'] = ''.join(f'<tr><th scope="row">{m}</th><td class="wrap">{d}</td></tr>' for m, d in EXTRA_DESC.items() if m in METHODS)
     for k, v in fill.items():
         tpl = tpl.replace(k, v)
     # display names: no '-Mix' suffix on the Fixed baselines (2026-11-17); result files and CSVs keep the code names

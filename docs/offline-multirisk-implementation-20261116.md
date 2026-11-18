@@ -117,3 +117,16 @@ gamma is picked from `gamma_grid` by cross-fitted log-likelihood inside Fit, ave
 (`choose_gamma`). Both apply to every method reading the calibrated p (shrinkage) or the model (gamma: Ours and
 Fixed-3). Defaults off; chosen values are stored per fold under `calibration`. Runs:
 `configs/offline_multirisk_20261117_{shrink,gamma,shrinkgamma}_calibrated.json`.
+
+## Weaver, Self-consistency, SSV (2026-11-18)
+
+`extra_baselines` adds three baselines, selected on Validation like the others (configs
+`configs/offline_multirisk_20261118_{calibrated,raw}.json`, results `results/offline_multirisk_20261118_*`):
+Weaver (`weaver_rules`: binned label model over all five verifiers, prior = the p every method reads, EM without
+labels on the fold's items, threshold rule asking all five, mixed with release/abstain at weights 0.1..1 for the
+budget), Self-consistency (share of the generator's 10 cached samples agreeing with the answer; GPQA and MATH-500
+only; threshold candidates like the threshold method; sample cost not counted against the verifier budget) and
+SSV-Frozen (`ssv_rules`, release error rate only: weak = cheapest verifier on Fit, strong = best Fit AUROC, SSV's
+online thresholds learned on the Fit stream then frozen, alpha x beta grid, same budget mix). The bootstrap compares
+Ours with every baseline present in a cell; the report drops methods absent from a run. Every pre-existing method's
+cells match the 2026-11-16 runs exactly (44928 fields).
