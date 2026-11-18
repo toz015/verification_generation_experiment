@@ -339,24 +339,25 @@ pres.addSection({ title: '结果' });
 }
 
 {
-  const s = slide(POOL ? '按预算拆开：低预算优势更大，FNR 各预算都不输 Fixed' : '按预算拆开：和 Fixed 比，优势在低预算', '结果',
+  const s = slide(POOL ? '按预算拆开：低预算优势更大，FNR 各预算都不输 Fixed' : '按预算拆开：和 Fixed-3 比，优势在低预算', '结果',
     'f = 0 时 Fixed 不能问 verifier，只能在全放行和全拦下之间混合，所以我们大比分领先。预算一多，Fixed-3 能把 3 个 verifier 问满，前两种约束下追平或反超。');
   const fs = ['0.0', '0.1', '0.25', '0.5', '0.75', '1.0'];
   const head = [TH('预算 f')];
-  RISKS.forEach((r) => ['Fixed-1', 'Fixed-3'].forEach((b) => head.push(TH(`${RN[r]} 对 ${b}`, { align: 'right' }))));
+  const BBS = POOL ? ['Fixed-1', 'Fixed-3'] : ['Fixed-3'];
+  RISKS.forEach((r) => BBS.forEach((b) => head.push(TH(`${RN[r]} 对 ${b}`, { align: 'right' }))));
   const rows = [head];
   fs.forEach((f) => {
     const r = [TD(String(+f), { bold: true })];
-    RISKS.forEach((risk) => ['Fixed-1', 'Fixed-3'].forEach((b) => {
+    RISKS.forEach((risk) => BBS.forEach((b) => {
       const c = D.by_budget[risk][b][f];
       r.push(TD(`${c[1]} : ${c[2]}`, { align: 'right', fontFace: 'Arial' }));
     }));
     rows.push(r);
   });
-  table(s, rows, { y: 1.5, colW: [1.333, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8], fontSize: 15, rowH: 0.5 });
+  table(s, rows, { y: 1.5, colW: POOL ? [1.333, 1.8, 1.8, 1.8, 1.8, 1.8, 1.8] : [2.533, 3.2, 3.2, 3.2], fontSize: 15, rowH: 0.5 });
   text(s, [
     { text: '每格是「我们显著更好 : 对照显著更好」的条件数（FNR 下更好指错误放行更少）。', options: { breakLine: true } },
-    { text: POOL ? `放行错误率和 FPR：低预算时几乎全胜；f = 1 时对 Fixed-3 是 ${BB('selective_error', 'Fixed-3', ['1.0'])}（放行错误率）和 ${BB('fpr', 'Fixed-3', ['1.0'])}（FPR）。FNR：f > 0 时对 Fixed-1 是 ${BB('fnr', 'Fixed-1', ['0.1', '0.25', '0.5', '0.75', '1.0'])}，对 Fixed-3 是 ${BB('fnr', 'Fixed-3', ['0.1', '0.25', '0.5', '0.75', '1.0'])}。` : '放行错误率和 FPR：低预算时我们几乎全胜，预算 ≥ 0.5 或 0.75 后 Fixed-3 追平或反超。FNR：f > 0 时各预算都是 Fixed 更好。' },
+    { text: !POOL ? `放行错误率：f ≤ 0.5 时 ${BB('selective_error', 'Fixed-3', ['0.0', '0.1', '0.25', '0.5'])}，f = 1 时 ${BB('selective_error', 'Fixed-3', ['1.0'])}。FPR：f ≤ 0.25 时 ${BB('fpr', 'Fixed-3', ['0.0', '0.1', '0.25'])}，f ≥ 0.5 时 ${BB('fpr', 'Fixed-3', ['0.5', '0.75', '1.0'])}。FNR：f > 0 时 ${BB('fnr', 'Fixed-3', ['0.1', '0.25', '0.5', '0.75', '1.0'])}，各预算都是 Fixed-3 更好。` : POOL ? `放行错误率和 FPR：低预算时几乎全胜；f = 1 时对 Fixed-3 是 ${BB('selective_error', 'Fixed-3', ['1.0'])}（放行错误率）和 ${BB('fpr', 'Fixed-3', ['1.0'])}（FPR）。FNR：f > 0 时对 Fixed-1 是 ${BB('fnr', 'Fixed-1', ['0.1', '0.25', '0.5', '0.75', '1.0'])}，对 Fixed-3 是 ${BB('fnr', 'Fixed-3', ['0.1', '0.25', '0.5', '0.75', '1.0'])}。` : '放行错误率和 FPR：低预算时我们几乎全胜，预算 ≥ 0.5 或 0.75 后 Fixed-3 追平或反超。FNR：f > 0 时各预算都是 Fixed 更好。' },
   ], { x: M, y: 5.5, w: W - 2 * M, h: 1.2, fontSize: 15 });
 }
 
