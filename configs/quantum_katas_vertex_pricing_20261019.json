@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+  "retrieved_utc": "2026-10-19",
+  "currency": "USD per 1M tokens, global endpoint, standard (non-batch) tier, <=200K input",
+  "billing_rules": [
+    "Only HTTP 200 responses are charged.",
+    "Gemini text output price covers response and reasoning tokens.",
+    "Claude output_tokens include thinking tokens; both are billed at the output rate.",
+    "Gemini 3.8/3.7 Flash introductory price applies through 2026-12-31; standard price from 2027-01-01 is $1.50/$7.50."
+  ],
+  "usd_per_million_tokens": {
+    "google/gemini-3.8-flash": {"input": 0.75, "output": 3.75, "cached_input": 0.075},
+    "google/gemini-3.5-flash-lite": {"input": 0.30, "output": 2.50, "cached_input": 0.03},
+    "anthropic/claude-sonnet-5-5": {"input": 2.00, "output": 10.00, "cached_input": 0.10},
+    "anthropic/claude-haiku-5-5": {"input": 0.10, "output": 0.50, "cached_input": 0.01},
+    "anthropic/claude-opus-5-5": {"input": 4.00, "output": 20.00, "cached_input": 0.20},
+    "openai/gpt-oss-120b-maas": {"input": 0.09, "output": 0.36, "cached_input": 0.09},
+    "qwen/qwen3-coder-480b-a35b-instruct-maas": {"input": 0.22, "output": 1.80, "cached_input": 0.022}
+  },
+  "model_id_status": {
+    "google/gemini-3.8-flash": "used by earlier GPQA runs on this project",
+    "anthropic/claude-sonnet-5-5": "used by earlier GPQA runs on this project",
+    "openai/gpt-oss-120b-maas": "used by earlier GPQA runs on this project",
+    "google/gemini-3.5-flash-lite": "used by earlier GPQA configs",
+    "anthropic/claude-haiku-5-5": "price listed; Vertex model ID not yet confirmed in Model Garden",
+    "anthropic/claude-opus-5-5": "price listed; Vertex model ID not yet confirmed in Model Garden",
+    "qwen/qwen3-coder-480b-a35b-instruct-maas": "price listed; endpoint ID not yet confirmed"
+  },
+  "example_specs": {
+    "gemini_flash": {"provider": "vertex_openai", "model": "google/gemini-3.8-flash", "location": "global",
+                     "generation": {"max_tokens": 32768, "reasoning_effort": "medium"},
+                     "note": "Gemini 3 ignores temperature/top_p in VertexBatchRunner; reasoning is not bounded by max_tokens, so the budget reserves 131072 output tokens per request."},
+    "claude_sonnet_adaptive": {"provider": "vertex_anthropic", "model": "anthropic/claude-sonnet-5-5", "location": "global",
+                               "generation": {"max_tokens": 32768, "thinking": {"type": "adaptive"}, "output_config": {"effort": "high"}},
+                               "note": "Same body shape as the GPQA Sonnet screen; sampling parameters omitted (provider defaults)."},
+    "claude_no_thinking": {"provider": "vertex_anthropic", "model": "anthropic/claude-haiku-5-5", "location": "global",
+                           "generation": {"max_tokens": 16384, "temperature": 0.0}},
+    "gpt_oss": {"provider": "vertex_openai", "model": "openai/gpt-oss-120b-maas", "location": "global",
+                "generation": {"max_tokens": 16384, "temperature": 0.0, "top_p": 1.0},
+                "note": "The existing transport sends reasoning_effort only to Gemini 3; gpt-oss runs at its endpoint default."}
+  },
+  "request_counts": {
+    "generator_max": 28, "verifier_max": 84, "official_checker_max": 28, "smoke": "first 3 tasks: 3 generator + 9 verifier + 3 checker",
+    "measured_input_tokens_estimate": {"generator_all_28": 17078, "verifier_all_84": 76379,
+                                       "basis": "prompt+system UTF-8 bytes / 3.5 with reference-length code; real code length varies"}
+  },
+  "cost_estimates_usd_same_model_all_roles": {
+    "assumption_expected": "generator 4,500 output+reasoning tokens, verifier 2,500 per call",
+    "assumption_cap": "every call uses its full max_tokens (generator 32,768, verifier 16,384)",
+    "assumption_gemini_reserve": "BudgetedRequestCache reserves 131,072 output tokens per Gemini request",
+    "google/gemini-3.8-flash": {"expected": 1.33, "cap": 8.67, "gemini_reservation": 55.12, "smoke_cap": 0.93},
+    "google/gemini-3.5-flash-lite": {"expected": 0.87, "cap": 5.76, "gemini_reservation": 36.73, "smoke_cap": 0.62},
+    "anthropic/claude-sonnet-5-5": {"expected": 3.55, "cap": 23.12, "smoke_cap": 2.48},
+    "anthropic/claude-haiku-5-5": {"expected": 0.18, "cap": 1.16, "smoke_cap": 0.12},
+    "anthropic/claude-opus-5-5": {"expected": 7.09, "cap": 46.25, "smoke_cap": 4.96},
+    "openai/gpt-oss-120b-maas": {"expected": 0.13, "cap": 0.83, "smoke_cap": 0.09},
+    "qwen/qwen3-coder-480b-a35b-instruct-maas": {"expected": 0.63, "cap": 4.15, "smoke_cap": 0.44},
+    "confirmed_billing": "unknown (no calls made)"
+  }
+}

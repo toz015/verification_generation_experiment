@@ -1,0 +1,48 @@
+{
+  "actual_total_cost_unknown": true,
+  "confirmed_billing_usd": null,
+  "imported_first5_estimated_usd": 0.0008595899999999999,
+  "latest_continuation_increment_estimated_usd": 0.0546345,
+  "limit_usd": 1.0,
+  "project": "llm-applications-490420",
+  "received_reply_estimated_usd": 0.13021686,
+  "shared_ledger_estimated_usd": 0.12935727,
+  "unknown_requests": [
+    {
+      "position": 22,
+      "reserved_usd": 0.01195695,
+      "status": "unresolved"
+    },
+    {
+      "position": 49,
+      "reserved_usd": 0.01196352,
+      "status": "unresolved"
+    },
+    {
+      "position": 65,
+      "reserved_usd": 0.011962889999999999,
+      "status": "unresolved"
+    },
+    {
+      "position": 96,
+      "reserved_usd": 0.011985119999999998,
+      "status": "unresolved"
+    },
+    {
+      "position": 176,
+      "reserved_usd": 0.012089969999999998,
+      "status": "unresolved"
+    },
+    {
+      "position": 179,
+      "reserved_usd": 0.01205739,
+      "status": "unresolved"
+    },
+    {
+      "position": 292,
+      "reserved_usd": 0.011979539999999999,
+      "status": "unresolved"
+    }
+  ],
+  "unknown_reserved_usd": 0.08399538
+}

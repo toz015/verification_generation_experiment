@@ -1,0 +1,177 @@
+<title>{{TITLE}}</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* One reading column. Each chart block is a row of three small multiples (one per generator) per dataset.
+   Series colors: categorical slots 1-6 of the validated reference palette, stepped separately for dark. */
+:root {
+  --bg: #f6f8f7; --surface: #fcfcfb; --fg: #1c2522; --muted: #5a6661; --line: #dbe1de;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6b5ba8; --s8: #8a6d3b; --s9: #4a9bb0;
+  --display: "Noto Serif SC", "Songti SC", serif; --body: "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141917; --surface: #1a1a19; --fg: #e4ebe7; --muted: #9aa7a1; --line: #303a36;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #0ca30c; --s7: #9a8be0; --s8: #c09a5e; --s9: #6cc0d4; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141917; --surface: #1a1a19; --fg: #e4ebe7; --muted: #9aa7a1; --line: #303a36;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #0ca30c; --s7: #9a8be0; --s8: #c09a5e; --s9: #6cc0d4; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.65; margin: 0; }
+main { max-width: 1120px; margin: 0 auto; padding-block: 36px 56px; padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 34px; min-width: 0; }
+section { display: grid; gap: 10px; min-width: 0; }
+h1 { font-family: var(--display); font-size: 28px; line-height: 1.3; margin: 0; text-wrap: balance; }
+h2 { font-size: 19px; margin: 0; } h3 { font-size: 15px; margin: 14px 0 0; }
+p { margin: 0; max-width: 74ch; } .meta { color: var(--muted); font-size: 13px; }
+ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 80ch; }
+nav { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; }
+nav a { color: var(--muted); }
+.row { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 12px; }
+figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 10px; min-width: 0; }
+figcaption { font-size: 13px; font-weight: 700; }
+svg { width: 100%; height: auto; display: block; }
+.grid { stroke: var(--line); stroke-width: 1; }
+.ideal { stroke: var(--muted); stroke-width: 1.25; stroke-dasharray: 5 4; }
+.tk { font: 10.5px var(--mono); fill: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); position: sticky; top: 0;
+  background: var(--bg); padding: 6px 0; z-index: 1; top: env(safe-area-inset-top, 0px); }
+.legend i { display: inline-block; width: 16px; height: 4px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+.seg { display: flex; gap: 6px; flex-wrap: wrap; }
+.seg button { font: 13px var(--body); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { border-color: var(--fg); font-weight: 700; }
+.bud { display: grid; gap: 12px; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+td.wrap { white-space: normal; min-width: 240px; }
+thead th { color: var(--muted); font-weight: 500; }
+tbody th { font-weight: 500; }
+.n { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; } thead .n { font-family: var(--body); }
+code { font-family: var(--mono); font-size: 13px; }
+</style>
+<main>
+<header style="display:grid;gap:8px">
+  <h1>离线多风险实验：放行错误率、FPR、FNR 三种约束下的比较{{VARIANT}}</h1>
+  <p class="meta">GPQA、MATH-500、QuantumKatas，三个 generator，三种风险约束，共 {{NCOND}} 个主实验条件、{{NROWS}} 个方法结果行（含两个边界参照）。所有方法在拟合部分训练、在验证部分选工作点、在测试部分冻结评估。只用缓存：{{NET}}。代码版本 <code>{{CODE}}</code>。</p>
+  <nav><a href="#s1">1 任务和数据</a><a href="#examples">α 的直观例子</a><a href="#s2">2 方法</a><a href="#s3">3 怎么判断</a><a href="#s4">4 结果</a><a href="#risk-selective_error">4.1 放行错误率</a><a href="#risk-fpr">4.2 FPR</a><a href="#risk-fnr">4.3 FNR</a><a href="#appendix">附录 达标口径</a><a href="#rawp">5 原始 p 对照</a><a href="#s5">6 诊断</a><a href="#s6">7 和上一版的区别</a><a href="#s7">8 复现</a></nav>
+</header>
+
+<section id="s1">
+  <h2>1. 任务和数据</h2>
+  <p>每道题，generator 给出一个固定答案和自报的 p_correct。策略可以花钱问缓存里的 verifier，最后决定放行这个答案或拦下（弃权），不生成也不修改答案。测试部分只评估，标签只给评估器用。</p>
+  <div class="scroll"><table><thead><tr><th>数据集</th><th>拟合 / 验证 / 测试</th></tr></thead><tbody>
+    <tr><th scope="row">GPQA</th><td class="wrap">249 道 calibration 题按固定种子分成拟合 199、验证 50；196 道 Diamond 题测试</td></tr>
+    <tr><th scope="row">MATH-500</th><td class="wrap">5 折：第 k 折测试，第 k+1 折验证，其余 3 折拟合；5 次测试合起来是全部 500 题</td></tr>
+    <tr><th scope="row">QuantumKatas</th><td class="wrap">322 题，5 折，同上；划分按合并后的 kata 组，同一组不跨拟合 / 验证 / 测试</td></tr>
+  </tbody></table></div>
+  <p>没给答案的题按官方规则算错（Y = 0），所有方法都直接拦下；它们算在 FPR 的错误分母里，所以附带报告只看有答案的题的 FPR（汇总表的 <code>fpr_eligible_subset</code>）。预检：{{PRE}}。</p>
+  <p>三种风险，记 p 为放行比例，e 为「放行了且错」占全部题的比例，m 为「拦下了且对」的比例，q 为正确比例：</p>
+  <div class="scroll"><table><thead><tr><th>风险</th><th>定义</th><th>优化目标</th><th>约束</th><th>α</th></tr></thead><tbody>
+    <tr><th scope="row">放行错误率</th><td>e / p</td><td>放行率 p 最大</td><td>e ≤ α p</td><td>0.01, 0.02, 0.05, 0.10, 0.20</td></tr>
+    <tr><th scope="row">FPR</th><td>e / (1 − q)</td><td>放行率 p 最大</td><td>e ≤ α (1 − q)</td><td>0.05, 0.10, 0.20, 0.30</td></tr>
+    <tr><th scope="row">FNR</th><td>m / q</td><td>错误放行 e 最小</td><td>m ≤ α q</td><td>0.01, 0.02, 0.05, 0.10</td></tr>
+  </tbody></table></div>
+  <p>FNR 的目标换成了最小化错误放行：如果还是最大化放行，全部放行就让 FNR 为 0，问不出筛选的问题。同一个 α 在三种风险下严格程度不同，不能横向比较。测试集上每题的平均 verifier 花费不能超过预算 B = f × c_ref，f 取 0、0.1、0.25、0.5、0.75、1。</p>
+  <p><b>c_ref（参考花费）</b>：一道题把 5 个 verifier（gemini_flash、gemini_lite、mistral_small、mistral_medium、claude_haiku）全部问一遍的花费，在拟合部分有答案的题上取平均。每个数据集 × generator × 折单独算，只用拟合部分，不看验证和测试。所以 f = 1 表示平均每题最多花掉「问满 5 个 verifier」的钱，f = 0.5 是它的一半，f = 0 是不问 verifier。单位 ×10⁻⁴ 美元/题，各数据集的范围：{{CREF}}。</p>
+  <h3 id="examples">约束的直观例子：p 多高才放行</h3>
+  <p>假设不问 verifier，只看校准后的 p_correct，并把它当作答案正确的概率，从 p 最高的题往下放行，直到再放一道就违反约束。下表是每种风险在主要展示的 α 下，这时还能放行的最低 p，以及放行了全部题的多少（测试题，各折合起来）。</p>
+  {{EXAMPLES}}
+  <p>放行错误率和 FPR 下，α 越小门槛越高，放行越少。FNR 正好相反：它限制被拦下的正确答案不超过 α，所以只能拦下 p 最低的一小部分题，大部分有答案的题都要放行（上表 FNR 一列的放行比例都在七成以上）。FNR 下各方法能拉开差距的空间很小，主要靠 verifier 把个别错答案的 p 拉到门槛以下。实际方法还会问 verifier 更新 p，所以门槛只是参考。</p>
+</section>
+
+<section id="s2">
+  <h2>2. 方法</h2>
+  <div class="scroll"><table><thead><tr><th>方法</th><th>做什么</th></tr></thead><tbody>
+    <tr><th scope="row">Ours-Offline</th><td class="wrap">isotonic 校准 p_correct，verifier 5 档 likelihood；先验就是校准后的 p_correct；对每种风险分别用它的拉格朗日乘子做 Bellman 规则（按顺序最多问 3 个 verifier，每步决定放行、拦下或再问），用该风险的 LP 混合规则。顺序在 60 种里不看标签排出前 3；3 个顺序 × 6 个 α_plan × 6 个 B_plan = 108 个候选</td></tr>
+    <tr><th scope="row">AT-Frozen</th><td class="wrap">selective auditing 论文的阈值更新，输入是校准后的 p_correct；在拟合部分跑一遍（γ_fit = 0.1）后冻结，测试时不随机送审；40 个配置 × 20 个种子</td></tr>
+    <tr><th scope="row">AT+Cal-Frozen</th><td class="wrap">论文 Algorithm 1，输入是校准后的 p_correct，在线学阈值和 21 点校准权重，同样冻结；160 个配置 × 20 个种子</td></tr>
+    <tr><th scope="row">Cal-threshold</th><td class="wrap">直接对校准后的 p_correct 取阈值，候选是验证部分出现过的分数，加上全放行和全拦下。isotonic 校准不改变题目的排序，所以它能分出的放行集合和对原始 p 取阈值基本相同，只是校准把一些分数并成了同一档</td></tr>
+    <tr><th scope="row">Fixed-1-Mix</th><td class="wrap">和我们同样的校准和 likelihood，固定问 1 个 verifier（5 种），后验过阈值就放行；用同一风险 LP 和「全放行 / 全拦下」按权重随机混合，所以预算不够时只随机抽一部分题去问</td></tr>
+    <tr><th scope="row">Fixed-3-Mix</th><td class="wrap">同上，固定问满 3 个（10 种组合），不按置信度提前停</td></tr>
+    {{EXTRAMETHODS}}
+    <tr><th scope="row">Release-eligible / Abstain-all</th><td class="wrap">边界参照：放行所有有答案的题 / 全部拦下，不问 verifier</td></tr>
+  </tbody></table></div>
+  <p>所有方法读同一个校准后的 p_correct：isotonic 只在拟合部分拟合，再用到验证和测试部分。第 5 节把所有方法换成原始 p_correct 再跑一遍，作为对照。</p>
+  {{POOLNOTE}}
+  <p class="meta">各风险的立即放行价值：放行错误率 1 − λ((1 − b) − α)，FPR 1 − λ(1 − b)，FNR λb − (1 − b)；FNR 的放行边界是 b ≥ 1 / (1 + λ)。代码统一写成 b − κ(1 − b) 的正倍数形式，推导和测试见 <code>docs/offline-multirisk-implementation-20261116.md</code>。</p>
+</section>
+
+<section id="s3">
+  <h2>3. 怎么判断</h2>
+  <ul>
+    <li><b>选工作点</b>：每个方法、风险、α、预算、种子，在验证部分用标签和实际回放花费挑：放行错误率和 FPR 选满足约束、有放行的候选里放行最多的；FNR 选满足约束的候选里错误放行最少的。平局按花费、规则数、编号依次决定。</li>
+    <li><b>回退</b>：验证部分没有可行候选、或风险分母为 0 时，记为选择失败，并按事先规定回退：放行错误率和 FPR 回退到全拦下，FNR 回退到放行所有有答案的题。回退单独记录。</li>
+    <li><b>达标</b>：测试集上实际风险 ≤ α 且平均花费 ≤ 预算（只容许浮点误差）。放行错误率和 FPR 下零放行不算达标。</li>
+    <li><b>主比较（和上一版相同）</b>：在全部条件里，比较我们和每个对照的放行率（FNR 比较错误放行 e），用配对区间判断谁显著更好。风险和预算是否超标单独列出，不影响这个比较。</li>
+    <li><b>附录</b>：按手册的达标口径另做一遍：先看风险和预算是否同时达标（双方达标 / 仅一方达标 / 都没达标 / 不可评价），只在双方都达标的条件里比较。</li>
+    <li><b>区间</b>：2000 次配对 bootstrap，按测试折分层，QuantumKatas 按 kata 组重抽；点估计是实际测试差值。区间描述冻结策略在这批测试题上的不确定性，没有做多重比较校正，「显著更好」的条件数只是描述，不是独立胜场；相邻 α 和预算常选到同一策略，条件之间不独立。</li>
+    <li><b>多种子</b>：AT 两种方法 20 个种子先对每题放行概率取平均再汇总；混合策略按权重求期望，另存 20 次抽签结果。</li>
+  </ul>
+</section>
+
+<section id="s4">
+  <h2>4. 结果</h2>
+  {{HEADLINE}}
+  {{LEGEND}}
+</section>
+{{BLOCKS}}
+
+<section id="appendix">
+  <h2>附录：按达标口径的比较</h2>
+  <p class="meta">达标指测试集上实际风险 ≤ α 且平均花费 ≤ 预算；放行错误率和 FPR 下零放行不算达标。「去掉回退」指去掉任一方在任一折或种子用了回退的条件。</p>
+  {{APPENDIX}}
+  {{SCAPPENDIX}}
+</section>
+
+{{RAWP}}
+
+<section id="s5">
+  <h2>6. 诊断</h2>
+  <h3>类别分母（错误数少时 FPR 很不稳）</h3>
+  {{DENOM}}
+  <h3>验证部分的选择状态</h3>
+  {{SEL}}
+  <h3>重复工作点（相邻 α 和预算常选到同一策略，不是新的证据）</h3>
+  {{DUP}}
+  <h3>AT 的种子稳定性</h3>
+  {{SEED}}
+  <h3>混合策略：抽签执行和期望评价</h3>
+  {{DRAWS}}
+  <h3>Brier（测试集，有答案的题）</h3>
+  <p class="meta">原始 p 和我们的先验在全部有答案的测试题上计算；AT+Cal 用放行错误率 α = 0.05、B = 1×c_ref 时选中的校准分数，没选中的折×种子记为「无选中校准」，并在同一批题×种子上给出另外两种分数做配对比较。</p>
+  {{BRIER}}
+</section>
+
+<section id="s6">
+  <h2>7. 和上一版（审计基准 4709be4）的区别</h2>
+  <div class="scroll"><table><thead><tr><th>改动</th><th>类型</th><th>内容</th></tr></thead><tbody>
+    <tr><th scope="row">p_correct 口径</th><td>比较口径</td><td class="wrap">所有方法统一读校准后的 p_correct（上一版只有 Ours 和 Fixed 校准，AT、AT+Cal 和阈值方法读原始 p）；另跑一套全部读原始 p 的对照（第 5 节）</td></tr>
+    <tr><th scope="row">风险分支</th><td>新实验目标</td><td class="wrap">新增 FPR 和 FNR 两个分支，各自重新规划和选择，不是换一个评价字段；FNR 改成最小化错误放行</td></tr>
+    <tr><th scope="row">α 网格</th><td>新实验目标</td><td class="wrap">放行错误率从 0.01 / 0.05 / 0.10 扩到 5 个值；新增 Fixed-1-Mix、Fixed-3-Mix 两个对照</td></tr>
+    <tr><th scope="row">AT 候选</th><td>实现修复</td><td class="wrap">1 − 0.9 的浮点误差曾漏掉 α_at = 0.9，候选从 35 / 140 恢复到 40 / 160</td></tr>
+    <tr><th scope="row">query rate</th><td>实现修复</td><td class="wrap">混合策略按权重求「至少问一次」的概率，不再把期望调用数二值化</td></tr>
+    <tr><th scope="row">Brier</th><td>统计口径</td><td class="wrap">按样本加权，不跳过我们没有可行路由的折；AT+Cal 没选中时不拿候选 0 代替</td></tr>
+    <tr><th scope="row">bootstrap</th><td>统计口径</td><td class="wrap">零分母记 NA 并报告有效次数；点估计改为实际测试差值；按测试折分层</td></tr>
+    <tr><th scope="row">超标计数</th><td>统计口径</td><td class="wrap">种子平均后的风险超标和多数种子超标分开计数，全部从数据生成</td></tr>
+    <tr><th scope="row">预算参考</th><td>实现修复</td><td class="wrap">只用该折拟合部分（旧的 release-error 实验用了全部数据，本实验不再沿用）</td></tr>
+    <tr><th scope="row">有效性和标签</th><td>实现修复</td><td class="wrap">「有没有答案」只看输入，标签来源单独记录；测试标签和价格的扰动测试都通过</td></tr>
+  </tbody></table></div>
+  <p>正文的比较方式和上一版相同（全部条件里比放行率，超标单独列）。在两版都有的 162 个条件上（放行错误率，α = 1%、5%、10%，6 档预算），两版的计数接近，变化来自上表的修复。</p>
+</section>
+
+<section id="s7">
+  <h2>8. 复现</h2>
+  <p><code>python -m vgx.offline_multirisk run|verify|report --config configs/offline_multirisk_20261116_calibrated.json</code>（原始 p 对照把配置换成 <code>_raw.json</code>，先跑它再出报告），测试 <code>python -m pytest tests/test_offline_multirisk.py tests/test_offline_frozen.py tests/test_selective_auditing.py</code>。结果在 <code>results/offline_multirisk_20261116_calibrated/</code> 和 <code>_raw/</code>：每个数据集 × generator 一个汇总 JSON、逐题决策 <code>decisions_*.csv.gz</code>、逐规则调用轨迹 <code>rule_traces_*.jsonl.gz</code>、AT 每个种子的放行 <code>seed_releases_*.npz</code>、选中配置 <code>selected_configs_*.json</code>，全部条件表 <code>summary.csv</code>。</p>
+  <p>独立重建：{{VERIFY}}</p>
+</section>
+</main>
+<script>
+// Budget toggle for the alpha charts: each risk section switches its own figures.
+document.querySelectorAll('section[id^="risk-"]').forEach(sec => {
+  sec.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    sec.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    sec.querySelectorAll('.bud').forEach(d => { d.hidden = d.dataset.b !== b.dataset.b; });
+  }));
+});
+</script>

@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "generator_root": "results/gpqa_sonnet55_20261015",
+  "screen_config": "configs/gpqa_signal_study_4096.json",
+  "expected_screen_sha256_from_existing_plan": "configs/gpqa_diamond_signals.json",
+  "development_cache_roots": [
+    "results/gpqa_signal_study_4096_20261005/cache",
+    "results/gpqa_generator_comparison_20261005_v2/cache",
+    "results/gpqa_reasoning_comparison_20261005_v3/cache",
+    "results/gpqa_qwen_verifier_completion_20261006/cache"
+  ],
+  "evaluation_cache_roots": ["results/gpqa_diamond_signals_20261012/cache"],
+  "verifiers": ["gemini_flash", "gemini_lite", "mistral_small", "mistral_medium", "claude_haiku"],
+  "project": "llm-applications-490420",
+  "stage_budget_usd": 5.0,
+  "total_authorized_usd": 200.0,
+  "seed": 20261016,
+  "workers": 5,
+  "format_gate_questions": 10,
+  "format_gate_max_invalid_per_verifier": 1,
+  "settings": {
+    "probability_bins": 3,
+    "laplace": 1.0,
+    "correct_reward": 1.0,
+    "losses": [19.0, 99.0],
+    "utility_per_usd": 10.0,
+    "bootstrap_repeats": 10000,
+    "likelihood_model": "conditional_independence",
+    "prior": "raw_unmodified_p_correct",
+    "order_selection": "maximize mean development-prior exact J0 across all 60 ordered triples; lexicographic ties",
+    "cost_fit": "mean development provider-token cost for each verifier, including returned malformed replies"
+  },
+  "pricing_verified_on": "2026-10-16",
+  "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+  "notes": [
+    "Reuse exact historical requests including malformed returns; only missing requests may be collected.",
+    "Keep the five existing probability prompts, runners, model settings and parser unchanged.",
+    "Development labels only for fitting; freeze likelihoods, costs and orders before evaluation cache access/collection and decisions.",
+    "Diamond generator-only results were previously inspected; this is an exploratory extension, not a newly untouched confirmatory holdout.",
+    "No confidence calibration, generator calls, candidate repair, model substitution or budget expansion.",
+    "Primary arms are raw confidence, adaptive single Flash, and adaptive selected triple. Always-query Brier diagnostics are separate from stopping-policy results.",
+    "Conditional independence is an assumption, not established by family diversity. Sonnet and Haiku share a family.",
+    "The cache-first experiment collects complete signals for offline comparisons; replay accesses only the selected query prefix, without labels or future scores.",
+    "Costs of the policy are counterfactual token-usage estimates for queried prefixes, distinct from new collection spending and confirmed billing.",
+    "This is accept/abstain on frozen candidates, not generator fine-tuning or answer correction."
+  ]
+}

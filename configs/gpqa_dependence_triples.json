@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "purpose": "Offline check: do three cached probability verifiers beat single Flash once their dependence given correctness is modelled?",
+  "bundle": "reports/gpqa_probability_triples_20261011/review_bundle.zip",
+  "bundle_sha256": "61677b5889987f140ce6f43f20d476c5734d6bd25f3780099310f69a36190469",
+  "source_analysis_id": "8219549684e380b6c1a8238c6c90caa77c92c47eae180a5753f1d5251fcb311f",
+  "losses": [
+    19.0,
+    99.0
+  ],
+  "correct_reward": 1.0,
+  "laplace": 1.0,
+  "probability_bins": 3,
+  "reference_verifier": "gemini_flash:probability",
+  "joint_model": "per correctness class, empirical joint bin table of the three verifiers shrunk toward the product of the frozen per-verifier likelihoods with Dirichlet weight alpha",
+  "alpha_grid": [
+    0.5,
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256
+  ],
+  "alpha_selection": "per training fold and combination, inner 5-fold CV class-conditional log-likelihood of bin cells; inf (independence) is a candidate; ties go to the larger alpha",
+  "fixed_alphas": [
+    2,
+    8,
+    32
+  ],
+  "inner_folds": 5,
+  "inner_seed": 20261012,
+  "order_selection": "maximize mean training-prior J0 over the 60 ordered triples (exact recursion); lexicographic tie-break",
+  "bootstrap_repeats": 2000,
+  "new_api_requests": 0,
+  "evaluation_labels_read": false,
+  "confidence_calibration": false,
+  "prior_calibration_methods": [
+    "monotone_binned",
+    "platt"
+  ],
+  "prior_calibration": "Optional offline diagnostic (authorized 2026-10-12): replace h(r)=r by a map fitted on each training fold only. monotone_binned = one bin per distinct raw value, adjacent bins pooled until Laplace(1,1) rates are nondecreasing (primary); platt = logistic regression on logit(raw), raw limited to [0.001, 0.999] inside the fit (sensitivity). Raw-confidence results remain the primary analysis."
+}

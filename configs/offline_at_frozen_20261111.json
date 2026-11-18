@@ -1,0 +1,132 @@
+{
+  "datasets": [
+    "gpqa",
+    "math500",
+    "qkatas"
+  ],
+  "kind": "offline_frozen_comparison",
+  "notes": [
+    "Settings are this project's choices, not the paper's defaults.",
+    "Ours: Model (isotonic PAV on Fit labels = Brier-optimal monotone fit; verifier likelihoods with Laplace 1, 5 bins) fit on Fit; model-planned mixtures built on Validation reports without labels; working point chosen on Validation with labels by the shared rule.",
+    "Verifier order shortlist: top 3 of 60 by label-free model-planned coverage averaged over alpha_plan x B_plan.",
+    "Invalid candidates (no answer or no confidence; never label-based) are deferred by every method and counted in n."
+  ],
+  "paper": "arXiv:2610.31662v1 (offline adaptation; the paper's online guarantees do not apply)",
+  "protocol": "docs/offline-at-frozen-experiment-protocol-20261110.md",
+  "schema": 1,
+  "settings": {
+    "alpha_at": [
+      0.01,
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      0.9
+    ],
+    "alpha_main": 0.05,
+    "alpha_plan": [
+      0.005,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "alpha_target": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "audit_price_ratios": [
+      1,
+      5,
+      20
+    ],
+    "beta": [
+      0.001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "bootstrap": 2000,
+    "bootstrap_seed": 20261111,
+    "budget_fractions": [
+      0,
+      0.1,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "calibration_grid": [
+      0.0,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95,
+      1.0
+    ],
+    "eta": [
+      0.001,
+      0.003,
+      0.01,
+      0.03,
+      0.1
+    ],
+    "fit_epochs": 1,
+    "gamma_fit": 0.1,
+    "gamma_test_main": 0.0,
+    "gpqa_split_seed": 20261111,
+    "gpqa_usd_budgets": [
+      0.0005,
+      0.001,
+      0.002,
+      0.003,
+      0.006
+    ],
+    "gpqa_validation_share": 0.2,
+    "mixture_draws": 20,
+    "ours_orders_shortlist": 3,
+    "risk_metric": "selective_error",
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "tau1": 0.5
+  }
+}

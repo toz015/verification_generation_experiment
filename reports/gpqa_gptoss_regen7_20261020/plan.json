@@ -1,0 +1,40 @@
+{
+  "answer_keys_read": false,
+  "authorization": "2026-10-20 owner asked to re-run the 5 invalid-JSON and 2 aborted replies for complete results",
+  "budget_cap_usd": 1.0,
+  "finish_expansion_id": "43c6e8bd631106d21638ebf88fdaa994259b39050659cfcb541fb5854b73c8f4",
+  "implementation_sha256": "c2ff1a2275f0806105028f81f6f5d935376db4294bdcc9893eb0ca225ec1f2f8",
+  "original_failures": {
+    "101": "finish_reason:abort",
+    "122": "finish_reason:abort",
+    "13": "invalid_final_json",
+    "184": "invalid_final_json",
+    "319": "invalid_final_json",
+    "370": "invalid_final_json",
+    "75": "invalid_final_json"
+  },
+  "policy": "one identical re-request per unusable reply; valid replies are never re-requested",
+  "regen_id": "1c7b9c8babe3631bd4feb595f805e0e1208567fcb5c661021716689568a3bfa6",
+  "runner": {
+    "location": "us-central1",
+    "max_tokens": 32768,
+    "model": "openai/gpt-oss-120b-maas",
+    "native_reasoning_adapter": 1,
+    "project_sha256": "b274fe959fdb7077a2eaf04d6080f1ce2210da3dde7789fc8d6a79e198ddf6ce",
+    "provider": "vertex_ai_chat_completions",
+    "reasoning_effort": "medium",
+    "schema": 1,
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "source_bundle_id": "afba49dc04476536d76c866d84cb3a243f3db8900710934c9f2eb87c06f27338",
+  "target_positions": [
+    13,
+    75,
+    101,
+    122,
+    184,
+    319,
+    370
+  ]
+}

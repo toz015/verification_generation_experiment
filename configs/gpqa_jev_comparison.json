@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "source_root": "results/gpqa_vertex_20261004",
+  "bundle_id": "f0fa3ba0d9551df0aac24ad584da64af55062b4ef608134917cb855b79927add",
+  "budget_usd": 10.0,
+  "model": "jev-1.13.0",
+  "account_scope": "gpqa-jev-20261004",
+  "api_pricing": {
+    "source": "https://docs.typesafe.ai/models",
+    "checked_on": "2026-10-04",
+    "note": "Input tokens billed; output tokens free. Usage estimates are not confirmed credit deductions.",
+    "usd_per_million_tokens": {"jev-1.13.0": {"input": 0.042, "output": 0.0}}
+  },
+  "verifiers": [
+    {"id": "jev_choice_v1", "provider": "typesafe", "model": "jev-1.13.0", "mode": "choice", "prompt_version": "gpqa_jev_v1", "account_scope": "gpqa-jev-20261004"},
+    {"id": "jev_noul_v1", "provider": "typesafe", "model": "jev-1.13.0", "mode": "noul", "prompt_version": "gpqa_jev_v1", "account_scope": "gpqa-jev-20261004"}
+  ],
+  "primary_arm": "choice_only",
+  "arms": [
+    {"name": "choice_only", "order": ["jev_choice_v1"]},
+    {"name": "noul_only_secondary", "order": ["jev_noul_v1"]},
+    {"name": "choice_then_gemini_secondary", "order": ["jev_choice_v1", "verifier_2"]}
+  ],
+  "correct_reward": 1.0,
+  "incorrect_loss": 19.0,
+  "utility_per_usd": 10.0,
+  "pilot_calibration_size": 10,
+  "bootstrap_repeats": 500,
+  "seed": 20261004,
+  "notes": [
+    "All generator candidates, original prompts and Vertex responses are frozen; no new Vertex calls.",
+    "Choice probability of the frozen generator option and Noul yes probability are separate arms, never independent layers together.",
+    "Fit likelihoods and expected costs using calibration only; seal policies before Jev evaluation collection.",
+    "Execute primary live Jev selection before extra held-out Jev signals for offline baselines.",
+    "Raw Jev probabilities and likelihood-updated generator priors are both assessed; do not use the Jev confidence field as correctness probability.",
+    "The Diamond cohort was already examined in the Vertex study, so every Jev evaluation comparison is exploratory."
+  ]
+}

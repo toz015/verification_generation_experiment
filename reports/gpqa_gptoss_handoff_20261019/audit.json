@@ -1,0 +1,21 @@
+{
+  "analysis_id": "01b8fcf248f1231f190ca09be41572fea5a2ffbc1508a66c81e7961c9a3ba59d",
+  "answer_keys_read": false,
+  "blocked292_elapsed_seconds": 300.1871302127838,
+  "checkpoint": "291 received; unknown292;153 never attempted",
+  "confidence_calibrated": false,
+  "correctness_scored": false,
+  "expansion_id": "88e9cf045a5c94bd19c5d1fae6c3c824f61d737b1bdaf9f2b3bebb390c7b7bcc",
+  "full_completion_audit_passed": false,
+  "minimum_new_request_gap_after_completion_seconds": 30.531916856765747,
+  "new_api_calls": 0,
+  "note": "Partial checkpoint audit only. Full collection audit correctly blocks on unknown292.",
+  "original178_reply_and_candidate_hashes_match": true,
+  "partition_counts_and_confidence_summary_recomputed": true,
+  "passed": true,
+  "received_call_identity_and_priced_usage_checked_n": 291,
+  "received_responses_single_success_record_each": true,
+  "source_seals_and_protected_files_match": true,
+  "unit_tests_run": false,
+  "usage_reconciles_with_shared_ledger_and_imported_first5": true
+}

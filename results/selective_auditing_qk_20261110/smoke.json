@@ -1,0 +1,891 @@
+{
+  "config_sha256": "e1479adedc6b2e47cefdc4573f882567fcee565bbf9d20d08b716419b294c7bc",
+  "generators": {
+    "gptoss": {
+      "evaluable": 308,
+      "excluded": [
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "KeyDistribution_BB84/1.1"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "MarkingOracles/3"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "CHSHGame/2.1"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "CHSHGame/2.3"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "GraphColoring/6"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "GHZGame/1.3"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "QFT/1.5"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "Measurements/1.14"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "Measurements/1.6"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "Measurements/2.3"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "RippleCarryAdder/2.4"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "RippleCarryAdder/3.4"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "RippleCarryAdder/4.1"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "RippleCarryAdder/5.2"
+        }
+      ],
+      "orders": {
+        "primary": {
+          "0.1": {
+            "AT": {
+              "E": 113,
+              "T": 308,
+              "brier": 0.2607584415584415,
+              "mean_counts": {
+                "A": 41.1,
+                "M": 13.3,
+                "audits": 266.9,
+                "mandatory_audits": 228.0,
+                "spot_audits": 38.9
+              },
+              "per_run": {
+                "audit_rate": {
+                  "mean": 0.8665584415584415,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.8133116883116883,
+                    0.8571428571428572,
+                    0.9285714285714286
+                  ]
+                },
+                "auto_accept_rate": {
+                  "mean": 0.13344155844155844,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.07142857142857142,
+                    0.14285714285714285,
+                    0.18668831168831165
+                  ]
+                },
+                "leak_error_rate": {
+                  "mean": 0.11769911504424779,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.05221238938053097,
+                    0.09734513274336283,
+                    0.21327433628318584
+                  ]
+                },
+                "selective_risk": {
+                  "mean": 0.31347156163284584,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.2098814229249012,
+                    0.3072390572390572,
+                    0.4410364145658262
+                  ]
+                },
+                "total_unaudited_error_rate": {
+                  "mean": 0.04318181818181818,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.019155844155844155,
+                    0.03571428571428571,
+                    0.07824675324675323
+                  ]
+                }
+              },
+              "ratio_of_means": {
+                "audit_rate": 0.8665584415584415,
+                "auto_accept_rate": 0.13344155844155844,
+                "leak_error_rate": 0.11769911504424779,
+                "raw_error_rate": 0.36688311688311687,
+                "selective_risk": 0.3236009732360097,
+                "total_unaudited_error_rate": 0.04318181818181818
+              },
+              "runs": 10,
+              "seconds_per_run": 0.0003498292062431574,
+              "state_bytes_per_run": 8,
+              "theory_gap_bound": 0.02654867256637168
+            },
+            "AT+CC": {
+              "E": 113,
+              "T": 308,
+              "brier": 0.19380625297058166,
+              "mean_counts": {
+                "A": 46.5,
+                "M": 10.9,
+                "audits": 261.5,
+                "mandatory_audits": 210.7,
+                "spot_audits": 50.8
+              },
+              "per_run": {
+                "audit_rate": {
+                  "mean": 0.8490259740259741,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.7948051948051948,
+                    0.8506493506493507,
+                    0.8918831168831168
+                  ]
+                },
+                "auto_accept_rate": {
+                  "mean": 0.15097402597402598,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.10811688311688311,
+                    0.14935064935064934,
+                    0.20519480519480518
+                  ]
+                },
+                "leak_error_rate": {
+                  "mean": 0.09646017699115043,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.048230088495575224,
+                    0.0752212389380531,
+                    0.18451327433628312
+                  ]
+                },
+                "selective_risk": {
+                  "mean": 0.22348408358281008,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.15207871396895786,
+                    0.19330565646081993,
+                    0.3466939443535188
+                  ]
+                },
+                "total_unaudited_error_rate": {
+                  "mean": 0.03538961038961039,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.017694805194805194,
+                    0.0275974025974026,
+                    0.06769480519480517
+                  ]
+                }
+              },
+              "ratio_of_means": {
+                "audit_rate": 0.849025974025974,
+                "auto_accept_rate": 0.15097402597402598,
+                "leak_error_rate": 0.09646017699115045,
+                "raw_error_rate": 0.36688311688311687,
+                "selective_risk": 0.23440860215053763,
+                "total_unaudited_error_rate": 0.03538961038961039
+              },
+              "runs": 10,
+              "seconds_per_run": 0.0008325082715600729,
+              "state_bytes_per_run": 184,
+              "theory_gap_bound": 0.02654867256637168
+            },
+            "oracle_threshold": {
+              "audit_rate": 0.762987012987013,
+              "auto_accept_rate": 0.237012987012987,
+              "leak_error_rate": 0.035398230088495575,
+              "raw_error_rate": 0.36688311688311687,
+              "selective_risk": 0.0547945205479452,
+              "threshold": 0.98,
+              "total_unaudited_error_rate": 0.012987012987012988
+            },
+            "paired_cc_minus_at": {
+              "audit_rate": {
+                "mean": -0.01753246753246753,
+                "q025_975": [
+                  -0.07970779220779226,
+                  0.05836038961038963
+                ]
+              },
+              "auto_accept_rate": {
+                "mean": 0.01753246753246753,
+                "q025_975": [
+                  -0.058360389610389606,
+                  0.07970779220779221
+                ]
+              },
+              "leak_error_rate": {
+                "mean": -0.021238938053097345,
+                "q025_975": [
+                  -0.09823008849557521,
+                  0.02654867256637168
+                ]
+              }
+            },
+            "random": {
+              "E": 113,
+              "T": 308,
+              "brier": 0.2607584415584415,
+              "mean_counts": {
+                "A": 29.3,
+                "M": 9.7,
+                "audits": 278.7,
+                "mandatory_audits": 0.0,
+                "spot_audits": 278.7
+              },
+              "per_run": {
+                "audit_rate": {
+                  "mean": 0.9048701298701298,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.8795454545454545,
+                    0.9058441558441559,
+                    0.9274350649350649
+                  ]
+                },
+                "auto_accept_rate": {
+                  "mean": 0.09512987012987013,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.07256493506493505,
+                    0.09415584415584416,
+                    0.12045454545454545
+                  ]
+                },
+                "leak_error_rate": {
+                  "mean": 0.08584070796460178,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.03761061946902655,
+                    0.08849557522123894,
+                    0.12964601769911502
+                  ]
+                },
+                "selective_risk": {
+                  "mean": 0.3266604924113999,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.15738095238095237,
+                    0.32291666666666663,
+                    0.4883012820512819
+                  ]
+                },
+                "total_unaudited_error_rate": {
+                  "mean": 0.0314935064935065,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.0137987012987013,
+                    0.032467532467532464,
+                    0.04756493506493506
+                  ]
+                }
+              },
+              "ratio_of_means": {
+                "audit_rate": 0.9048701298701298,
+                "auto_accept_rate": 0.09512987012987013,
+                "leak_error_rate": 0.08584070796460176,
+                "raw_error_rate": 0.36688311688311687,
+                "selective_risk": 0.3310580204778157,
+                "total_unaudited_error_rate": 0.03149350649350649
+              },
+              "runs": 10,
+              "seconds_per_run": 0.00018327496945858002,
+              "state_bytes_per_run": 0,
+              "theory_gap_bound": 0.02654867256637168
+            }
+          }
+        }
+      },
+      "raw_errors": 113
+    },
+    "qwen3": {
+      "evaluable": 310,
+      "excluded": [
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "BoundedKnapsack/1.5"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "DistinguishUnitaries/1.10"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "DistinguishUnitaries/1.11"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "DistinguishUnitaries/1.7"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "DistinguishUnitaries/1.8"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "GraphColoring/9"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "Measurements/1.14"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "Measurements/1.15"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "Measurements/2.2"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "Measurements/2.3"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "RippleCarryAdder/1.6"
+        },
+        {
+          "reason": "no extractable code or confidence (end-to-end failure)",
+          "task_id": "RippleCarryAdder/5.2"
+        }
+      ],
+      "orders": {
+        "primary": {
+          "0.1": {
+            "AT": {
+              "E": 134,
+              "T": 310,
+              "brier": 0.3207112903225807,
+              "mean_counts": {
+                "A": 35.8,
+                "M": 12.2,
+                "audits": 274.2,
+                "mandatory_audits": 234.2,
+                "spot_audits": 40.0
+              },
+              "per_run": {
+                "audit_rate": {
+                  "mean": 0.884516129032258,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.8559677419354839,
+                    0.885483870967742,
+                    0.9174193548387096
+                  ]
+                },
+                "auto_accept_rate": {
+                  "mean": 0.11548387096774193,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.08258064516129032,
+                    0.11451612903225807,
+                    0.1440322580645161
+                  ]
+                },
+                "leak_error_rate": {
+                  "mean": 0.09104477611940298,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.05895522388059701,
+                    0.09701492537313433,
+                    0.11604477611940298
+                  ]
+                },
+                "selective_risk": {
+                  "mean": 0.34040267983897915,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.275,
+                    0.3405797101449275,
+                    0.4070833333333333
+                  ]
+                },
+                "total_unaudited_error_rate": {
+                  "mean": 0.039354838709677424,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.025483870967741934,
+                    0.041935483870967745,
+                    0.05016129032258064
+                  ]
+                }
+              },
+              "ratio_of_means": {
+                "audit_rate": 0.8845161290322581,
+                "auto_accept_rate": 0.11548387096774193,
+                "leak_error_rate": 0.09104477611940298,
+                "raw_error_rate": 0.432258064516129,
+                "selective_risk": 0.34078212290502796,
+                "total_unaudited_error_rate": 0.03935483870967742
+              },
+              "runs": 10,
+              "seconds_per_run": 0.0003543541766703129,
+              "state_bytes_per_run": 8,
+              "theory_gap_bound": 0.022388059701492536
+            },
+            "AT+CC": {
+              "E": 134,
+              "T": 310,
+              "brier": 0.23169327946403867,
+              "mean_counts": {
+                "A": 42.5,
+                "M": 14.0,
+                "audits": 267.5,
+                "mandatory_audits": 223.3,
+                "spot_audits": 44.2
+              },
+              "per_run": {
+                "audit_rate": {
+                  "mean": 0.8629032258064516,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.7991935483870968,
+                    0.8693548387096774,
+                    0.9148387096774193
+                  ]
+                },
+                "auto_accept_rate": {
+                  "mean": 0.1370967741935484,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.08516129032258064,
+                    0.13064516129032258,
+                    0.20080645161290317
+                  ]
+                },
+                "leak_error_rate": {
+                  "mean": 0.10447761194029852,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.05559701492537313,
+                    0.09328358208955223,
+                    0.1772388059701492
+                  ]
+                },
+                "selective_risk": {
+                  "mean": 0.3237430832530589,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.23699788583509515,
+                    0.32916666666666666,
+                    0.42987804878048774
+                  ]
+                },
+                "total_unaudited_error_rate": {
+                  "mean": 0.04516129032258065,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.02403225806451613,
+                    0.040322580645161296,
+                    0.07661290322580644
+                  ]
+                }
+              },
+              "ratio_of_means": {
+                "audit_rate": 0.8629032258064516,
+                "auto_accept_rate": 0.13709677419354838,
+                "leak_error_rate": 0.1044776119402985,
+                "raw_error_rate": 0.432258064516129,
+                "selective_risk": 0.32941176470588235,
+                "total_unaudited_error_rate": 0.04516129032258064
+              },
+              "runs": 10,
+              "seconds_per_run": 0.0008370500057935715,
+              "state_bytes_per_run": 184,
+              "theory_gap_bound": 0.022388059701492536
+            },
+            "oracle_threshold": {
+              "audit_rate": 0.7612903225806451,
+              "auto_accept_rate": 0.23870967741935484,
+              "leak_error_rate": 0.029850746268656716,
+              "raw_error_rate": 0.432258064516129,
+              "selective_risk": 0.05405405405405406,
+              "threshold": 0.99,
+              "total_unaudited_error_rate": 0.012903225806451613
+            },
+            "paired_cc_minus_at": {
+              "audit_rate": {
+                "mean": -0.021612903225806435,
+                "q025_975": [
+                  -0.07516129032258063,
+                  0.02395161290322583
+                ]
+              },
+              "auto_accept_rate": {
+                "mean": 0.021612903225806456,
+                "q025_975": [
+                  -0.023951612903225797,
+                  0.07516129032258068
+                ]
+              },
+              "leak_error_rate": {
+                "mean": 0.013432835820895522,
+                "q025_975": [
+                  -0.022388059701492546,
+                  0.07947761194029854
+                ]
+              }
+            },
+            "random": {
+              "E": 134,
+              "T": 310,
+              "brier": 0.3207112903225807,
+              "mean_counts": {
+                "A": 29.6,
+                "M": 13.8,
+                "audits": 280.4,
+                "mandatory_audits": 0.0,
+                "spot_audits": 280.4
+              },
+              "per_run": {
+                "audit_rate": {
+                  "mean": 0.9045161290322581,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.8803225806451613,
+                    0.9064516129032258,
+                    0.9264516129032258
+                  ]
+                },
+                "auto_accept_rate": {
+                  "mean": 0.09548387096774194,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.07354838709677419,
+                    0.0935483870967742,
+                    0.11967741935483871
+                  ]
+                },
+                "leak_error_rate": {
+                  "mean": 0.10298507462686568,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.07723880597014925,
+                    0.09701492537313433,
+                    0.13097014925373135
+                  ]
+                },
+                "selective_risk": {
+                  "mean": 0.47047570926450966,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.3569078947368421,
+                    0.46487867177522346,
+                    0.5859285714285714
+                  ]
+                },
+                "total_unaudited_error_rate": {
+                  "mean": 0.044516129032258066,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.03338709677419355,
+                    0.041935483870967745,
+                    0.05661290322580645
+                  ]
+                }
+              },
+              "ratio_of_means": {
+                "audit_rate": 0.904516129032258,
+                "auto_accept_rate": 0.09548387096774194,
+                "leak_error_rate": 0.10298507462686568,
+                "raw_error_rate": 0.432258064516129,
+                "selective_risk": 0.46621621621621623,
+                "total_unaudited_error_rate": 0.044516129032258066
+              },
+              "runs": 10,
+              "seconds_per_run": 0.00018535410054028035,
+              "state_bytes_per_run": 0,
+              "theory_gap_bound": 0.022388059701492536
+            }
+          }
+        }
+      },
+      "raw_errors": 134
+    },
+    "sonnet55": {
+      "evaluable": 322,
+      "excluded": [],
+      "orders": {
+        "primary": {
+          "0.1": {
+            "AT": {
+              "E": 35,
+              "T": 322,
+              "brier": 0.10001801242236023,
+              "mean_counts": {
+                "A": 50.2,
+                "M": 2.4,
+                "audits": 271.8,
+                "mandatory_audits": 214.3,
+                "spot_audits": 57.5
+              },
+              "per_run": {
+                "audit_rate": {
+                  "mean": 0.8440993788819876,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.7572981366459627,
+                    0.8633540372670807,
+                    0.8933229813664596
+                  ]
+                },
+                "auto_accept_rate": {
+                  "mean": 0.15590062111801242,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.10667701863354037,
+                    0.13664596273291924,
+                    0.2427018633540372
+                  ]
+                },
+                "leak_error_rate": {
+                  "mean": 0.06857142857142857,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.0,
+                    0.05714285714285714,
+                    0.15857142857142853
+                  ]
+                },
+                "selective_risk": {
+                  "mean": 0.04303264986666041,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.0,
+                    0.04438257451686865,
+                    0.08593220338983047
+                  ]
+                },
+                "total_unaudited_error_rate": {
+                  "mean": 0.007453416149068323,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.0,
+                    0.006211180124223602,
+                    0.017236024844720494
+                  ]
+                }
+              },
+              "ratio_of_means": {
+                "audit_rate": 0.8440993788819876,
+                "auto_accept_rate": 0.15590062111801242,
+                "leak_error_rate": 0.06857142857142857,
+                "raw_error_rate": 0.10869565217391304,
+                "selective_risk": 0.047808764940239036,
+                "total_unaudited_error_rate": 0.007453416149068323
+              },
+              "runs": 10,
+              "seconds_per_run": 0.0003767583053559065,
+              "state_bytes_per_run": 8,
+              "theory_gap_bound": 0.08571428571428572
+            },
+            "AT+CC": {
+              "E": 35,
+              "T": 322,
+              "brier": 0.0930029867221245,
+              "mean_counts": {
+                "A": 46.3,
+                "M": 2.2,
+                "audits": 275.7,
+                "mandatory_audits": 224.2,
+                "spot_audits": 51.5
+              },
+              "per_run": {
+                "audit_rate": {
+                  "mean": 0.8562111801242235,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.8099378881987578,
+                    0.8633540372670807,
+                    0.8846273291925466
+                  ]
+                },
+                "auto_accept_rate": {
+                  "mean": 0.14378881987577638,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.11537267080745342,
+                    0.13664596273291924,
+                    0.19006211180124225
+                  ]
+                },
+                "leak_error_rate": {
+                  "mean": 0.06285714285714286,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.0,
+                    0.05714285714285714,
+                    0.12999999999999995
+                  ]
+                },
+                "selective_risk": {
+                  "mean": 0.04485242171189661,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.0,
+                    0.046031746031746035,
+                    0.08687707641196012
+                  ]
+                },
+                "total_unaudited_error_rate": {
+                  "mean": 0.006832298136645962,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.0,
+                    0.006211180124223602,
+                    0.014130434782608692
+                  ]
+                }
+              },
+              "ratio_of_means": {
+                "audit_rate": 0.8562111801242236,
+                "auto_accept_rate": 0.14378881987577638,
+                "leak_error_rate": 0.06285714285714286,
+                "raw_error_rate": 0.10869565217391304,
+                "selective_risk": 0.04751619870410368,
+                "total_unaudited_error_rate": 0.006832298136645963
+              },
+              "runs": 10,
+              "seconds_per_run": 0.0008605208247900009,
+              "state_bytes_per_run": 184,
+              "theory_gap_bound": 0.08571428571428572
+            },
+            "oracle_threshold": {
+              "audit_rate": 0.5590062111801242,
+              "auto_accept_rate": 0.4409937888198758,
+              "leak_error_rate": 0.05714285714285714,
+              "raw_error_rate": 0.10869565217391304,
+              "selective_risk": 0.014084507042253521,
+              "threshold": 0.88,
+              "total_unaudited_error_rate": 0.006211180124223602
+            },
+            "paired_cc_minus_at": {
+              "audit_rate": {
+                "mean": 0.012111801242236042,
+                "q025_975": [
+                  -0.014130434782608666,
+                  0.058928571428571504
+                ]
+              },
+              "auto_accept_rate": {
+                "mean": -0.012111801242236027,
+                "q025_975": [
+                  -0.058928571428571414,
+                  0.014130434782608687
+                ]
+              },
+              "leak_error_rate": {
+                "mean": -0.005714285714285716,
+                "q025_975": [
+                  -0.095,
+                  0.050714285714285726
+                ]
+              }
+            },
+            "random": {
+              "E": 35,
+              "T": 322,
+              "brier": 0.10001801242236023,
+              "mean_counts": {
+                "A": 31.3,
+                "M": 2.5,
+                "audits": 290.7,
+                "mandatory_audits": 0.0,
+                "spot_audits": 290.7
+              },
+              "per_run": {
+                "audit_rate": {
+                  "mean": 0.9027950310559006,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.8799689440993789,
+                    0.9021739130434783,
+                    0.9246894409937888
+                  ]
+                },
+                "auto_accept_rate": {
+                  "mean": 0.09720496894409938,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.07531055900621118,
+                    0.09782608695652173,
+                    0.1200310559006211
+                  ]
+                },
+                "leak_error_rate": {
+                  "mean": 0.07142857142857142,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.012857142857142857,
+                    0.07142857142857142,
+                    0.14285714285714285
+                  ]
+                },
+                "selective_risk": {
+                  "mean": 0.08034608959247445,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.013636363636363637,
+                    0.0828698553948832,
+                    0.14469696969696969
+                  ]
+                },
+                "total_unaudited_error_rate": {
+                  "mean": 0.007763975155279502,
+                  "na_runs": 0,
+                  "q05_50_95": [
+                    0.0013975155279503104,
+                    0.007763975155279503,
+                    0.015527950310559006
+                  ]
+                }
+              },
+              "ratio_of_means": {
+                "audit_rate": 0.9027950310559005,
+                "auto_accept_rate": 0.09720496894409938,
+                "leak_error_rate": 0.07142857142857142,
+                "raw_error_rate": 0.10869565217391304,
+                "selective_risk": 0.07987220447284345,
+                "total_unaudited_error_rate": 0.007763975155279503
+              },
+              "runs": 10,
+              "seconds_per_run": 0.00019224169664084912,
+              "state_bytes_per_run": 0,
+              "theory_gap_bound": 0.08571428571428572
+            }
+          }
+        }
+      },
+      "raw_errors": 35
+    }
+  },
+  "seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009
+  ]
+}

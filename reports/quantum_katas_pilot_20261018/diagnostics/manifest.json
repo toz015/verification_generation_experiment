@@ -1,0 +1,8 @@
+{
+  "created_utc": "2026-10-19T00:46:46.508046+00:00",
+  "runner_sha256": "0fa5cbb4aa4fca8f87030bd7997725357357bd7e025bf675521cac1049656190",
+  "evaluator_sha256": "f91f4f6da9efbdb8fb88dbbd964979a9272119fb517c844a6680cedceb1b1e2e",
+  "plan_sha256": "5adf549e56f629c5a548116df56f163f9d838ed7ee9d6971d2a39620757cc437",
+  "purpose": "Post-hoc test-coverage diagnosis; not selection or final accuracy estimation",
+  "qft_convention": "qubits[0] is the most significant logical bit, matching pinned reference"
+}

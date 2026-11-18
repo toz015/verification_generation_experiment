@@ -1,0 +1,122 @@
+{
+  "accuracy_computed": false,
+  "additional_cost_projection_usd": 0.11337354000000001,
+  "additional_estimated_usd": 0.0546345,
+  "additional_responses": 113,
+  "all_received_gptoss_estimated_usd": 0.13021686,
+  "answer_keys_read": false,
+  "backoff_intervals_checked": 0,
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.12935727,
+    "limit_usd": 1.0,
+    "outstanding_reserved_usd": 0.08399538,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 286
+  },
+  "confidence_calibrated": false,
+  "confirmed_billing_usd": null,
+  "current_partition": "evaluation",
+  "current_position": 292,
+  "error": null,
+  "error_type": "UncertainRequestError",
+  "expansion_id": "88e9cf045a5c94bd19c5d1fae6c3c824f61d737b1bdaf9f2b3bebb390c7b7bcc",
+  "historical_unknown_reserved_usd": 0.07201584,
+  "http_status": null,
+  "input_tokens": 93270,
+  "invalid": {
+    "finish_reason:abort": 2,
+    "invalid_final_json": 3
+  },
+  "minimum_seconds_after_previous_attempt": 30.53191689109802,
+  "new_calls_this_invocation": 113,
+  "new_provider_attempts": 113,
+  "new_rejections": {},
+  "next_attempt_number": 1,
+  "not_before_unix": 1792394754.7970219,
+  "old_unknown_reservations_preserved": true,
+  "original179_unknown_attempts": 1,
+  "original_178_responses_and_candidates_unchanged": true,
+  "output_tokens_including_reasoning": 338396,
+  "parent_expansion_id": "4837ce2915b113e44b2db3785421e6b445c8cb0b2d0839e0a45e769dd4570003",
+  "partitions": {
+    "calibration": {
+      "confidence_n": 244,
+      "confidence_values": {
+        "0.2": 2,
+        "0.25": 2,
+        "0.3": 1,
+        "0.35": 2,
+        "0.4": 2,
+        "0.45": 4,
+        "0.55": 4,
+        "0.6": 16,
+        "0.65": 13,
+        "0.7": 19,
+        "0.71": 2,
+        "0.75": 17,
+        "0.78": 5,
+        "0.8": 1,
+        "0.85": 35,
+        "0.86": 14,
+        "0.9": 17,
+        "0.92": 8,
+        "0.93": 20,
+        "0.94": 1,
+        "0.95": 40,
+        "0.97": 16,
+        "0.98": 2,
+        "0.99": 1
+      },
+      "invalid": {
+        "finish_reason:abort": 2,
+        "invalid_final_json": 3
+      },
+      "mean_raw_confidence": 0.8089344262295082,
+      "responses": 249,
+      "stop_reasons": {
+        "abort": 2,
+        "stop": 247
+      },
+      "valid": 244
+    },
+    "evaluation": {
+      "confidence_n": 42,
+      "confidence_values": {
+        "0.4": 1,
+        "0.45": 1,
+        "0.6": 4,
+        "0.65": 2,
+        "0.7": 1,
+        "0.73": 1,
+        "0.75": 2,
+        "0.85": 10,
+        "0.86": 2,
+        "0.9": 2,
+        "0.92": 1,
+        "0.93": 5,
+        "0.95": 7,
+        "0.96": 1,
+        "0.97": 2
+      },
+      "invalid": {},
+      "mean_raw_confidence": 0.8242857142857142,
+      "responses": 42,
+      "stop_reasons": {
+        "stop": 42
+      },
+      "valid": 42
+    }
+  },
+  "remaining_requests": 154,
+  "responses": 291,
+  "responses_since_original_pilot": 241,
+  "reused_at_resume": 178,
+  "reused_pilot_responses": 50,
+  "stage": "blocked",
+  "target": 445,
+  "updated_at_unix": 1792395055.727558,
+  "valid": 286,
+  "verifier_requests": 0
+}

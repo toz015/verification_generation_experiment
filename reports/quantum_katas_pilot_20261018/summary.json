@@ -1,0 +1,533 @@
+{
+  "tasks": [
+    {
+      "task_id": "BasicGates/2.5",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.24723624996840954,
+      "reference_wall_max_s": 4.95317770796828,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "BoundedKnapsack/1.4",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.24048425001092255,
+      "reference_wall_max_s": 0.24117049993947148,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "CHSHGame/2.2",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.2360510837752372,
+      "reference_wall_max_s": 0.23927845805883408,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AssertionError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "CHSHGame/2.4",
+      "reference_runs": 30,
+      "reference_passes": 30,
+      "reference_wall_median_s": 0.3587205420481041,
+      "reference_wall_max_s": 0.38309154100716114,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AssertionError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "DeutschJozsa/1.6",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.22605408309027553,
+      "reference_wall_max_s": 0.2265084581449628,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "DistinguishUnitaries/1.2",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.235694499919191,
+      "reference_wall_max_s": 0.2394112499896437,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AssertionError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "GHZGame/2.2",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.2423315830528736,
+      "reference_wall_max_s": 0.2456917918752879,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AssertionError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "GraphColoring/5",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.19608808308839798,
+      "reference_wall_max_s": 0.19822729215957224,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "GroversAlgorithm/1.3",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.2026340828742832,
+      "reference_wall_max_s": 0.20325400005094707,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "JointMeasurements/11",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.22142408299259841,
+      "reference_wall_max_s": 0.22301404108293355,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AssertionError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "KeyDistribution_BB84/1.2",
+      "reference_runs": 30,
+      "reference_passes": 30,
+      "reference_wall_median_s": 0.22998964542057365,
+      "reference_wall_max_s": 0.2319685418624431,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "KeyDistribution_BB84/2.2",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.2266839169897139,
+      "reference_wall_max_s": 0.22922270791605115,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "MagicSquareGame/2.6",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.28854416590183973,
+      "reference_wall_max_s": 0.2987483339384198,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "TypeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "MarkingOracles/11",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.19621445797383785,
+      "reference_wall_max_s": 0.20112358289770782,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "Measurements/1.13",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.21926466701552272,
+      "reference_wall_max_s": 0.22154470812529325,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AssertionError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "PhaseEstimation/2",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.20070625003427267,
+      "reference_wall_max_s": 0.20569258299656212,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        },
+        {
+          "kind": "hadamards_only",
+          "passed": true,
+          "error_type": null,
+          "reason": "H tensor powers match QFT only on restricted inputs, omitting controlled phases."
+        }
+      ]
+    },
+    {
+      "task_id": "QEC_BitFlipCode/6",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.20308504183776677,
+      "reference_wall_max_s": 0.20492354198358953,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        },
+        {
+          "kind": "hardcoded_qubit_indices",
+          "passed": true,
+          "error_type": null,
+          "reason": "Ignores data/ancilla arguments; fails when the logical data qubit is 2."
+        }
+      ]
+    },
+    {
+      "task_id": "QFT/1.3",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.2284757080487907,
+      "reference_wall_max_s": 0.22859387495554984,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "RippleCarryAdder/3.3",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.20712574990466237,
+      "reference_wall_max_s": 0.20907408301718533,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "SimonsAlgorithm/1.3",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.23125687497667968,
+      "reference_wall_max_s": 0.23652554210275412,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "SolveSATWithGrover/3.1",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.23454387485980988,
+      "reference_wall_max_s": 0.23473237501457334,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AssertionError",
+          "reason": null
+        },
+        {
+          "kind": "constant_true",
+          "passed": true,
+          "error_type": null,
+          "reason": "Claims success without constructing or executing any Grover circuit."
+        }
+      ]
+    },
+    {
+      "task_id": "SuperdenseCoding/3",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.23193170805461705,
+      "reference_wall_max_s": 0.23347145807929337,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AssertionError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "Superposition/1.5",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.1999576659873128,
+      "reference_wall_max_s": 0.20327699999324977,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "Teleportation/1.4",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.20154933305457234,
+      "reference_wall_max_s": 0.202050665859133,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "TruthTables/5",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.05396241694688797,
+      "reference_wall_max_s": 0.054008958861231804,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "UnitaryPatterns/11",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.20230787503533065,
+      "reference_wall_max_s": 0.20546162500977516,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AssertionError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "examples/BasicQuantumTeleportation",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.2039847089909017,
+      "reference_wall_max_s": 0.20417079096660018,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    },
+    {
+      "task_id": "tutorials/SingleQubitGates/4",
+      "reference_runs": 5,
+      "reference_passes": 5,
+      "reference_wall_median_s": 0.226166500011459,
+      "reference_wall_max_s": 0.22644666698761284,
+      "errors": [],
+      "controls": [
+        {
+          "kind": "noop",
+          "passed": false,
+          "error_type": "AttributeError",
+          "reason": null
+        }
+      ]
+    }
+  ],
+  "task_count": 28,
+  "reference_runs": 190,
+  "reference_passes": 190,
+  "all_reference_runs_pass_tasks": 28,
+  "noop_passes": 0,
+  "noop_runs": 28,
+  "targeted_probe_passes": [
+    {
+      "task_id": "SolveSATWithGrover/3.1",
+      "kind": "constant_true",
+      "repeat": 0,
+      "entry_point": "test_grovers_with_sat",
+      "reason": "Claims success without constructing or executing any Grover circuit.",
+      "code_sha256": "359476491b9d099aa52ba799448ae9233be146f656dc966e19006842a162f30c",
+      "test_sha256": "d94a11aed818a9898180528578c2b1a3937369974989c0b464722d10d8a33677",
+      "wall_elapsed_s": 0.053289459086954594,
+      "passed": true,
+      "error_message": null,
+      "error_type": null,
+      "stdout": "",
+      "test_elapsed_s": 7.854192517697811e-05,
+      "stderr": "",
+      "process_stderr": ""
+    },
+    {
+      "task_id": "PhaseEstimation/2",
+      "kind": "hadamards_only",
+      "repeat": 0,
+      "entry_point": "qft",
+      "reason": "H tensor powers match QFT only on restricted inputs, omitting controlled phases.",
+      "code_sha256": "a6934d38d1c853ddf9922384866f1665c36ada48b56ead6db0e7b66f14fc4129",
+      "test_sha256": "ca5e95d6babdf9c3f938277d73474a2266c478ecd3717250db955c5d181e4ff7",
+      "wall_elapsed_s": 0.20609791693277657,
+      "passed": true,
+      "error_message": null,
+      "error_type": null,
+      "stdout": "",
+      "test_elapsed_s": 0.13378279097378254,
+      "stderr": "",
+      "process_stderr": ""
+    },
+    {
+      "task_id": "QEC_BitFlipCode/6",
+      "kind": "hardcoded_qubit_indices",
+      "repeat": 0,
+      "entry_point": "decode_qubit",
+      "reason": "Ignores data/ancilla arguments; fails when the logical data qubit is 2.",
+      "code_sha256": "01a689e3d387e400fe5b56334d33bfcfb8306aff409dcc5102a042d44a0e3e0a",
+      "test_sha256": "69aa1e57855f00a89912d90d3aae933821380c095413b37fcc82c8f777404198",
+      "wall_elapsed_s": 0.20309645892120898,
+      "passed": true,
+      "error_message": null,
+      "error_type": null,
+      "stdout": "",
+      "test_elapsed_s": 0.1321597918868065,
+      "stderr": "",
+      "process_stderr": ""
+    }
+  ],
+  "reference_wall_median_s": 0.22919774940237403,
+  "reference_wall_max_s": 4.95317770796828,
+  "note": "Native unseeded tests. Finite pass repetitions do not prove semantic correctness, completeness, or absence of rare failures. Controls are diagnostic, not accuracy estimates.",
+  "total_wall_elapsed_s": 30.763975208159536
+}
