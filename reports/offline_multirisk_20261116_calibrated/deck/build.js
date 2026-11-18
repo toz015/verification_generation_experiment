@@ -138,8 +138,33 @@ pres.addSection({ title: '概览' });
   });
   text(s, [
     { text: '蓝色', options: { color: C.accent1, bold: true } },
-    { text: ' = 我们显著更好的条件数，黑色 = 对照显著更好的条件数（配对 bootstrap 95% 区间）。所有方法都读校准后的 p_correct；只用缓存，没有新的 API 调用。' },
+    { text: ` = 我们显著更好的条件数，黑色 = 对照显著更好。一个条件 = 一组（数据集 · generator，α，预算 f）：放行错误率 ${D.n_pairs.selective_error} 组 × ${D.alpha.selective_error.length} 个 α × 6 档预算 = ${S.selective_error.n}；FPR ${D.n_pairs.fpr} 组（不含 MATH-500）× ${D.alpha.fpr.length} × 6 = ${S.fpr.n}；FNR ${D.n_pairs.fnr} × ${D.alpha.fnr.length} × 6 = ${S.fnr.n}。下一页按数据集拆开。` },
   ], { x: M, y: 6.4, w: W - 2 * M, h: 0.45, fontSize: 13, color: C.text2 });
+}
+
+// ---------------------------------------------------------------- 2b. per dataset
+{
+  const s = slide(POOL ? '按数据集看：每个数据集对每个对照的结果' : '按数据集看：放行错误率处处领先，FNR 在 GPQA 和 MATH-500 输给 Fixed', '概览',
+    '每格是「我们显著更好 : 对照显著更好」的条件数（FNR 下更好指错误放行更少），括号里拆成低预算 f ≤ 0.25（含 f = 0）和高预算 f ≥ 0.5。每个数据集有 3 个 generator，所以条件数 = 3 × α 个数 × 6 档预算。AT 列是 AT-Frozen，AT+Cal 和它接近。');
+  const SG = D.sig_ds;
+  const cell = (x, split) => split ? `${x[0]}:${x[1]}（${x[3]}:${x[4]} / ${x[5]}:${x[6]}）` : `${x[0]}:${x[1]}`;
+  const rows = [[TH('数据集 · 风险'), TH('条件数', { align: 'right' }), TH('对 AT', { align: 'right' }), TH('对 Cal-threshold', { align: 'right' }),
+    TH('对 Fixed-1（低 / 高）', { align: 'right' }), TH('对 Fixed-3（低 / 高）', { align: 'right' })]];
+  Object.keys(SG).forEach((ds) => RISKS.forEach((r) => {
+    const x = SG[ds][r];
+    if (!x) return;
+    rows.push([TD(`${ds} · ${RN[r]}`, { bold: true }), TD(String(x['AT-Frozen'][2]), { align: 'right', fontFace: 'Arial' }),
+      TD(cell(x['AT-Frozen'], false), { align: 'right', fontFace: 'Arial' }), TD(cell(x['Cal-threshold'], false), { align: 'right', fontFace: 'Arial' }),
+      TD(cell(x['Fixed-1'], true), { align: 'right', fontFace: 'Arial' }), TD(cell(x['Fixed-3'], true), { align: 'right', fontFace: 'Arial' })]);
+  }));
+  table(s, rows, { y: 1.35, colW: [2.9, 1.0, 1.25, 1.9, 2.55, 2.533], fontSize: 13, rowH: 0.4 });
+  if (!POOL) {
+    text(s, [
+      { text: 'GPQA：', options: { bold: true } }, { text: '放行错误率全面领先（只有低预算对 Cal-threshold 略输）；FPR 低预算赢 Fixed、高预算输；FNR 输给 Fixed。', options: { breakLine: true } },
+      { text: 'MATH-500：', options: { bold: true } }, { text: '放行错误率对所有对照大比分领先；FNR 对 Fixed 一次没赢（错答案太少，Fixed 每题都问更容易抓到）；不测 FPR。', options: { breakLine: true } },
+      { text: 'QuantumKatas：', options: { bold: true } }, { text: '放行错误率对 Fixed 几乎全胜；FPR 低预算赢、高预算输；FNR 和 Fixed 大致打平。' },
+    ], { x: M, y: 5.2, w: W - 2 * M, h: 1.6, fontSize: 13, paraSpaceAfter: 4 });
+  }
 }
 
 // ---------------------------------------------------------------- 3. task and data
@@ -272,7 +297,7 @@ pres.addSection({ title: '方法' });
     if (i < 2) s.addShape(pres.shapes.CHEVRON, { x: x + bw + 0.25, y: 2.1, w: 0.3, h: 0.4, fill: { color: GRAY }, line: { type: 'none' }, objectName: nm('arrow') });
   });
   const items = [
-    ['主比较', `每个条件（数据集 × generator × α × 预算）比较我们和对照的目标：放行率，FNR 下是错误放行 e。共 ${D.n_cond} 个条件。`],
+    ['主比较', `一个条件 = 一组（数据集 · generator，α，预算 f），比较我们和对照的目标：放行率，FNR 下是错误放行 e。放行错误率 ${S.selective_error.n}、FPR ${S.fpr.n}、FNR ${S.fnr.n}，共 ${D.n_cond} 个条件。`],
     ['显著', '2000 次配对 bootstrap，按测试折分层，QuantumKatas 按 kata 组重抽；95% 区间不含 0 才算一方显著更好。'],
     ['超标', '测试集风险超过 α、或花费超过预算的情况单独列出，不影响主比较。'],
     ['回退', '验证部分没有可行候选时：放行错误率和 FPR 全拦下，FNR 放行所有有答案的题。'],

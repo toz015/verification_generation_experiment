@@ -184,6 +184,19 @@ for ds, dn in R.DS:
                            'fnr': float(np.mean([I[k]['fnr'] for k in ks])),
                            'fallback': float(np.mean([I[k]['fallback_share'] for k in ks]))}
 out['fnr_spend_ds'] = sd
+sg = {}
+for r in rows:
+    if r['method'] != 'Ours-Offline':
+        continue
+    dn = dict(R.DS)[r['dataset']]
+    for b in BASELINES:
+        lo, hi = r['paired'][b]['ci95']
+        good = (lo > 0) if r['risk_metric'] != 'fnr' else (hi < 0); bad = (hi < 0) if r['risk_metric'] != 'fnr' else (lo > 0)
+        x = sg.setdefault(dn, {}).setdefault(r['risk_metric'], {}).setdefault(name(b), [0, 0, 0, 0, 0, 0, 0])
+        k = 3 if r['budget_fraction'] <= 0.25 else 5
+        x[0] += good; x[1] += bad; x[2] += 1; x[k] += good; x[k+1] += bad
+out['sig_ds'] = sg
+out['n_pairs'] = {risk: len({(r['dataset'], r['generator']) for r in rows if r['risk_metric'] == risk}) for risk in RISKS}
 # the variants tried on top of the original version
 var = {}
 for tag, label in (('20261116_calibrated', '原版本'), ('20261117_pool_calibrated', '加固定 panel'), ('20261117_shrink_calibrated', '收缩校准'),
