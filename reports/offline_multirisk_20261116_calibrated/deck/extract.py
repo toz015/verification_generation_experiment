@@ -8,6 +8,10 @@ import warnings
 warnings.filterwarnings('ignore')
 
 from vgx.offline_multirisk import BASELINES, METHODS, RISKS
+import vgx.offline_multirisk as MR
+APPENDIX_ONLY = ('Self-consistency',)
+METHODS = tuple(m for m in METHODS if m not in APPENDIX_ONLY)
+BASELINES = tuple(m for m in BASELINES if m not in APPENDIX_ONLY)
 from vgx import offline_multirisk_report as R
 
 CFG = os.environ.get('CFG', 'configs/offline_multirisk_20261116_calibrated.json')
@@ -225,6 +229,29 @@ for risk in RISKS:
         if any(x is not None for x in rr):
             rcur[risk][name(m)] = rr
 out['budget_fractions'] = cfg['budget_fractions']
+# Self-consistency appendix: Ours vs SC per dataset x risk, SC overruns / fallback, sample cost vs c_ref
+sca = {}
+if any(k[5] == 'Self-consistency' for k in I):
+    MR.block_network()
+    for ds, dn in R.DS:
+        if ds not in ('gpqa', 'math500'):
+            continue
+        data, _ = MR.B.load(ds); samples = MR.B._raw_samples(ds)
+        usd = {g: float(np.mean(MR.B.self_consistency_scores(ds, g, data[g], samples)[1]))*1e4 for g in R.GEN}
+        for risk in RISKS:
+            if not R.in_main(ds, 'qwen3', risk):
+                continue
+            g_ = b_ = n_ = 0
+            for r in rows:
+                if r['dataset'] != ds or r['risk_metric'] != risk or r['method'] != 'Ours-Offline' or 'Self-consistency' not in r['paired']:
+                    continue
+                lo, hi = r['paired']['Self-consistency']['ci95']
+                g_ += (lo > 0) if risk != 'fnr' else (hi < 0); b_ += (hi < 0) if risk != 'fnr' else (lo > 0); n_ += 1
+            ks = [k for k in I if k[0] == ds and k[2] == risk and k[5] == 'Self-consistency']
+            sca.setdefault(dn, {})[risk] = {'ours': int(g_), 'base': int(b_), 'n': n_, 'over': sum(R.over(I[k]) for k in ks),
+                                            'fallback': float(np.mean([I[k]['fallback_share'] for k in ks]))}
+        sca[dn]['usd'] = {R.GEN[g]: v for g, v in usd.items()}
+out['sc_appendix'] = sca
 out['typ'], out['cost_curve'], out['risk_curve'], out['typ_f'] = typ, ccur, rcur, TF
 out['n_pairs'] = {risk: len({(r['dataset'], r['generator']) for r in rows if r['risk_metric'] == risk}) for risk in RISKS}
 # the variants tried on top of the original version

@@ -525,6 +525,42 @@ def exclusion_note(res, risk):
             f'（{len(res[pairs[0]]["folds"])} 折测试合计：{counts}，没给答案的也算在内），一两道题就能让 FPR 变化很多。</p>')
 
 
+APPENDIX_ONLY = ('Self-consistency',)
+
+
+def sc_appendix(I, rows, res):
+    """Self-consistency kept out of the main comparison: Ours vs SC per dataset and risk, SC overruns and fallbacks,
+    and the cost of the 10 samples (not charged to the verifier budget) next to c_ref."""
+    import vgx.offline_multirisk as MR
+    body = ''
+    for ds, dname in DS:
+        for risk in RISKS:
+            rs = [r for r in rows if r['dataset'] == ds and r['risk_metric'] == risk and r['method'] == 'Ours-Offline'
+                  and 'Self-consistency' in r['paired']]
+            if not rs:
+                continue
+            good = sum((r['paired']['Self-consistency']['ci95'][0] > 0) if risk != 'fnr' else (r['paired']['Self-consistency']['ci95'][1] < 0) for r in rs)
+            bad = sum((r['paired']['Self-consistency']['ci95'][1] < 0) if risk != 'fnr' else (r['paired']['Self-consistency']['ci95'][0] > 0) for r in rs)
+            ks = [k for k in I if k[0] == ds and k[2] == risk and k[5] == 'Self-consistency']
+            body += tr([f'{dname} · {RISK_NAME[risk]}', len(rs), good, bad, sum(over(I[k]) for k in ks),
+                        pct(float(np.mean([I[k]['fallback_share'] for k in ks])), 0)])
+    t1 = table(['数据集 · 风险', '条件数', '我们显著更好', 'SC 显著更好', 'SC 风险超标', 'SC 回退比例'], body)
+    body = ''
+    for ds, dname in DS:
+        if ds not in ('gpqa', 'math500'):
+            continue
+        data, _ = MR.B.load(ds); samples = MR.B._raw_samples(ds)
+        for g, gn in GEN.items():
+            u = float(np.mean(MR.B.self_consistency_scores(ds, g, data[g], samples)[1]))*1e4
+            cr = float(np.mean([f['c_ref_usd'] for f in res[(ds, g)]['folds']]))*1e4
+            body += tr([f'{dname} · {gn}', f'{u:.0f}', f'{cr:.0f}', f'{u/cr:.1f}×'])
+    t2 = table(['数据集 · generator', '10 个样本的花费（×10⁻⁴ 美元 / 题）', 'c_ref（×10⁻⁴ 美元 / 题）', '倍数'], body)
+    return ('<h3>Self-consistency（不计入正文比较）</h3>\n  <p>分数是 generator 自己 10 个样本里和最终答案一致的比例，过阈值就放行，阈值在验证部分挑。'
+            '它不问 verifier，靠多生成 10 次，这部分花费没有计入 verifier 预算，所以不放进正文的比较。QuantumKatas 是代码题，没有定义。'
+            'GPQA 上即使 10 个样本全一致，答对率也只有 71% 到 93%，放行错误率和 FPR 下多数条件找不到达标的阈值而回退成全部拦下。</p>\n  '
+            + t1 + '\n  <p>样本花费和 verifier 预算的对比：</p>\n  ' + t2)
+
+
 EXTRA_DESC = {
     'Weaver': 'Weaver 的弱监督标签模型：5 个 verifier 的分数各分 5 档，按「答案对错给定时相互独立」建模，先验是每个方法都读的同一个 p_correct，'
               '各档的准确率用 EM 在本折所有题上估（不用标签）；每题问满 5 个 verifier，后验过阈值就放行。阈值在验证部分挑；'
@@ -581,8 +617,9 @@ def report(cfg, out_dir, report_dir):
     I = index(rows)
     global METHODS, BASELINES
     present = {k[5] for k in I}
-    METHODS = tuple(m for m in METHODS if m in present)
-    BASELINES = tuple(m for m in BASELINES if m in present)
+    sc_html = sc_appendix(I, rows, res) if 'Self-consistency' in present else ''
+    METHODS = tuple(m for m in METHODS if m in present and m not in APPENDIX_ONLY)
+    BASELINES = tuple(m for m in BASELINES if m in present and m not in APPENDIX_ONLY)
     report_dir = Path(report_dir); report_dir.mkdir(parents=True, exist_ok=True)
     write_csv(rows, report_dir/'all_conditions.csv')
     write_csv(rows, Path(out_dir)/'summary.csv')
@@ -665,6 +702,7 @@ def report(cfg, out_dir, report_dir):
             '{{CREF}}': '；'.join(f'{dict(DS)[ds]} {min(v):.0f} 到 {max(v):.0f}' for ds, v in cref.items()),
             '{{CODE}}': next(iter(res.values()))['code_hash'], '{{PRE}}': '通过' if not pre.get('problems') else '；'.join(pre['problems'][:5])}
     fill.update(variant_fill(cfg, res, out_dir))
+    fill['{{SCAPPENDIX}}'] = sc_html
     fill['{{EXTRAMETHODS}}'] = ''.join(f'<tr><th scope="row">{m}</th><td class="wrap">{d}</td></tr>' for m, d in EXTRA_DESC.items() if m in METHODS)
     for k, v in fill.items():
         tpl = tpl.replace(k, v)

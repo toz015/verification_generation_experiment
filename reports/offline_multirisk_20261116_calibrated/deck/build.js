@@ -176,7 +176,7 @@ pres.addSection({ title: '概览' });
       { text: 'GPQA：', options: { bold: true } }, { text: '放行错误率全面领先（只有低预算对 Cal-threshold 略输）；FPR 低预算赢 Fixed、高预算输；FNR 输给 Fixed。', options: { breakLine: true } },
       { text: 'MATH-500：', options: { bold: true } }, { text: '放行错误率对所有对照大比分领先；FNR 对 Fixed 一次没赢（错答案太少，Fixed 每题都问更容易抓到）；不测 FPR。', options: { breakLine: true } },
       { text: 'QuantumKatas：', options: { bold: true } }, { text: '放行错误率对 Fixed 几乎全胜；FPR 低预算赢、高预算输；FNR 和 Fixed 大致打平。', options: { breakLine: !!EXTRA.length } },
-      ...(EXTRA.length ? [{ text: '新加的对照：', options: { bold: true } }, { text: `Weaver 和 SSV 在放行错误率下几乎全输给我们；Self-consistency 在 MATH-500 上更好（放行错误率 ${cell(SG['MATH-500'].selective_error['Self-consistency'], false)}，FNR ${cell(SG['MATH-500'].fnr['Self-consistency'], false)}），但它的 10 次生成花费没计入预算，比整个 verifier 预算还高。` }] : []),
+      ...(EXTRA.length ? [{ text: '新加的对照：', options: { bold: true } }, { text: `Weaver 和 SSV 在放行错误率下几乎全输给我们；Weaver 在 FNR 下和我们接近。Self-consistency 不是 verifier 方法（靠多生成 10 个样本），放在附录。` }] : []),
     ], { x: M, y: 5.15, w: W - 2 * M, h: 1.75, fontSize: 12, paraSpaceAfter: 3 });
   }
 }
@@ -272,7 +272,7 @@ pres.addSection({ title: '设定' });
 // ---------------------------------------------------------------- 7. methods
 pres.addSection({ title: '方法' });
 {
-  const s = slide(D.methods.length > 6 ? '九个方法：五个会在测试时问 verifier' : '六个方法：只有三个会在测试时问 verifier', '方法',
+  const s = slide(D.methods.length > 6 ? `${['', '', '', '', '', '', '六', '七', '八', '九'][D.methods.length]}个方法：五个会在测试时问 verifier` : '六个方法：只有三个会在测试时问 verifier', '方法',
     '所有方法读同一个校准后的 p_correct：isotonic 只在拟合部分拟合，再用到验证和测试部分。');
   const many = D.methods.length > 6;
   const rowsM = [
@@ -285,11 +285,11 @@ pres.addSection({ title: '方法' });
     [TD('Fixed-3', { bold: true }), TD('每题固定 3 个'), TD('同上，10 种组合，不提前停')],
     ...(D.methods.includes('Weaver') ? [
       [TD('Weaver', { bold: true }), TD('每题 5 个'), TD('5 个 verifier 的弱监督标签模型（EM），后验过阈值放行')],
-      [TD('Self-consistency', { bold: true }), TD('不问'), TD('10 个样本与答案一致的比例过阈值；只有 GPQA、MATH-500')],
+      ...(D.methods.includes('Self-consistency') ? [[TD('Self-consistency', { bold: true }), TD('不问'), TD('10 个样本与答案一致的比例过阈值；只有 GPQA、MATH-500')]] : []),
       [TD('SSV', { bold: true }), TD('先 1 个，必要时 2 个'), TD('弱 verifier 分高放行、分低拦下，中间问强 verifier；只比放行错误率')]] : []),
   ];
   table(s, rowsM, { y: 1.35, colW: [2.1, 2.1, 7.933], fontSize: many ? 12 : 14, rowH: many ? 0.4 : 0.62 });
-  text(s, '所有方法读同一个校准后的 p_correct。Fixed 和我们用同样的校准、likelihood 和花费模型，只是不按需决定问谁、问几个。Weaver 和 SSV 也和「全放行 / 全拦下」混合以满足预算；SC 的样本花费不计入预算。',
+  text(s, '所有方法读同一个校准后的 p_correct。Fixed 和我们用同样的校准、likelihood 和花费模型，只是不按需决定问谁、问几个。Weaver 和 SSV 也和「全放行 / 全拦下」混合以满足预算。Self-consistency 靠多生成样本、不是 verifier 方法，放在附录。',
     { x: M, y: many ? 6.45 : 6.05, w: W - 2 * M, h: 0.45, fontSize: 11, color: C.text2 });
 }
 
@@ -412,7 +412,7 @@ if (D.typ) {
         series: [{ name: isFnr ? '错误放行 e' : '放行率', values: ms.map((m) => +(100 * D.typ[risk][ds][m]).toFixed(1)), color: SERIES[0] }],
         pointColors: ms.map((m) => m === 'Ours-Offline' ? SERIES[0] : 'A9B4BA'), labelFmt: isFnr ? '0.0"%"' : '0"%"' });
     });
-    text(s, (isFnr ? '蓝色是我们。FNR 下所有方法都要放行大部分题，差距天然较小。' : '蓝色是我们。') + ' SC = Self-consistency（只有 GPQA 和 MATH-500）；SSV 只比放行错误率。', { x: M, y: 6.5, w: W - 2 * M, h: 0.35, fontSize: 12, color: C.text2 });
+    text(s, (isFnr ? '蓝色是我们。FNR 下所有方法都要放行大部分题，差距天然较小。' : '蓝色是我们。') + ' SSV 只比放行错误率。', { x: M, y: 6.5, w: W - 2 * M, h: 0.35, fontSize: 12, color: C.text2 });
   });
   // actual cost vs budget
   {
@@ -678,6 +678,32 @@ function mainTable(risk) {
   text(s, `每格：${goal} / 测试集实际 ${RN[risk]}；✕ 表示风险或预算未达标（灰色）。`, { x: M, y: 6.45, w: W - 2 * M, h: 0.4, fontSize: 12, color: C.text2 });
 }
 RISKS.forEach(mainTable);
+if (D.sc_appendix && Object.keys(D.sc_appendix).length) {
+  const s = slide('附录：Self-consistency（不计入正文比较）', '附录',
+    'Self-consistency 的分数是 generator 自己 10 个样本里和最终答案一致的比例，过阈值就放行，阈值在验证部分挑。它不问 verifier，靠的是多生成 10 次，这部分花费没有计入 verifier 预算。');
+  const SA = D.sc_appendix;
+  const rows = [[TH('数据集 · 风险'), TH('我们 : SC（显著更好的条件数）', { align: 'right' }), TH('SC 风险超标', { align: 'right' }), TH('SC 回退比例', { align: 'right' })]];
+  Object.keys(SA).forEach((ds) => RISKS.forEach((r) => {
+    const x = SA[ds][r];
+    if (!x) return;
+    rows.push([TD(`${ds} · ${RN[r]}`, { bold: true }), TD(`${x.ours} : ${x.base}（共 ${x.n}）`, { align: 'right', fontFace: 'Arial' }),
+      TD(String(x.over), { align: 'right', fontFace: 'Arial' }), TD(pct(x.fallback), { align: 'right', fontFace: 'Arial' })]);
+  }));
+  table(s, rows, { y: 1.4, w: 7.6, colW: [2.6, 2.5, 1.2, 1.3], fontSize: 13, rowH: 0.42 });
+  const x0 = 8.5, w = W - M - x0;
+  card(s, x0, 1.4, w, 5.3);
+  text(s, '10 个样本的花费（×10⁻⁴ 美元 / 题）', { x: x0 + 0.25, y: 1.55, w: w - 0.5, h: 0.4, fontSize: 14, bold: true, color: C.text2 });
+  const lines = [];
+  Object.keys(SA).forEach((ds) => {
+    lines.push({ text: `${ds}（c_ref ${D.cref[ds][0].toFixed(0)}–${D.cref[ds][1].toFixed(0)}）`, options: { bold: true, breakLine: true } });
+    Object.entries(SA[ds].usd).forEach(([g, v]) => lines.push({ text: `${g}：${v.toFixed(0)}`, options: { breakLine: true } }));
+    lines.push({ text: ' ', options: { breakLine: true, fontSize: 6 } });
+  });
+  lines.push({ text: 'Sonnet 5.5 和 MATH-500 · Qwen3 的样本花费是整个 verifier 预算的几倍到几十倍。', options: {} });
+  text(s, lines, { x: x0 + 0.25, y: 2.0, w: w - 0.5, h: 4.6, fontSize: 13 });
+  text(s, 'GPQA 上 SC 很少能达标：10 个样本全一致的题，答对率也只有 71%（Qwen3）到 93%（Sonnet 5.5），放行错误率 α = 0.05 下 80% 的条件只能回退成全部拦下。MATH-500 上它比我们好，但靠的是没计入预算的生成花费。QuantumKatas 是代码题，没有定义。',
+    { x: M, y: 5.0, w: 7.6, h: 1.7, fontSize: 12, color: C.text2 });
+}
 {
   const s = slide('附录：复现和核对', '附录', '');
   text(s, [
