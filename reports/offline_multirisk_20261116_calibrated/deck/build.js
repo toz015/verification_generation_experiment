@@ -274,21 +274,23 @@ pres.addSection({ title: '方法' });
 {
   const s = slide(D.methods.length > 6 ? '九个方法：五个会在测试时问 verifier' : '六个方法：只有三个会在测试时问 verifier', '方法',
     '所有方法读同一个校准后的 p_correct：isotonic 只在拟合部分拟合，再用到验证和测试部分。');
-  table(s, [
+  const many = D.methods.length > 6;
+  const rowsM = [
     [TH('方法'), TH('测试时问 verifier'), TH('怎么决定放行')],
-    [TD('Ours-Offline', { bold: true, color: C.accent1 }), TD('按需，最多 3 个'), TD(POOL ? '自适应：校准先验 + likelihood，每步决定放行、拦下或再问（Bellman + LP），108 个候选；另加固定 panel 候选（短名单里的单个和三个一组），验证一起挑' : '校准先验 + verifier likelihood；每步决定放行、拦下或再问（Bellman 规则 + 该风险的 LP 混合）；108 个候选')],
-    [TD('AT-Frozen', { bold: true }), TD('不问'), TD('selective auditing 论文的阈值更新；拟合部分学好后冻结；40 个配置 × 20 个种子')],
-    [TD('AT+Cal-Frozen', { bold: true }), TD('不问'), TD('论文 Algorithm 1：阈值 + 21 点校准权重，同样冻结；160 个配置 × 20 个种子')],
+    [TD('Ours-Offline', { bold: true, color: C.accent1 }), TD('按需，最多 3 个'), TD('校准先验 + likelihood；每步决定放行、拦下或再问（Bellman + LP 混合）')],
+    [TD('AT-Frozen', { bold: true }), TD('不问'), TD('selective auditing 的阈值更新；拟合部分学好后冻结')],
+    [TD('AT+Cal-Frozen', { bold: true }), TD('不问'), TD('论文 Algorithm 1：阈值 + 校准权重；同样冻结')],
     [TD('Cal-threshold', { bold: true }), TD('不问'), TD('直接对校准后的 p 取阈值，验证部分选')],
-    [TD('Fixed-1', { bold: true }), TD('每题固定 1 个'), TD('和我们同样的校准和 likelihood，后验过阈值就放行；5 种 verifier 可选；预算不够时随机抽一部分题去问')],
-    [TD('Fixed-3', { bold: true }), TD('每题固定 3 个'), TD('同上，10 种组合，不按置信度提前停')],
+    [TD('Fixed-1', { bold: true }), TD('每题固定 1 个'), TD('同样的校准和 likelihood，后验过阈值放行；预算不够时随机抽题问')],
+    [TD('Fixed-3', { bold: true }), TD('每题固定 3 个'), TD('同上，10 种组合，不提前停')],
     ...(D.methods.includes('Weaver') ? [
-      [TD('Weaver', { bold: true }), TD('每题问满 5 个'), TD('弱监督标签模型综合 5 个 verifier（EM，不用标签）；后验过阈值放行；与全放行 / 全拦下混合以满足预算')],
-      [TD('Self-consistency', { bold: true }), TD('不问'), TD('10 个生成样本里和答案一致的比例过阈值放行；只有 GPQA 和 MATH-500；样本花费不计入预算')],
-      [TD('SSV', { bold: true }), TD('先问 1 个，不确定再问 1 个'), TD('弱 verifier 分高放行、分低拦下，中间问强 verifier；阈值在拟合部分学好后冻结；只比放行错误率')]] : []),
-  ], { y: 1.4, colW: [2.3, 2.3, 7.533], fontSize: D.methods.length > 6 ? 12 : 14, rowH: D.methods.length > 6 ? 0.44 : (POOL ? 0.6 : 0.62) });
-  text(s, '所有方法都读同一个校准后的 p_correct（isotonic 只在拟合部分拟合）。Fixed 和我们用同样的校准、likelihood 和花费模型，只是不按需决定问谁、问几个，用来看「按需」本身的价值。',
-    { x: M, y: D.methods.length > 6 ? 6.35 : 6.05, w: W - 2 * M, h: 0.6, fontSize: D.methods.length > 6 ? 12 : 14, color: C.text2 });
+      [TD('Weaver', { bold: true }), TD('每题 5 个'), TD('5 个 verifier 的弱监督标签模型（EM），后验过阈值放行')],
+      [TD('Self-consistency', { bold: true }), TD('不问'), TD('10 个样本与答案一致的比例过阈值；只有 GPQA、MATH-500')],
+      [TD('SSV', { bold: true }), TD('先 1 个，必要时 2 个'), TD('弱 verifier 分高放行、分低拦下，中间问强 verifier；只比放行错误率')]] : []),
+  ];
+  table(s, rowsM, { y: 1.35, colW: [2.1, 2.1, 7.933], fontSize: many ? 12 : 14, rowH: many ? 0.4 : 0.62 });
+  text(s, '所有方法读同一个校准后的 p_correct。Fixed 和我们用同样的校准、likelihood 和花费模型，只是不按需决定问谁、问几个。Weaver 和 SSV 也和「全放行 / 全拦下」混合以满足预算；SC 的样本花费不计入预算。',
+    { x: M, y: many ? 6.45 : 6.05, w: W - 2 * M, h: 0.45, fontSize: 11, color: C.text2 });
 }
 
 // ---------------------------------------------------------------- 8. evaluation
