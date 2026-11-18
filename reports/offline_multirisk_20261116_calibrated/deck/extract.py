@@ -93,7 +93,7 @@ for ds, dn in R.DS:
             if t is None:
                 cells.append('一道都不放行')
             elif sh * (len(b) + n_inel) >= len(b):
-                cells.append(f'有答案的全放行（{100*sh:.0f}%）')
+                cells.append(f'全部放行（{100*sh:.0f}%）')
             else:
                 cells.append(f'p ≥ {t:.2f}，放行 {100*sh:.0f}%')
         ex.append([f'{dn} · {gn}', cells])

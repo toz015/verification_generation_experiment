@@ -250,19 +250,9 @@ pres.addSection({ title: '设定' });
   const am = D.alpha_main;
   const rows = [[TH('数据集 · generator'), TH(`放行错误率 α = ${am.selective_error}`), TH(`FPR α = ${am.fpr}`), TH(`FNR α = ${am.fnr}`)]];
   D.examples.forEach(([lab, cells]) => rows.push([TD(lab, { bold: true }), ...cells.map((c) => TD(c, { color: c === '不测' ? C.text2 : C.text1 }))]));
-  table(s, rows, { y: 1.45, w: 8.6, colW: [2.6, 2.1, 1.8, 2.1], fontSize: 13, rowH: 0.42 });
-  const x0 = 9.6;
-  card(s, x0, 1.45, W - M - x0, 4.25);
-  text(s, '怎么读', { x: x0 + 0.25, y: 1.65, w: W - M - x0 - 0.5, h: 0.35, fontSize: 15, bold: true, color: C.text2 });
-  text(s, [
-    { text: '放行错误率和 FPR：α 越小门槛越高，放行越少。', options: { breakLine: true } },
-    { text: ' ', options: { breakLine: true, fontSize: 8 } },
-    { text: 'FNR 相反：只能拦下 p 最低的一小部分，表里放行比例 75% 到 94%。', options: { breakLine: true } },
-    { text: ' ', options: { breakLine: true, fontSize: 8 } },
-    { text: '所以 FNR 下各方法能拉开差距的空间很小。' },
-  ], { x: x0 + 0.25, y: 2.1, w: W - M - x0 - 0.5, h: 3.8, fontSize: 15 });
-  text(s, '「有答案的全放行」：约束允许放行所有有答案的题，括号里是占全部题的比例。MATH-500 不测 FPR（错误答案太少）。',
-    { x: M, y: 6.3, w: W - 2 * M, h: 0.5, fontSize: 12, color: C.text2 });
+  table(s, rows, { y: 1.45, colW: [3.4, 2.9, 2.9, 2.933], fontSize: 14, rowH: 0.42 });
+  text(s, '「全部放行」：把所有给出答案的题都放行也满足约束，不需要门槛；括号里是给出答案的题占全部题目的比例。MATH-500 不测 FPR（错误答案太少）。',
+    { x: M, y: 6.35, w: W - 2 * M, h: 0.45, fontSize: 12, color: C.text2 });
 }
 
 // ---------------------------------------------------------------- 7. methods
