@@ -4,6 +4,8 @@ import os
 import sys
 
 import numpy as np
+import warnings
+warnings.filterwarnings('ignore')
 
 from vgx.offline_multirisk import BASELINES, METHODS, RISKS
 from vgx import offline_multirisk_report as R
@@ -21,7 +23,7 @@ def rows_I(res):
 
 rows, I = rows_I(res)
 rows_r, I_r = rows_I(res_r)
-name = lambda m: 'Cal-threshold' if m == 'Raw-threshold' else m.replace('-Mix', '')
+name = lambda m: 'Cal-threshold' if m == 'Raw-threshold' else ('SSV' if m == 'SSV-Frozen' else m.replace('-Mix', ''))
 out = {'methods': [name(m) for m in METHODS], 'baselines': [name(b) for b in BASELINES], 'alpha': cfg['alpha_target'],
        'alpha_main': cfg['alpha_main'], 'risk_name': R.RISK_NAME}
 
@@ -33,7 +35,7 @@ def sig(I, rows):
         ex = {name(m): sum(R.over(I[k]) for k in I if k[2] == risk and k[5] == m) for m in METHODS}
         nc = {name(m): sum(1 for k in I if k[2] == risk and k[5] == m) for m in METHODS}
         bud = {name(m): sum(not I[k]['budget_met'] for k in I if k[2] == risk and k[5] == m) for m in METHODS}
-        d[risk] = {'n': S[BASELINES[0]]['n'], 'ours': [S[b]['ours'] for b in BASELINES], 'base': [S[b]['base'] for b in BASELINES],
+        d[risk] = {'n': S[BASELINES[0]]['n'], 'nb': [S[b]['n'] for b in BASELINES], 'ours': [S[b]['ours'] for b in BASELINES], 'base': [S[b]['base'] for b in BASELINES],
                    'per': {name(b): S[b]['per'] for b in BASELINES}, 'overrun': ex, 'budget_over': bud, 'n_cond': nc}
     return d
 
@@ -72,8 +74,8 @@ for risk in RISKS:
                 continue
             cells = []
             for m in METHODS:
-                x = I[(ds, g, risk, a, 1.0, m)]
-                cells.append([R.objective(x, risk), x['risk'], bool(x['empirical_feasible'])])
+                x = I.get((ds, g, risk, a, 1.0, m))
+                cells.append(None if x is None else [R.objective(x, risk), x['risk'], bool(x['empirical_feasible'])])
             tab.append([f'{dn} · {gn}', cells])
     main[risk] = tab
 out['main_f1'] = main
@@ -190,12 +192,40 @@ for r in rows:
         continue
     dn = dict(R.DS)[r['dataset']]
     for b in BASELINES:
+        if b not in r['paired']:
+            continue
         lo, hi = r['paired'][b]['ci95']
         good = (lo > 0) if r['risk_metric'] != 'fnr' else (hi < 0); bad = (hi < 0) if r['risk_metric'] != 'fnr' else (lo > 0)
         x = sg.setdefault(dn, {}).setdefault(r['risk_metric'], {}).setdefault(name(b), [0, 0, 0, 0, 0, 0, 0])
         k = 3 if r['budget_fraction'] <= 0.25 else 5
         x[0] += good; x[1] += bad; x[2] += 1; x[k] += good; x[k+1] += bad
 out['sig_ds'] = sg
+# typical comparison: main alpha, f = 0.5, mean over generators per dataset; cost and risk curves
+TF = 0.5
+typ, ccur, rcur = {}, {}, {}
+for risk in RISKS:
+    am = cfg['alpha_main'][risk]
+    typ[risk] = {}
+    for ds, dn in R.DS:
+        d = {name(m): float(np.mean(v)) for m in METHODS for v in [[R.objective(I[k], risk) for k in I if k[0] == ds and k[2] == risk and k[3] == am and k[4] == TF and k[5] == m]] if v}
+        if d:
+            typ[risk][dn] = d
+    ccur[risk], rcur[risk] = {}, {}
+    for m in METHODS:
+        cc = []
+        for f in cfg['budget_fractions']:
+            v = [I[k]['mean_screen_cost']/I[(k[0], k[1], risk, am, 1.0, m)]['budget_usd'] for k in I if k[2] == risk and k[3] == am and k[4] == f and k[5] == m]
+            cc.append(float(np.mean(v)) if v else None)
+        if any(x for x in cc if x):
+            ccur[risk][name(m)] = cc
+        rr = []
+        for a in cfg['alpha_target'][risk]:
+            v = [I[k]['risk'] for k in I if k[2] == risk and k[3] == a and k[4] == TF and k[5] == m and I[k]['risk'] is not None]
+            rr.append(float(np.mean(v)) if v else None)
+        if any(x is not None for x in rr):
+            rcur[risk][name(m)] = rr
+out['budget_fractions'] = cfg['budget_fractions']
+out['typ'], out['cost_curve'], out['risk_curve'], out['typ_f'] = typ, ccur, rcur, TF
 out['n_pairs'] = {risk: len({(r['dataset'], r['generator']) for r in rows if r['risk_metric'] == risk}) for risk in RISKS}
 # the variants tried on top of the original version
 var = {}
@@ -216,5 +246,14 @@ for tag, label in (('20261116_calibrated', '原版本'), ('20261117_pool_calibra
     d['sel_f1_vs_f3'] = [good, bad]
     var[label] = d
 out['variants'] = var
+def scrub(o):
+    if isinstance(o, float) and o != o:
+        return None
+    if isinstance(o, dict):
+        return {k: scrub(v) for k, v in o.items() if not (isinstance(v, float) and v != v)}
+    if isinstance(o, list):
+        return [scrub(v) for v in o]
+    return o
+out = scrub(out)
 json.dump(out, open(sys.argv[1], 'w'), ensure_ascii=False, indent=1)
 print(json.dumps({k: out[k] for k in ('sig_cal', 'spend', 'fnr_both', 'cref', 'n_cond', 'verify')}, ensure_ascii=False)[:6000])

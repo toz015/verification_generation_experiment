@@ -8,6 +8,7 @@ from pptx.chart.data import CategoryChartData
 from pptx.dml.color import RGBColor
 from pptx.enum.chart import XL_CHART_TYPE, XL_LEGEND_POSITION, XL_LABEL_POSITION, XL_MARKER_STYLE, XL_TICK_LABEL_POSITION, XL_TICK_MARK
 from pptx.enum.text import PP_ALIGN
+from pptx.enum.dml import MSO_LINE
 from pptx.util import Inches, Pt
 
 src, out = sys.argv[1], sys.argv[2]
@@ -59,6 +60,12 @@ for sp in specs:
         for s, spec in zip(ch.plots[0].series, sp['series']):
             col = RGBColor.from_string(spec['color'])
             s.smooth = False
+            if spec.get('dash'):
+                s.format.line.color.rgb = col
+                s.format.line.width = Pt(1.5)
+                s.format.line.dash_style = MSO_LINE.DASH
+                s.marker.style = XL_MARKER_STYLE.NONE
+                continue
             s.format.line.color.rgb = col
             s.format.line.width = Pt(3.5 if spec.get('bold') else 2)
             s.marker.style = XL_MARKER_STYLE.CIRCLE
@@ -66,10 +73,11 @@ for sp in specs:
             s.marker.format.fill.solid()
             s.marker.format.fill.fore_color.rgb = col
             s.marker.format.line.color.rgb = col
-        ch.has_legend = True
-        ch.legend.position = XL_LEGEND_POSITION.BOTTOM
-        ch.legend.include_in_layout = False
-        style_font(ch.legend.font, 12)
+        ch.has_legend = sp.get('legend', True)
+        if ch.has_legend:
+            ch.legend.position = XL_LEGEND_POSITION.BOTTOM
+            ch.legend.include_in_layout = False
+            style_font(ch.legend.font, 12)
     else:
         va.tick_label_position = XL_TICK_LABEL_POSITION.NONE
         va.major_tick_mark = XL_TICK_MARK.NONE
@@ -87,6 +95,11 @@ for sp in specs:
         for s, spec in zip(plot.series, sp['series']):
             s.format.fill.solid()
             s.format.fill.fore_color.rgb = RGBColor.from_string(spec['color'])
+        if sp.get('pointColors'):
+            for i, c in enumerate(sp['pointColors']):
+                pt = plot.series[0].points[i]
+                pt.format.fill.solid()
+                pt.format.fill.fore_color.rgb = RGBColor.from_string(c)
         if sp['kind'] == 'hbar':
             ca.reverse_order = True
         ch.has_legend = False
