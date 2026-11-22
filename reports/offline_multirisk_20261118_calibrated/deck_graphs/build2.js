@@ -192,6 +192,37 @@ RISK2.forEach((risk) => {
   }
 });
 
+// ---------------------------------------------------------------- FPR: why Fixed-1 releases more
+if (G.fpr_f1 && G.fpr_f1.n) {
+  const F = G.fpr_f1;
+  const s = slide(`FPR：Fixed-1 放行更多的 ${F.n} 个条件里，它的实际 FPR 全部超标`, 'FPR',
+    'Fixed-1 显著放行更多的条件（配对 bootstrap），对比两者在测试集上的实际 FPR。左边两个小图是这些条件最集中的两组，预算 B = 1 × c_ref，灰色虚线是目标 α。');
+  const pairs = Object.entries(F.by_pair).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([p]) => p);
+  const ms = ['Ours-Offline', 'Fixed-1'];
+  legendGrid(s, [...ms.map((m) => [m, GCOL(m)]), ['虚线 = 目标 α', GRAY]], M, 1.2, 3, 7.4, 12);
+  const al = G.alpha.fpr.map(String);
+  pairs.forEach((p, i) => {
+    const P = G.panels.fpr.find((x) => x.label === p);
+    const x = M + i * 3.75;
+    text(s, p, { x, y: 1.75, w: 3.55, h: 0.3, fontSize: 13, bold: true, align: 'center' });
+    CHARTS.push({ slide: SN, kind: 'line', x, y: 2.05, w: 3.55, h: 4.65, small: true, legend: false, categories: al, min: 0, max: 50, unit: 10, valFmt: '0"%"',
+      catTitle: '目标 α', valTitle: '实际 FPR',
+      series: [...lineSeries(P.risk['1'], ms, 100), { name: '目标 α', values: G.alpha.fpr.map((a) => 100 * a), color: GRAY, dash: true }] });
+  });
+  const x0 = 8.4, w = W - M - x0;
+  const facts = [
+    [`${F.f1_over} / ${F.n}`, `这些条件里 Fixed-1 的实际 FPR 超过 α；我们只有 ${F.ours_over} / ${F.n}`],
+    [`${F.f1_ratio.toFixed(1)} × α`, `Fixed-1 的平均实际 FPR（我们是 ${F.ours_ratio.toFixed(1)} × α），平均超出 ${(100 * F.f1_ex).toFixed(1)} 个百分点`],
+    [`${pairs.map((p) => F.by_pair[p]).reduce((a, b) => a + b, 0)} / ${F.n}`, `集中在 ${pairs.join('、')}：正确率高、错题少，验证部分估 FPR 很不稳`],
+  ];
+  facts.forEach(([big, d], i) => {
+    const y = 1.2 + i * 1.85;
+    card(s, x0, y, w, 1.65);
+    text(s, big, { x: x0 + 0.25, y: y + 0.12, w: w - 0.5, h: 0.65, fontSize: 28, bold: true, color: C.accent1, fontFace: 'Arial' });
+    text(s, d, { x: x0 + 0.25, y: y + 0.8, w: w - 0.5, h: 0.8, fontSize: 12, color: C.text2 });
+  });
+}
+
 // ---------------------------------------------------------------- FNR note
 pres.addSection({ title: 'FNR' });
 {

@@ -46,5 +46,20 @@ for ds, dn in R.DS:
         nt = r['n_test']; corr = sum(f['test_correct'] for f in r['folds'])
         acc.append([f'{dn} · {gn}', corr/nt])
 out['accuracy'] = acc
+win = []
+for r in rows:
+    if r['risk_metric'] != 'fpr' or r['method'] != 'Ours-Offline':
+        continue
+    k = (r['dataset'], r['generator'], 'fpr', r['alpha_target'], r['budget_fraction'])
+    lo, hi = r['paired']['Fixed-1-Mix']['ci95']
+    if hi < 0:
+        o, f1 = I[k+('Ours-Offline',)], I[k+('Fixed-1-Mix',)]
+        win.append({'pair': f"{dict(R.DS)[r['dataset']]} · {R.GEN[r['generator']]}", 'alpha': r['alpha_target'],
+                    'f1_risk': f1['risk'], 'ours_risk': o['risk']})
+out['fpr_f1'] = {'n': len(win), 'f1_over': sum(w['f1_risk'] > w['alpha']+1e-12 for w in win),
+                 'ours_over': sum(w['ours_risk'] > w['alpha']+1e-12 for w in win),
+                 'f1_ratio': float(np.mean([w['f1_risk']/w['alpha'] for w in win])), 'ours_ratio': float(np.mean([w['ours_risk']/w['alpha'] for w in win])),
+                 'f1_ex': float(np.mean([w['f1_risk']-w['alpha'] for w in win])), 'ours_ex': float(np.mean([w['ours_risk']-w['alpha'] for w in win])),
+                 'by_pair': {p: sum(w['pair'] == p for w in win) for p in sorted({w['pair'] for w in win})}}
 json.dump(out, open(sys.argv[1], 'w'), ensure_ascii=False)
 print(json.dumps(out['meanbar'], ensure_ascii=False)[:800]); print(acc)
