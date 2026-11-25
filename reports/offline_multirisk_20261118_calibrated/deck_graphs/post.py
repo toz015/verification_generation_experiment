@@ -105,6 +105,8 @@ for sp in specs:
                 pt.format.fill.fore_color.rgb = RGBColor.from_string(c)
         if sp['kind'] == 'hbar':
             ca.reverse_order = True
+        if sp.get('noCatLabels'):
+            ca.tick_label_position = XL_TICK_LABEL_POSITION.NONE
         ch.has_legend = False
     if sp.get('title'):
         ch.has_title = True

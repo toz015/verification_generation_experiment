@@ -46,6 +46,17 @@ for ds, dn in R.DS:
         nt = r['n_test']; corr = sum(f['test_correct'] for f in r['folds'])
         acc.append([f'{dn} · {gn}', corr/nt])
 out['accuracy'] = acc
+mbd = {}
+for risk in out['risks']:
+    mbd[risk] = {}
+    for f in shown:
+        mbd[risk][str(f)] = {}
+        for ds, dn in R.DS:
+            d = {name(m): float(np.mean(v)) for m in MAIN
+                 for v in [[R.objective(I[k], risk) for k in I if k[0] == ds and k[2] == risk and k[4] == f and k[5] == m]] if v}
+            if d:
+                mbd[risk][str(f)][dn] = d
+out['meanbar_ds'] = mbd
 win = []
 for r in rows:
     if r['risk_metric'] != 'fpr' or r['method'] != 'Ours-Offline':
