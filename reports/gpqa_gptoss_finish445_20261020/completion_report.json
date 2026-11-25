@@ -1,0 +1,52 @@
+{
+  "accuracy_computed": false,
+  "all_received_gptoss_estimated_usd": 0.21601296,
+  "answer_keys_read": false,
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.21515336999999998,
+    "limit_usd": 1.0,
+    "outstanding_reserved_usd": 0.08399538,
+    "project": "llm-applications-490420",
+    "rejected_requests": 3,
+    "successful_priced_calls": 440
+  },
+  "bundle_id": "afba49dc04476536d76c866d84cb3a243f3db8900710934c9f2eb87c06f27338",
+  "confidence_calibrated": false,
+  "confirmed_billing_usd": null,
+  "expansion_id": "43c6e8bd631106d21638ebf88fdaa994259b39050659cfcb541fb5854b73c8f4",
+  "input_tokens": 147780,
+  "invalid": {
+    "finish_reason:abort": 2,
+    "invalid_final_json": 5
+  },
+  "new_provider_attempts": 157,
+  "output_tokens_including_reasoning": 563091,
+  "partitions": {
+    "calibration": {
+      "invalid": {
+        "finish_reason:abort": 2,
+        "invalid_final_json": 3
+      },
+      "mean_raw_confidence": 0.8089344262295082,
+      "responses": 249,
+      "valid": 244
+    },
+    "evaluation": {
+      "invalid": {
+        "invalid_final_json": 2
+      },
+      "mean_raw_confidence": 0.797319587628866,
+      "responses": 196,
+      "valid": 194
+    }
+  },
+  "remaining_requests": 0,
+  "responses": 445,
+  "reused_responses": 291,
+  "service_failure_positions": [],
+  "stage": "complete",
+  "target": 445,
+  "valid": 438,
+  "verifier_requests": 0
+}

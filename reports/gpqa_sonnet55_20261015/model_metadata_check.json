@@ -1,0 +1,10 @@
+{
+  "error": {},
+  "http_status": 200,
+  "launch_stage": "GA",
+  "model": "anthropic/claude-sonnet-5-5",
+  "name": "publishers/anthropic/models/claude-sonnet-5-5",
+  "operation": "GetPublisherModel",
+  "read_only": true,
+  "version_id": "default"
+}

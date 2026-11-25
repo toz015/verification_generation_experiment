@@ -1,0 +1,20 @@
+{
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 8.32012,
+    "limit_usd": 25.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 0,
+    "successful_priced_calls": 500
+  },
+  "counts": {
+    "frozen": 500,
+    "generator_service_failure": 0,
+    "not_sent": 0
+  },
+  "errors": [],
+  "format_failures": 22,
+  "plan_id": "dbe1174219430ada19c3f833a7de9b0847eb17d244f15b16d97c338dd5183d10",
+  "stage": "complete"
+}

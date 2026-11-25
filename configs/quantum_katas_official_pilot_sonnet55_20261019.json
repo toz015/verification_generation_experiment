@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "kind": "quantum_katas_official_pilot",
+  "status": "authorized by tony 2026-10-19: total $200 for QuantumKatas pilot (split qwen3 $60 / sonnet55 $140); macOS sandbox approved for model code",
+  "source": "tmp/quantum_four_dataset_review_20261018/Qiskit-QuantumKatas",
+  "pilot": "configs/quantum_katas_pilot_20261018.json",
+  "protocol": "configs/quantum_katas_official_protocol_20261018.json",
+  "requirements": "configs/quantum_katas_pilot_requirements.txt",
+  "generation_id": "g0",
+  "prompt_version": "qkatas_official_v1_json_or_single_fence",
+  "smoke_tasks": 3,
+  "models": {
+    "generator": {
+      "id": "generator",
+      "provider": "vertex_anthropic",
+      "model": "anthropic/claude-sonnet-5-5",
+      "location": "global",
+      "project": "llm-applications-490420",
+      "generation": {
+        "max_tokens": 32768,
+        "thinking": {
+          "type": "adaptive"
+        },
+        "output_config": {
+          "effort": "high"
+        }
+      }
+    },
+    "verifiers": [
+      {
+        "id": "gemini_flash",
+        "provider": "vertex_openai",
+        "model": "google/gemini-3.7-flash",
+        "location": "global",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "reasoning_effort": "low"
+        }
+      },
+      {
+        "id": "gemini_lite",
+        "provider": "vertex_openai",
+        "model": "google/gemini-3.5-flash-lite",
+        "location": "global",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "reasoning_effort": "low"
+        }
+      },
+      {
+        "id": "mistral_small",
+        "provider": "vertex_partner",
+        "model": "mistralai/mistral-small-2503",
+        "location": "us-central1",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "temperature": 0.0
+        }
+      },
+      {
+        "id": "mistral_medium",
+        "provider": "vertex_partner",
+        "model": "mistralai/mistral-medium-3",
+        "location": "us-central1",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "temperature": 0.0
+        }
+      },
+      {
+        "id": "claude_haiku",
+        "provider": "vertex_partner",
+        "model": "anthropic/claude-haiku-4-5",
+        "location": "global",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "temperature": 0.0
+        }
+      }
+    ]
+  },
+  "budget": {
+    "project": "llm-applications-490420",
+    "limit_usd": 140.0,
+    "gemini_output_reserve": 131072,
+    "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)",
+    "pricing": {
+      "usd_per_million_tokens": {
+        "qwen/qwen3-235b-a22b-instruct-2507-maas": {
+          "input": 0.22,
+          "output": 0.88,
+          "cached_input": 0.22
+        },
+        "anthropic/claude-sonnet-5-5": {
+          "input": 2.0,
+          "output": 10.0,
+          "cached_input": 2.0
+        },
+        "google/gemini-3.7-flash": {
+          "input": 0.75,
+          "output": 3.75,
+          "cached_input": 0.075
+        },
+        "google/gemini-3.5-flash-lite": {
+          "input": 0.3,
+          "output": 2.5,
+          "cached_input": 0.03
+        },
+        "mistralai/mistral-small-2503": {
+          "input": 0.1,
+          "output": 0.3
+        },
+        "mistralai/mistral-medium-3": {
+          "input": 0.4,
+          "output": 2.0
+        },
+        "anthropic/claude-haiku-4-5": {
+          "input": 1.0,
+          "output": 5.0,
+          "cached_input": 1.0
+        }
+      },
+      "usage_semantics": {
+        "anthropic/claude-sonnet-5-5": "completion_includes_reasoning"
+      }
+    }
+  },
+  "paid_collection_authorized": true,
+  "checker": {
+    "interpreter": "tmp/quantum_katas_pilot_20261018/venv/bin/python",
+    "backend": "macos_sandbox",
+    "workers": 2,
+    "supervisor_timeout_s": 120,
+    "cpu_seconds": 120,
+    "model_code_execution_approved": true
+  },
+  "notes": [
+    "Generator settings copied from GPQA: Qwen3-235B instruct single call at temperature 0/top_p 1/4096 (GPQA later used a two-step draft+finalize for Qwen; not used here because the pilot freezes one call per task).",
+    "Sonnet 5.5: adaptive thinking, effort high, 32768 total output tokens, sampling parameters omitted.",
+    "Verifiers: the five GPQA screening models with their GPQA transports and generation settings; the prompt is the QuantumKatas verifier prompt, not the GPQA ABCD prompt."
+  ]
+}

@@ -1,0 +1,44 @@
+GPT-OSS: authorized retry96 and continuation to445
+================================================
+User authorization 2026-10-18: retry position96, continue97-445, preserve95
+received replies, unchanged settings and USD1 cap, raw confidence, then compare
+four generators offline after445 received replies.
+
+Original sources, plans, blocked statuses, cache replies and budget entries are
+preserved. New collector: gptoss_retry96_expansion; new status/cache directory:
+results/gpqa_gptoss_continuation_20261017/retry96_resume_20261018/.
+Responses1-95 are read from their original cache chain, including retry65.
+The new96 execution has its own budget entry; original96's USD0.01198512 unknown
+reserve remains. Historical22/49/65/96 unknown reserves total USD0.04786848.
+Successful authorized retries do not resolve historical unknown billing.
+
+Provider model, prompt, medium reasoning, max_tokens32768, temperature0, top_p1,
+parser and frozen pricing unchanged. Wait30seconds after the previous attempt.
+Only explicit HTTP429 can retry; total3 attempts per question including prior
+attempts. Position96 has used1, allowing at most2 new attempts; a429 on its first
+new attempt waits120seconds before the last allowed attempt. New97-445 use
+60/120-second backoffs. Any new unknown outcome or other HTTP error stops;
+malformed successful replies remain unchanged, without repair or regeneration.
+
+Prepare and launch one collector:
+  .venv/bin/python -m vgx.gpqa.gptoss_retry96_expansion prepare
+  .venv/bin/python -m vgx.gpqa.gptoss_retry96_offline_score prepare
+  .venv/bin/python -m vgx.gpqa.gptoss_retry96_expansion collect --allow-api
+
+Only after stage=complete and responses=445:
+  .venv/bin/python -m vgx.gpqa.gptoss_retry96_expansion audit
+  .venv/bin/python -m vgx.gpqa.gptoss_retry96_expansion report
+  .venv/bin/python -m vgx.gpqa.gptoss_retry96_offline_score score
+
+Scoring methods and arithmetic functions are unchanged; only source/output
+routing and prior-analysis linkage changed. Existing prediction and cohort
+identities are frozen before label reads. Report249 development and196 Diamond
+separately, with all-assigned and common-valid metrics and explicit denominators.
+No fitting, calibration, verifier requests or scoring before full collection.
+
+Reports contain aggregates, plans, audit and hashes only:
+reports/gpqa_gptoss_retry96_expansion_20261018/
+reports/gpqa_gptoss_offline_score_retry96_20261018/
+No question text, answers, keys, raw replies, per-item correctness or credentials.
+Costs target llm-applications-490420 and are token estimates, not confirmed bills.
+No unit tests requested or run. No commit or push requested.

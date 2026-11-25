@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "kind": "math500_full_generation",
+  "status": "full MATH-500 (500 problems), generator sonnet55; tony asked 2026-10-21 to run MATH-500 first; cap $25.0; uncertain requests recorded as generator failures",
+  "generation_id": "g0",
+  "seed": 20261020,
+  "sample": {
+    "math500": 500
+  },
+  "generator": {
+    "id": "generator",
+    "provider": "vertex_anthropic",
+    "model": "anthropic/claude-sonnet-5-5",
+    "location": "global",
+    "project": "llm-applications-490420",
+    "generation": {
+      "max_tokens": 32768,
+      "thinking": {
+        "type": "adaptive"
+      },
+      "output_config": {
+        "effort": "high",
+        "format": {
+          "type": "json_schema",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "answer": {
+                "type": "string"
+              },
+              "p_correct": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "answer",
+              "p_correct"
+            ],
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  },
+  "budget": {
+    "project": "llm-applications-490420",
+    "limit_usd": 25.0,
+    "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)",
+    "pricing": {
+      "usd_per_million_tokens": {
+        "anthropic/claude-sonnet-5-5": {
+          "input": 2.0,
+          "output": 10.0,
+          "cached_input": 2.0
+        }
+      },
+      "usage_semantics": {
+        "anthropic/claude-sonnet-5-5": "completion_includes_reasoning"
+      }
+    }
+  },
+  "paid_collection_authorized": true,
+  "notes": [
+    "Prompt math_trial_v1 unchanged from the trial; max_tokens 32768 for every generator (trial used 8192 for Qwen and truncated 3/100 MATH-500 replies).",
+    "Qwen/gpt-oss settings as in QuantumKatas; Sonnet 5.5 adaptive thinking, effort high, structured output with the reasoning/answer/p_correct schema.",
+    "Sonnet uses prompt math_trial_v1_json_answer_only (no reasoning field): with reasoning requested, 2 of 3 smoke requests were refused by the provider as reasoning_extraction on 2026-10-21. The other text is identical."
+  ],
+  "prompt_version": "math_trial_v1_json_answer_only"
+}

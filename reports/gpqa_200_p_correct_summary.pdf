@@ -1,0 +1,100 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Title (GPQA 200-Question Verification Experiment) /Author (Verification Generation Experiment) /Subject (Calibration and held-out evaluation report) >>
+endobj
+6 0 obj
+<< /Length 4895 >>
+stream
+0.10 0.22 0.36 rg BT /F2 23 Tf 54 738.0 Td (GPQA Model p_correct Summary) Tj ET
+0.25 0.25 0.25 rg BT /F1 11 Tf 54 704.0 Td (Verification Generation Experiment) Tj ET
+0.35 0.35 0.35 rg BT /F1 9 Tf 54 689.0 Td (September 30, 2026) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 671.0 Td (Aggregate summary of raw p_correct values returned by the generator and two verifiers in the) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 658.0 Td (200-question GPQA Main run. No question text is reproduced. Raw values are model-reported) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 645.0 Td (probabilities, not calibrated probabilities.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 618.0 Td (How to read this summary) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 597.0 Td (The generator's p_correct is its stated probability that its selected answer is correct. A) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 584.0 Td (verifier's p_correct is its stated probability that the same fixed generator answer is correct.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 571.0 Td (Verifiers did not choose replacement answers. Correctness is checked after inference against) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 558.0 Td (GPQA's answer key.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 541.0 Td (The full sample has 200 items: 120 calibration and 80 held-out evaluation. Counts below include) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 528.0 Td (only valid p_correct values. Invalid/missing values are disclosed. The held-out accuracy figures) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 515.0 Td (use the items with valid scores for the corresponding model. These raw score distributions are) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 502.0 Td (separate from Bayesian-updated posteriors in the full experiment report.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 475.0 Td (Generator - Gemini 3.8 Flash) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 454.0 Td (Valid raw p_correct values: 196 of 200. Mean 0.943; median 0.98. Correct selected answers among) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 441.0 Td (these 196: 176 \(89.8%\). Four responses were invalid JSON and had no usable p_correct.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 424.0 Td (Full-sample value counts: 0.40: 2; 0.45: 1; 0.55: 1; 0.70: 1; 0.80: 1; 0.85: 24; 0.90: 10; 0.95:) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 411.0 Td (46; 0.98: 45; 0.99: 62; 1.00: 3.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 394.0 Td (Held-out evaluation: valid p_correct values 77 of 80; mean 0.940, median 0.98. Correct answers) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 381.0 Td (69 of 77 \(89.6%\). Value counts: 0.45: 1; 0.55: 1; 0.80: 1; 0.85: 10; 0.90: 3; 0.95: 21; 0.98:) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 368.0 Td (15; 0.99: 25.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 341.0 Td (Verifier 1 - Llama 3.3 70B Instruct MaaS) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 320.0 Td (Valid raw verifier scores: 196 of 200. Mean 0.663; median 1.00. Four generator answers were) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 307.0 Td (invalid and could not be sent to the verifier. All 196 verifier responses parsed.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 290.0 Td (The model returned only endpoint scores: 0.00 on 66 candidates and 1.00 on 130. Among score-0) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 277.0 Td (candidates, 59 of 66 \(89.4%\) were actually correct. Among score-1 candidates, 117 of 130 \(90.0%\)) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 264.0 Td (were correct. The similar correctness rates show little separation by its raw score in this run.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 247.0 Td (Held-out evaluation: 77 valid scores, mean 0.636. Score 0.00: 28 candidates, 24 correct. Score) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 234.0 Td (1.00: 49 candidates, 45 correct. Thus the verifier often reported zero even when the candidate) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 221.0 Td (was correct, and its binary output barely distinguished candidate correctness.) Tj ET
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 194.0 Td (Verifier 2 - Gemini 3.7 Flash) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 173.0 Td (Valid raw verifier scores: 195 of 200. Mean 0.940; median 1.00. Four generator answers were) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 160.0 Td (invalid and not sent to the verifier; one verifier response was invalid JSON.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 143.0 Td (Full-sample value counts: 0.00: 10; 0.15: 1; 0.25: 1; 0.90: 1; 0.95: 1; 1.00: 181. Among score-0) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 130.0 Td (candidates, 5 of 10 were correct. Among score-1 candidates, 167 of 181 were correct.) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 113.0 Td (Held-out evaluation: 77 valid scores, mean 0.934. Score 0.00: 5 candidates, 2 correct. Score) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 100.0 Td (0.95: 1 candidate, correct. Score 1.00: 71 candidates, 66 correct. The score distribution is) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 87.0 Td (heavily concentrated at 1.00, so this run provides limited resolution among high-confidence) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 74.0 Td (cases.) Tj ET
+0.45 0.45 0.45 rg BT /F1 8 Tf 54 34 Td (GPQA 200-question verification experiment | 1) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 945 >>
+stream
+0.10 0.22 0.36 rg BT /F2 15 Tf 54 728.0 Td (Interpretation) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 707.0 Td (These are the values the models literally reported before calibration. In particular, a verifier) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 694.0 Td (score of 0 or 1 should not be mistaken for verified certainty. The calibration step estimates) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 681.0 Td (how each score range related to correctness on the calibration partition; the held-out outcomes) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 668.0 Td (then assess that mapping. Sample sizes, especially the small number of incorrect answers, make) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 655.0 Td (these reliability estimates uncertain. See gpqa_200_question_experiment_report.pdf for) Tj ET
+0 0 0 rg BT /F1 9.6 Tf 54 642.0 Td (Brier/log-loss results and the confidence-update procedure.) Tj ET
+0.45 0.45 0.45 rg BT /F1 8 Tf 54 34 Td (GPQA 200-question verification experiment | 2) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000224 00000 n 
+0000000326 00000 n 
+0000000497 00000 n 
+0000005444 00000 n 
+0000005580 00000 n 
+0000006576 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R /Info 5 0 R >>
+startxref
+6712
+%%EOF

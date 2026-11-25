@@ -1,0 +1,38 @@
+{
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.08860824,
+    "limit_usd": 10.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 1,
+    "successful_priced_calls": 9
+  },
+  "errors": [
+    {
+      "http_status": 429,
+      "model": "deepseek_r1_0528",
+      "type": "ProviderRejectedError"
+    }
+  ],
+  "limit": 5,
+  "models": {
+    "deepseek_r1_0528": {
+      "invalid": {
+        "invalid_final_json": 1
+      },
+      "responses": 4,
+      "reused": 0,
+      "valid": 3
+    },
+    "gpt_oss_120b": {
+      "invalid": {},
+      "responses": 5,
+      "reused": 0,
+      "valid": 5
+    }
+  },
+  "new_calls_this_invocation": 9,
+  "stage": "blocked",
+  "study_id": "4aa8801a74af6074119a5c43844f3106333aa5a4090aee0baceafd5eaa49523d"
+}

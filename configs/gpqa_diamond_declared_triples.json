@@ -1,0 +1,84 @@
+{
+ "qwen": {
+  "raw": {
+   "verifiers": [
+    "claude_haiku",
+    "gemini_flash",
+    "gemini_lite"
+   ],
+   "model": "dependence",
+   "development_cv_brier": 0.1282,
+   "development_cv_brier_flash": 0.1404,
+   "runner_up": "gemini_flash+gemini_lite+mistral_medium",
+   "runner_up_brier": 0.1313,
+   "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)"
+  },
+  "monotone_binned": {
+   "verifiers": [
+    "gemini_flash",
+    "mistral_medium",
+    "mistral_small"
+   ],
+   "model": "dependence",
+   "development_cv_brier": 0.1007,
+   "development_cv_brier_flash": 0.0998,
+   "runner_up": "claude_haiku+gemini_flash+mistral_medium",
+   "runner_up_brier": 0.1022,
+   "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)"
+  },
+  "platt": {
+   "verifiers": [
+    "gemini_flash",
+    "mistral_medium",
+    "mistral_small"
+   ],
+   "model": "dependence",
+   "development_cv_brier": 0.1016,
+   "development_cv_brier_flash": 0.1014,
+   "runner_up": "claude_haiku+gemini_flash+mistral_small",
+   "runner_up_brier": 0.1037,
+   "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)"
+  }
+ },
+ "gemini": {
+  "raw": {
+   "verifiers": [
+    "claude_haiku",
+    "gemini_flash",
+    "gemini_lite"
+   ],
+   "model": "dependence",
+   "development_cv_brier": 0.1177,
+   "development_cv_brier_flash": 0.1202,
+   "runner_up": "claude_haiku+gemini_flash+mistral_small",
+   "runner_up_brier": 0.1248,
+   "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)"
+  },
+  "monotone_binned": {
+   "verifiers": [
+    "claude_haiku",
+    "gemini_flash",
+    "gemini_lite"
+   ],
+   "model": "dependence",
+   "development_cv_brier": 0.1105,
+   "development_cv_brier_flash": 0.109,
+   "runner_up": "gemini_flash+mistral_medium+mistral_small",
+   "runner_up_brier": 0.1186,
+   "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)"
+  },
+  "platt": {
+   "verifiers": [
+    "claude_haiku",
+    "gemini_flash",
+    "gemini_lite"
+   ],
+   "model": "dependence",
+   "development_cv_brier": 0.1115,
+   "development_cv_brier_flash": 0.1105,
+   "runner_up": "gemini_flash+gemini_lite+mistral_small",
+   "runner_up_brier": 0.1194,
+   "chosen_by": "lowest mean cross-validated Brier over the 5 fold seeds on the 249 development questions (verifier_subsets, 2026-10-12)"
+  }
+ }
+}

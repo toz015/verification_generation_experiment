@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "bundle": "results/gpqa_vertex_20261004/frozen",
+  "project": "llm-applications-490420",
+  "seed": 20261005,
+  "stage_budget_usd": 20.0,
+  "signals": ["binary", "probability"],
+  "models": [
+    {
+      "id": "gemini_flash", "model": "google/gemini-3.7-flash",
+      "transport": "chat_completions", "location": "global",
+      "generation": {"max_tokens": 1024, "reasoning_effort": "low"}
+    },
+    {
+      "id": "gemini_lite", "model": "google/gemini-3.5-flash-lite",
+      "transport": "chat_completions", "location": "global",
+      "generation": {"max_tokens": 1024, "reasoning_effort": "low"}
+    },
+    {
+      "id": "mistral_small", "model": "mistralai/mistral-small-2503",
+      "transport": "partner_raw_predict", "location": "us-central1",
+      "generation": {"max_tokens": 1024, "temperature": 0.0}
+    },
+    {
+      "id": "mistral_medium", "model": "mistralai/mistral-medium-3",
+      "transport": "partner_raw_predict", "location": "us-central1",
+      "generation": {"max_tokens": 1024, "temperature": 0.0}
+    },
+    {
+      "id": "claude_haiku", "model": "anthropic/claude-haiku-4-5",
+      "transport": "partner_raw_predict", "location": "global",
+      "generation": {"max_tokens": 1024, "temperature": 0.0}
+    }
+  ],
+  "pricing": {
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "checked_on": "2026-10-05",
+    "tier": "standard_pay_as_you_go",
+    "usd_per_million_tokens": {
+      "google/gemini-3.7-flash": {"input": 0.75, "output": 3.75, "cached_input": 0.075},
+      "google/gemini-3.5-flash-lite": {"input": 0.30, "output": 2.50, "cached_input": 0.03},
+      "mistralai/mistral-small-2503": {"input": 0.10, "output": 0.30},
+      "mistralai/mistral-medium-3": {"input": 0.40, "output": 2.00},
+      "anthropic/claude-haiku-4-5": {"input": 1.00, "output": 5.00}
+    }
+  },
+  "protocol": {
+    "format_check_candidates": 10,
+    "first_screening_candidates": 50,
+    "collection_partition": "calibration_only",
+    "model_selection": "Together after calibration comparisons; no automatic winner",
+    "primary_metric": "paired out-of-fold Brier improvement over generator-only calibration",
+    "secondary_metrics": ["log_loss", "error_detection", "false_rejection", "parse_failures", "cost", "signal_dependence"],
+    "folds": 3,
+    "prior_logistic_C": 1.0,
+    "prior_logit_clip": 0.0001,
+    "binary_likelihood_bins": 2,
+    "probability_likelihood_bins": 3,
+    "laplace": 1.0,
+    "proposed_next_policy_reward": 1.0,
+    "proposed_next_policy_loss": 99.0,
+    "utility_per_usd": 10.0,
+    "notes": [
+      "Five candidate verifiers are a screening pool, not a five-stage policy.",
+      "Keep existing generator, answers, confidence, prompts and sealed policies frozen.",
+      "New verifier prompts have explicit signal semantics; old cached signals remain legacy baselines.",
+      "Five models span three families; neither family difference nor model count establishes independence.",
+      "Existing Llama is retained only as a historical baseline; its MaaS endpoint retires 2026-10-21.",
+      "Google lists both Mistral endpoints; availability must be checked in this project, independent of Mistral direct-API lifecycle.",
+      "Partner models may require Model Garden enablement; do not silently replace an inaccessible model.",
+      "Model aliases and reported revisions are recorded; immutable weights cannot be guaranteed by these APIs.",
+      "Stage cap is USD 20 in usage estimates within the previously authorized USD 200 total, not a new USD 200 budget.",
+      "Observed historical Vertex estimate was USD 1.91270913; this does not establish complete project billing.",
+      "Do not use partial format checks to select winners or Diamond labels to tune designs.",
+      "Generation budgets differ internally by provider; compare within-model signal format, and disclose this for cross-model comparisons."
+    ]
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "kind": "quantum_katas_official_pilot",
+  "status": "full 322-task collection for 5-fold grouped cross-fitting; authorized by tony 2026-10-19 within the $200 QuantumKatas budget (this run $100); macOS sandbox approved; unknown-outcome requests are recorded as service failures and not re-sent",
+  "source": "tmp/quantum_four_dataset_review_20261018/Qiskit-QuantumKatas",
+  "protocol": "configs/quantum_katas_official_protocol_20261018.json",
+  "requirements": "configs/quantum_katas_pilot_requirements.txt",
+  "generation_id": "g0",
+  "prompt_version": "qkatas_official_v2_json_only",
+  "smoke_tasks": 3,
+  "models": {
+    "generator": {
+      "id": "generator",
+      "provider": "vertex_anthropic",
+      "model": "anthropic/claude-sonnet-5-5",
+      "location": "global",
+      "project": "llm-applications-490420",
+      "generation": {
+        "max_tokens": 32768,
+        "thinking": {
+          "type": "adaptive"
+        },
+        "output_config": {
+          "effort": "high",
+          "format": {
+            "type": "json_schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "p_correct": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "code",
+                "p_correct"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "verifiers": [
+      {
+        "id": "gemini_flash",
+        "provider": "vertex_openai",
+        "model": "google/gemini-3.7-flash",
+        "location": "global",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "reasoning_effort": "low",
+          "response_format": {
+            "type": "json_object"
+          }
+        }
+      },
+      {
+        "id": "gemini_lite",
+        "provider": "vertex_openai",
+        "model": "google/gemini-3.5-flash-lite",
+        "location": "global",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "reasoning_effort": "low",
+          "response_format": {
+            "type": "json_object"
+          }
+        }
+      },
+      {
+        "id": "mistral_small",
+        "provider": "vertex_partner",
+        "model": "mistralai/mistral-small-2503",
+        "location": "us-central1",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "temperature": 0.0,
+          "response_format": {
+            "type": "json_object"
+          }
+        }
+      },
+      {
+        "id": "mistral_medium",
+        "provider": "vertex_partner",
+        "model": "mistralai/mistral-medium-3",
+        "location": "us-central1",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "temperature": 0.0,
+          "response_format": {
+            "type": "json_object"
+          }
+        }
+      },
+      {
+        "id": "claude_haiku",
+        "provider": "vertex_anthropic",
+        "model": "anthropic/claude-haiku-4-5",
+        "location": "global",
+        "project": "llm-applications-490420",
+        "generation": {
+          "max_tokens": 4096,
+          "temperature": 0.0,
+          "output_config": {
+            "format": {
+              "type": "json_schema",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "p_correct": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "p_correct"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "budget": {
+    "project": "llm-applications-490420",
+    "limit_usd": 100.0,
+    "gemini_output_reserve": 131072,
+    "pricing_source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing (retrieved 2026-10-19)",
+    "pricing": {
+      "usd_per_million_tokens": {
+        "qwen/qwen3-235b-a22b-instruct-2507-maas": {
+          "input": 0.22,
+          "output": 0.88,
+          "cached_input": 0.22
+        },
+        "anthropic/claude-sonnet-5-5": {
+          "input": 2.0,
+          "output": 10.0,
+          "cached_input": 2.0
+        },
+        "google/gemini-3.7-flash": {
+          "input": 0.75,
+          "output": 3.75,
+          "cached_input": 0.075
+        },
+        "google/gemini-3.5-flash-lite": {
+          "input": 0.3,
+          "output": 2.5,
+          "cached_input": 0.03
+        },
+        "mistralai/mistral-small-2503": {
+          "input": 0.1,
+          "output": 0.3
+        },
+        "mistralai/mistral-medium-3": {
+          "input": 0.4,
+          "output": 2.0
+        },
+        "anthropic/claude-haiku-4-5": {
+          "input": 1.0,
+          "output": 5.0,
+          "cached_input": 1.0
+        }
+      },
+      "usage_semantics": {
+        "anthropic/claude-sonnet-5-5": "completion_includes_reasoning"
+      }
+    }
+  },
+  "paid_collection_authorized": true,
+  "checker": {
+    "interpreter": "tmp/quantum_katas_pilot_20261018/venv/bin/python",
+    "backend": "macos_sandbox",
+    "workers": 2,
+    "supervisor_timeout_s": 120,
+    "cpu_seconds": 120,
+    "model_code_execution_approved": true
+  },
+  "notes": [
+    "Generator settings copied from GPQA: Qwen3-235B instruct single call at temperature 0/top_p 1/4096 (GPQA later used a two-step draft+finalize for Qwen; not used here because the pilot freezes one call per task).",
+    "Sonnet 5.5: adaptive thinking, effort high, 32768 total output tokens, sampling parameters omitted.",
+    "Prompt v2 (JSON-only instruction). Provider JSON mode for Qwen, Gemini and Mistral; Anthropic structured outputs (output_config.format json_schema) for Sonnet 5.5 and Haiku 4.5. Qwen max_tokens 8192 (approved). Parser unchanged; numeric range is still checked by the parser.",
+    "All tasks are collected with every verifier; folds are used only by the offline cross-fitting analysis."
+  ],
+  "split": "configs/quantum_katas_split_20261019.json",
+  "pilot": "configs/quantum_katas_pilot_20261018.json"
+}

@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "purpose": "Probability-verifier scores for the frozen Diamond (evaluation) answers of Gemini and Qwen, for one confirmatory test of a method frozen on the 249 development questions.",
+  "authorized": "Tony, 2026-10-12: start collecting (after an estimate of about USD 2.4).",
+  "project": "llm-applications-490420",
+  "dataset_root": "results/gpqa_vertex_20261004",
+  "gemini_bundle": "results/gpqa_vertex_20261004/frozen",
+  "generator_results": "results/gpqa_staged_generator_expansion_20261005",
+  "screen_config": "configs/gpqa_signal_study_4096.json",
+  "verifiers": ["gemini_flash", "gemini_lite", "mistral_small", "mistral_medium", "claude_haiku"],
+  "signal": "probability",
+  "expected_evaluation_questions": 196,
+  "seed": 20261012,
+  "workers": 5,
+  "stage_budget_usd": 5.0,
+  "total_authorized_usd": 200.0,
+  "reuse_caches": [
+    "results/gpqa_signal_study_4096_20261005/cache",
+    "results/gpqa_generator_comparison_20261005_v2/cache",
+    "results/gpqa_reasoning_comparison_20261005_v3/cache",
+    "results/gpqa_qwen_verifier_completion_20261006/cache"
+  ],
+  "generator_calls": 0,
+  "labels_read": false,
+  "notes": [
+    "Same models, prompt, 4096-token settings and parser as the development probability signals; binary format is not collected.",
+    "Frozen candidates, answers and confidence values are unchanged; invalid generator outputs get no verifier request.",
+    "Returned malformed verifier replies are kept and never retried; only explicit HTTP 429 rejections are retried by the cache.",
+    "No labels file or correctness record is opened. Scoring against Diamond answers is a separate, later step.",
+    "Stage cap USD 5 is a usage-estimate sublimit of the previously authorized USD 200 total, not confirmed billing."
+  ]
+}

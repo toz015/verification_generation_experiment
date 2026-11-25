@@ -1,0 +1,82 @@
+{
+  "gpqa_option_probs": {
+    "rows": 445,
+    "ok": 445,
+    "service_failure": 0
+  },
+  "gpqa_letter": {
+    "rows": 445,
+    "ok": 445,
+    "service_failure": 0
+  },
+  "gpqa_peg_disc": {
+    "rows": 1780,
+    "ok": 1780,
+    "service_failure": 0
+  },
+  "gpqa_peg_gen_correct": {
+    "rows": 445,
+    "ok": 445,
+    "service_failure": 0
+  },
+  "gpqa_peg_gen_incorrect": {
+    "rows": 445,
+    "ok": 445,
+    "service_failure": 0
+  },
+  "gpqa_judge_p": {
+    "rows": 1780,
+    "ok": 1780,
+    "service_failure": 0
+  },
+  "gpqa_samples": {
+    "rows": 4452,
+    "ok": 4450,
+    "service_failure": 2
+  },
+  "math500_samples": {
+    "rows": 268,
+    "ok": 173,
+    "service_failure": 95
+  },
+  "math500_samples_nolp": {
+    "rows": 5019,
+    "ok": 4997,
+    "service_failure": 22
+  },
+  "qkatas_samples_nolp": {
+    "rows": 3220,
+    "ok": 3220,
+    "service_failure": 0
+  },
+  "math500_judge_p": {
+    "rows": 576,
+    "ok": 576,
+    "service_failure": 0
+  },
+  "math500_peg_disc": {
+    "rows": 576,
+    "ok": 576,
+    "service_failure": 0
+  },
+  "math500_peg_gen_correct": {
+    "rows": 72,
+    "ok": 72,
+    "service_failure": 0
+  },
+  "math500_peg_gen_incorrect": {
+    "rows": 72,
+    "ok": 72,
+    "service_failure": 0
+  },
+  "qkatas_judge_p": {
+    "rows": 3163,
+    "ok": 3162,
+    "service_failure": 1
+  },
+  "qkatas_peg_disc": {
+    "rows": 3163,
+    "ok": 3163,
+    "service_failure": 0
+  }
+}

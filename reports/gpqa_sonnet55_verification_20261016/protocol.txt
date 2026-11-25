@@ -1,0 +1,121 @@
+Sonnet 5.5: five verifier signals and frozen-order sequential verification
+========================================================================
+Date: 2026-10-16 (America/Los_Angeles)
+
+Scope and inputs
+----------------
+User authorized applying the existing five probability verifiers and sequential
+algorithm to the frozen Sonnet answers. Keep raw p_correct unchanged. Fit on the
+249 development questions (248 valid candidates), then freeze one three-verifier
+order for each existing loss setting before accessing Diamond verifier caches.
+Evaluate all 196 Diamond questions with the fixed likelihoods, costs and orders.
+Previous generator-only Diamond results have already been inspected. This is an
+exploratory extension with an explicit development/evaluation boundary; it is
+not presented as a newly untouched confirmatory holdout.
+
+Verifiers and collection
+------------------------
+Use exactly configs/gpqa_signal_study_4096.json's five models, probability
+prompt, SYSTEM, parser, generation settings, locations and request pacing:
+gemini_flash, gemini_lite, mistral_small, mistral_medium, claude_haiku.
+All receive question, options and the frozen candidate answer. The prompt does
+not include generator identity, generator confidence, reasoning or answer key.
+Thus a historical verifier call with identical prompt/system/runner identity can
+be reused when another generator chose the same answer. Compare the exact input
+and provenance and retain original execution IDs. Reuse includes malformed
+responses; never regenerate, repair or delete them.
+
+Development dry run: 1,240 jobs, 1,156 historical cached responses, 84 missing
+calls. The cached subset includes 3 invalid_json returns (Flash 1, Lite 2).
+Development planning estimate at 1,024 output tokens for each missing request:
+USD 0.33096805. This is a planning assumption, not a token limit or guaranteed
+charge. Evaluation cache access waits until the development policy is sealed.
+
+New collection uses one shared USD 5 cap for both partitions, within the existing
+USD 200 total authorization. Budget reservations include a conservative Gemini
+reasoning allowance. The project and quota project are llm-applications-490420.
+Five model streams run in parallel; each model's requests remain sequential with
+the existing per-model pacing. First 10 eligible questions in each partition are
+a format check, with at most 1 malformed reply per model; then complete the
+partition. Keep every later malformed return. HTTP, unknown-outcome or unpriced
+usage failures stop the run; no automatic paid retries or model substitution.
+Read-only pricing check on the official Google Cloud pricing page on 2026-10-16
+confirmed the existing rates for these endpoints. Token estimates are not a
+confirmed Cloud invoice. Existing historical cache files/ledgers are not edited.
+
+Algorithm 1: fit observation likelihoods and compute nested values
+-----------------------------------------------------------------
+The generator's raw confidence b is the prior. No prior calibration, base-rate
+substitution, clipping, logistic model or generator reward learning is performed.
+For each verifier, fit P(score bin | candidate correct) and P(score bin | candidate
+wrong) on valid development responses with 3 equal-width bins and Laplace 1
+smoothing. Fit expected query cost as mean provider-token USD cost across all
+eligible development candidates, including malformed returned verifier signals.
+The likelihood fit excludes malformed signals; querying a malformed signal at
+evaluation causes abstention and still incurs its query cost.
+
+Use the existing ExactPlanner with the conditional-independence joint model:
+  A(b) = max(0, (1+L)b - L)
+  Q_k(b) = -10 * E[USD cost of verifier k] + sum_v P(v|b) J_(k+1)(Bayes(b,v))
+  J_k(b) = max(A(b), Q_k(b)); at the last layer, J=A.
+
+Correct reward 1, incorrect loss L=19 (primary) or 99 (sensitivity), abstain 0,
+10 utility units per USD. Thresholds 0.95 and 0.99 follow these utility settings;
+neither threshold is an empirical or statistical error-rate certificate.
+Evaluate all 10 combinations x 6 orders using development priors and fitted
+tables. Select the order maximizing mean J0; lexicographic order breaks ties.
+Costs and likelihood informativeness jointly affect this ranking; it is not a
+simple ranking by token price or one likelihood-ratio value. Store all 60 values.
+This is an in-sample model-value criterion, not held-out performance evidence.
+Freeze policy.json before Diamond signal access and collection.
+
+Algorithm 2: prefix-only sequential execution
+---------------------------------------------
+The order is fixed across Diamond questions for a given L. Only stopping varies
+by question. Query the next verifier iff its expected continuation value strictly
+exceeds the best stopping value. Ties stop. Bayes-update b from the queried score
+bin, then reconsider. On stopping, assert the original answer if b>=L/(1+L),
+otherwise abstain. Never change the generator answer or feed back a new prompt.
+The public executor gets no correctness labels and reads only a queried prefix.
+A guard rejects out-of-order access. Replaying with all unqueried outputs removed
+must reproduce the exact decision, belief, query count, trace and query costs.
+Missing selected signals cause abstention. Invalid generators get no queries.
+
+Evaluation and reporting
+------------------------
+Freeze label-free decisions before the scoring command opens evaluation keys.
+Primary arms: raw confidence only, adaptive single Flash, adaptive selected triple.
+Report released and wrong-released counts, output error rate, acceptance rate,
+expected-cost utility, usage-cost utility, calls per question, cost per question,
+query-count histogram, and descriptive intervals. Paired bootstrap intervals use
+10,000 resamples with a seed derived from the frozen policy ID. They condition on
+the fitted policy and do not include training/selection uncertainty or establish
+a risk guarantee. Wilson intervals are descriptive binomial intervals.
+
+Brier diagnostics always query Flash/the selected triple on a matched subset
+with valid signals. They are explicitly separate from adaptive stopping results.
+Actual collection pays only new missing requests; policy cost counts every
+queried verifier as if deployed alone. Neither is confirmed billing. The one-time
+generator cost is shared by all arms and is not added to incremental verifier
+utility. All per-item decisions/traces stay under ignored results/. Share only
+aggregate policy, likelihood tables, cost summaries and results without questions,
+answer keys or per-item outcomes.
+
+Limitations
+-----------
+Conditional independence is an assumption. Sonnet and Haiku are from the same
+family; neither different family nor 5-model diversity proves independence.
+The model aliases do not establish immutable model weights. Reused historical
+signals and newly collected ones may reflect different serving dates. These
+limitations must remain visible in the interpretation of sequential posteriors.
+
+Commands
+--------
+.venv/bin/python -m vgx.gpqa.sonnet_verification prepare --output results/gpqa_sonnet55_verification_20261016
+.venv/bin/python -m vgx.gpqa.sonnet_verification collect --output results/gpqa_sonnet55_verification_20261016
+.venv/bin/python -m vgx.gpqa.sonnet_verification pipeline --output results/gpqa_sonnet55_verification_20261016 --allow-api
+
+The first collect command is offline. The pipeline performs development format
+check/collection -> fit/freeze -> evaluation format check/collection -> public
+decisions -> offline scoring. No historical source module or config was edited.
+No tests were requested for this extension; no new unit tests were added or run.

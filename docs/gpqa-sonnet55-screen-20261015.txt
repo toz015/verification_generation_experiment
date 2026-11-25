@@ -1,0 +1,84 @@
+Sonnet 5.5 generator screen — 2026-10-15
+======================================
+
+User-authorized scope
+---------------------
+Run the first five of the original, preselected 50 development questions.
+Only after all five pass the format/termination/usage gate, continue to 50.
+Preserve all historical outputs and use raw self-reported confidence.
+No Diamond inference or label access, verifier calls, or calibration fitting.
+
+Frozen protocol
+---------------
+Model: anthropic/claude-sonnet-5-5 via Vertex partner rawPredict, global.
+Resource and quota project: llm-applications-490420.
+Thinking: adaptive, effort high. max_tokens: 32768, including thinking.
+Omit temperature/top_p/top_k: Sonnet 5.5 rejects non-default sampling values.
+Use the existing generator_request and original question/option order/prompt.
+One request at a time, minimum 10 seconds between starts.
+Final answer parsing uses text blocks only; never search thinking for an answer.
+Require end_turn, a single JSON object with answer and numeric p_correct,
+the expected response model ID and reconcilable provider token usage.
+Malformed replies are retained, never repaired or regenerated.
+HTTP failures and uncertain provider outcomes stop collection, without retries.
+
+Budget and source preservation
+------------------------------
+This stage's USD 20 cap is within the existing USD 200 authorization.
+Global token rates checked 2026-10-15: USD 2 input / USD 10 output per million.
+No explicit prompt caching. Unexpected cache usage requires accounting review.
+The full 50-request conservative reservation is USD 16.577326;
+the first-five reservation is USD 1.658300. These are planning reservations.
+The historical local-ledger sum, including retained reservations and possible
+duplicates, is USD 10.00258619. It is not the project's confirmed invoice.
+
+The new module imports existing transport, cache, budget, prompt and source
+helpers without modifying them. Source/config/input identities are sealed in
+results/gpqa_sonnet55_20261015/plan.json. Historical experiments stay separate.
+Historical Gemini and Qwen settings differ (notably Qwen's two-step protocol),
+so any eventual comparison will be a model-plus-protocol comparison.
+
+Commands
+--------
+.venv/bin/python -m vgx.gpqa.sonnet_screen prepare --config configs/gpqa_sonnet55_20261015.json --output results/gpqa_sonnet55_20261015
+.venv/bin/python -m vgx.gpqa.sonnet_screen collect --output results/gpqa_sonnet55_20261015 --limit 5 --allow-api
+.venv/bin/python -m vgx.gpqa.sonnet_screen collect --output results/gpqa_sonnet55_20261015 --limit 50 --allow-api
+.venv/bin/python -m vgx.gpqa.sonnet_screen report --output results/gpqa_sonnet55_20261015
+
+The report is offline and opens only sealed development labels after all 50
+responses have been cached and the new candidates frozen. It computes accuracy,
+raw confidence distributions, Brier, AUROC and risk/coverage, without fitting.
+
+Actual outcome
+--------------
+Preparation passed. The project billing-enabled check passed.
+The first inference request returned HTTP 404 NOT_FOUND: the model was not
+found or the project has no access to it. No successful responses were received.
+The first-five gate therefore did not pass; the 50-item stage was not started.
+There is one explicitly rejected inference attempt, zero generated candidates,
+zero successful/priced calls and USD 0 usage estimated in this stage's ledger.
+Confirmed billing remains unknown; no invoice was queried.
+
+A read-only GetPublisherModel call returned HTTP 200 for
+publishers/anthropic/models/claude-sonnet-5-5, launchStage GA, versionId default.
+The model therefore exists in Model Garden; that metadata response does not
+establish project-specific inference access. The 404 alone cannot distinguish
+missing enablement, entitlement or a serving availability problem.
+An attempt to inspect the Model Garden browser page timed out before attachment;
+no model enablement, permissions, agreement or cloud configuration was changed.
+
+Resolve access in the target project's Sonnet 5.5 model card. Google documents
+an Enable step. If it already shows enabled, investigate project entitlement
+or serving access with Google Cloud. Do not substitute another model or endpoint.
+The collector refuses to retry a saved blocked run automatically. After access
+has actually changed, explicitly review and preserve the blocked status snapshot
+before resuming the identical sealed requests. Do not edit a cached response,
+plan, generation setting or source hash to get past a gate.
+
+Sources
+-------
+https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/sonnet-5-5
+https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/use-claude
+https://platform.claude.com/docs/en/models/sonnet-5-5/overview
+https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost
+https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing

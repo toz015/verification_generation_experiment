@@ -1,0 +1,43 @@
+Authorized GPT-OSS amendment: skip unknown position 22, preserve 21, send 28.
+
+User authorization, 2026-10-17: skip position 22 without retry; continue the
+remaining untouched 28 questions; preserve the 21 received replies; no raw
+confidence calibration or budget increase; compare all four generators on
+the same completed questions.
+
+Previous sealed source files, plans, reports, status files and cache records
+stay unchanged. A new gptoss_skip22 module implements this exact exception.
+The generic budget guard is not modified. The new scoped cache allows only
+the frozen position-22 unresolved entry; that entry and its USD0.01195695
+reservation remain unchanged in the same shared USD1 ledger. Reserved cost
+is counted against available budget and is never reported as actual spend.
+Any additional unresolved or unpriced request still blocks the whole run.
+
+Only the sealed 28 untouched request keys may be paid. Received malformed
+replies are retained. No position-22 retry or automatic recovery. Scheduling
+continues to wait 30 seconds after each attempt completes; explicit HTTP429
+permits at most two retries after 60/120 seconds. Other errors stop the run.
+
+Expected received cohort: 49 original development items, excluding only
+position 22 from all four generators. Freeze received candidates and cohort
+membership before reading development labels. Accuracy uses all 49 received
+items, including parse failures as non-correct. Confidence/Brier use usable
+answer/confidence pairs without imputation. Also report the intersection of
+usable pairs across all four models. Exclusion is a completion-based subset,
+so report the possible selection bias and do not claim a full 50-item result.
+Do not read Diamond labels, run verifiers, fit likelihoods, or calibrate.
+
+Commands:
+.venv/bin/python -m vgx.gpqa.gptoss_skip22 prepare
+.venv/bin/python -m vgx.gpqa.gptoss_skip22 collect
+.venv/bin/python -m vgx.gpqa.gptoss_skip22 collect --allow-api
+.venv/bin/python -m vgx.gpqa.gptoss_skip22 audit
+.venv/bin/python -m vgx.gpqa.gptoss_skip22 report
+
+New status: results/gpqa_gptoss_continuation_20261017/skip22_20261017/status.json
+Shared budget: results/gpqa_gptoss_continuation_20261017/cache/budget.json
+Aggregate report: reports/gpqa_gptoss_skip22_20261017/
+Do not call the previous 50-item scoring commands for this 49-item amendment.
+No unit tests requested or run; preflight and post-run checks use the actual
+frozen artifacts, request histories, shared budget and preserved file hashes.
+Do not commit or push in this operation.

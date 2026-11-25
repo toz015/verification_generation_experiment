@@ -1,0 +1,29 @@
+{
+  "all_gptoss_response_estimate_usd": 0.005610329999999999,
+  "answer_keys_read": false,
+  "budget": {
+    "confirmed_billing_usd": null,
+    "estimated_usd": 0.00475074,
+    "limit_usd": 1.0,
+    "outstanding_reserved_usd": 0,
+    "project": "llm-applications-490420",
+    "rejected_requests": 1,
+    "successful_priced_calls": 13
+  },
+  "confidence_calibrated": false,
+  "continuation_id": "bde28f2d6c6317c2bf66d6981df3741db84ef6a9d57bcc8f1d7115bd8d388b2d",
+  "error_type": "ProviderRejectedError",
+  "evaluation_requests": 0,
+  "http_status": 429,
+  "invalid": {
+    "invalid_final_json": 1
+  },
+  "new_calls_this_invocation": 13,
+  "responses": 18,
+  "reused_original": 5,
+  "stage": "blocked",
+  "target": 50,
+  "updated_at_unix": 1792243209.0836082,
+  "valid": 17,
+  "verifier_requests": 0
+}
